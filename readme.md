@@ -82,4 +82,4 @@ This software is released under the [BSD-Clause 2 license](https://opensource.or
 
 ## Author
 
-Alexandre Mutel aka [xoofx](http://xoofx.com).
+Alexandre Mutel aka [xoofx](http://xoofx.com)
