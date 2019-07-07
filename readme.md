@@ -40,7 +40,9 @@ Your NuGet package needs to respect a few constraints in order to be listed in t
 
 You can send a PR to this repository to modify the [registry.json](registry.json) file (don't forget to maintain the alphabetical order)
 
-I recommend also to put the lowest version that has support for `.NETStandard2.0` upward so that other packages depending on your package have a chance to work with.
+I recommend also to **specify the lowest version of your package that has support for `.NETStandard2.0`** upward so that other packages depending on your package have a chance to work with.
+
+Beware that **all transitive dependencies of the package** must be **explicitly listed** in the registry as well.
 
 > NOTE: We reserve the right to decline a package to be available through this service
 
