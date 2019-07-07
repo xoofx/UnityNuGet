@@ -10,7 +10,7 @@ namespace UnityNuGet.Tests
         public void TestRegistry()
         {
             var registry = Registry.GetInstance();
-            Assert.GreaterOrEqual(3, registry.Count);
+            Assert.True(registry.Count >= 3);
             Assert.True(registry.ContainsKey("Scriban"));
         }
         
@@ -25,16 +25,16 @@ namespace UnityNuGet.Tests
             Assert.False(registryCache.HasErrors, "The registry failed to build, check the logs");
             
             var allResult = registryCache.All();
-            Assert.GreaterOrEqual(3, allResult.Packages.Count);
+            Assert.True(allResult.Packages.Count >= 3);
             var allResultJson = allResult.ToJson();
             
-            StringAssert.Contains("nuget.Scriban", allResultJson);
-            StringAssert.Contains("nuget.System.Runtime.CompilerServices.Unsafe", allResultJson);
+            StringAssert.Contains("org.nuget.scriban", allResultJson);
+            StringAssert.Contains("org.nuget.system.runtime.compilerservices.unsafe", allResultJson);
 
-            var scribanPackage = registryCache.GetPackage("nuget.Scriban");
+            var scribanPackage = registryCache.GetPackage("org.nuget.scriban");
             Assert.NotNull(scribanPackage);
             var scribanPackageJson = scribanPackage.ToJson();
-            StringAssert.Contains("nuget.Scriban", scribanPackageJson);
+            StringAssert.Contains("org.nuget.scriban", scribanPackageJson);
             StringAssert.Contains("2.1.0", scribanPackageJson);
         }
     }
