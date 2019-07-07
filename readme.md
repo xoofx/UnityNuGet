@@ -20,7 +20,7 @@ In order to use this service you simply need to edit the `Packages/manifest.json
     }
   ],
   "dependencies": {
-     // your dependencies
+     "org.nuget.scriban":  "2.1.0"
   }
 }
 ```
