@@ -1,0 +1,3595 @@
+{
+    "_updated": 99999,
+    "com.unity.xr.oculus.tests": {
+      "name": "com.unity.xr.oculus.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.8.3-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.management": {
+      "name": "com.unity.xr.management",
+      "description": "Package to provide for simple management of XR plugins. Provides help and management for loading, initialization, settings, and build support for XR plugins.",
+      "maintainers": [],
+      "versions": {
+        "2.99.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xr",
+        "sdk",
+        "ar",
+        "vr",
+        "management",
+        "build"
+      ],
+      "author": null
+    },
+    "com.unity.settings-manager": {
+      "name": "com.unity.settings-manager",
+      "description": "A framework for making any serializable field a setting, complete with a pre-built settings interface.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.sync.revit": {
+      "name": "com.unity.sync.revit",
+      "description": "The Unity Sync plugin for Revit permits to export Revit models using the PublisherService.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.30": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "industrial",
+        "revit",
+        "third-party",
+        "application"
+      ],
+      "author": null
+    },
+    "com.unity.xr.interaction": {
+      "name": "com.unity.xr.interaction",
+      "description": "XR Interaction",
+      "maintainers": [],
+      "versions": {
+        "0.0.3-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "XR",
+        "VR",
+        "toolkit",
+        "interaction"
+      ],
+      "author": null
+    },
+    "com.unity.xr.googlevr.android": {
+      "name": "com.unity.xr.googlevr.android",
+      "description": "This package contains the necessary components required to use the Google VR Virtual Reality SDK on Android. By using this package, you will be able to deploy and run your applications on Daydream/Cardboard supported devices. Currently GVR 1.180",
+      "maintainers": [],
+      "versions": {
+        "1.18.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "google",
+        "xr",
+        "vr",
+        "ar",
+        "virtual",
+        "cardboard",
+        "daydream",
+        "sdk",
+        "android",
+        "gvr"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arsubsystems": {
+      "name": "com.unity.xr.arsubsystems",
+      "description": "Contains definitions for AR Subsystems. This package is a dependency of provider packages as well as AR Foundation",
+      "maintainers": [],
+      "versions": {
+        "2.2.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "subsystem",
+        "XR",
+        "AR"
+      ],
+      "author": null
+    },
+    "conflicttest2a": {
+      "name": "conflicttest2a",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.playablegraph-visualizer": {
+      "name": "com.unity.playablegraph-visualizer",
+      "description": "The PlayableGraph Visualizer is a tool that displays the PlayableGraphs in the scene. It can be used in both Play and Edit mode and will always reflect the current state of the graph. Playable nodes are represented by colored nodes, varying according to their type. Connections color intensity indicates its weight.",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "playable",
+        "graph",
+        "playablegraph",
+        "animation",
+        "timeline"
+      ],
+      "author": {
+        "name": "Unity"
+      }
+    },
+    "com.unity.platforms": {
+      "name": "com.unity.platforms",
+      "description": "This package provides base support for build targets in DOTS.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "platforms"
+      ],
+      "author": null
+    },
+    "com.unity.android.notifications": {
+      "name": "com.unity.android.notifications",
+      "description": "Replace this string with your own description of the package. This description appears in the Package Manager window when the user selects this package from the list. \n\nFor best results, use this text to summarize: \n What the package does \n How it can benefit the user \n\nNote: Special formatting characters are supported, including line breaks ('\\n') and bullets ('\\u25AA').",
+      "maintainers": [],
+      "versions": {
+        "0.2.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "android",
+        "notifications"
+      ],
+      "author": null
+    },
+    "nuget.mono-cecil": {
+      "name": "nuget.mono-cecil",
+      "description": "Cecil is a library to inspect, modify and generate .NET programs and libraries. https://github.com/jbevain/cecil",
+      "maintainers": [],
+      "versions": {
+        "0.1.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "ECMA",
+        "CIL"
+      ],
+      "author": null
+    },
+    "testnumbermajor": {
+      "name": "testnumbermajor",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.ide.rider": {
+      "name": "com.unity.ide.rider",
+      "description": "Code editor integration for supporting Rider as code editor for unity. Adds support for generating csproj files for code completion, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.6": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.dummypackagea": {
+      "name": "com.unity.dummypackagea",
+      "description": "Test package used to test the package validation suite",
+      "maintainers": [],
+      "versions": {
+        "0.1.8-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.autodesk.fbx.tests": {
+      "name": "com.autodesk.fbx.tests",
+      "description": "This is not a user-facing package.",
+      "maintainers": [],
+      "versions": {
+        "2.0.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.AssetImporter": {
+      "name": "com.unity.AssetImporter",
+      "description": "Simple package used for testing handling of AssetStore packages and potential GUID conflicts.",
+      "maintainers": [],
+      "versions": {
+        "0.1.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "key",
+        "words",
+        "used",
+        "for",
+        "package",
+        "search"
+      ],
+      "author": null
+    },
+    "com.unity.datapipeline.operators": {
+      "name": "com.unity.datapipeline.operators",
+      "description": "This package contains transformation operators which can be used in the Data Pipeline tool.",
+      "maintainers": [],
+      "versions": {
+        "0.1.2-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "import",
+        "data",
+        "pipeline",
+        "graph"
+      ],
+      "author": null
+    },
+    "com.unity.alembic": {
+      "name": "com.unity.alembic",
+      "description": "This preview package is in development. It provides support to import and export Alembic files (.abc). Alembic is a format commonly used in animation to transfer facial, cloth, and other simulation between applications.",
+      "maintainers": [],
+      "versions": {
+        "0.0.10-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "alembic",
+        "abc",
+        "animation",
+        "facial",
+        "cloth",
+        "simulation"
+      ],
+      "author": null
+    },
+    "com.unity.tutorial.starterkit": {
+      "name": "com.unity.tutorial.starterkit",
+      "description": "Replace this string with your own description of the package. This description appears in the Package Manager window when the user selects this package from the list. \n\nFor best results, use this text to summarize: \n What the package does \n How it can benefit the user \n\nNote: Special formatting characters are supported, including line breaks ('\\n') and bullets ('\\u25AA').",
+      "maintainers": [],
+      "versions": {
+        "0.4.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.formats.usd": {
+      "name": "com.unity.formats.usd",
+      "description": "The Unity USD package contains a set of libraries designed to support the use of Pixar's Universal Scene Description (USD) in Unity. The goal of this package is to make it maximally easy to integrate USD using native Unity & C# data types with a familiar serialization paradigm and little prior knowledge of USD. USD enables round-trip asset workflows between digital content creation tools like Maya, 3ds Max, Houdini, Katana, Nuke, Modo, Sketchup, Substance Designer, and Substance Painter. \n\nUnlike other asset file formats, Universal Scene Description is designed to support an entire asset pipeline and to enable teams to work in parallel using asset references and overrides. \n\nThis package includes ready-to-use binaries and examples to allow anyone to easily jump-in.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "usd",
+        "alembic",
+        "universal",
+        "scene",
+        "description",
+        "import",
+        "export",
+        "asset",
+        "model",
+        "animation",
+        "assembly",
+        "geometry",
+        "shading",
+        "usdz",
+        "pipeline"
+      ],
+      "author": null
+    },
+    "com.unity.entities": {
+      "name": "com.unity.entities",
+      "description": "Unity Entity Component System - Core Entity Component System, New Transform components, basic Instance Mesh Renderer",
+      "maintainers": [],
+      "versions": {
+        "0.0.12-preview.33": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "entities",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.ext.nunit": {
+      "name": "com.unity.ext.nunit",
+      "description": "Custom Nunit build to work with Unity",
+      "maintainers": [],
+      "versions": {
+        "0.1.9-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "nunit",
+        "unittest",
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.standardevents": {
+      "name": "com.unity.standardevents",
+      "description": "Unity Analytics Standard Events take the guesswork out of tracking key game events, which makes adding deep analytics to your game insanely simple.\n\nStandard Events serve as an easy-to-follow checklist of the most important elements to track in your game. For example, use tutorial events to track onboarding, and to better understand the first-time user experience...then compare that to Day 1 retention to see not just what is happening in your game, but also to understand why.\n\nEasily implement Standard Events through code using a well-documented, type-safe API that supports Intellisense. Alternatively, the included Analytics Event Tracker component can be used to quickly and easily add both standard and custom events to your game, all without writing any code!\n\nStandard Events is a feature of Unity Analytics, and requires the Unity Analytics service to be enabled.",
+      "maintainers": [],
+      "versions": {
+        "1.0.11": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "analytics",
+        "unity"
+      ],
+      "author": null
+    },
+    "upm": {
+      "name": "upm",
+      "description": "The Official Unity Package Manager",
+      "maintainers": [],
+      "versions": {
+        "1.6.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": "Unity"
+    },
+    "com.unity.toolsmith.test-helpers": {
+      "name": "com.unity.toolsmith.test-helpers",
+      "description": "Provides test helpers, attributes and utilities specific to the bug/test workflows at Unity Technologies.",
+      "maintainers": [],
+      "versions": {
+        "0.1.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.input": {
+      "name": "com.unity.input",
+      "description": "Unity Input System",
+      "maintainers": [],
+      "versions": {
+        "0.6.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "input",
+        "unity",
+        "keyboard",
+        "mouse",
+        "touch",
+        "vr"
+      ],
+      "author": null
+    },
+    "com.unity.addressables": {
+      "name": "com.unity.addressables",
+      "description": "The Addressable Asset System allows the developer to ask for an asset via its address. Once an asset (e.g. a prefab) is marked \"addressable\", it generates an address which can be called from anywhere. Wherever the asset resides (local or remote), the system will locate it and its dependencies, then return it.\n\nUse 'Window->Asset Management->Addressables' to begin working with the system.\n\nAddressables use asynchronous loading to support loading from any location with any collection of dependencies. Whether you have been using direct references, traditional asset bundles, or Resource folders, addressables provide a simpler way to make your game more dynamic. Addressables simultaneously opens up the world of asset bundles while managing all the complexity.",
+      "maintainers": [],
+      "versions": {
+        "1.1.3-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "asset",
+        "resources",
+        "bundle",
+        "bundles",
+        "assetbundles"
+      ],
+      "author": null
+    },
+    "com.unity.test": {
+      "name": "com.unity.test",
+      "description": "Test",
+      "maintainers": [],
+      "versions": {
+        "1.0.4": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.facesubsystem": {
+      "name": "com.unity.xr.facesubsystem",
+      "description": "Face Subsystem Definition. The generic API definition of a standalone face subsystem.  Client applications can use this API to access AR Face Tracking data in a generic way from providers. Face tracking providers will depend on this package and implement a subset of these APIs. Providers will specify which features they support by populating the face subsystem descriptor appropriately.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "face",
+        "anchor",
+        "subsystem",
+        "XR",
+        "blendshape",
+        "mesh",
+        "generic"
+      ],
+      "author": null
+    },
+    "com.unity.vectorgraphics": {
+      "name": "com.unity.vectorgraphics",
+      "description": "The vector graphics package provides an SVG importer and runtime vector graphics APIs.",
+      "maintainers": [],
+      "versions": {
+        "2.0.0-preview.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "vector",
+        "graphics",
+        "svg",
+        "importer"
+      ],
+      "author": null
+    },
+    "com.unity.terrain-tools": {
+      "name": "com.unity.terrain-tools",
+      "description": "The Terrain Tools package adds additonal terrain sculpting brushes and tools to your project to help create stunning terrain assets and ease the workflows.",
+      "maintainers": [],
+      "versions": {
+        "1.1.2-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Terrain",
+        "Brush",
+        "Toolbox"
+      ],
+      "author": null
+    },
+    "com.unity.searcher": {
+      "name": "com.unity.searcher",
+      "description": "General search window for use in the Editor. First target use is for GraphView node search.",
+      "maintainers": [],
+      "versions": {
+        "3.0.12": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "search",
+        "searcher"
+      ],
+      "author": null
+    },
+    "com.unity.formats.fbx": {
+      "name": "com.unity.formats.fbx",
+      "description": "The Unity FBX Exporter package makes it easy to send geometry and animation from Unity 2018.3 or later to any application that supports FBX and back again with minimal effort.\n\nIn particular, this round-trip workflow enables you to export Unity scenes to FBX, import into Maya, Maya LT, or 3ds Max using an artist-friendly interface, export Unity-ready FBX geometry and animation, and safely merge your changes back into those Assets to continue your work.\n\nFor more information, see the FBX Exporter package documentation.",
+      "maintainers": [],
+      "versions": {
+        "2.0.2-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "fbx",
+        "animation",
+        "modeling",
+        "maya",
+        "max"
+      ],
+      "author": null
+    },
+    "com.unity.package-manager-doctools": {
+      "name": "com.unity.package-manager-doctools",
+      "description": "This is an internal Unity tool and will not be supported.\n\nThe package documentation tools is a package manager ui extension that generates documentation for a package. This allows package developers to preview what their documentation will look like in its final published form.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.35": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.package-manager": {
+      "name": "com.unity.package-manager",
+      "description": "The Official Unity Package Manager",
+      "maintainers": [],
+      "versions": {
+        "2.9.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": "Unity"
+    },
+    "com.unity.xr.windowsmr": {
+      "name": "com.unity.xr.windowsmr",
+      "description": "Provides implementation and support for Unity XR SDK, allowing integration and use of Windows Mixed Reality devices.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.5": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "windows",
+        "ar",
+        "augmented",
+        "xr",
+        "reality",
+        "xreditorsubsystem",
+        "mixed",
+        "hololens"
+      ],
+      "author": null
+    },
+    "com.unity.template.hd": {
+      "name": "com.unity.template.hd",
+      "description": "This template utilizes the High Definition Scriptible Render Pipeline. Making it a good starting point for people focused on high-end graphics that want to develop games for platforms that support Shader Model 5.0 (DX11 and above). \n\nBeyond being tuned for High End visuals this project includes\n Shadergraph \n Post Processing V2 Stack  \n Presets \n Example content",
+      "maintainers": [],
+      "versions": {
+        "3.3.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.test-visibility": {
+      "name": "com.unity.test-visibility",
+      "description": "Test visibility package",
+      "maintainers": [],
+      "versions": {
+        "3.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.cloud.userreporting": {
+      "name": "com.unity.cloud.userreporting",
+      "description": "This package provides a client for Unity User Reporting which is part of Unity Cloud Diagnostics. Go to Window > User Reporting > Import Packages to import the User Reporting assets.",
+      "maintainers": [],
+      "versions": {
+        "1.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.highend3d": {
+      "name": "com.unity.highend3d",
+      "description": "sdlfkja;fj",
+      "maintainers": [],
+      "versions": {
+        "0.0.2": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.film-tv.toolbox": {
+      "name": "com.unity.film-tv.toolbox",
+      "description": "This package is a collection of experimental, proof of concept or helper tools for Film / TV productions.",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "film",
+        "TV",
+        "Tools",
+        "Samples"
+      ],
+      "author": null
+    },
+    "com.unity.ide.vscode": {
+      "name": "com.unity.ide.vscode",
+      "description": "Code editor integration for supporting Visual Studio Code as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.mobile.notifications": {
+      "name": "com.unity.mobile.notifications",
+      "description": "Mobile Notifications package adds support for scheduling local repeatable or one-time notifications on iOS and Android.\n\nRequires iOS 10 and Android 4.1 or above.",
+      "maintainers": [],
+      "versions": {
+        "1.0.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Android",
+        "iOS",
+        "Notifications",
+        "Mobile"
+      ],
+      "author": null
+    },
+    "com.unity.smartassets": {
+      "name": "com.unity.smartassets",
+      "description": "Unity Smart Assets.",
+      "maintainers": [],
+      "versions": {
+        "0.0.9": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "smart assets"
+      ],
+      "author": null
+    },
+    "com.unity.film-tv.toolbox.tests": {
+      "name": "com.unity.film-tv.toolbox.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.assetbundlebrowser": {
+      "name": "com.unity.assetbundlebrowser",
+      "description": "The Asset Bundle Browser tool enables the user to view and edit the configuration of asset bundles for their Unity project. It will block editing that would create invalid bundles, and inform you of any issues with existing bundles. It also provides basic build functionality.\n\nUse this tool as an alternative to selecting assets and setting their asset bundle manually in the inspector. It can be dropped into any Unity project with a version of 5.6 or greater. It will create a new menu item in Window > AssetBundle Browser. The bundle configuration, build functionality, and built-bundle inspection are split into three tabs within the new window.",
+      "maintainers": [],
+      "versions": {
+        "1.7.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "asset",
+        "bundle",
+        "bundles",
+        "assetbundles"
+      ],
+      "author": null
+    },
+    "com.unity.ide.visualstudio": {
+      "name": "com.unity.ide.visualstudio",
+      "description": "Code editor integration for supporting Visual Studio as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.11": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.ide.visualstudio.tests": {
+      "name": "com.unity.ide.visualstudio.tests",
+      "description": "Code editor integration for supporting Visual Studio as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.2": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.quicksearch": {
+      "name": "com.unity.quicksearch",
+      "description": "Search multiple areas of Unity: assets, scene objects, menu items, settings, etc.\n\nOn Windows simply press Alt+' to find anything or Option+' on Mac.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "editor",
+        "omni",
+        "quick",
+        "search",
+        "assets",
+        "menu",
+        "scene",
+        "anything"
+      ],
+      "author": null
+    },
+    "com.unity.u2d.spriteshape": {
+      "name": "com.unity.u2d.spriteshape",
+      "description": "SpriteShape Runtime & Editor Package",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "shape",
+        "spriteshape",
+        "smartsprite",
+        "spline",
+        "terrain2d"
+      ],
+      "author": null
+    },
+    "com.unity.adaptiveperformance": {
+      "name": "com.unity.adaptiveperformance",
+      "description": "The Adaptive Performance package provides an API to get feedback about the thermal and power state of mobile devices and thus enables applications to make performance relevante adaptions at runtime.\n\n This package is installed as dependency by Adaptive Performance subsystem packages such as the *Adaptive Performance Samsung (Android)* package. By installing this package, you agree to the terms and conditions of the Unity End User License Agreement found under \"View licenses\" above.",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "mobile",
+        "adaptive",
+        "performance",
+        "utility",
+        "utilities",
+        "core",
+        "samsung",
+        "ap",
+        "provider",
+        "subsystem"
+      ],
+      "author": null
+    },
+    "package-with-obsolete-api": {
+      "name": "package-with-obsolete-api",
+      "description": "Package referenced by other packages to ensure that the updater will correctly update assemblies/source code in packages",
+      "maintainers": [],
+      "versions": {
+        "2.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "nuget.moq": {
+      "name": "nuget.moq",
+      "description": "Moq is the most popular and friendly mocking framework for .NET. https://www.nuget.org/packages/Moq/4.8.2",
+      "maintainers": [],
+      "versions": {
+        "0.1.10-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "test",
+        "mock",
+        "mocking"
+      ],
+      "author": null
+    },
+    "com.unity.editorcoroutines": {
+      "name": "com.unity.editorcoroutines",
+      "description": "The editor coroutines package allows developers to start constructs similar to Unity's monobehaviour based coroutines within the editor using abitrary objects. ",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "coroutine",
+        "coroutines",
+        "editor"
+      ],
+      "author": null
+    },
+    "com.unity.xr.oculus": {
+      "name": "com.unity.xr.oculus",
+      "description": "Provides rendering and input support for Oculus devices.",
+      "maintainers": [],
+      "versions": {
+        "0.8.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "oculus",
+        "xr",
+        "reality",
+        "xreditorsubsystem",
+        "xrsdk"
+      ],
+      "author": null
+    },
+    "com.unity.ide.vscode.tests": {
+      "name": "com.unity.ide.vscode.tests",
+      "description": "Code editor integration for supporting Visual Studio Code as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.4": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.purchasing.udp.validation": {
+      "name": "com.unity.purchasing.udp.validation",
+      "description": "Unity Distribution Portal (UDP) is a IAP-focused product from Unity which lets you distribute a single game build to multiple Android app stores. UDP repacks your Android build with each stores dedicated IAP SDK, and lets you manage all your submissions on the UDP portal. UDP handles all the heavy lifting and provides you with a streamlined distribution flow by integrating with the app stores.",
+      "maintainers": [],
+      "versions": {
+        "1.0.3-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "android",
+        "purchasing",
+        "iap"
+      ],
+      "author": null
+    },
+    "com.unity.canary-coin-game": {
+      "name": "com.unity.canary-coin-game",
+      "description": "This package contains all the basic functionality for the Coin Game",
+      "maintainers": [],
+      "versions": {
+        "1.0.15-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "testnumber": {
+      "name": "testnumber",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "0.0.9": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.polybrush": {
+      "name": "com.unity.polybrush",
+      "description": "Mesh painting, sculpting, and geo-scattering tool for Unity.\n\nIMPORTANT: Polybrush is still in \"Preview\", and may cause instability or even data loss in your project. Please read the Known Issues section of the changelog before using.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.17": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "modeling",
+        "sculpting",
+        "push",
+        "clay",
+        "terrain"
+      ],
+      "author": null
+    },
+    "com.unity.collections": {
+      "name": "com.unity.collections",
+      "description": "Additional Unity Native Collections. NativeQueue, NativeHashMap, NativeMultiHashMap, NativeList.",
+      "maintainers": [],
+      "versions": {
+        "0.0.9-preview.19": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arcore": {
+      "name": "com.unity.xr.arcore",
+      "description": "Provides native Google ARCore integration for use with Unity's multi-platform XR API.\n=Supported Features=\n-Efficient Background Rendering\n-Horizontal Planes\n-Depth Data\n-Reference Points\n-Hit Testing",
+      "maintainers": [],
+      "versions": {
+        "2.1.0-preview.5": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "arcore",
+        "ar",
+        "augmented",
+        "xr",
+        "reality",
+        "core"
+      ],
+      "author": null
+    },
+    "com.unity.uiwidgets": {
+      "name": "com.unity.uiwidgets",
+      "description": "UIWidgets allows you to build beautiful cross-platform apps through Unity",
+      "maintainers": [],
+      "versions": {
+        "1.0.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "test.packages4": {
+      "name": "test.packages4",
+      "description": "A test package that aggregates packages",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.tiny": {
+      "name": "com.unity.tiny",
+      "description": "Project Tiny enables you to create lightweight Web-based games using the Unity Editor.",
+      "maintainers": [],
+      "versions": {
+        "0.16.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "tiny",
+        "instant",
+        "playables",
+        "html5",
+        "canvas"
+      ],
+      "author": null
+    },
+    "com.unity.localization": {
+      "name": "com.unity.localization",
+      "description": "Preview of player localization system. Provides tools for localizing your built application.",
+      "maintainers": [],
+      "versions": {
+        "0.2.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "localization",
+        "locale",
+        "language"
+      ],
+      "author": null
+    },
+    "upm-template-utils": {
+      "name": "upm-template-utils",
+      "description": "UPM template utility script as a Node.js package.",
+      "maintainers": [],
+      "versions": {
+        "0.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.remote-config": {
+      "name": "com.unity.remote-config",
+      "description": "Remote Config is a cloud service that lets you tune and customize your app over the air without requiring an update to your game.  You can use rules to enable or disable features, change the difficulty of your game or run special events to target specific audiences.  Rules control when updates are applied and to whom, while Unity manages delivery of your game content with minimal performance impact. \n\nRemote Config can be configured via the editor or through our public APIs.  Functionality includes: \n- Release new features without deploying code:\n   - Feature flagging\n   - Staged Rollouts\n   - Kill switch functionality\n   - Start & End Date\n   - Enable & disable rules\n- Personalized real-time segmentation with custom attributes\n   - Custom conditions for applying setting variants\n   - Device, user, game and other arbitrary attributes supporting\n- Reporting\n   - Tracing ID for decorating analytics events",
+      "maintainers": [],
+      "versions": {
+        "0.3.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "remote",
+        "config",
+        "configuration",
+        "settings"
+      ],
+      "author": null
+    },
+    "conflicttest4a": {
+      "name": "conflicttest4a",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.2d.animation": {
+      "name": "com.unity.2d.animation",
+      "description": "2D Animation provides the all the necessary tooling and runtime components for skeletal animation using Sprites.",
+      "maintainers": [],
+      "versions": {
+        "2.2.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "animation"
+      ],
+      "author": null
+    },
+    "com.unity.labs.wfc": {
+      "name": "com.unity.labs.wfc",
+      "description": "A quantum wave function collapse generator from Unity Labs",
+      "maintainers": [],
+      "versions": {
+        "0.0.2-preview.13": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.tutorial.external.tests": {
+      "name": "com.unity.tutorial.external.tests",
+      "description": "Replace this string with your own description of the package. This description appears in the Package Manager window when the user selects this package from the list. \n\nFor best results, use this text to summarize: \n What the package does \n How it can benefit the user \n\nNote: Special formatting characters are supported, including line breaks ('\\n') and bullets ('\\u25AA').",
+      "maintainers": [],
+      "versions": {
+        "0.4.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "test.packages3": {
+      "name": "test.packages3",
+      "description": "A test package that aggregates packages",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.canary-package": {
+      "name": "com.unity.canary-package",
+      "description": "Some Description that is very long so that we do not set off any validation errors for packages",
+      "maintainers": [],
+      "versions": {
+        "2.0.23-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.probuilder": {
+      "name": "com.unity.probuilder",
+      "description": "Build, edit, and texture custom geometry in Unity. Use ProBuilder for in-scene level design, prototyping, collision meshes, all with on-the-fly play-testing.\n\nAdvanced features include UV editing, vertex colors, parametric shapes, and texture blending. With ProBuilder's model export feature it's easy to tweak your levels in any external 3D modelling suite.",
+      "maintainers": [],
+      "versions": {
+        "4.1.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "3d",
+        "model",
+        "mesh",
+        "modeling",
+        "geometry",
+        "shape",
+        "cube",
+        "blender",
+        "max",
+        "maya",
+        "fbx",
+        "obj",
+        "level",
+        "design",
+        "block",
+        "greybox",
+        "graybox",
+        "whitebox",
+        "prototype",
+        "probuilder"
+      ],
+      "author": null
+    },
+    "com.unity.package-manager.metadata": {
+      "name": "com.unity.package-manager.metadata",
+      "description": "Contains metadata used by the com.unity.package-manager package to fulfill client requests",
+      "maintainers": [],
+      "versions": {
+        "0.0.51": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.render-pipelines.high-quality": {
+      "name": "com.unity.render-pipelines.high-quality",
+      "description": "High Quality Render Pipeline for Unity.",
+      "maintainers": [],
+      "versions": {
+        "0.1.13": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.purchasing": {
+      "name": "com.unity.purchasing",
+      "description": "Unity IAP supports the iOS, Mac, tvOS, Google Play, Facebook Gameroom, Windows, Amazon, Samsung Galaxy, Tizen, Cloud Moolah MOO, Xiaomi Mi Game Pay App Stores.\n\nWith Unity IAP, setting up in-app purchases for your game across multiple app stores has never been easier.\n\nUse one common API to access all stores for free. With just a few lines of code, you can fully understand and optimize your in-game economy.\n\nUnity IAP automatically couples with Unity Analytics enabling you to monitor and act on trends in your revenue and purchase data across multiple platforms.\n\nIncludes client-side receipt validation for Apple, Google Play, and Xiaomi Mi Game Pay.",
+      "maintainers": [],
+      "versions": {
+        "2.0.4-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "purchasing",
+        "iap",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.ptc.vuforia.engine": {
+      "name": "com.ptc.vuforia.engine",
+      "description": "Vuforia Engine is the most widely used platform for AR development, with support for leading phones, tablets, and eyewear. Developers can easily add advanced computer vision functionality to Android, iOS, and UWP apps, to create AR experiences that realistically interact with objects and the environment.",
+      "maintainers": [],
+      "versions": {
+        "8.1.12": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "vuforia",
+        "engine",
+        "ar",
+        "xr",
+        "augmented",
+        "reality",
+        "sdk"
+      ],
+      "author": {
+        "url": "https://developer.vuforia.com/",
+        "name": "PTC Inc."
+      }
+    },
+    "com.unity.sync.sketchup": {
+      "name": "com.unity.sync.sketchup",
+      "description": "The Unity AEC plugin for SketchUp permits to export SketchUp using the PublisherService.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "industrial",
+        "sketchup",
+        "third-party",
+        "application"
+      ],
+      "author": null
+    },
+    "com.unity.testframework.graphics": {
+      "name": "com.unity.testframework.graphics",
+      "description": "Provides test framework helpers for writing tests for graphics code, such as image comparison assertions and automatic management of reference images.",
+      "maintainers": [],
+      "versions": {
+        "6.8.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "qa",
+        "test",
+        "testing",
+        "tests",
+        "graphics"
+      ],
+      "author": null
+    },
+    "com.unity.datapipeline.operators.samples.assetpostprocessor": {
+      "name": "com.unity.datapipeline.operators.samples.assetpostprocessor",
+      "description": "This sample demonstrates how the Data Pipeline can be integrated in an AssetPostprocessor. The pipeline will merge the models of a composite mesh into fewer meshes, grouped by an arbitrary filter, while preserving the material associations for the original sub-meshes.",
+      "maintainers": [],
+      "versions": {
+        "0.0.3-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.analytics": {
+      "name": "com.unity.analytics",
+      "description": "The Unity Analytics Library contains the Analytics Event Tracker component, the Data Privacy plug-in, and the Standard Events API.",
+      "maintainers": [],
+      "versions": {
+        "3.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "analytics",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arkit": {
+      "name": "com.unity.xr.arkit",
+      "description": "Provides native Apple ARKit integration for use with Unity's multi-platform XR API.\n=Supported Features=\n-Efficient Background Rendering\n-Horizontal Planes\n-Depth Data\n-Reference Points\n-Hit Testing\n-Face Tracking\n-Environment Probes",
+      "maintainers": [],
+      "versions": {
+        "2.1.0-preview.5": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "arkit",
+        "ar",
+        "augmented",
+        "xr",
+        "reality"
+      ],
+      "author": null
+    },
+    "com.unity.cinemachine": {
+      "name": "com.unity.cinemachine",
+      "description": "Smart camera tools for passionate creators. \n\nIMPORTANT NOTE: If you are upgrading from the Asset Store version of Cinemachine, delete the Cinemachine asset from your project BEFORE installing this version from the Package Manager.",
+      "maintainers": [],
+      "versions": {
+        "2.3.4-preview.9": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "camera",
+        "follow",
+        "rig",
+        "fps",
+        "cinematography",
+        "aim",
+        "orbit",
+        "cutscene",
+        "cinematic",
+        "collision",
+        "freelook",
+        "cinemachine",
+        "compose",
+        "composition",
+        "dolly",
+        "track",
+        "clearshot",
+        "noise",
+        "framing",
+        "handheld",
+        "lens",
+        "impulse"
+      ],
+      "author": null
+    },
+    "com.unity.inputsystem": {
+      "name": "com.unity.inputsystem",
+      "description": "A new input system which can be used as a more extensible and customizable alternative to Unity's classic input system in UnityEngine.Input.",
+      "maintainers": [],
+      "versions": {
+        "0.2.7-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "input",
+        "events",
+        "keyboard",
+        "mouse",
+        "gamepad",
+        "touch",
+        "vr",
+        "xr"
+      ],
+      "author": null
+    },
+    "com.unity.test.big": {
+      "name": "com.unity.test.big",
+      "description": "A large package of random data. Roughly equal to 50MB when compressed.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.animation.rigging": {
+      "name": "com.unity.animation.rigging",
+      "description": "Animation Rigging toolkit using Unity's Animation C# Jobs",
+      "maintainers": [],
+      "versions": {
+        "0.2.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Animation",
+        "Rigging",
+        "Constraints"
+      ],
+      "author": null
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "name": "com.unity.nuget.newtonsoft-json",
+      "description": "Unity package manager version of Newtonsoft Json for package developers. Currently synced to version version 12.0.1.22727",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.pge": {
+      "name": "com.unity.pge",
+      "description": "Unity PGE is a personalization engine for games, enabling game developers to use machine learning (ML) to optimize their games for each user without the need to have resources to build and deploy their own ML systems",
+      "maintainers": [],
+      "versions": {
+        "1.9.3-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "pge",
+        "personalize",
+        "gaming",
+        "optimize",
+        "unity",
+        "retention",
+        "ltv"
+      ],
+      "author": null
+    },
+    "com.unity.cloud.common-dependencies": {
+      "name": "com.unity.cloud.common-dependencies",
+      "description": "Provides common dependencies to cloud packages.",
+      "maintainers": [],
+      "versions": {
+        "0.0.4-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "dependencies",
+        "cloud",
+        "live"
+      ],
+      "author": null
+    },
+    "com.unity.rendering.hybrid": {
+      "name": "com.unity.rendering.hybrid",
+      "description": "Core components and systems for drawing meshes using ECS, including instanced mesh rendering and LOD",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.11": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "entities",
+        "unity",
+        "hybrid",
+        "rendering"
+      ],
+      "author": null
+    },
+    "c": {
+      "name": "c",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "2.1.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "nuget.castle-core": {
+      "name": "nuget.castle-core",
+      "description": "Castle core libray from the Castle Project. https://www.nuget.org/packages/Castle.Core/",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "castle core"
+      ],
+      "author": null
+    },
+    "com.unity.collab-proxy": {
+      "name": "com.unity.collab-proxy",
+      "description": "Collaborate is a simple way for teams to save, share, and sync their Unity project",
+      "maintainers": [],
+      "versions": {
+        "2.0.0-preview.18": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "collab",
+        "collaborate",
+        "teams",
+        "team",
+        "cloud",
+        "backup"
+      ],
+      "author": null
+    },
+    "com.unity.canary-package.tests": {
+      "name": "com.unity.canary-package.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.8.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.googlevr.ios": {
+      "name": "com.unity.xr.googlevr.ios",
+      "description": "This package contains the necessary components required to use the Google VR Virtual Reality SDK on iOS. By using this package, you will be able to deploy and run your applications on Cardboard supported devices.",
+      "maintainers": [],
+      "versions": {
+        "1.18.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "google",
+        "xr",
+        "vr",
+        "ar",
+        "virtual",
+        "cardboard",
+        "daydream",
+        "sdk",
+        "ios",
+        "gvr"
+      ],
+      "author": null
+    },
+    "com.unity.mobile.android-logcat": {
+      "name": "com.unity.mobile.android-logcat",
+      "description": "Android Logcat package adds support for displaying log messages coming from Android devices in Unity Editor. Click the 'View documentation' link above for more information.\n\nThe window can be accessed in Unity Editor via 'Window > Analysis > Android Logcat', or simply by pressing 'Alt+6' on Windows or 'Option+6' on macOS. \n\nMake sure to have Android module loaded and switch to Android build target in 'Build Settings' window if the menu doesn't exist.",
+      "maintainers": [],
+      "versions": {
+        "0.2.7-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Mobile",
+        "Android",
+        "Logcat"
+      ],
+      "author": null
+    },
+    "com.unity.textmeshpro": {
+      "name": "com.unity.textmeshpro",
+      "description": "TextMesh Pro is the ultimate text solution for Unity. It's the perfect replacement for Unity's UI Text and the legacy Text Mesh.\n\nPowerful and easy to use, TextMesh Pro uses Advanced Text Rendering techniques along with a set of custom shaders; delivering substantial visual quality improvements while giving users incredible flexibility when it comes to text styling and texturing.\n\nTextMesh Pro provides Improved Control over text formatting and layout with features like character, word, line and paragraph spacing, kerning, justified text, Links, over 30 Rich Text Tags available, support for Multi Font & Sprites, Custom Styles and more.\n\nGreat performance. Since the geometry created by TextMesh Pro uses two triangles per character just like Unity's text components, this improved visual quality and flexibility comes at no additional performance cost.\n\n\nSpecial Notes:\n==========\nThis release requires .Net 4.x Scripting Runtime",
+      "maintainers": [],
+      "versions": {
+        "2.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "TextMeshPro",
+        "TextMesh Pro",
+        "Text",
+        "SDF"
+      ],
+      "author": null
+    },
+    "com.unity.jobs": {
+      "name": "com.unity.jobs",
+      "description": "Additional C# jobs types. IJobParallelForBatch and IJobParallelForFilter",
+      "maintainers": [],
+      "versions": {
+        "0.0.7-preview.10": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "ads",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.test-framework": {
+      "name": "com.unity.test-framework",
+      "description": "Test framework for running Edit mode and Play mode test in Unity.",
+      "maintainers": [],
+      "versions": {
+        "1.0.16": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Test",
+        "TestFramework"
+      ],
+      "author": null
+    },
+    "packmanshaderinctest": {
+      "name": "packmanshaderinctest",
+      "description": "package to test include in shaders",
+      "maintainers": [],
+      "versions": {
+        "1.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.dummypackageb": {
+      "name": "com.unity.dummypackageb",
+      "description": "Test package used to test the package validation suite",
+      "maintainers": [],
+      "versions": {
+        "0.1.9-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "b": {
+      "name": "b",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.animation.cs-jobs-samples": {
+      "name": "com.unity.animation.cs-jobs-samples",
+      "description": "Code samples using the animation C# jobs feature.\n\nAnimation jobs are part of the Playable feature and they allow to modify the animation stream using just a C# script. Here is the list of the samples in this package:\n SimpleMixer\n WeightedMaskMixer\n Look At\n Two-bone IK\n Fullbody IK",
+      "maintainers": [],
+      "versions": {
+        "0.4.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "animation",
+        "c#",
+        "cs",
+        "jobs",
+        "samples"
+      ],
+      "author": null
+    },
+    "upm.tests.prerelease-versions-test": {
+      "name": "upm.tests.prerelease-versions-test",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "nuget.shouldly": {
+      "name": "nuget.shouldly",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "3.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.mathematics": {
+      "name": "com.unity.mathematics",
+      "description": "Unity's C# SIMD math library providing vector types and math functions with a shader like syntax. This package is still in experimental phase.",
+      "maintainers": [],
+      "versions": {
+        "0.0.12-preview.18": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.xr.trackedposedriver": {
+      "name": "com.unity.xr.trackedposedriver",
+      "description": "This package includes the tracked pose driver for the legacy input system",
+      "maintainers": [],
+      "versions": {
+        "1.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "TPD",
+        "Tracked Pose Driver"
+      ],
+      "author": null
+    },
+    "com.unity.knowledgegraph": {
+      "name": "com.unity.knowledgegraph",
+      "description": "Unity knowledge graph",
+      "maintainers": [],
+      "versions": {
+        "0.0.11": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "machine learning",
+        "nlp"
+      ],
+      "author": null
+    },
+    "com.unity.template.3dextra": {
+      "name": "com.unity.template.3dextra",
+      "description": "This Project Template utilzes the new Post Processing stack with the built-in renderer. \n\nIt also includes \n Presets \n Example content ",
+      "maintainers": [],
+      "versions": {
+        "3.1.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "luctest": {
+      "name": "luctest",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "1.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.mobile.adaptiveperformance": {
+      "name": "com.unity.mobile.adaptiveperformance",
+      "description": "The Adaptive Performance package provides an API to get feedback about the thermal and power state of mobile devices and thus enables applications to make performance relevante adaptions at runtime.\n\nBy installing this package, you agree to the terms and conditions of the Samsung Game SDK End User License Agreement found under \"View licenses\" above.",
+      "maintainers": [],
+      "versions": {
+        "0.1.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "mobile",
+        "adaptive",
+        "performance",
+        "utility",
+        "utilities",
+        "core"
+      ],
+      "author": null
+    },
+    "com.unity.scriptablebuildpipeline": {
+      "name": "com.unity.scriptablebuildpipeline",
+      "description": "The Scriptable Build Pipeline moves the asset bundle build pipeline to C#.  Use the pre-defined build flows, or create your own using the divided up APIs.  This system improves build time, fixes incremental build, and provides greater flexibility.",
+      "maintainers": [],
+      "versions": {
+        "1.4.3-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "build",
+        "bundle",
+        "bundles",
+        "assetbundles",
+        "cache",
+        "server"
+      ],
+      "author": null
+    },
+    "com.unity.purchasing.udp": {
+      "name": "com.unity.purchasing.udp",
+      "description": "Unity Distribution Portal (UDP) streamlines your distribution process. UDP allows you to only build one version of your game, centralize the management of your marketing assets and metadata, and submit your content to multiple app stores, all in the same workflow.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "android",
+        "purchasing",
+        "iap"
+      ],
+      "author": null
+    },
+    "invalid-dependencies": {
+      "name": "invalid-dependencies",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.formats.alembic": {
+      "name": "com.unity.formats.alembic",
+      "description": "The Alembic package provides support to import and export Alembic files (.abc). Alembic is a format commonly used in animation to transfer facial, cloth, and other simulation between applications.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.19": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "alembic",
+        "abc",
+        "animation",
+        "facial",
+        "cloth",
+        "simulation"
+      ],
+      "author": null
+    },
+    "com.unity.ai.planner": {
+      "name": "com.unity.ai.planner",
+      "description": "The AI Planner includes authoring tools and a system for automated decision-making.\n\nAutomated planners are useful for:\n Directing agent behavior either in a cooperative, neutral, or adversarial capacity\n Auto-generating storylines or as an online story manager\n Validating game design mechanics\n Assisting in creating tutorials\n Automated testing\n\nStart by creating a domain definition in the authoring tool that models the problem space at an abstract level. Then, create one or more plan definitions that provide rules for what actions or decisions can be made. Submit these to the planner system and get back a plan that converges on an optimal solution and can update as changes in the world occur.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "ai",
+        "planner",
+        "behavior",
+        "plan"
+      ],
+      "author": null
+    },
+    "com.unity.render-pipelines.lightweight": {
+      "name": "com.unity.render-pipelines.lightweight",
+      "description": "The Lightweight Render Pipeline (LWRP) is a prebuilt Scriptable Render Pipeline, made by Unity. The technology offers graphics that are scalable to mobile platforms, and you can also use it for higher-end consoles and PCs. Youre able to achieve quick rendering at a high quality without needing compute shader technology. LWRP uses simplified, physically based Lighting and Materials. The LWRP uses single-pass forward rendering. Use this pipeline to get optimized real-time performance on several platforms.",
+      "maintainers": [],
+      "versions": {
+        "6.8.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.datapipeline": {
+      "name": "com.unity.datapipeline",
+      "description": "This package contains the core types and utilities used by the Data Pipeline tool.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "import",
+        "pipeline",
+        "graph"
+      ],
+      "author": null
+    },
+    "com.unity.xr.interactionsubsystems": {
+      "name": "com.unity.xr.interactionsubsystems",
+      "description": "Contains definitions for Interaction Subsystems. This package is a dependency of provider packages.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "subsystem",
+        "XR",
+        "Interaction"
+      ],
+      "author": null
+    },
+    "conflicttest3c": {
+      "name": "conflicttest3c",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.objecttrackingsubsystem": {
+      "name": "com.unity.xr.objecttrackingsubsystem",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "face",
+        "anchor",
+        "subsystem",
+        "XR",
+        "blendshape",
+        "mesh",
+        "generic"
+      ],
+      "author": null
+    },
+    "com.unity.immediate-window": {
+      "name": "com.unity.immediate-window",
+      "description": "The Immediate Window provides a way to rapidly edit and debug code. It is not a full development environment, instead it is to be used for API discovery and rapid prototyping.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "scripting",
+        "ide",
+        "development",
+        "debug"
+      ],
+      "author": {
+        "name": "Unity Technologies",
+        "email": "mathieur@unity3d.com",
+        "url": ""
+      }
+    },
+    "package-using-obsolete-api-from-assembly": {
+      "name": "package-using-obsolete-api-from-assembly",
+      "description": "Package used to ensure that the updater will correctly update assemblies/source code in packages",
+      "maintainers": [],
+      "versions": {
+        "2.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.render-pipelines.core": {
+      "name": "com.unity.render-pipelines.core",
+      "description": "Helper library for SRP that contains a new Shader Library, and utility functions that can be used to implement a custom SRP. This library is currently used by both the High Definition Render Pipeline and the Lightweight Render Pipeline.",
+      "maintainers": [],
+      "versions": {
+        "6.7.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.2d.triangle": {
+      "name": "com.unity.2d.triangle",
+      "description": "2D Triangle",
+      "maintainers": [],
+      "versions": {
+        "1.0.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d"
+      ],
+      "author": null
+    },
+    "com.unity.package-under-test": {
+      "name": "com.unity.package-under-test",
+      "description": "Some Description that is very long so that we do not set off any validation errors for packages",
+      "maintainers": [],
+      "versions": {
+        "1.0.346": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.finch-package": {
+      "name": "com.unity.finch-package",
+      "description": "Some Description that is very long so that we do not set off any validation errors for packages",
+      "maintainers": [],
+      "versions": {
+        "4.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.animation": {
+      "name": "com.unity.animation",
+      "description": "The Animation package brings a new animation system to Unity, entirely in C# and with performance in mind. It aligns with our DOTS coding style.",
+      "maintainers": [],
+      "versions": {
+        "0.2.7-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "upm.tests.parcels": {
+      "name": "upm.tests.parcels",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.hub.sync.sketchup": {
+      "name": "com.unity.hub.sync.sketchup",
+      "description": "The Sketchup plugin for the Hub permits to enabled Sketchup as a Third Party Application in the Hub.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "industrial",
+        "sketchup",
+        "third-party",
+        "application"
+      ],
+      "author": null
+    },
+    "com.unity.template.lightweight": {
+      "name": "com.unity.template.lightweight",
+      "description": "This Project Template utilzes the Lightweight Render Pipeline. \n\nIt is a great starting point for users targeting a broad range of mobile platforms, low-end to mid-tier hardware, or for developers making games that have limited realtime lighting needs. \n\nThis project also includes \n Shadergraph \n Post-processing V2 Stack  \n Presets \n Example content",
+      "maintainers": [],
+      "versions": {
+        "3.3.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.hotreload": {
+      "name": "com.unity.hotreload",
+      "description": "HotReload package lets you perform live update of assets (shaders, textures, materials) on the player side, while the player is running.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Hot",
+        "Reload"
+      ],
+      "author": null
+    },
+    "com.unity.physics": {
+      "name": "com.unity.physics",
+      "description": "Unity's C# stateless physics library. This package is still in experimental phase.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "physics"
+      ],
+      "author": null
+    },
+    "com.unity.xr.xrsubsystemregistration": {
+      "name": "com.unity.xr.xrsubsystemregistration",
+      "description": "Provides internal registration mechanism for standalone XR subsystems related to AR.  It allows a standalone XR subsystem to inform the XR Subsystem Manager of its existence.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xr",
+        "subsystem",
+        "registration",
+        "internal"
+      ],
+      "author": null
+    },
+    "com.unity.live-notes": {
+      "name": "com.unity.live-notes",
+      "description": "Enables developers to create and reply to notes on objects in the scene and on project assets.",
+      "maintainers": [],
+      "versions": {
+        "0.2.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "notes",
+        "GameObject",
+        "commenting",
+        "cloud",
+        "online",
+        "live"
+      ],
+      "author": null
+    },
+    "conflicttest1c": {
+      "name": "conflicttest1c",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.render-pipelines.high-definition": {
+      "name": "com.unity.render-pipelines.high-definition",
+      "description": "The High Definition Render Pipeline (HDRP) is a high-fidelity Scriptable Render Pipeline built by Unity to target modern (Compute Shader compatible) platforms. The HDRP utilizes Physically-Based Lighting techniques, linear lighting, HDR lighting and a configurable hybrid Tile/Cluster deferred/Forward lighting architecture and gives you the tools you need to create games, technical demos, animations and more to a high graphical standard.",
+      "maintainers": [],
+      "versions": {
+        "6.8.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "graphics",
+        "performance",
+        "rendering",
+        "render",
+        "pipeline"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arutilities": {
+      "name": "com.unity.xr.arutilities",
+      "description": "A collection of MonoBehaviours and C# utilities for working with AR Subsystems. \n\nIncludes: \n Wizards for creating an AR setup \n MonoBehaviours that initialize AR devices and create GameObjects from detected, real-world features",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xr",
+        "ar",
+        "augmented",
+        "reality",
+        "utility",
+        "utilities"
+      ],
+      "author": null
+    },
+    "conflicttest2b": {
+      "name": "conflicttest2b",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.2d.ik": {
+      "name": "com.unity.2d.ik",
+      "description": "2D IK package provides the necessary editor tooling to setup inverse kinematics for 2D characters and a runtime component to execute it.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "ik"
+      ],
+      "author": null
+    },
+    "conflicttest4d": {
+      "name": "conflicttest4d",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.google.resonance.audio": {
+      "name": "com.unity.google.resonance.audio",
+      "description": "This package contians audio spatializer libraries for use with Unity spatial audio. This package is included with the Google VR packages for use with Daydream and Cardboard.",
+      "maintainers": [],
+      "versions": {
+        "1.18.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "google",
+        "cardboard",
+        "daydream",
+        "gvr",
+        "resonance",
+        "audio",
+        "spatialize"
+      ],
+      "author": null
+    },
+    "com.unity.barracuda.burst": {
+      "name": "com.unity.barracuda.burst",
+      "description": "Barracuda Burst is fast BLAS plugin for Barracuda Neural Net inference library.",
+      "maintainers": [],
+      "versions": {
+        "0.1.6-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.resourcemanager": {
+      "name": "com.unity.resourcemanager",
+      "description": "The ResourceManager is an extendable high level API that asynchronously loads and unloads assets.\n\nThe specific method and location of loading assets is abstracted. With the proper extension, assets can be loading from a variety of locations (Resources, Bundles, etc) all through a single API. \n\nThe overall goal is that regardless of what your setup is, or where you are loading from, you always load in the same way. For example, you can call: \nResourceManager.LoadAsync<Texture, string>(\"myTexture\");\n and have that be loaded regardless of where it came from. \n\nThis package can function as a standalone package, but will be extended in the future via high-level packages that add custom IResourceLocator and IResourceProvider interfaces. See the Samples directory for help on how to use it as a standalone package. Future high-level packages will come with locators and providers, and will handle the initialization themselves. The intent being that users need not know about the above interfaces.",
+      "maintainers": [],
+      "versions": {
+        "2.4.4-preview20190108-nightly": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "asset",
+        "resources",
+        "bundle",
+        "bundles",
+        "assetbundles"
+      ],
+      "author": null
+    },
+    "com.unity.dummypackagec": {
+      "name": "com.unity.dummypackagec",
+      "description": "Test package used to test the package validation suite",
+      "maintainers": [],
+      "versions": {
+        "0.1.9-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.arkit": {
+      "name": "com.unity.arkit",
+      "description": "Provides native Apple ARKit integration for use with Unity's multi-platform XR API.\n=Supported Features=\n-Efficient Background Rendering\n-Horizontal Planes\n-Depth Data\n-Reference Points\n-Hit Testing",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "arkit",
+        "ar",
+        "augmented",
+        "xr",
+        "reality"
+      ],
+      "author": null
+    },
+    "com.unity.module2package": {
+      "name": "com.unity.module2package",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.performance.profile-analyzer": {
+      "name": "com.unity.performance.profile-analyzer",
+      "description": "The profile analyzer tool augments the standard Unity Profiler. It provides multi frame analysis of the profiling data.\n\nMain features: \n Multi frame analysis of a single scan \n Comparison of two multi frame profile scans \n\n",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.package-manager-captain": {
+      "name": "com.unity.package-manager-captain",
+      "description": "Unity Package Manager Captain.",
+      "maintainers": [],
+      "versions": {
+        "0.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "package",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.burst.experimental": {
+      "name": "com.unity.burst.experimental",
+      "description": "Burst experimental package depending on the burst package to provide experimental features. API is not stable",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.test-framework.tests": {
+      "name": "com.unity.test-framework.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.0.15-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.legacyinputhelpers": {
+      "name": "com.unity.xr.legacyinputhelpers",
+      "description": "This package includes the tracked pose driver for the legacy input system, the XR Bindings Seeding Tool and 3Dof Arm Model support for the Tracked Pose Driver. The Tracked Pose Driver is a monobehavior that enables GameObjects to track input devices, the XR Bindings Seeding Tool adds a menu item under the 'Assets' menu which populates the Input Asset with Unity's crossplatform Input Bindings",
+      "maintainers": [],
+      "versions": {
+        "2.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "TPD",
+        "Tracked Pose Driver",
+        "XR",
+        "Input",
+        "Helpers"
+      ],
+      "author": null
+    },
+    "com.unity.coding.tests.editor": {
+      "name": "com.unity.coding.tests.editor",
+      "description": "Tests for UnityCoding package",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "format",
+        "csharp",
+        "uncrustify"
+      ],
+      "author": null
+    },
+    "com.unity.xr.magicleap.tests": {
+      "name": "com.unity.xr.magicleap.tests",
+      "description": "",
+      "maintainers": [],
+      "versions": {
+        "2.0.0-preview.8": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.formats.fbxsdk": {
+      "name": "com.unity.formats.fbxsdk",
+      "description": "This package provides C# bindings to the Autodesk FBX SDK.",
+      "maintainers": [],
+      "versions": {
+        "1.6.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "fbx",
+        "animation",
+        "modeling",
+        "maya",
+        "max"
+      ],
+      "author": null
+    },
+    "com.unity.code-analysis": {
+      "name": "com.unity.code-analysis",
+      "description": "Roslyn C# code analysis and evaluation tool.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "scripting",
+        "compiler"
+      ],
+      "author": null
+    },
+    "com.unity.testing.srp.lightweight": {
+      "name": "com.unity.testing.srp.lightweight",
+      "description": "Test package containing lightweight graphics tests",
+      "maintainers": [],
+      "versions": {
+        "6.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "qa",
+        "test",
+        "testing",
+        "tests",
+        "graphics"
+      ],
+      "author": null
+    },
+    "com.unity.assetimporter": {
+      "name": "com.unity.assetimporter",
+      "description": "Simple package used for testing handling of AssetStore packages and potential GUID conflicts.",
+      "maintainers": [],
+      "versions": {
+        "0.1.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "key",
+        "words",
+        "used",
+        "for",
+        "package",
+        "search"
+      ],
+      "author": null
+    },
+    "com.unity.labs.dynamicstructs": {
+      "name": "com.unity.labs.dynamicstructs",
+      "description": "Structs that have data types that can be set at runtime.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.6": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.progrids": {
+      "name": "com.unity.progrids",
+      "description": "Advanced grid and object snapping for the scene view. ProGrids is a dynamically placed grid, available on all 3 axes and at any position in the scene.\n\nProGrids snaps objects in world space, ensuring consistent placement of objects in your level.\n\nIn addition, ProGrids is completely customizable. Change the colors of your grid, the snap sizing, unit of measurement, and more!",
+      "maintainers": [],
+      "versions": {
+        "3.0.3-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "grid",
+        "snap",
+        "manipulation",
+        "array",
+        "align"
+      ],
+      "author": null
+    },
+    "com.unity.xr.openvr.standalone": {
+      "name": "com.unity.xr.openvr.standalone",
+      "description": "This package contains the necessary components required to use the OpenVR SDK on desktop platforms. By using this package, you will be able to deploy and run your applications on SteamVR supported devices.",
+      "maintainers": [],
+      "versions": {
+        "1.0.4": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "openvr",
+        "xr",
+        "vr",
+        "virtual",
+        "open",
+        "sdk",
+        "steam",
+        "steamvr",
+        "valve"
+      ],
+      "author": null
+    },
+    "com.unity.template.canary-template": {
+      "name": "com.unity.template.canary-template",
+      "description": "This template contains all the basic functionality for the Coin Game and serves as a canary template",
+      "maintainers": [],
+      "versions": {
+        "1.0.14-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.properties": {
+      "name": "com.unity.properties",
+      "description": "Interfaces and utilities to describe and visit data containers.",
+      "maintainers": [],
+      "versions": {
+        "0.4.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "properties",
+        "property"
+      ],
+      "author": null
+    },
+    "com.unity.ads.test": {
+      "name": "com.unity.ads.test",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "3.0.2-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.oculus": {
+      "name": "com.unity.oculus",
+      "description": "This package contains the necessary components required to use the Oculus Virtual Reality SDK. By using this package, you will be able to deploy and run your applications on Oculus supported devices.",
+      "maintainers": [],
+      "versions": {
+        "0.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "oculus",
+        "xr",
+        "vr",
+        "virtual",
+        "gear",
+        "gearvr",
+        "sdk"
+      ],
+      "author": null
+    },
+    "com.unity.labs.toolkit": {
+      "name": "com.unity.labs.toolkit",
+      "description": "Collections of useful classes and extensions for Unity",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.appsecTest": {
+      "name": "com.unity.appsecTest",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.gvr.audio": {
+      "name": "com.unity.gvr.audio",
+      "description": "This package contians audio spatializer libraries for use with Unity spatial audio. This package is included with the Google VR packages for use with Daydream and Cardboard.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "google",
+        "cardboard",
+        "daydream",
+        "gvr",
+        "audio",
+        "spatialize"
+      ],
+      "author": null
+    },
+    "com.unity.performancetesting": {
+      "name": "com.unity.performancetesting",
+      "description": "Performance testing API.",
+      "maintainers": [],
+      "versions": {
+        "0.1.18-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "performance",
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.template.3d": {
+      "name": "com.unity.template.3d",
+      "description": "This is an empty 3D project that uses Unity's built-in renderer.",
+      "maintainers": [],
+      "versions": {
+        "4.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.dummy-test": {
+      "name": "com.unity.dummy-test",
+      "description": "A test package for publish testing, etc. This has no use externally and provides no functionality for Unity projects.",
+      "maintainers": [],
+      "versions": {
+        "0.1.6-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "test"
+      ],
+      "author": null
+    },
+    "packagemanagerbuildutilitiestest": {
+      "name": "packagemanagerbuildutilitiestest",
+      "description": "Test package for buildutilities callback editor test",
+      "maintainers": [],
+      "versions": {
+        "1.0.14": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.cacheserver.client": {
+      "name": "com.unity.cacheserver.client",
+      "description": "This package provides APIs and utilities that facilitate communication with the Unity Cache Server from Unity Editor C# scripts. The primary purpose of the Unity Cache Server Client is to extend the application of the Unity Cache Server to Unity Editor tools and processes that could benefit from binary data caching.",
+      "maintainers": [],
+      "versions": {
+        "0.1.2-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "cacheserver"
+      ],
+      "author": null
+    },
+    "com.unity.render-pipelines": {
+      "name": "com.unity.render-pipelines",
+      "description": "Render pipelines using SRP",
+      "maintainers": [],
+      "versions": {
+        "0.1.6": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.ugui": {
+      "name": "com.unity.ugui",
+      "description": "Unity's in-game UI system used to create in-game user interfaces fast and intuitively. Using a couple included components such as a panel, and buttons you can create a basic main menu for your application.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "UI",
+        "ugui",
+        "Unity UI",
+        "Canvas"
+      ],
+      "author": null
+    },
+    "com.unity.2d.psdimporter": {
+      "name": "com.unity.2d.psdimporter",
+      "description": "A ScriptedImporter for importing Adobe Photoshop PSB (Photoshop Big) file format. The ScriptedImporter is currently targeted for users who wants to create multi Sprite character animation using 2D Animation v2.",
+      "maintainers": [],
+      "versions": {
+        "1.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "psdimporter",
+        "assetimporter"
+      ],
+      "author": null
+    },
+    "com.unity.formats.axf": {
+      "name": "com.unity.formats.axf",
+      "description": "Unity AxF Importer (Depends on HDRP from https://github.com/Unity-Technologies/ScriptableRenderPipeline/tree/AxF-shader).",
+      "maintainers": [],
+      "versions": {
+        "0.1.6-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "axf",
+        "unity",
+        "importer",
+        "formats",
+        "materials"
+      ],
+      "author": null
+    },
+    "com.unity.formats.alembic.tests": {
+      "name": "com.unity.formats.alembic.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.0.5": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.jasons.pai-113.tests": {
+      "name": "com.unity.jasons.pai-113.tests",
+      "description": "Replace this string with your own description of the package. This description appears in the Package Manager window when the user selects this package from the list. \n\nFor best results, use this text to summarize: \n What the package does \n How it can benefit the user \n\nNote: Special formatting characters are supported, including line breaks ('\\n') and bullets ('\\u25AA').",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.magicleap": {
+      "name": "com.unity.xr.magicleap",
+      "description": "Provides rendering and spatial mapping support for Magic Leap.",
+      "maintainers": [],
+      "versions": {
+        "3.0.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "magicleap",
+        "ar",
+        "augmented",
+        "xr",
+        "reality",
+        "xreditorsubsystem"
+      ],
+      "author": null
+    },
+    "com.unity.testing.visualeffectgraph": {
+      "name": "com.unity.testing.visualeffectgraph",
+      "description": "This package contains common graphics tests from several scriptable renderpipeline",
+      "maintainers": [],
+      "versions": {
+        "6.7.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.shadergraph": {
+      "name": "com.unity.shadergraph",
+      "description": "The Shader Graph package adds support for a visual shader editing tool into Unity. This tool can be used by artists to create shaders in a visual way instead of having to require code editing. Specific render pipelines can implement specific graph features. Currently the Shader Graph is supported on the High Definition Rendering Pipeline and the Lightweight Rendering Pipeline.",
+      "maintainers": [],
+      "versions": {
+        "6.7.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.ucg.usqp": {
+      "name": "com.unity.ucg.usqp",
+      "description": "Implementation of Multiplay's Server Query Protocol (SQP) for Unity.  SQP is used to provide information about a dedicated game server's state to Multiplay.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "Multiplay",
+        "server",
+        "connected games",
+        "query protocol",
+        "usqp"
+      ],
+      "author": null
+    },
+    "com.unity.incrementalcompiler": {
+      "name": "com.unity.incrementalcompiler",
+      "description": "Roslyn based incremental compiler.",
+      "maintainers": [],
+      "versions": {
+        "0.0.42-preview.29": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "incremental",
+        "compiler"
+      ],
+      "author": null
+    },
+    "com.unity.windowsmr.metro": {
+      "name": "com.unity.windowsmr.metro",
+      "description": "Windows Mixed Reality XR SDK for use with native XR integration in Unity.",
+      "maintainers": [],
+      "versions": {
+        "0.0.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "windowsmr",
+        "xr",
+        "ar",
+        "vr",
+        "mr",
+        "windows",
+        "mixed",
+        "reality",
+        "hololens",
+        "holo"
+      ],
+      "author": null
+    },
+    "com.unity.sync": {
+      "name": "com.unity.sync",
+      "description": "Unity Sync importer used for Autodesk Revit to Unity and other AEC-Indurtial workflow. The package contains Sync inhouse format support and other utilities for navigation and visualization",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "aec",
+        "industrial",
+        "revit",
+        "sketchup"
+      ],
+      "author": null
+    },
+    "com.unity.learn.iet-framework.authoring": {
+      "name": "com.unity.learn.iet-framework.authoring",
+      "description": "Authoring tools for In-Editor Tutorials.",
+      "maintainers": [],
+      "versions": {
+        "0.1.11-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "tutorials"
+      ],
+      "author": null
+    },
+    "com.unity.probuilder.tests": {
+      "name": "com.unity.probuilder.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "4.1.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.performance.profile-analyser": {
+      "name": "com.unity.performance.profile-analyser",
+      "description": "The profile analyser tool augments the standard Unity Profiler. It provides multi frame analysis of the profiling data.\n\nMain features: \n Multi frame analysis of a single scan \n Comparison of two multi frame profile scans \n\n",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.ads": {
+      "name": "com.unity.ads",
+      "description": "Unity Ads is a video ad network for iOS and Android that allows you to quickly and effectively monetize your games.",
+      "maintainers": [],
+      "versions": {
+        "3.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "ads",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.sync.services": {
+      "name": "com.unity.sync.services",
+      "description": "Unity package ",
+      "maintainers": [],
+      "versions": {
+        "0.2.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "sync",
+        "services",
+        "industrial"
+      ],
+      "author": null
+    },
+    "com.unity.xiaomi": {
+      "name": "com.unity.xiaomi",
+      "description": "Unity SDK for Xiaomi integrates Xiaomi store to Unity IAP, which includes Amazon, Google Play, etc. The stand-alone Xiaomi SDK isn't integrated to Unity IAP and just include Xiaomi Store SDK. If developers only need to publish their games to Xiaomi Store, this SDK will suffice.",
+      "maintainers": [],
+      "versions": {
+        "1.0.4-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.u2d.common": {
+      "name": "com.unity.u2d.common",
+      "description": "2D Common",
+      "maintainers": [],
+      "versions": {
+        "0.1.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d"
+      ],
+      "author": null
+    },
+    "com.unity.xr.remoting": {
+      "name": "com.unity.xr.remoting",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.7": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xrsubsystems",
+        "xreditorsubsystem",
+        "ar",
+        "augmented",
+        "reality",
+        "remoting",
+        "mock",
+        "simulation"
+      ],
+      "author": null
+    },
+    "com.unity.ide.rider.tests": {
+      "name": "com.unity.ide.rider.tests",
+      "description": "Code editor integration for supporting Rider as code editor for unity. Adds support for generating csproj files for intellisense purposes, auto discovery of installations, etc.",
+      "maintainers": [],
+      "versions": {
+        "1.0.5": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.xrfacesubsystem": {
+      "name": "com.unity.xr.xrfacesubsystem",
+      "description": "Face Subsystem Definition. The generic API definition of a standalone face subsystem.  Client applications can use this API to access AR Face Tracking data in a generic way from providers. Face tracking providers will depend on this package and implement a subset of these APIs. Providers will specify which features they support by populating the face subsystem descriptor appropriately.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "face",
+        "anchor",
+        "subsystem",
+        "XR",
+        "blendshape",
+        "mesh",
+        "generic"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arextensions": {
+      "name": "com.unity.xr.arextensions",
+      "description": "Provides extensions to the built-in XR Subsystems related to AR.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.8": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xr",
+        "ar",
+        "augmented",
+        "reality",
+        "extension",
+        "extensions"
+      ],
+      "author": null
+    },
+    "com.unity.test-framework.utp-reporter": {
+      "name": "com.unity.test-framework.utp-reporter",
+      "description": "Translates test messages into UTP messages and sends them over Player Connection",
+      "maintainers": [],
+      "versions": {
+        "0.1.3-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "utp",
+        "test protocol"
+      ],
+      "author": null
+    },
+    "com.unity.package-validation-suite.tests": {
+      "name": "com.unity.package-validation-suite.tests",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.5.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.ui.builder": {
+      "name": "com.unity.ui.builder",
+      "description": "UI Builder lets you visually create and edit UI using UIElements, UXML, and USS.",
+      "maintainers": [],
+      "versions": {
+        "0.5.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.package-manager-ui": {
+      "name": "com.unity.package-manager-ui",
+      "description": "Use the Unity Package Manager user interface to manage a Project's packages and discover new packages.\n\nFor more information, click the 'View documentation' link above. ",
+      "maintainers": [],
+      "versions": {
+        "2.1.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.2d.spriteshape": {
+      "name": "com.unity.2d.spriteshape",
+      "description": "SpriteShape Runtime & Editor Package contains the tooling and the runtime component that allows you to create very organic looking spline based 2D worlds. It comes with intuitive configurator and a highly performant renderer.",
+      "maintainers": [],
+      "versions": {
+        "2.1.0-preview.10": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "shape",
+        "spriteshape",
+        "smartsprite",
+        "spline",
+        "terrain2d"
+      ],
+      "author": null
+    },
+    "com.unity.template.lightweightvr": {
+      "name": "com.unity.template.lightweightvr",
+      "description": "This template utilizes the Lightweight Render Pipeline and has settings tuned for virtual reality applications. \n\nThis project also includes \n Shadergraph \n Post-processing V2 Stack  \n Presets \n Example content",
+      "maintainers": [],
+      "versions": {
+        "3.4.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.recorder": {
+      "name": "com.unity.recorder",
+      "description": "Unity Recorder allows the recording of Animation clips, Videos and Images directly from the Unity Editor.",
+      "maintainers": [],
+      "versions": {
+        "2.0.2-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unity",
+        "recorder",
+        "recording",
+        "capture",
+        "video",
+        "animation",
+        "clip",
+        "images"
+      ],
+      "author": null
+    },
+    "com.unity.xr.vuforia": {
+      "name": "com.unity.xr.vuforia",
+      "description": "Vuforia Engine for Unity",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "vuforia",
+        "ar",
+        "xr",
+        "augmented",
+        "reality",
+        "sdk"
+      ],
+      "author": null
+    },
+    "com.unity.xr.windowsmr.metro": {
+      "name": "com.unity.xr.windowsmr.metro",
+      "description": "Windows Mixed Reality XR SDK for use with native XR integration in Unity.",
+      "maintainers": [],
+      "versions": {
+        "3.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "windowsmr",
+        "xr",
+        "ar",
+        "vr",
+        "mr",
+        "windows",
+        "mixed",
+        "reality",
+        "hololens",
+        "holo"
+      ],
+      "author": null
+    },
+    "com.unity.test-framework.performance": {
+      "name": "com.unity.test-framework.performance",
+      "description": "Extension to the Unity Test framework package. Adds performance testing capabilities and collects configuration metadata.",
+      "maintainers": [],
+      "versions": {
+        "1.2.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "performance",
+        "test"
+      ],
+      "author": null
+    },
+    "com.unity.unode": {
+      "name": "com.unity.unode",
+      "description": "This package contains a framework for authoring composable nodes that form a processing graph.",
+      "maintainers": [],
+      "versions": {
+        "0.7.2-preview.animation": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "unode",
+        "graph",
+        "processing"
+      ],
+      "author": null
+    },
+    "com.unity.burst": {
+      "name": "com.unity.burst",
+      "description": "Burst is a compiler, it translates from IL/.NET bytecode to highly optimized native code using LLVM.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.connect.share": {
+      "name": "com.unity.connect.share",
+      "description": "Use Share WebGL Game package to upload and share WebGL game on Unity Connect website.",
+      "maintainers": [],
+      "versions": {
+        "1.0.4-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "webgl",
+        "share",
+        "connect"
+      ],
+      "author": null
+    },
+    "com.unity.testing.srp.core": {
+      "name": "com.unity.testing.srp.core",
+      "description": "Test package containing core graphics tests",
+      "maintainers": [],
+      "versions": {
+        "4.7.0-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "qa",
+        "test",
+        "testing",
+        "tests",
+        "graphics"
+      ],
+      "author": null
+    },
+    "com.unity.xr.oculus.android": {
+      "name": "com.unity.xr.oculus.android",
+      "description": "This package contains the necessary components required to use the Oculus Virtual Reality SDK on Android. By using this package, you will be able to deploy and run your applications on Oculus supported devices.",
+      "maintainers": [],
+      "versions": {
+        "1.36.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "oculus",
+        "xr",
+        "vr",
+        "virtual",
+        "gear",
+        "gearvr",
+        "go",
+        "quest",
+        "sdk",
+        "android"
+      ],
+      "author": null
+    },
+    "com.unity.2d.common": {
+      "name": "com.unity.2d.common",
+      "description": "2D Common is a package that contains shared functionalities that are used by most of the other 2D packages.",
+      "maintainers": [],
+      "versions": {
+        "1.1.0-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d"
+      ],
+      "author": null
+    },
+    "com.unity.formats.fbx.tests": {
+      "name": "com.unity.formats.fbx.tests",
+      "description": "This is not a user-facing package.",
+      "maintainers": [],
+      "versions": {
+        "2.0.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.common2d": {
+      "name": "com.unity.common2d",
+      "description": "2D Common",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d"
+      ],
+      "author": null
+    },
+    "unity-version-test-2": {
+      "name": "unity-version-test-2",
+      "description": "Test unity compatibility feature",
+      "maintainers": [],
+      "versions": {
+        "2.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.mock": {
+      "name": "com.unity.xr.mock",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xrsubsystems",
+        "xreditorsubsystem",
+        "ar",
+        "augmented",
+        "reality",
+        "remoting",
+        "mock",
+        "simulation"
+      ],
+      "author": null
+    },
+    "com.unity.subsystemregistration": {
+      "name": "com.unity.subsystemregistration",
+      "description": "Provides internal registration mechanism for standalone subsystems.  It allows a standalone subsystem to inform the Subsystem Manager of its existence.",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "subsystem",
+        "registration",
+        "internal"
+      ],
+      "author": null
+    },
+    "com.unity.multiplayer-hlapi": {
+      "name": "com.unity.multiplayer-hlapi",
+      "description": "The high level API component of the Unity Multiplayer system.",
+      "maintainers": [],
+      "versions": {
+        "0.2.2-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "multiplayer",
+        "networking",
+        "hlapi",
+        "high-level",
+        "api"
+      ],
+      "author": null
+    },
+    "com.unity.visualscripting": {
+      "name": "com.unity.visualscripting",
+      "description": "Unity's visual scripting tool, allows scripting without using a programming language",
+      "maintainers": [],
+      "versions": {
+        "0.7.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "scripting",
+        "visualscripting",
+        "visual",
+        "graph",
+        "node",
+        "edge"
+      ],
+      "author": null
+    },
+    "com.unity.memoryprofiler": {
+      "name": "com.unity.memoryprofiler",
+      "description": "The Memory Profiler creates a unified solution allowing you to profile both small projects on mobile devices and big AAA projects on high end machines. It provides actionable information about allocations in the engine to allow developers to manage and reduce memory usage. ",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.6": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "profiler",
+        "memory",
+        "memoryprofiler",
+        "snapshot",
+        "profiling",
+        "tool"
+      ],
+      "author": null
+    },
+    "com.unity.2d.ik.test": {
+      "name": "com.unity.2d.ik.test",
+      "description": "2D IK",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-experimental": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "2d",
+        "ik"
+      ],
+      "author": null
+    },
+    "com.unity.package-validation-suite": {
+      "name": "com.unity.package-validation-suite",
+      "description": "Unity Package Manager validation suite, used to evaluate a package's integrity before it's considered for publishing.  This is a Unity internal tool at the moment, no support will be provided for this package.",
+      "maintainers": [],
+      "versions": {
+        "0.5.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.learn.iet-framework": {
+      "name": "com.unity.learn.iet-framework",
+      "description": "This package is mandatory for all In-Editor Tutorials.",
+      "maintainers": [],
+      "versions": {
+        "0.1.14-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "tutorials"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arkit-face-tracking": {
+      "name": "com.unity.xr.arkit-face-tracking",
+      "description": "Support for face tracking on ARKit.\n\nIncludes support for: \n Face pose tracking \n Blendshapes \n\nNote: Only supported on devices with a forward-facing depth camera, like the iPhone X",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.4": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.objecttracking": {
+      "name": "com.unity.xr.objecttracking",
+      "description": "MonoBehaviours for the XR Object Tracking Subsystem",
+      "maintainers": [],
+      "versions": {
+        "0.0.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "object",
+        "recognition",
+        "subsystem",
+        "XR",
+        "mesh",
+        "generic"
+      ],
+      "author": null
+    },
+    "com.unity.traceeventprofiler": {
+      "name": "com.unity.traceeventprofiler",
+      "description": "Performance profiler that exports to the Trace Event Format.\n\nThis package is only supported on OSX, Windows, and Android platforms.",
+      "maintainers": [],
+      "versions": {
+        "1.0.10-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "performance",
+        "unity"
+      ],
+      "author": null
+    },
+    "com.unity.postprocessing": {
+      "name": "com.unity.postprocessing",
+      "description": "The post-processing stack (v2) comes with a collection of effects and image filters you can apply to your cameras to improve the visuals of your games.",
+      "maintainers": [],
+      "versions": {
+        "2.0.19": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.audio.dspgraph": {
+      "name": "com.unity.audio.dspgraph",
+      "description": "DSPGraph is a low level sample rendering framework for defining DSP kernels and processing audio samples. \n\nThis package: \n Allows you to build audio signal processing graphs \n Stream and process samples from AudioClips",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.arcore": {
+      "name": "com.unity.arcore",
+      "description": "Provides native Google ARCore integration for use with Unity's multi-platform XR API.\n=Supported Features=\n-Efficient Background Rendering\n-Horizontal Planes\n-Depth Data\n-Reference Points\n-Hit Testing",
+      "maintainers": [],
+      "versions": {
+        "1.0.0-preview.6": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "arcore",
+        "ar",
+        "augmented",
+        "xr",
+        "reality",
+        "core"
+      ],
+      "author": null
+    },
+    "com.unity.facebook.gameroom.sdk": {
+      "name": "com.unity.facebook.gameroom.sdk",
+      "description": "Facebook Gameroom platform support including Facebook SDK for Unity",
+      "maintainers": [],
+      "versions": {
+        "7.10.1": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.gvr.ios": {
+      "name": "com.unity.gvr.ios",
+      "description": "This package contains the necessary components required to use the GVR Virtual Reality SDK on iOS. By using this package, you will be able to deploy and run your applications on Cardboard supported devices.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "google",
+        "xr",
+        "vr",
+        "ar",
+        "virtual",
+        "cardboard",
+        "daydream",
+        "sdk",
+        "ios",
+        "gvr"
+      ],
+      "author": null
+    },
+    "com.unity.windowsmr": {
+      "name": "com.unity.windowsmr",
+      "description": "Windows Mixed Reality XR SDK for use with native XR integration in Unity.",
+      "maintainers": [],
+      "versions": {
+        "0.0.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "windowsmr",
+        "xr",
+        "ar",
+        "vr",
+        "mr",
+        "windows",
+        "mixed",
+        "reality",
+        "hololens",
+        "holo"
+      ],
+      "author": null
+    },
+    "com.autodesk.fbx": {
+      "name": "com.autodesk.fbx",
+      "description": "This package provides Unity C# bindings to the Autodesk FBX SDK.",
+      "maintainers": [],
+      "versions": {
+        "2.0.1-preview.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "fbx",
+        "animation",
+        "modeling",
+        "maya",
+        "max"
+      ],
+      "author": null
+    },
+    "com.unity.xr.arfoundation": {
+      "name": "com.unity.xr.arfoundation",
+      "description": "A collection of MonoBehaviours and C# utilities for working with AR Subsystems. \n\nIncludes: \n GameObject menu items for creating an AR setup \n MonoBehaviours that control AR session lifecycle and create GameObjects from detected, real-world trackable features \n Scale handling \n Face tracking",
+      "maintainers": [],
+      "versions": {
+        "2.2.0-preview.2": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "xr",
+        "ar",
+        "augmented",
+        "reality",
+        "utility",
+        "utilities",
+        "foundation",
+        "core"
+      ],
+      "author": null
+    },
+    "conflicttest3a": {
+      "name": "conflicttest3a",
+      "description": null,
+      "maintainers": [],
+      "versions": {
+        "1.2.3": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "f": {
+      "name": "f",
+      "description": "testing cyclic dep",
+      "maintainers": [],
+      "versions": {
+        "1.0.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": ""
+    },
+    "com.unity.barracuda": {
+      "name": "com.unity.barracuda",
+      "description": "Barracuda is lightweight and cross-platform Neural Net inference library. Barracuda supports inference both on GPU and CPU.",
+      "maintainers": [],
+      "versions": {
+        "0.1.5-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.internal-framework-helpers": {
+      "name": "com.unity.internal-framework-helpers",
+      "description": "Your description, which will show up in the Package Manager UI",
+      "maintainers": [],
+      "versions": {
+        "0.1.3": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "key",
+        "words",
+        "used",
+        "for",
+        "package",
+        "search"
+      ],
+      "author": null
+    },
+    "com.unity.hub.sync.revit": {
+      "name": "com.unity.hub.sync.revit",
+      "description": "The Revit plugin for the Hub permits to enabled Revit as a Third Party Application in the Hub.",
+      "maintainers": [],
+      "versions": {
+        "0.1.0-preview.30": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "industrial",
+        "revit",
+        "third-party",
+        "application"
+      ],
+      "author": {
+        "name": "Paolo Gavazzi",
+        "email": "paolo@unity3d.com",
+        "url": ""
+      }
+    },
+    "com.unity.dummypackaged": {
+      "name": "com.unity.dummypackaged",
+      "description": "Test package used to test the package validation suite",
+      "maintainers": [],
+      "versions": {
+        "0.1.11-preview": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.template.2d": {
+      "name": "com.unity.template.2d",
+      "description": "This is an empty project configured for 2D apps. It uses Unity's built-in renderer.",
+      "maintainers": [],
+      "versions": {
+        "2.3.0": "latest"
+      },
+      "time": null,
+      "keywords": [],
+      "author": null
+    },
+    "com.unity.xr.oculus.standalone": {
+      "name": "com.unity.xr.oculus.standalone",
+      "description": "This package contains the necessary components required to use the Oculus Virtual Reality SDK on desktop platforms. By using this package, you will be able to deploy and run your applications on Oculus supported devices.",
+      "maintainers": [],
+      "versions": {
+        "1.29.1": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "oculus",
+        "xr",
+        "vr",
+        "virtual",
+        "sdk",
+        "standalone",
+        "desktop"
+      ],
+      "author": null
+    },
+    "com.unity.visualeffectgraph": {
+      "name": "com.unity.visualeffectgraph",
+      "description": "The Visual Effect Graph is a node based visual effect editor. It enables artists to author next generation visual effects simulated directly on GPU",
+      "maintainers": [],
+      "versions": {
+        "6.8.1-preview": "latest"
+      },
+      "time": null,
+      "keywords": [
+        "vfx",
+        "visualeffect",
+        "graph",
+        "effect",
+        "particles"
+      ],
+      "author": null
+    }
+  }
+  

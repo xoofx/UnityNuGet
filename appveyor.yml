@@ -1,0 +1,21 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+configuration: Release
+install:
+- ps: >-
+    cd src
+
+    nuget restore UnityNuGet.sln
+
+    $env:DEPLOY_SERVER_TO_AZURE = 'false'
+
+    if(-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) {
+      if($env:appveyor_repo_tag -eq 'True') {
+        if($env:appveyor_repo_tag_name -match '^[0-9]') {
+           $env:DEPLOY_SERVER_TO_AZURE = 'true'
+        }
+      }
+    }
+build:
+  project: src/UnityNuGet.sln
+  verbosity: minimal
