@@ -17,5 +17,9 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "GeneticSharp": {
+    "listed": true,
+    "version": "2.5.2"
   }
 }
