@@ -38,7 +38,9 @@ Your NuGet package needs to respect a few constraints in order to be listed in t
 - It must have non-preview versions (e.g `1.0.0` but not `1.0.0-preview.1`)
 - It must provide `.NETStandard2.0` assemblies as part of its package
 
-You can send a PR to this repository to modify the [registry.json](registry.json) file.
+You can send a PR to this repository to modify the [registry.json](registry.json) file (don't forget to maintain the alphabetical order)
+
+I recommend also to put the lowest version that has support for `.NETStandard2.0` upward so that other packages depending on your package have a chance to work with.
 
 > NOTE: We reserve the right to decline a package to be available through this service
 
