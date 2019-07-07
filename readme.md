@@ -1,4 +1,4 @@
-# UnityNuGet [![Build status](https://ci.appveyor.com/api/projects/status/lji75njcmbe4erh5?svg=true)](https://ci.appveyor.com/project/xoofx/unitynuget)
+# UnityNuGet [![Build status](https://ci.appveyor.com/api/projects/status/xecinpa92napbd2e?svg=true)](https://ci.appveyor.com/project/xoofx/unitynuget)
 
 <img align="right" width="160px" height="160px" src="img/unitynuget.png">
 
