@@ -15,13 +15,20 @@ namespace UnityNuGet.Server.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private RegistryCacheSingleton _cacheSingleton;
+        private readonly RegistryCacheSingleton _cacheSingleton;
 
         public ApiController(RegistryCacheSingleton cacheSingleton)
         {
             _cacheSingleton = cacheSingleton;
         }
 
+        // GET /
+        [HttpGet("")]
+        public IActionResult Home()
+        {
+            return Ok();
+        }
+        
         // GET -/all
         [HttpGet("-/all")]
         public JsonResult GetAll()
@@ -46,7 +53,7 @@ namespace UnityNuGet.Server.Controllers
         // GET {package_id}/-/{package_file}
         [HttpGet("{id}/-/{file}")]
         [HttpHead("{id}/-/{file}")]
-        public IActionResult  DownloadPackage(string id, string file)
+        public IActionResult DownloadPackage(string id, string file)
         {
             var package = _cacheSingleton.Instance.GetPackage(id);
             if (package == null)
