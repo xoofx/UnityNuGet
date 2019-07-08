@@ -27,7 +27,7 @@ artifacts:
   type: WebDeployPackage
 deploy:
   - provider: WebDeploy
-    server: https://unitynuget-registry.scm.azurewebsites.net:443
+    server: https://unitynuget-registry.scm.azurewebsites.net:443/msdeploy.axd?site=unitynuget-registry
     website: unitynuget-registry
     username: $unitynuget-registry
     password:
