@@ -23,7 +23,7 @@
     "version": "4.5.0"
   },
   "System.Numerics.Vectors": {
-    "listed": true,
+    "listed": false,
     "version": "4.4.0"
   },
   "System.Runtime.CompilerServices.Unsafe": {
