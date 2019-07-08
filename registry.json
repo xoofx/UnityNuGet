@@ -1,4 +1,8 @@
 {
+  "GeneticSharp": {
+    "listed": true,
+    "version": "2.5.2"
+  },
   "Microsoft.CSharp": {
     "ignore": true
   },
