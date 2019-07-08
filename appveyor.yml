@@ -33,6 +33,7 @@ deploy:
     password:
       secure: j5rB9C0QezfJlpCglmalS14+5PkTuAJ1PT9fuRFNss+5UQNAPmHcW8z4pvX1CRD6htRaorT6fe+KoySIiOwYOg==
     remove_files: false
+    app_offline: true
     artifact: UnityNuGetDeploy
     on:
       branch: master
