@@ -19,3 +19,21 @@ install:
 build:
   project: src/UnityNuGet.sln
   verbosity: minimal
+after_build:
+- dotnet publish -o ..\build -c Release UnityNuGet.Server\UnityNuGet.Server.csproj
+artifacts:
+- path: src/build
+  name: UnityNuGetDeploy
+  type: WebDeployPackage
+deploy:
+  - provider: WebDeploy
+    server: https://unitynuget-registry.scm.azurewebsites.net:443
+    website: unitynuget-registry
+    username: $unitynuget-registry
+    password:
+      secure: j5rB9C0QezfJlpCglmalS14+5PkTuAJ1PT9fuRFNss+5UQNAPmHcW8z4pvX1CRD6htRaorT6fe+KoySIiOwYOg==
+    remove_files: false
+    artifact: UnityNuGetDeploy
+    on:
+      branch: master
+      DEPLOY_SERVER_TO_AZURE: true
