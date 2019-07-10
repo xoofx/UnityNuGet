@@ -335,7 +335,7 @@ namespace UnityNuGet
                         foreach (var file in item.Items)
                         {
                             var fileInUnityPackage = Path.GetFileName(file);
-                            var meta = UnityMeta.GetMetaForExtension(Path.GetExtension(fileInUnityPackage));
+                            var meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), Path.GetExtension(fileInUnityPackage));
                             if (meta == null)
                             {
                                 continue;
@@ -359,8 +359,9 @@ namespace UnityNuGet
                     // Write the package,json
                     var unityPackage = CreateUnityPackage(npmPackageInfo, npmPackageVersion);
                     var unityPackageAsJson = unityPackage.ToJson();
-                    WriteTextFileToTar(tarArchive, "package.json", unityPackageAsJson);
-                    WriteTextFileToTar(tarArchive, "package.json.meta", UnityMeta.GetMetaForExtension(".json"));
+                    const string packageJsonFileName = "package.json";
+                    WriteTextFileToTar(tarArchive, packageJsonFileName, unityPackageAsJson);
+                    WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json"));
 
                     // Write the license to the package if any
                     string license = null;
@@ -413,8 +414,9 @@ namespace UnityNuGet
 
                     if (!string.IsNullOrEmpty(license))
                     {
-                        WriteTextFileToTar(tarArchive, "License.md", license);
-                        WriteTextFileToTar(tarArchive, "License.md.meta", UnityMeta.GetMetaForExtension(".md"));
+                        const string licenseMdFile = "License.md";
+                        WriteTextFileToTar(tarArchive, licenseMdFile, license);
+                        WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md"));
                     }
                 }
                 
@@ -438,6 +440,11 @@ namespace UnityNuGet
 
                 LogError($"Error while processing package `{identity}`. Reason: {ex}");
             }
+        }
+
+        private static Guid GetStableGuid(PackageIdentity identity, string name)
+        {
+            return StringToGuid(identity.Id + $"/{name}*");
         }
 
         private FileInfo GetUnityPackageFileInfo(PackageIdentity identity)
@@ -508,6 +515,23 @@ namespace UnityNuGet
             unityPackage.Dependencies.AddRange(npmPackageVersion.Dependencies);
             unityPackage.Keywords.AddRange(npmPackageInfo.Keywords);
             return unityPackage;
+        }
+
+        private static Guid StringToGuid(string text)
+        {
+            var guid = new byte[16];
+            var inputBytes = Encoding.UTF8.GetBytes(text);
+            using (var algorithm = SHA1.Create())
+            {
+                var hash = algorithm.ComputeHash(inputBytes);
+                Array.Copy(hash, 0, guid, 0, guid.Length);
+            }
+
+            // Follow UUID for SHA1 based GUID 
+            const int version = 5; // SHA1 (3 for MD5)
+            guid[6] = (byte) ((guid[6] & 0x0F) | (version << 4));
+            guid[8] = (byte) ((guid[8] & 0x3F) | 0x80);
+            return new Guid(guid);
         }
 
         private static string Sha1sum(Stream stream)

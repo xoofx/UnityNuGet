@@ -8,12 +8,12 @@ namespace UnityNuGet
     /// </summary>
     internal static class UnityMeta
     {
-        public static string GetMetaForExtension(string extension)
+        public static string GetMetaForExtension(Guid guid, string extension)
         {
             switch (extension)
             {
                 case ".dll":
-                    return GetMetaForDll();
+                    return GetMetaForDll(guid);
                 
                 case ".pdb":
                     break;
@@ -22,13 +22,13 @@ namespace UnityNuGet
                 case ".xml":
                 case ".txt":
                 case ".md":
-                    return GetMetaForText();
+                    return GetMetaForText(guid);
             }
 
             return null;
         }
 
-        private static string GetMetaForDll()
+        private static string GetMetaForDll(Guid guid)
         {
             const string text = @"fileFormatVersion: 2
 guid: {{ guid }}
@@ -127,11 +127,10 @@ PluginImporter:
   assetBundleVariant: 
 ";
             var meta = Template.Parse(text);
-            var guid = Guid.NewGuid().ToString("N");
-            return meta.Render(new {guid = guid});
+            return meta.Render(new {guid = guid.ToString("N")});
         }
 
-        private static string GetMetaForText()
+        private static string GetMetaForText(Guid guid)
         {
             const string text = @"fileFormatVersion: 2
 guid: {{ guid }}
@@ -142,10 +141,7 @@ TextScriptImporter:
   assetBundleVariant: 
 ";
             var meta = Template.Parse(text);
-            var guid = Guid.NewGuid().ToString("N");
-            return meta.Render(new {guid = guid});
+            return meta.Render(new {guid = guid.ToString("N")});
         }
-        
-        
     }
 }
