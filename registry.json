@@ -6,6 +6,10 @@
   "Microsoft.CSharp": {
     "ignore": true
   },
+  "Moq": {
+    "listed": true,
+    "version": "4.12.0"
+  },
   "Newtonsoft.Json": {
     "listed": true,
     "version": "11.0.1"
