@@ -1,4 +1,8 @@
 {
+  "Eflatun.Expansions": {
+    "listed": true,
+    "version": "0.0.2"
+  },
   "GeneticSharp": {
     "listed": true,
     "version": "2.0.0"
