@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.0 (07 Oct 2019)
+- Add new packages
+
 ## 0.3.0 (10 July 2019)
 - Fix Guid generated for asmdef/meta files to use a stable GUID across package versions for the same asmdef
 
