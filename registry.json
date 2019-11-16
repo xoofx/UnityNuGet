@@ -26,6 +26,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Sharpcompress": {
+    "listed": true,
+    "version": "0.24.0"
+  },
   "System.Buffers": {
     "listed": true,
     "version": "4.4.0"
@@ -41,6 +45,10 @@
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "System.Text.Encoding.CodePages": {
+    "listed": false,
+    "version": "4.5.0"
   },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
