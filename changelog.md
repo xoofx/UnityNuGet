@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.0 (17 Nov 2019)
+- Add Sharpcompress package (0.24.0)
+
 ## 0.4.0 (07 Oct 2019)
 - Add new packages
 
