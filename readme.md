@@ -1,4 +1,4 @@
-# UnityNuGet [![Build status](https://ci.appveyor.com/api/projects/status/xecinpa92napbd2e?svg=true)](https://ci.appveyor.com/project/xoofx/unitynuget)
+# UnityNuGet [![Build Status](https://github.com/xoofx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/xoofx/UnityNuGet/actions)
 
 <img align="right" width="160px" height="160px" src="img/unitynuget.png">
 

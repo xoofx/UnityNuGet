@@ -1,0 +1,36 @@
+name: deploy
+
+env:
+  PROJECT_NAME: UnityNuGet
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+
+    - name: Build & test (Release)
+      run: dotnet test src -c Release
+
+    - name: Publish (Release)
+      run: dotnet publish src -c Release -o build/${{env.PROJECT_NAME}}
+       
+    - name: 'Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: unitynuget-registry
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: build/${{env.PROJECT_NAME}} 

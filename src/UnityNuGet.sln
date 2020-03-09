@@ -1,19 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityNuGet.Server", "UnityNuGet.Server\UnityNuGet.Server.csproj", "{C84FC40C-94EE-4314-BB48-CD1A98849D82}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityNuGet.Server", "UnityNuGet.Server\UnityNuGet.Server.csproj", "{C84FC40C-94EE-4314-BB48-CD1A98849D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityNuGet", "UnityNuGet\UnityNuGet.csproj", "{3E72FFD2-4CB6-4B44-9A49-29699722D93E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityNuGet", "UnityNuGet\UnityNuGet.csproj", "{3E72FFD2-4CB6-4B44-9A49-29699722D93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityNuGet.Tests", "UnityNuGet.Tests\UnityNuGet.Tests.csproj", "{EBC6FFF4-FD7C-4E03-B907-F12908C1D900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityNuGet.Tests", "UnityNuGet.Tests\UnityNuGet.Tests.csproj", "{EBC6FFF4-FD7C-4E03-B907-F12908C1D900}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D2A040A5-DB8C-43BE-A801-107503057C2B}"
-ProjectSection(SolutionItems) = preProject
-	..\appveyor.yml = ..\appveyor.yml
-	..\changelog.md = ..\changelog.md
-	..\license.txt = ..\license.txt
-	..\readme.md = ..\readme.md
-	..\registry.json = ..\registry.json
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		..\changelog.md = ..\changelog.md
+		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
+		..\.github\workflows\deploy.yml = ..\.github\workflows\deploy.yml
+		..\license.txt = ..\license.txt
+		..\readme.md = ..\readme.md
+		..\registry.json = ..\registry.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,5 +37,11 @@ Global
 		{EBC6FFF4-FD7C-4E03-B907-F12908C1D900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC6FFF4-FD7C-4E03-B907-F12908C1D900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC6FFF4-FD7C-4E03-B907-F12908C1D900}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E40E3A93-4338-423A-B9D0-474BBA88F2A5}
 	EndGlobalSection
 EndGlobal
