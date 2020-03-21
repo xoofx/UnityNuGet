@@ -143,20 +143,21 @@ namespace UnityNuGet
                         continue;
                     }
 
-                    PackageDependencyGroup netstd20Dependency = null;
+                    PackageDependencyGroup netstdDependency = null;
 
                     foreach (var dependencySet in packageMeta.DependencySets)
                     {
-                        if (dependencySet.TargetFramework == NuGetFrameworkNetStandard20)
+                        if (dependencySet.TargetFramework.Framework == NuGetFrameworkNetStandard20.Framework
+                        && dependencySet.TargetFramework.Version <= NuGetFrameworkNetStandard20.Version
+                        && (netstdDependency == null || netstdDependency.TargetFramework.Version < dependencySet.TargetFramework.Version))
                         {
-                            netstd20Dependency = dependencySet;
-                            break;
+                            netstdDependency = dependencySet;
                         }
                     }
 
-                    if (netstd20Dependency == null)
+                    if (netstdDependency == null)
                     {
-                        Logger.LogWarning($"The package `{packageIdentity}` doesn't support `netstandard2.0`");
+                        Logger.LogWarning($"The package `{packageIdentity}` doesn't support `netstandard2.0` or lower.");
                         continue;
                     }
                     
@@ -228,7 +229,7 @@ namespace UnityNuGet
                     npmPackage.Versions[npmVersion.Version] = npmVersion;
 
                     bool hasDependencyErrors = false;
-                    foreach (var deps in netstd20Dependency.Packages)
+                    foreach (var deps in netstdDependency.Packages)
                     {
                         var depsId = deps.Id.ToLowerInvariant();
 
@@ -255,7 +256,7 @@ namespace UnityNuGet
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta);
+                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, netstdDependency.TargetFramework);
                         npmPackage.Time[currentVersion.ToString()] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity).CreationTimeUtc;
 
                         // Copy repository info if necessary
@@ -271,11 +272,11 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to Unity package if not already
         /// </summary>
-        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
+        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, NuGetFramework targetFramework)
         {
             if (!IsUnityPackageExists(identity))
             {
-                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta);
+                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, targetFramework);
             }
             else
             {
@@ -286,7 +287,7 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to a Unity package.
         /// </summary>
-        private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
+        private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, NuGetFramework targetFramework)
         {
             var unityPackageFileName = GetUnityPackageFileName(identity);
             var unityPackageFilePath = Path.Combine(RootUnityPackageFolder, unityPackageFileName);
@@ -327,7 +328,7 @@ namespace UnityNuGet
                 {
                     foreach (var item in await packageReader.GetLibItemsAsync(CancellationToken.None))
                     {
-                        if (item.TargetFramework != NuGetFrameworkNetStandard20)
+                        if (item.TargetFramework != targetFramework)
                         {
                             continue;
                         }
