@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.0 (31 Oct 2020)
+- Add AutomaticGraphLayout package (1.1.6+)
+
 ## 0.5.0 (17 Nov 2019)
 - Add Sharpcompress package (0.24.0)
 
