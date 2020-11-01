@@ -61,8 +61,7 @@ namespace UnityNuGet.Server
             // Add the registry cache updater
             services.AddHostedService<RegistryCacheUpdater>();
 
-            // what is that?
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +78,11 @@ namespace UnityNuGet.Server
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

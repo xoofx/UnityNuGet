@@ -11,7 +11,7 @@ namespace UnityNuGet.Server
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+                WebHost.CreateDefaultBuilder(args)
                 .UseApplicationInsights()
                 //.UseSetting("detailedErrors", "true")
                 .UseStartup<Startup>();
