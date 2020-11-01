@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.1 (01 Nov 2020)
+- Fix Webserver startup
+
 ## 0.6.0 (31 Oct 2020)
 - Add AutomaticGraphLayout package (1.1.6+)
 
