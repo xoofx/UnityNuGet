@@ -61,7 +61,8 @@ namespace UnityNuGet.Server
             // Add the registry cache updater
             services.AddHostedService<RegistryCacheUpdater>();
 
-            services.AddControllers();
+            // Also enable NewtonsoftJson serialization
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
