@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.2 (06 Nov 2020)
+- Fix Json serialization with netcoreapp3.1
+
 ## 0.6.1 (01 Nov 2020)
 - Fix Webserver startup
 
