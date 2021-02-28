@@ -54,6 +54,20 @@ Only compatible with **`Unity 2019.1`** and potentially with newer version.
 >
 > It may not work with a more recent version of Unity
 
+## Docker
+
+Example docker-compose.yml file:
+
+```yaml
+services:
+  unitynuget:
+    build: .
+    ports:
+      - 5000:80
+    volumes:
+      - ./unity_packages:/app/unity_packages
+```
+
 ## FAQ
 
 ### Where is hosted this service?
