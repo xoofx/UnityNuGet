@@ -1,27 +1,27 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace UnityNuGet.Server
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
+        public Startup(IConfiguration configuration, IHostEnvironment hostEnvironment, ILoggerFactory loggerFactory)
         {
             Configuration = configuration;
-            HostingEnvironment = hostingEnvironment;
+            HostEnvironment = hostEnvironment;
             LoggerFactory = loggerFactory;
         }
 
         public IConfiguration Configuration { get; }
         
-        public IHostingEnvironment HostingEnvironment { get; }
+        public IHostEnvironment HostEnvironment { get; }
         
         public ILoggerFactory LoggerFactory { get; }
 
@@ -32,7 +32,7 @@ namespace UnityNuGet.Server
 
             string url = "https://unitynuget-registry.azurewebsites.net/";
 
-            bool isDevelopment = HostingEnvironment.IsDevelopment();
+            bool isDevelopment = HostEnvironment.IsDevelopment();
             if (isDevelopment)
             {
                 var urls = Configuration[WebHostDefaults.ServerUrlsKey];
@@ -66,7 +66,7 @@ namespace UnityNuGet.Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

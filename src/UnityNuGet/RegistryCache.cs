@@ -48,7 +48,7 @@ namespace UnityNuGet
                 Directory.CreateDirectory(RootUnityPackageFolder);
             }
             _settings = Settings.LoadDefaultSettings(root: null);
-            var sourceRepositoryProvider = new SourceRepositoryProvider(_settings, Repository.Provider.GetCoreV3());
+            var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(_settings), Repository.Provider.GetCoreV3());
             _sourceRepository = sourceRepositoryProvider.GetRepositories().FirstOrDefault();
             Logger = logger ?? new NuGetConsoleLogger();
             _registry = Registry.GetInstance();
@@ -323,7 +323,7 @@ namespace UnityNuGet
 
                 using (var outStream = File.Create(unityPackageFilePath))
                 using (var gzoStream = new GZipOutputStream(outStream))
-                using (var tarArchive = new TarOutputStream(gzoStream))
+                using (var tarArchive = new TarOutputStream(gzoStream, Encoding.UTF8))
                 {
                     foreach (var item in await packageReader.GetLibItemsAsync(CancellationToken.None))
                     {
