@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NuGet.Versioning;
 
 namespace UnityNuGet
@@ -13,7 +13,7 @@ namespace UnityNuGet
 
         [JsonProperty("listed")]
         public bool Listed { get; set; }
-        
+
         [JsonProperty("version")]
         public VersionRange Version { get; set; }
     }

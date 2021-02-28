@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NuGet.Common;
@@ -18,7 +18,7 @@ namespace UnityNuGet.Server
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        
+
         public override void Log(ILogMessage message)
         {
             LoggerExtensions.Log(_logger, GetLogLevel(message.Level), message.Message);

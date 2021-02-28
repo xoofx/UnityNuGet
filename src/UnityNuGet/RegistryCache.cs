@@ -41,7 +41,7 @@ namespace UnityNuGet
         public RegistryCache(string rootPersistentFolder, string rootHttpUrl, ILogger logger = null)
         {
             RootUnityPackageFolder = rootPersistentFolder ?? throw new ArgumentNullException(nameof(rootPersistentFolder));
-            RootHttpUrl = rootHttpUrl ?? throw new ArgumentNullException(nameof(rootHttpUrl)) ; 
+            RootHttpUrl = rootHttpUrl ?? throw new ArgumentNullException(nameof(rootHttpUrl));
 
             if (!Directory.Exists(RootUnityPackageFolder))
             {
@@ -55,7 +55,7 @@ namespace UnityNuGet
             _sourceCacheContext = new SourceCacheContext();
             _npmPackageRegistry = new NpmPackageRegistry();
         }
-        
+
         public bool HasErrors { get; private set; }
 
         public string RootUnityPackageFolder { get; }
@@ -136,7 +136,7 @@ namespace UnityNuGet
                 {
                     var packageIdentity = packageMeta.Identity;
                     var packageId = packageIdentity.Id.ToLowerInvariant();
-                    var npmPackageId = $"{UnityScope}.{packageId}";                  
+                    var npmPackageId = $"{UnityScope}.{packageId}";
 
                     if (!packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
@@ -159,7 +159,7 @@ namespace UnityNuGet
                         Logger.LogWarning($"The package `{packageIdentity}` doesn't support `netstandard2.0`");
                         continue;
                     }
-                    
+
                     if (!_npmPackageRegistry.Packages.TryGetValue(npmPackageId, out var npmPackage))
                     {
                         npmPackage = new NpmPackage();
@@ -195,10 +195,10 @@ namespace UnityNuGet
 
                         npmPackage.Name = npmPackageId;
                         npmPackageInfo.Name = npmPackageId;
-                        
+
                         npmPackage.Description = packageMeta.Description;
                         npmPackageInfo.Description = packageMeta.Description;
-                        
+
                         npmPackageInfo.Author = packageMeta.Authors;
                         if (packageMeta.Owners != null)
                         {
@@ -300,7 +300,7 @@ namespace UnityNuGet
                 SettingsUtility.GetGlobalPackagesFolder(_settings),
                 Logger, CancellationToken.None);
             var packageReader = downloadResult.PackageReader;
-            
+
             // Update Repository metadata if necessary
             var repoMeta = packageReader.NuspecReader.GetRepositoryMetadata();
             if (repoMeta != null && repoMeta.Url != null && repoMeta.Commit != null && repoMeta.Type != null)
@@ -366,7 +366,7 @@ namespace UnityNuGet
                     // Write the license to the package if any
                     string license = null;
                     string licenseUrlText = null;
-                    
+
                     var licenseUrl = packageMeta.LicenseMetadata?.LicenseUrl.ToString() ?? packageMeta.LicenseUrl?.ToString();
                     if (!string.IsNullOrEmpty(licenseUrl))
                     {
@@ -400,7 +400,7 @@ namespace UnityNuGet
                             // ignored
                         }
                     }
-                    
+
                     if (!string.IsNullOrEmpty(packageMeta.LicenseMetadata?.License))
                     {
                         license = packageMeta.LicenseMetadata.License;
@@ -419,7 +419,7 @@ namespace UnityNuGet
                         WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md"));
                     }
                 }
-                
+
                 using (var stream = File.OpenRead(unityPackageFilePath))
                 {
                     var sha1 = Sha1sum(stream);
@@ -482,11 +482,11 @@ namespace UnityNuGet
             if (tarOut == null) throw new ArgumentNullException(nameof(tarOut));
             if (filePath == null) throw new ArgumentNullException(nameof(filePath));
             if (content == null) throw new ArgumentNullException(nameof(content));
-            
+
             var buffer = Utf8EncodingNoBom.GetBytes(content);
             WriteBufferToTar(tarOut, filePath, buffer);
         }
-        
+
         private void WriteBufferToTar(TarOutputStream tarOut, string filePath, byte[] buffer)
         {
             if (tarOut == null) throw new ArgumentNullException(nameof(tarOut));
@@ -495,21 +495,21 @@ namespace UnityNuGet
 
             filePath = filePath.Replace(@"\", "/");
             filePath = filePath.TrimStart('/');
-            
-            var tarEntry = TarEntry.CreateTarEntry("package/"+ filePath);
+
+            var tarEntry = TarEntry.CreateTarEntry("package/" + filePath);
             tarEntry.Size = buffer.Length;
             tarOut.PutNextEntry(tarEntry);
             tarOut.Write(buffer, 0, buffer.Length);
-            tarOut.CloseEntry(); 
+            tarOut.CloseEntry();
         }
 
         private static UnityPackage CreateUnityPackage(NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion)
         {
             var unityPackage = new UnityPackage
             {
-                Name = npmPackageInfo.Name, 
-                Version = npmPackageVersion.Version, 
-                Description = npmPackageInfo.Description, 
+                Name = npmPackageInfo.Name,
+                Version = npmPackageVersion.Version,
+                Description = npmPackageInfo.Description,
                 Unity = npmPackageVersion.Unity
             };
             unityPackage.Dependencies.AddRange(npmPackageVersion.Dependencies);
@@ -529,8 +529,8 @@ namespace UnityNuGet
 
             // Follow UUID for SHA1 based GUID 
             const int version = 5; // SHA1 (3 for MD5)
-            guid[6] = (byte) ((guid[6] & 0x0F) | (version << 4));
-            guid[8] = (byte) ((guid[8] & 0x3F) | 0x80);
+            guid[6] = (byte)((guid[6] & 0x0F) | (version << 4));
+            guid[8] = (byte)((guid[8] & 0x3F) | 0x80);
             return new Guid(guid);
         }
 
@@ -560,7 +560,7 @@ namespace UnityNuGet
         {
             var list = new List<string>();
             if (input == null) return list;
-            foreach (var entry in input.Split(new[] {',', ';'}, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var entry in input.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 list.Add(entry.Trim());
             }

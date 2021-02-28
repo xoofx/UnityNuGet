@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -26,7 +26,7 @@ namespace UnityNuGet.Npm
 
         [JsonProperty("name")]
         public string Name { get; set; }
-        
+
         [JsonProperty("license")]
         public string License { get; set; }
 
@@ -37,7 +37,7 @@ namespace UnityNuGet.Npm
         public Dictionary<string, string> DistTags { get; }
 
         [JsonProperty("versions")]
-        public Dictionary<string, NpmPackageVersion> Versions { get;  }
+        public Dictionary<string, NpmPackageVersion> Versions { get; }
 
         [JsonProperty("time")]
         public Dictionary<string, DateTime> Time { get; }

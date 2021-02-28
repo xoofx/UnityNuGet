@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
@@ -30,7 +30,7 @@ namespace UnityNuGet.Server
                     builder.AppendLine($"{header.Key}:{header.Value}");
                 }
                 logger.LogInformation("Response: " + builder.ToString());
-           });
+            });
         }
     }
 }

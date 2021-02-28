@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace UnityNuGet.Npm
 {
@@ -18,7 +18,7 @@ namespace UnityNuGet.Npm
 
         public NpmSourceRepository Clone()
         {
-            return (NpmSourceRepository) MemberwiseClone();
+            return (NpmSourceRepository)MemberwiseClone();
         }
     }
 }

@@ -13,9 +13,11 @@ namespace UnityNuGet.Server
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
                     //webBuilder.UseSetting("detailedErrors", "true");
-                    webBuilder.ConfigureServices(services => {
+                    webBuilder.ConfigureServices(services =>
+                    {
                         // Add the registry cache initializer
                         services.AddHostedService<RegistryCacheInitializer>();
                         // Add the registry cache updater
