@@ -16,7 +16,11 @@ namespace UnityNuGet.Server
                 .ConfigureWebHostDefaults(webBuilder => {
                     //webBuilder.UseSetting("detailedErrors", "true");
                     webBuilder.ConfigureServices(services => {
-                        services.AddApplicationInsightsTelemetry();
+                        // Add the registry cache initializer
+                        services.AddHostedService<RegistryCacheInitializer>();
+                        // Add the registry cache updater
+                        services.AddHostedService<RegistryCacheUpdater>();
+                        services.AddSingleton<RegistryCacheSingleton>();
                     });
                     webBuilder.UseStartup<Startup>();
                 });
