@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,13 +17,13 @@ namespace UnityNuGet.Npm
             Unused = 99999;
             Packages = new Dictionary<string, NpmPackageInfo>();
         }
-        
+
         [JsonProperty("_updated")]
         public int Unused { get; set; }
 
         [JsonIgnore]
         public Dictionary<string, NpmPackageInfo> Packages { get; }
-        
+
         // everything else gets stored here
         [JsonExtensionData]
         private IDictionary<string, JToken> AdditionalData
@@ -38,6 +38,6 @@ namespace UnityNuGet.Npm
 
                 return marshalPackages;
             }
-        }        
+        }
     }
 }

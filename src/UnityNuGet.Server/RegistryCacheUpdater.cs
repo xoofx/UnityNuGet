@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +44,7 @@ namespace UnityNuGet.Server
                     {
                         // Update the registry cache in the services
                         _currentRegistryCache.Instance = newRegistryCache;
-                
+
                         _logger.LogInformation("RegistryCache successfully updated");
                     }
 

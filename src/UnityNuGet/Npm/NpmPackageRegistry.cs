@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace UnityNuGet.Npm
 {
@@ -15,7 +15,7 @@ namespace UnityNuGet.Npm
         }
 
         public Dictionary<string, NpmPackage> Packages { get; }
-        
+
         public NpmPackageListAllResponse ListedPackageInfos { get; }
 
         public NpmPackageListAllResponse UnlistedPackageInfos { get; }

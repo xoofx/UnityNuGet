@@ -28,7 +28,7 @@ namespace UnityNuGet.Server.Controllers
         {
             return Ok();
         }
-        
+
         // GET -/all
         [HttpGet("-/all")]
         public JsonResult GetAll()
@@ -49,7 +49,7 @@ namespace UnityNuGet.Server.Controllers
 
             return new JsonResult(package);
         }
-        
+
         // GET {package_id}/-/{package_file}
         [HttpGet("{id}/-/{file}")]
         [HttpHead("{id}/-/{file}")]
@@ -60,12 +60,12 @@ namespace UnityNuGet.Server.Controllers
             {
                 return new JsonResult(NpmError.NotFound);
             }
-            
+
             if (!file.StartsWith(id + "-") || !file.EndsWith(".tgz"))
             {
                 return new JsonResult(NpmError.NotFound);
             }
-            
+
             var filePath = _cacheSingleton.Instance.GetPackageFilePath(file);
             if (!System.IO.File.Exists(filePath))
             {
@@ -81,7 +81,7 @@ namespace UnityNuGet.Server.Controllers
             }
             else
             {
-                return new PhysicalFileResult(filePath, "application/octet-stream") {FileDownloadName = file};
+                return new PhysicalFileResult(filePath, "application/octet-stream") { FileDownloadName = file };
             }
         }
     }

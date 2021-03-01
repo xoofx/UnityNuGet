@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace UnityNuGet.Server
 {
@@ -33,12 +33,14 @@ namespace UnityNuGet.Server
             string url = "https://unitynuget-registry.azurewebsites.net/";
 
             bool isDevelopment = hostEnvironment.IsDevelopment();
-            if (isDevelopment) {
+            if (isDevelopment)
+            {
                 var urls = configuration[WebHostDefaults.ServerUrlsKey];
 
                 // Select HTTPS in production, HTTP in development
                 url = urls.Split(';').FirstOrDefault(x => !x.StartsWith("https"));
-                if (url == null) {
+                if (url == null)
+                {
                     throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
                 }
             }

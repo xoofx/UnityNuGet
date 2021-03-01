@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace UnityNuGet.Npm
 {
@@ -7,8 +7,8 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmError : NpmObject
     {
-        public static readonly NpmError NotFound = new NpmError("not_found", "document not found"); 
-        
+        public static readonly NpmError NotFound = new NpmError("not_found", "document not found");
+
         public NpmError(string error, string reason)
         {
             Error = error;
@@ -17,7 +17,7 @@ namespace UnityNuGet.Npm
 
         [JsonProperty("error")]
         public string Error { get; }
-        
+
         [JsonProperty("reason")]
         public string Reason { get; }
     }

@@ -1,4 +1,4 @@
-namespace UnityNuGet.Server
+﻿namespace UnityNuGet.Server
 {
     public sealed class RegistryCacheSingleton
     {

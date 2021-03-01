@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Scriban;
 
 namespace UnityNuGet
@@ -14,7 +14,7 @@ namespace UnityNuGet
             {
                 case ".dll":
                     return GetMetaForDll(guid);
-                
+
                 case ".pdb":
                     break;
 
@@ -66,7 +66,7 @@ PluginImporter:
   assetBundleVariant: 
 ";
             var meta = Template.Parse(text);
-            return meta.Render(new {guid = guid.ToString("N")});
+            return meta.Render(new { guid = guid.ToString("N") });
         }
 
         private static string GetMetaForText(Guid guid)
@@ -80,7 +80,7 @@ TextScriptImporter:
   assetBundleVariant: 
 ";
             var meta = Template.Parse(text);
-            return meta.Render(new {guid = guid.ToString("N")});
+            return meta.Render(new { guid = guid.ToString("N") });
         }
     }
 }

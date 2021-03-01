@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace UnityNuGet.Npm
@@ -11,7 +11,7 @@ namespace UnityNuGet.Npm
         public NpmPackageVersion()
         {
             Dependencies = new Dictionary<string, string>();
-            Distribution =new NpmDistribution();
+            Distribution = new NpmDistribution();
             Scripts = new Dictionary<string, string>();
         }
 
