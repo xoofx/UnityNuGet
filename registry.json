@@ -190,6 +190,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Collections.Immutable": {
+    "listed": true,
+    "version": "5.0.0"
+  },
   "System.ComponentModel.Annotations": {
     "listed": true,
     "version": "4.4.0"
