@@ -15,6 +15,14 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "MessagePack": {
+    "listed": true,
+    "version": "2.1.80"
+  },
+  "MessagePack.Annotations": {
+    "listed": true,
+    "version": "2.1.80"
+  },
   "Microsoft.Azure.Kinect.Sensor": {
     "listed": true,
     "version": "1.2.0"
@@ -25,6 +33,42 @@
   },
   "Microsoft.CSharp": {
     "ignore": true
+  },
+  "Microsoft.AspNetCore.Connections.Abstractions": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.AspNetCore.Http.Connections.Client": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.Http.Connections.Common": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.Http.Features": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.AspNetCore.SignalR.Client.Core": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.SignalR.Client": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.SignalR.Common": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.SignalR.Protocols.Json": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson": {
+    "listed": true,
+    "version": "3.0.0"
   },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
@@ -190,6 +234,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Collections.Immutable": {
+    "listed": true,
+    "version": "1.5.0"
+  },
   "System.ComponentModel.Annotations": {
     "listed": true,
     "version": "4.4.0"
@@ -206,6 +254,10 @@
     "listed": true,
     "version": "5.0.0"
   },
+  "System.IO.Pipelines": {
+    "listed": true,
+    "version": "4.5.0"
+  },
   "System.Memory": {
     "listed": true,
     "version": "4.5.0"
@@ -213,6 +265,18 @@
   "System.Numerics.Vectors": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "System.Reflection.Emit.ILGeneration": {
+    "listed": true,
+    "version": "4.6.0"
+  },
+  "System.Reflection.Emit.Lightweight": {
+    "listed": true,
+    "version": "4.6.0"
+  },
+  "System.Reflection.Emit": {
+    "listed": true,
+    "version": "4.6.0"
   },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
@@ -253,6 +317,10 @@
   "System.Text.Json": {
     "listed": true,
     "version": "4.6.0"
+  },
+  "System.Threading.Channels": {
+    "listed": true,
+    "version": "4.5.0"
   },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
