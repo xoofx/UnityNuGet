@@ -17,13 +17,13 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-      <PackageReference Include="NuGet.Packaging" Version="5.1.0" />
-      <PackageReference Include="NuGet.Protocol" Version="5.1.0" />
+      <PackageReference Include="NuGet.Packaging" Version="5.8.1" />
+      <PackageReference Include="NuGet.Protocol" Version="5.8.1" />
       <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" /> 
-      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" /> 
-      <PackageReference Include="NuGet.Resolver" Version="5.1.0" /> 
-      <PackageReference Include="NUglify" Version="1.5.13" /> 
-      <PackageReference Include="Scriban" Version="2.1.0" /> 
-      <PackageReference Include="SharpZipLib" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" /> 
+      <PackageReference Include="NuGet.Resolver" Version="5.8.1" /> 
+      <PackageReference Include="NUglify" Version="1.13.3" /> 
+      <PackageReference Include="Scriban" Version="3.5.0" /> 
+      <PackageReference Include="SharpZipLib" Version="1.3.1" />
     </ItemGroup>
 </Project>
