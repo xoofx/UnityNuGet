@@ -218,6 +218,10 @@
     "listed": false,
     "version": "4.4.0"
   },
+  "System.Reflection.Metadata" : {
+    "listed": true,
+    "version": "5.0.0"
+  },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
     "version": "4.4.0"
