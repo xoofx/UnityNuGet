@@ -15,8 +15,156 @@
     "listed": true,
     "version": "1.2.0"
   },
+  "Microsoft.Bcl.AsyncInterfaces": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Microsoft.CSharp": {
     "ignore": true
+  },
+  "Microsoft.Extensions.Caching.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Caching.Memory": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.Binder": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.CommandLine": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.FileExtensions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.Ini": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration.Json": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Configuration.UserSecrets": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Configuration.Xml": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.DependencyInjection.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.DependencyInjection": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.DependencyModel": {
+    "listed": true,
+    "version": "3.0.0"
+  },
+  "Microsoft.Extensions.FileProviders.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.FileProviders.Composite": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.FileProviders.Physical": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.FileSystemGlobbing": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Hosting.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Hosting": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Http": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Localization.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging.Configuration": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging.Console": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging.Debug": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging.EventLog": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Logging.EventSource": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Logging.TraceSource": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.ObjectPool": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Options.ConfigurationExtensions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Options.DataAnnotations": {
+    "listed": true,
+    "version": "2.2.0"
+  },
+  "Microsoft.Extensions.Options": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Primitives": {
+    "listed": true,
+    "version": "2.0.0"
   },
   "morelinq": {
     "listed": true,
@@ -38,6 +186,22 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.ComponentModel.Annotations": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Diagnostics.DiagnosticSource": {
+    "listed": true,
+    "version": "4.5.0"
+  },
+  "System.Diagnostics.EventLog": {
+    "listed": true,
+    "version": "4.5.0"
+  },
+  "System.Formats.Asn1": {
+    "listed": true,
+    "version": "5.0.0"
+  },
   "System.Memory": {
     "listed": true,
     "version": "4.5.0"
@@ -50,9 +214,41 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Security.Cryptography.Cng": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.Cryptography.Pkcs": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.Cryptography.Xml": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.AccessControl": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.Permissions": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.Principal.Windows": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Text.Encoding.CodePages": {
     "listed": false,
     "version": "4.5.0"
+  },
+  "System.Text.Encodings.Web": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Text.Json": {
+    "listed": true,
+    "version": "4.6.0"
   },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
