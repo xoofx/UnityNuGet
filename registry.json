@@ -190,6 +190,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Collections.Immutable": {
+    "listed": true,
+    "version": "1.4.0"
+  },
   "System.ComponentModel.Annotations": {
     "listed": true,
     "version": "4.4.0"
@@ -213,6 +217,10 @@
   "System.Numerics.Vectors": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "System.Reflection.Metadata" : {
+    "listed": true,
+    "version": "1.5.0"
   },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
