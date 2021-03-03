@@ -220,7 +220,7 @@
   },
   "System.Reflection.Metadata" : {
     "listed": true,
-    "version": "5.0.0"
+    "version": "1.5.0"
   },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
