@@ -192,7 +192,7 @@
   },
   "System.Collections.Immutable": {
     "listed": true,
-    "version": "5.0.0"
+    "version": "1.4.0"
   },
   "System.ComponentModel.Annotations": {
     "listed": true,
