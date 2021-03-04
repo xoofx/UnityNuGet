@@ -236,7 +236,7 @@
   },
   "System.Collections.Immutable": {
     "listed": true,
-    "version": "1.5.0"
+    "version": "1.4.0"
   },
   "System.ComponentModel.Annotations": {
     "listed": true,
@@ -277,6 +277,10 @@
   "System.Reflection.Emit": {
     "listed": true,
     "version": "4.6.0"
+  },
+  "System.Reflection.Metadata" : {
+    "listed": true,
+    "version": "1.5.0"
   },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
