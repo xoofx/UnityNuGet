@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0 (7 Mar 2021)
+- Migrate to .NET 5.0
+- Add several packages
+
 ## 0.6.2 (06 Nov 2020)
 - Fix Json serialization with netcoreapp3.1
 
