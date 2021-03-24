@@ -14,7 +14,6 @@ using NuGet.Configuration;
 using NuGet.Frameworks;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
-using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 using NUglify.Html;
@@ -182,13 +181,19 @@ namespace UnityNuGet
                     var update = !npmPackage.DistTags.TryGetValue("latest", out var latestVersion)
                                  || (currentVersion > NuGetVersion.Parse(latestVersion));
 
+                    string npmCurrentVersion = $"{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Patch}";
+
+                    if (currentVersion.Revision != 0)
+                    {
+                        npmCurrentVersion += $"-{currentVersion.Revision}";
+                    }
 
                     if (update)
                     {
-                        npmPackage.DistTags["latest"] = currentVersion.ToString();
+                        npmPackage.DistTags["latest"] = npmCurrentVersion;
 
                         npmPackageInfo.Versions.Clear();
-                        npmPackageInfo.Versions[currentVersion.ToString()] = "latest";
+                        npmPackageInfo.Versions[npmCurrentVersion] = "latest";
 
                         npmPackage.Id = npmPackageId;
                         npmPackage.License = packageMeta.LicenseMetadata?.License ?? packageMeta.LicenseUrl?.ToString();
@@ -216,14 +221,14 @@ namespace UnityNuGet
 
                     var npmVersion = new NpmPackageVersion
                     {
-                        Id = $"{npmPackageId}@{currentVersion}",
-                        Version = currentVersion.ToString(),
+                        Id = $"{npmPackageId}@{npmCurrentVersion}",
+                        Version = npmCurrentVersion,
                         Name = npmPackageId,
                         Description = packageMeta.Description,
                         Author = npmPackageInfo.Author,
                         DisplayName = packageMeta.Title + PackageNameNuGetPostFix
                     };
-                    npmVersion.Distribution.Tarball = new Uri($"{RootHttpUrl}/{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity)}");
+                    npmVersion.Distribution.Tarball = new Uri($"{RootHttpUrl}/{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity, npmVersion)}");
                     npmVersion.Unity = MinimumUnityVersion;
                     npmPackage.Versions[npmVersion.Version] = npmVersion;
 
@@ -256,7 +261,7 @@ namespace UnityNuGet
                     if (!hasDependencyErrors)
                     {
                         await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta);
-                        npmPackage.Time[currentVersion.ToString()] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity).CreationTimeUtc;
+                        npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
                         if (update)
@@ -273,13 +278,13 @@ namespace UnityNuGet
         /// </summary>
         private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
         {
-            if (!IsUnityPackageExists(identity))
+            if (!IsUnityPackageExists(identity, npmPackageVersion))
             {
                 await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta);
             }
             else
             {
-                npmPackageVersion.Distribution.Shasum = ReadUnityPackageSha1(identity);
+                npmPackageVersion.Distribution.Shasum = ReadUnityPackageSha1(identity, npmPackageVersion);
             }
         }
 
@@ -288,7 +293,7 @@ namespace UnityNuGet
         /// </summary>
         private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
         {
-            var unityPackageFileName = GetUnityPackageFileName(identity);
+            var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
             var unityPackageFilePath = Path.Combine(RootUnityPackageFolder, unityPackageFileName);
 
             Logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
@@ -423,7 +428,7 @@ namespace UnityNuGet
                 using (var stream = File.OpenRead(unityPackageFilePath))
                 {
                     var sha1 = Sha1sum(stream);
-                    WriteUnityPackageSha1(identity, sha1);
+                    WriteUnityPackageSha1(identity, npmPackageVersion, sha1);
                     npmPackageVersion.Distribution.Shasum = sha1;
                 }
             }
@@ -447,34 +452,34 @@ namespace UnityNuGet
             return StringToGuid(identity.Id + $"/{name}*");
         }
 
-        private FileInfo GetUnityPackageFileInfo(PackageIdentity identity)
+        private FileInfo GetUnityPackageFileInfo(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return new FileInfo(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity)));
+            return new FileInfo(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion)));
         }
 
-        private static string GetUnityPackageFileName(PackageIdentity identity)
+        private static string GetUnityPackageFileName(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{identity.Version}.tgz";
+            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
         }
 
-        private static string GetUnityPackageSha1FileName(PackageIdentity identity)
+        private static string GetUnityPackageSha1FileName(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{identity.Version}.sha1";
+            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
         }
 
-        private bool IsUnityPackageExists(PackageIdentity identity)
+        private bool IsUnityPackageExists(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return File.Exists(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity)));
+            return File.Exists(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion)));
         }
 
-        private string ReadUnityPackageSha1(PackageIdentity identity)
+        private string ReadUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return File.ReadAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity)));
+            return File.ReadAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion)));
         }
 
-        private void WriteUnityPackageSha1(PackageIdentity identity, string sha1)
+        private void WriteUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion, string sha1)
         {
-            File.WriteAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity)), sha1);
+            File.WriteAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion)), sha1);
         }
 
         private void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
@@ -550,7 +555,7 @@ namespace UnityNuGet
             }
         }
 
-        private void LogError(string message, Exception ex = null)
+        private void LogError(string message)
         {
             Logger.LogError(message);
             HasErrors = true;
