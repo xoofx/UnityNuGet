@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0 (17 Apr 2021)
+- Add support for 4 components package version.
+
 ## 0.7.0 (7 Mar 2021)
 - Migrate to .NET 5.0
 - Add several packages
