@@ -222,6 +222,10 @@
     "listed": true,
     "version": "11.0.1"
   },
+  "Prism.Core": {
+    "listed": true,
+    "version": "7.0.0.362"
+  },
   "Scriban": {
     "listed": true,
     "version": "2.1.0"
@@ -278,7 +282,7 @@
     "listed": true,
     "version": "4.6.0"
   },
-  "System.Reflection.Metadata" : {
+  "System.Reflection.Metadata": {
     "listed": true,
     "version": "1.5.0"
   },
