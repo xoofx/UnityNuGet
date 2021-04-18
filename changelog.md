@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.2 (18 Apr 2021)
+- Recover from invalid SHA1 state
+
 ## 0.8.1 (18 Apr 2021)
 - Fix issue with netstandard2.0 packages having no netstandard2.0 binaries (#27)
 
