@@ -32,6 +32,7 @@ namespace UnityNuGet
         private const string PackageNameNuGetPostFix = " (NuGet)";
         private readonly ISettings _settings;
         private readonly SourceRepository _sourceRepository;
+        private static readonly Version Version200 = new Version(2, 0, 0, 0);
         private static readonly NuGetFramework NuGetFrameworkNetStandard20 = NuGetFramework.Parse("netstandard2.0");
         private readonly SourceCacheContext _sourceCacheContext;
         private readonly Registry _registry;
@@ -330,35 +331,37 @@ namespace UnityNuGet
                 using (var gzoStream = new GZipOutputStream(outStream))
                 using (var tarArchive = new TarOutputStream(gzoStream, Encoding.UTF8))
                 {
-                    foreach (var item in await packageReader.GetLibItemsAsync(CancellationToken.None))
+                    // Select the netstandard version that is the closest or equal to netstandard2.0
+                    var versions = (await packageReader.GetLibItemsAsync(CancellationToken.None)).ToList();
+                    var item = versions.Where(x => x.TargetFramework.Framework == ".NETStandard" && x.TargetFramework.Version <= Version200).OrderByDescending(x => x.TargetFramework.Version)
+                        .FirstOrDefault();
+
+                    if (item == null)
                     {
-                        if (item.TargetFramework != NuGetFrameworkNetStandard20)
+                        throw new InvalidOperationException("The package does not contain a netstandard2.0 compatible assembly");
+                    }
+
+                    foreach (var file in item.Items)
+                    {
+                        var fileInUnityPackage = Path.GetFileName(file);
+                        var meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), Path.GetExtension(fileInUnityPackage));
+                        if (meta == null)
                         {
                             continue;
                         }
 
-                        foreach (var file in item.Items)
-                        {
-                            var fileInUnityPackage = Path.GetFileName(file);
-                            var meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), Path.GetExtension(fileInUnityPackage));
-                            if (meta == null)
-                            {
-                                continue;
-                            }
+                        memStream.Position = 0;
+                        memStream.SetLength(0);
 
-                            memStream.Position = 0;
-                            memStream.SetLength(0);
+                        var stream = packageReader.GetStream(file);
+                        stream.CopyTo(memStream);
+                        var buffer = memStream.ToArray();
 
-                            var stream = packageReader.GetStream(file);
-                            stream.CopyTo(memStream);
-                            var buffer = memStream.ToArray();
+                        // write content
+                        WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
 
-                            // write content
-                            WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
-
-                            // write meta file
-                            WriteTextFileToTar(tarArchive, fileInUnityPackage + ".meta", meta);
-                        }
+                        // write meta file
+                        WriteTextFileToTar(tarArchive, fileInUnityPackage + ".meta", meta);
                     }
 
                     // Write the package,json
