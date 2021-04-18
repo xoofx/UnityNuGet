@@ -279,7 +279,7 @@ namespace UnityNuGet
         /// </summary>
         private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
         {
-            if (!IsUnityPackageExists(identity, npmPackageVersion))
+            if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
             {
                 await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta);
             }
@@ -457,7 +457,7 @@ namespace UnityNuGet
 
         private FileInfo GetUnityPackageFileInfo(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return new FileInfo(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion)));
+            return new FileInfo(GetUnityPackagePath(identity, packageVersion));
         }
 
         private static string GetUnityPackageFileName(PackageIdentity identity, NpmPackageVersion packageVersion)
@@ -470,20 +470,31 @@ namespace UnityNuGet
             return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
         }
 
-        private bool IsUnityPackageExists(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private bool IsUnityPackageValid(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return File.Exists(Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion)));
+            var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
+            return packageFile.Exists && packageFile.Length > 0;
+        }
+
+        private bool IsUnityPackageSha1Valid(PackageIdentity identity, NpmPackageVersion packageVersion)
+        {
+            var sha1File = new FileInfo(GetUnityPackageSha1Path(identity, packageVersion));
+            return sha1File.Exists && sha1File.Length > 0;
         }
 
         private string ReadUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return File.ReadAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion)));
+            return File.ReadAllText(GetUnityPackageSha1Path(identity, packageVersion));
         }
 
         private void WriteUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion, string sha1)
         {
-            File.WriteAllText(Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion)), sha1);
+            File.WriteAllText(GetUnityPackageSha1Path(identity, packageVersion), sha1);
         }
+
+        private string GetUnityPackagePath(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion));
+
+        private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion));
 
         private void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
         {
