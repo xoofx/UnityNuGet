@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1 (18 Apr 2021)
+- Fix issue with netstandard2.0 packages having no netstandard2.0 binaries (#27)
+
 ## 0.8.0 (17 Apr 2021)
 - Add support for 4 components package version.
 
