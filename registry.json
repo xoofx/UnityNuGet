@@ -230,6 +230,34 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Serilog": {
+    "listed": true,
+    "version": "2.10.0"
+  }
+  "Serilog.Enrichers.Thread": {
+    "listed": true,
+    "version": "3.1.0"
+  }
+  "Serilog.Formatting.Compact": {
+    "listed": true,
+    "version": "1.1.0"
+  }
+  "Serilog.Sinks.Async": {
+    "listed": true,
+    "version": "1.4.0"
+  }
+  "Serilog.Sinks.Console": {
+    "listed": true,
+    "version": "3.1.1"
+  }
+  "Serilog.Sinks.File": {
+    "listed": true,
+    "version": "4.1.0"
+  }
+  "Serilog.Sinks.File.Header": {
+    "listed": true,
+    "version": "1.0.2"
+  }
   "Sharpcompress": {
     "listed": true,
     "version": "0.24.0"
