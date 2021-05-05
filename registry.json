@@ -3,6 +3,10 @@
     "listed": true,
     "version": "1.1.6"
   },
+  "BugSplatDotNetStandard": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "CommandLineParser": {
     "listed": true,
     "version": "2.4.0"
