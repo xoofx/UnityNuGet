@@ -3,6 +3,14 @@
     "listed": true,
     "version": "1.1.6"
   },
+  "AWSSDK.Core": {
+    "listed": true,
+    "version": "3.5.0"
+  },
+  "AWSSDK.S3": {
+    "listed": true,
+    "version": "3.5.0"
+  },
   "CommandLineParser": {
     "listed": true,
     "version": "2.4.0"
