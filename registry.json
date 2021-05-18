@@ -35,6 +35,10 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "log4net": {
+    "listed": true,
+    "version": "2.0.11"
+  },
   "MessagePack": {
     "listed": true,
     "version": "2.1.80"
@@ -274,6 +278,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Configuration.ConfigurationManager": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Diagnostics.DiagnosticSource": {
     "listed": true,
     "version": "4.5.0"
@@ -327,6 +335,10 @@
     "version": "4.4.0"
   },
   "System.Security.Cryptography.Pkcs": {
+    "listed": true,
+    "version": "4.4.0"
+  },
+  "System.Security.Cryptography.ProtectedData": {
     "listed": true,
     "version": "4.4.0"
   },
