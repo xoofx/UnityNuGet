@@ -1,11 +1,15 @@
 {
-  "AutoMapper": {
-    "listed": true,
-    "version": "10.0.0"
-  },
   "AutoMapper.Extensions.Microsoft.DependencyInjection": {
     "listed": true,
     "version": "8.0.0"
+  },
+  "Asmodat.Standard.SSH.NET": {
+    "listed": true,
+    "version": "1.0.0.1"
+  },
+  "AutoMapper": {
+    "listed": true,
+    "version": "10.0.0"
   },
   "AutomaticGraphLayout": {
     "listed": true,
@@ -18,6 +22,10 @@
   "AWSSDK.S3": {
     "listed": true,
     "version": "3.5.0"
+  },
+  "BugSplatDotNetStandard": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "CommandLineParser": {
     "listed": true,
@@ -34,6 +42,10 @@
   "GeneticSharp": {
     "listed": true,
     "version": "2.0.0"
+  },
+  "log4net": {
+    "listed": true,
+    "version": "2.0.11"
   },
   "MessagePack": {
     "listed": true,
@@ -86,6 +98,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Microsoft.AspNetCore.SignalR.Protocols.MessagePack": {
+    "listed": true,
+    "version": "5.0.0"
+  },
   "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson": {
     "listed": true,
     "version": "3.0.0"
@@ -129,6 +145,10 @@
   "Microsoft.Extensions.Configuration.Json": {
     "listed": true,
     "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Configuration.NewtonsoftJson": {
+    "listed": true,
+    "version": "3.0.0"
   },
   "Microsoft.Extensions.Configuration.UserSecrets": {
     "listed": true,
@@ -270,6 +290,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Configuration.ConfigurationManager": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Diagnostics.DiagnosticSource": {
     "listed": true,
     "version": "4.5.0"
@@ -326,6 +350,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Security.Cryptography.ProtectedData": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Security.Cryptography.Xml": {
     "listed": true,
     "version": "4.4.0"
@@ -361,5 +389,9 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "Telnet": {
+    "listed": true,
+    "version": "0.8.6"
   }
 }
