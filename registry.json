@@ -357,5 +357,9 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "Telnet": {
+    "listed": true,
+    "version": "0.8.6"
   }
 }
