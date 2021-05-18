@@ -138,6 +138,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Microsoft.Extensions.Configuration.NewtonsoftJson": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "Microsoft.Extensions.Configuration.UserSecrets": {
     "listed": true,
     "version": "2.1.0"
