@@ -1,7 +1,15 @@
 {
+  "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+    "listed": true,
+    "version": "8.0.0"
+  },
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
     "version": "1.0.0.1"
+  },
+  "AutoMapper": {
+    "listed": true,
+    "version": "10.0.0"
   },
   "AutomaticGraphLayout": {
     "listed": true,
