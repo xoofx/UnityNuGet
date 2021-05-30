@@ -23,6 +23,10 @@
     "listed": true,
     "version": "3.5.0"
   },
+  "Ben.Demystifier": {
+    "listed": true,
+    "version": "0.0.43"
+  },
   "BugSplatDotNetStandard": {
     "listed": true,
     "version": "1.0.0"
@@ -388,6 +392,10 @@
   },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
+    "version": "4.4.0"
+  },
+  "System.ValueTuple": {
+    "listed": true,
     "version": "4.4.0"
   },
   "Telnet": {
