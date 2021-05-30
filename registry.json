@@ -47,6 +47,10 @@
     "listed": true,
     "version": "2.0.11"
   },
+  "McMaster.Extensions.CommandLineUtils": {
+    "listed": true,
+    "version": "2.2.0"
+  },
   "MessagePack": {
     "listed": true,
     "version": "2.1.80"
