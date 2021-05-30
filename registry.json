@@ -395,8 +395,7 @@
     "version": "4.4.0"
   },
   "System.ValueTuple": {
-    "listed": true,
-    "version": "4.4.0"
+    "ignore": true
   },
   "Telnet": {
     "listed": true,
