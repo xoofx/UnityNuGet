@@ -270,6 +270,14 @@
     "listed": true,
     "version": "7.0.0.362"
   },
+  "protobuf-net.Core": {
+    "listed": true,
+    "version": "3.0.0"
+  },
+  "protobuf-net": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "Scriban": {
     "listed": true,
     "version": "2.1.0"
@@ -314,8 +322,20 @@
     "listed": true,
     "version": "4.5.0"
   },
+  "System.Net.Http.WinHttpHandler": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Numerics.Vectors": {
     "listed": false,
+    "version": "4.4.0"
+  },
+  "System.Private.ServiceModel": {
+    "listed": false,
+    "version": "4.6.0"
+  },
+  "System.Reflection.DispatchProxy": {
+    "listed": true,
     "version": "4.4.0"
   },
   "System.Reflection.Emit.ILGeneration": {
@@ -369,6 +389,10 @@
   "System.Security.Principal.Windows": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "System.ServiceModel.Primitives": {
+    "listed": true,
+    "version": "4.6.0"
   },
   "System.Text.Encoding.CodePages": {
     "listed": false,
