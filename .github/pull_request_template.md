@@ -1,4 +1,5 @@
 > The NuGet package needs to respect a few constraints in order to be listed in the curated list:
+> - [ ] Add a link to the NuGet package: https://www.nuget.org/packages/XXX
 > - [ ] It must have non-preview versions (e.g 1.0.0 but not 1.0.0-preview.1)
 > - [ ] It must provide .NETStandard2.0 assemblies as part of its package
 > - [ ] The lowest version added must be the lowest .NETStandard2.0 version available
