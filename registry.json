@@ -230,6 +230,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Microsoft.Extensions.Logging.Log4Net.AspNetCore": {
+    "listed": true,
+    "version": "5.0.3"
+  },
   "Microsoft.Extensions.Logging.TraceSource": {
     "listed": true,
     "version": "2.0.0"
