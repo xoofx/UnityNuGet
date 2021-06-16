@@ -23,6 +23,10 @@
     "listed": true,
     "version": "3.5.0"
   },
+  "Ben.Demystifier": {
+    "listed": true,
+    "version": "0.1.6"
+  },
   "BugSplatDotNetStandard": {
     "listed": true,
     "version": "1.0.0"
