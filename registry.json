@@ -43,6 +43,10 @@
     "listed": true,
     "version": "0.0.2"
   },
+  "FastEnum": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "GeneticSharp": {
     "listed": true,
     "version": "2.0.0"
