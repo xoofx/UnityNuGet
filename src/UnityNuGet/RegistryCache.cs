@@ -27,42 +27,49 @@ namespace UnityNuGet
     public class RegistryCache
     {
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
-        private const string UnityScope = "org.nuget";
-        private const string MinimumUnityVersion = "2019.1";
-        private const string PackageNameNuGetPostFix = " (NuGet)";
+        private readonly string _rootPersistentFolder;
+        private readonly Uri _rootHttpUri;
+        private readonly string _unityScope;
+        private readonly string _minimumUnityVersion;
+        private readonly string _packageNameNuGetPostFix;
+        private readonly RegistryTargetFramework _targetFramework;
+        private readonly ILogger _logger;
         private readonly ISettings _settings;
         private readonly SourceRepository _sourceRepository;
-        private static readonly Version Version200 = new Version(2, 0, 0, 0);
-        private static readonly NuGetFramework NuGetFrameworkNetStandard20 = NuGetFramework.Parse("netstandard2.0");
+        private readonly NuGetFramework _nugetFramework;
         private readonly SourceCacheContext _sourceCacheContext;
         private readonly Registry _registry;
         private readonly NpmPackageRegistry _npmPackageRegistry;
 
-        public RegistryCache(string rootPersistentFolder, string rootHttpUrl, ILogger logger = null)
-        {
-            RootUnityPackageFolder = rootPersistentFolder ?? throw new ArgumentNullException(nameof(rootPersistentFolder));
-            RootHttpUrl = rootHttpUrl ?? throw new ArgumentNullException(nameof(rootHttpUrl));
+        public RegistryCache(RegistryCache registryCache) : this(registryCache._rootPersistentFolder, registryCache._rootHttpUri, registryCache._unityScope,
+            registryCache._minimumUnityVersion, registryCache._packageNameNuGetPostFix, registryCache._targetFramework, registryCache._logger)
+        { }
 
-            if (!Directory.Exists(RootUnityPackageFolder))
+        public RegistryCache(string rootPersistentFolder, Uri rootHttpUri, string unityScope, string minimumUnityVersion,
+            string packageNameNuGetPostFix, RegistryTargetFramework targetFramework, ILogger logger)
+        {
+            _rootPersistentFolder = rootPersistentFolder ?? throw new ArgumentNullException(nameof(rootPersistentFolder));
+            _rootHttpUri = rootHttpUri ?? throw new ArgumentNullException(nameof(rootHttpUri));
+            _unityScope = unityScope ?? throw new ArgumentNullException(nameof(unityScope));
+            _minimumUnityVersion = minimumUnityVersion ?? throw new ArgumentNullException(nameof(minimumUnityVersion));
+            _packageNameNuGetPostFix = packageNameNuGetPostFix ?? throw new ArgumentNullException(nameof(packageNameNuGetPostFix));
+            _targetFramework = targetFramework ?? throw new ArgumentNullException(nameof(targetFramework));
+
+            if (!Directory.Exists(_rootPersistentFolder))
             {
-                Directory.CreateDirectory(RootUnityPackageFolder);
+                Directory.CreateDirectory(_rootPersistentFolder);
             }
             _settings = Settings.LoadDefaultSettings(root: null);
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(_settings), Repository.Provider.GetCoreV3());
             _sourceRepository = sourceRepositoryProvider.GetRepositories().FirstOrDefault();
-            Logger = logger ?? new NuGetConsoleLogger();
+            _logger = logger;
             _registry = Registry.GetInstance();
+            _nugetFramework = NuGetFramework.Parse(_targetFramework.Name);
             _sourceCacheContext = new SourceCacheContext();
             _npmPackageRegistry = new NpmPackageRegistry();
         }
 
         public bool HasErrors { get; private set; }
-
-        public string RootUnityPackageFolder { get; }
-
-        public string RootHttpUrl { get; }
-
-        public ILogger Logger { get; }
 
         /// <summary>
         /// Get all packages registered.
@@ -94,7 +101,7 @@ namespace UnityNuGet
         {
             if (packageFileName == null) throw new ArgumentNullException(nameof(packageFileName));
             packageFileName = packageFileName.Replace("/", packageFileName.Replace(".", string.Empty));
-            var packageFilePath = Path.Combine(RootUnityPackageFolder, packageFileName);
+            var packageFilePath = Path.Combine(_rootPersistentFolder, packageFileName);
             return packageFilePath;
         }
 
@@ -130,33 +137,33 @@ namespace UnityNuGet
                     continue;
                 }
 
-                var packageMetaIt = await packageMetadataResource.GetMetadataAsync(packageName, false, false, _sourceCacheContext, Logger, CancellationToken.None);
+                var packageMetaIt = await packageMetadataResource.GetMetadataAsync(packageName, false, false, _sourceCacheContext, _logger, CancellationToken.None);
                 var packageMetas = packageMetaIt.ToList();
                 foreach (var packageMeta in packageMetas)
                 {
                     var packageIdentity = packageMeta.Identity;
                     var packageId = packageIdentity.Id.ToLowerInvariant();
-                    var npmPackageId = $"{UnityScope}.{packageId}";
+                    var npmPackageId = $"{_unityScope}.{packageId}";
 
                     if (!packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
                         continue;
                     }
 
-                    PackageDependencyGroup netstd20Dependency = null;
+                    PackageDependencyGroup resolvedDependencyGroup = null;
 
                     foreach (var dependencySet in packageMeta.DependencySets)
                     {
-                        if (dependencySet.TargetFramework == NuGetFrameworkNetStandard20)
+                        if (dependencySet.TargetFramework == _nugetFramework)
                         {
-                            netstd20Dependency = dependencySet;
+                            resolvedDependencyGroup = dependencySet;
                             break;
                         }
                     }
 
-                    if (netstd20Dependency == null)
+                    if (resolvedDependencyGroup == null)
                     {
-                        Logger.LogWarning($"The package `{packageIdentity}` doesn't support `netstandard2.0`");
+                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}`");
                         continue;
                     }
 
@@ -227,14 +234,14 @@ namespace UnityNuGet
                         Name = npmPackageId,
                         Description = packageMeta.Description,
                         Author = npmPackageInfo.Author,
-                        DisplayName = packageMeta.Title + PackageNameNuGetPostFix
+                        DisplayName = packageMeta.Title + _packageNameNuGetPostFix
                     };
-                    npmVersion.Distribution.Tarball = new Uri($"{RootHttpUrl}/{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity, npmVersion)}");
-                    npmVersion.Unity = MinimumUnityVersion;
+                    npmVersion.Distribution.Tarball = new Uri(_rootHttpUri, $"{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity, npmVersion)}");
+                    npmVersion.Unity = _minimumUnityVersion;
                     npmPackage.Versions[npmVersion.Version] = npmVersion;
 
                     bool hasDependencyErrors = false;
-                    foreach (var deps in netstd20Dependency.Packages)
+                    foreach (var deps in resolvedDependencyGroup.Packages)
                     {
                         var depsId = deps.Id.ToLowerInvariant();
 
@@ -255,7 +262,7 @@ namespace UnityNuGet
                         }
 
                         // Otherwise add the package as a dependency
-                        npmVersion.Dependencies.Add($"{UnityScope}.{depsId}", deps.VersionRange.MinVersion.ToString());
+                        npmVersion.Dependencies.Add($"{_unityScope}.{depsId}", deps.VersionRange.MinVersion.ToString());
                     }
 
                     // If we don't have any dependencies error, generate the package
@@ -295,16 +302,16 @@ namespace UnityNuGet
         private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
         {
             var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
-            var unityPackageFilePath = Path.Combine(RootUnityPackageFolder, unityPackageFileName);
+            var unityPackageFilePath = Path.Combine(_rootPersistentFolder, unityPackageFileName);
 
-            Logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
+            _logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
 
             var downloadResource = await _sourceRepository.GetResourceAsync<DownloadResource>(CancellationToken.None);
             var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
                 identity,
                 new PackageDownloadContext(_sourceCacheContext),
                 SettingsUtility.GetGlobalPackagesFolder(_settings),
-                Logger, CancellationToken.None);
+                _logger, CancellationToken.None);
             var packageReader = downloadResult.PackageReader;
 
             // Update Repository metadata if necessary
@@ -331,20 +338,32 @@ namespace UnityNuGet
                 using (var gzoStream = new GZipOutputStream(outStream))
                 using (var tarArchive = new TarOutputStream(gzoStream, Encoding.UTF8))
                 {
-                    // Select the netstandard version that is the closest or equal to netstandard2.0
+                    // Select the framework version that is the closest or equal to the latest configured framework version
                     var versions = (await packageReader.GetLibItemsAsync(CancellationToken.None)).ToList();
-                    var item = versions.Where(x => x.TargetFramework.Framework == ".NETStandard" && x.TargetFramework.Version <= Version200).OrderByDescending(x => x.TargetFramework.Version)
+                    var item = versions.Where(x => x.TargetFramework.Framework == _nugetFramework.Framework && x.TargetFramework.Version <= _nugetFramework.Version).OrderByDescending(x => x.TargetFramework.Version)
                         .FirstOrDefault();
 
                     if (item == null)
                     {
-                        throw new InvalidOperationException("The package does not contain a netstandard2.0 compatible assembly");
+                        throw new InvalidOperationException($"The package does not contain a {_targetFramework.Name} compatible assembly");
                     }
 
                     foreach (var file in item.Items)
                     {
                         var fileInUnityPackage = Path.GetFileName(file);
-                        var meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), Path.GetExtension(fileInUnityPackage));
+                        string meta;
+
+                        string fileExtension = Path.GetExtension(fileInUnityPackage);
+
+                        if (fileExtension == ".dll")
+                        {
+                            meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), new string[] { _targetFramework.DefineConstraint });
+                        }
+                        else
+                        {
+                            meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), fileExtension);
+                        }
+
                         if (meta == null)
                         {
                             continue;
@@ -361,7 +380,7 @@ namespace UnityNuGet
                         WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
 
                         // write meta file
-                        WriteTextFileToTar(tarArchive, fileInUnityPackage + ".meta", meta);
+                        WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
                     }
 
                     // Write the package,json
@@ -452,7 +471,7 @@ namespace UnityNuGet
 
         private static Guid GetStableGuid(PackageIdentity identity, string name)
         {
-            return StringToGuid(identity.Id + $"/{name}*");
+            return StringToGuid($"{identity.Id}/{name}*");
         }
 
         private FileInfo GetUnityPackageFileInfo(PackageIdentity identity, NpmPackageVersion packageVersion)
@@ -460,14 +479,14 @@ namespace UnityNuGet
             return new FileInfo(GetUnityPackagePath(identity, packageVersion));
         }
 
-        private static string GetUnityPackageFileName(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private string GetUnityPackageFileName(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
+            return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
         }
 
-        private static string GetUnityPackageSha1FileName(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private string GetUnityPackageSha1FileName(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{UnityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
+            return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
         }
 
         private bool IsUnityPackageValid(PackageIdentity identity, NpmPackageVersion packageVersion)
@@ -492,9 +511,9 @@ namespace UnityNuGet
             File.WriteAllText(GetUnityPackageSha1Path(identity, packageVersion), sha1);
         }
 
-        private string GetUnityPackagePath(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(RootUnityPackageFolder, GetUnityPackageFileName(identity, packageVersion));
+        private string GetUnityPackagePath(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageFileName(identity, packageVersion));
 
-        private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(RootUnityPackageFolder, GetUnityPackageSha1FileName(identity, packageVersion));
+        private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageSha1FileName(identity, packageVersion));
 
         private void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
         {
@@ -515,7 +534,7 @@ namespace UnityNuGet
             filePath = filePath.Replace(@"\", "/");
             filePath = filePath.TrimStart('/');
 
-            var tarEntry = TarEntry.CreateTarEntry("package/" + filePath);
+            var tarEntry = TarEntry.CreateTarEntry($"package/{filePath}");
             tarEntry.Size = buffer.Length;
             tarOut.PutNextEntry(tarEntry);
             tarOut.Write(buffer, 0, buffer.Length);
@@ -571,7 +590,7 @@ namespace UnityNuGet
 
         private void LogError(string message)
         {
-            Logger.LogError(message);
+            _logger.LogError(message);
             HasErrors = true;
         }
 

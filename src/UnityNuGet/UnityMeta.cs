@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Scriban;
 
 namespace UnityNuGet
@@ -12,9 +14,6 @@ namespace UnityNuGet
         {
             switch (extension)
             {
-                case ".dll":
-                    return GetMetaForDll(guid);
-
                 case ".pdb":
                     break;
 
@@ -28,7 +27,7 @@ namespace UnityNuGet
             return null;
         }
 
-        private static string GetMetaForDll(Guid guid)
+        public static string GetMetaForDll(Guid guid, IEnumerable<string> defineConstraints)
         {
             const string text = @"fileFormatVersion: 2
 guid: {{ guid }}
@@ -38,7 +37,7 @@ PluginImporter:
   iconMap: {}
   executionOrder: {}
   defineConstraints:
-  - NET_STANDARD_2_0
+{{ constraints }}
   isPreloaded: 0
   isOverridable: 0
   isExplicitlyReferenced: 0
@@ -66,7 +65,7 @@ PluginImporter:
   assetBundleVariant: 
 ";
             var meta = Template.Parse(text);
-            return meta.Render(new { guid = guid.ToString("N") });
+            return meta.Render(new { guid = guid.ToString("N"), constraints = string.Join("\n", defineConstraints.Select(d => $"  - {d}").ToArray()) });
         }
 
         private static string GetMetaForText(Guid guid)
