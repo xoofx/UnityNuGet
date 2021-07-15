@@ -1,0 +1,13 @@
+{
+  "CsvHelper": {
+    "listed": true,
+    "version": "13.0.0"
+  },
+  "FluentValidation": {
+    "listed": true,
+    "version": "10.0.4"
+  },
+  "Microsoft.CSharp": {
+    "ignore": true
+  }
+}
