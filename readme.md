@@ -56,7 +56,7 @@ Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
 ## Docker
 
-Example docker-compose.yml file:
+Example of a basic docker-compose.yml file:
 
 ```yaml
 services:
@@ -67,6 +67,8 @@ services:
     volumes:
       - ./unity_packages:/app/unity_packages
 ```
+
+There is a complete example in [examples/docker](examples/docker).
 
 ## FAQ
 
