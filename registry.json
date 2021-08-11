@@ -437,5 +437,13 @@
   "Telnet": {
     "listed": true,
     "version": "0.8.6"
+  },
+  "VoltRpc.Communication.Pipes": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "VoltRpc": {
+    "listed": true,
+    "version": "1.0.0"
   }
 }
