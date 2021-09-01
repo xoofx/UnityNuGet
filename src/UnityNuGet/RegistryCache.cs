@@ -27,6 +27,8 @@ namespace UnityNuGet
     public class RegistryCache
     {
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
+        private static readonly string NuGetFrameworkNetStandard20Id = "netstandard2.0";
+        private static readonly NuGetFramework NuGetFrameworkNetStandard20 = NuGetFramework.Parse(NuGetFrameworkNetStandard20Id);
         private readonly string _rootPersistentFolder;
         private readonly Uri _rootHttpUri;
         private readonly string _unityScope;
@@ -163,7 +165,17 @@ namespace UnityNuGet
 
                     if (resolvedDependencyGroup == null)
                     {
-                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}`");
+                        resolvedDependencyGroup = packageMeta.DependencySets.FirstOrDefault(d => d.TargetFramework.Equals(NuGetFrameworkNetStandard20));
+
+                        if (resolvedDependencyGroup != null)
+                        {
+                            _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}` but it has been resolved with `{NuGetFrameworkNetStandard20Id}`");
+                        }
+                    }
+
+                    if (resolvedDependencyGroup == null)
+                    {
+                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}` or the minimum version `{NuGetFrameworkNetStandard20Id}`");
                         continue;
                     }
 
