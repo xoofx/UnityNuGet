@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+    unitynuget:
+      build: ../..
+      environment:
+        - Registry:RootHttpUrl=http://localhost:5000/ # Server Url to build the absolute path to the package.
+        - Registry:UnityScope=org.custom # Packages prefix, default is "org.nuget" but it can be modified to be able to have several containers with different prefixes and to be able to add several scope registries.
+        - Registry:MinimumUnityVersion=2020.1 # Minimum version of Unity required to install packages, default is "2019.1".
+        - Registry:PackageNameNuGetPostFix= (Custom NuGet) # Suffix of the package title, useful in case of having several containers and several scope registries, default is " (NuGet)".
+        - Registry:RootPersistentFolder=custom_unity_packages # Path to the folder where the packages cache will be stored, default is "unity_packages".
+        - Registry:UpdateInterval=00:01:00 # Packages update interval, default is "00:10:00" (10 minutes).
+        - Registry:TargetFramework:Name=netstandard2.1 # Target framework: https://docs.microsoft.com/en-us/dotnet/standard/frameworks
+        - Registry:TargetFramework:DefineConstraint=NET_STANDARD_2_1 # Unity directive that should match with Target framework: https://docs.unity3d.com/Manual/PlatformDependentCompilation.html
+        - Logging:LogLevel:Default=Information
+      ports:
+        - 5000:80
+      volumes:
+        - ./unity_packages:/app/custom_unity_packages # Map the folder with the packages cache.
+        - ./registry.json:/app/registry.json # Override the package registry to be able to add or remove packages.
+        - ./NuGet.Config:/root/.nuget/NuGet/NuGet.Config # Override Nuget.config file with repository information. This file can be used to configure a custom NuGet repository: https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file

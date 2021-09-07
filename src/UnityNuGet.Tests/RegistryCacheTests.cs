@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ namespace UnityNuGet.Tests
         public async Task TestBuild()
         {
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
-            var registryCache = new RegistryCache(unityPackages, "http://localhost");
+            var registryCache = new RegistryCache(unityPackages, new Uri("http://localhost/"), "org.nuget", "2019.1", " (NuGet)", new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraint = "NET_STANDARD_2_0" }, new NuGetConsoleLogger());
 
             await registryCache.Build();
 
