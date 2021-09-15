@@ -71,7 +71,7 @@ namespace UnityNuGet.Server
             loggerRedirect.LogInformation($"Using Unity Package folder `{unityPackageFolder}`");
 
             // Build the cache synchronously because ConfigureServices doesn't support async Task
-            var initialCache = new RegistryCache(unityPackageFolder, uri, registryOptions.UnityScope, registryOptions.MinimumUnityVersion, registryOptions.PackageNameNuGetPostFix, registryOptions.TargetFramework, loggerRedirect);
+            var initialCache = new RegistryCache(unityPackageFolder, uri, registryOptions.UnityScope, registryOptions.MinimumUnityVersion, registryOptions.PackageNameNuGetPostFix, registryOptions.TargetFrameworks, loggerRedirect);
             await initialCache.Build();
 
             // Add the cache accessible from the services

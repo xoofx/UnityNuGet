@@ -8,18 +8,21 @@ namespace UnityNuGet.Tests
     public class RegistryCacheTests
     {
         [Test]
-        public void TestRegistry()
-        {
-            var registry = Registry.GetInstance();
-            Assert.True(registry.Count >= 3);
-            Assert.True(registry.ContainsKey("Scriban"));
-        }
-
-        [Test]
         public async Task TestBuild()
         {
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
-            var registryCache = new RegistryCache(unityPackages, new Uri("http://localhost/"), "org.nuget", "2019.1", " (NuGet)", new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraint = "NET_STANDARD_2_0" }, new NuGetConsoleLogger());
+            var registryCache = new RegistryCache(
+                unityPackages, 
+                new Uri("http://localhost/"), 
+                "org.nuget", 
+                "2019.1", 
+                " (NuGet)", 
+                new RegistryTargetFramework[] {
+                    new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "NET_STANDARD", "UNITY_2021_2_OR_NEWER"} },
+                    new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "NET_STANDARD", "!UNITY_2021_2_OR_NEWER" } },
+                }, 
+                new NuGetConsoleLogger());
+
 
             await registryCache.Build();
 

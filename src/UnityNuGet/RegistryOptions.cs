@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using NuGet.Frameworks;
 
 namespace UnityNuGet
 {
@@ -27,7 +29,7 @@ namespace UnityNuGet
         public TimeSpan UpdateInterval { get; set; }
 
         [Required]
-        public RegistryTargetFramework TargetFramework { get; set; }
+        public RegistryTargetFramework[] TargetFrameworks { get; set; }
     }
 
     public class RegistryTargetFramework
@@ -36,6 +38,9 @@ namespace UnityNuGet
         public string Name { get; set; }
 
         [Required]
-        public string DefineConstraint { get; set; }
+        public string[] DefineConstraints { get; set; }
+
+        [JsonIgnore]
+        internal NuGetFramework Framework { get; set; }
     }
 }

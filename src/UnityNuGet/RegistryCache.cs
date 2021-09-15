@@ -26,36 +26,36 @@ namespace UnityNuGet
     /// </summary>
     public class RegistryCache
     {
+        // Change this version number if the content of the packages are changed by an update of this class
+        private const string CurrentRegistryVersion = "1.0.0";
+
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
-        private static readonly string NuGetFrameworkNetStandard20Id = "netstandard2.0";
-        private static readonly NuGetFramework NuGetFrameworkNetStandard20 = NuGetFramework.Parse(NuGetFrameworkNetStandard20Id);
         private readonly string _rootPersistentFolder;
         private readonly Uri _rootHttpUri;
         private readonly string _unityScope;
         private readonly string _minimumUnityVersion;
         private readonly string _packageNameNuGetPostFix;
-        private readonly RegistryTargetFramework _targetFramework;
+        private readonly RegistryTargetFramework[] _targetFrameworks;
         private readonly ILogger _logger;
         private readonly ISettings _settings;
         private readonly SourceRepository _sourceRepository;
-        private readonly NuGetFramework _nugetFramework;
         private readonly SourceCacheContext _sourceCacheContext;
         private readonly Registry _registry;
         private readonly NpmPackageRegistry _npmPackageRegistry;
 
         public RegistryCache(RegistryCache registryCache) : this(registryCache._rootPersistentFolder, registryCache._rootHttpUri, registryCache._unityScope,
-            registryCache._minimumUnityVersion, registryCache._packageNameNuGetPostFix, registryCache._targetFramework, registryCache._logger)
+            registryCache._minimumUnityVersion, registryCache._packageNameNuGetPostFix, registryCache._targetFrameworks, registryCache._logger)
         { }
 
         public RegistryCache(string rootPersistentFolder, Uri rootHttpUri, string unityScope, string minimumUnityVersion,
-            string packageNameNuGetPostFix, RegistryTargetFramework targetFramework, ILogger logger)
+            string packageNameNuGetPostFix, RegistryTargetFramework[] targetFrameworks, ILogger logger)
         {
             _rootPersistentFolder = rootPersistentFolder ?? throw new ArgumentNullException(nameof(rootPersistentFolder));
             _rootHttpUri = rootHttpUri ?? throw new ArgumentNullException(nameof(rootHttpUri));
             _unityScope = unityScope ?? throw new ArgumentNullException(nameof(unityScope));
             _minimumUnityVersion = minimumUnityVersion ?? throw new ArgumentNullException(nameof(minimumUnityVersion));
             _packageNameNuGetPostFix = packageNameNuGetPostFix ?? throw new ArgumentNullException(nameof(packageNameNuGetPostFix));
-            _targetFramework = targetFramework ?? throw new ArgumentNullException(nameof(targetFramework));
+            _targetFrameworks = targetFrameworks ?? throw new ArgumentNullException(nameof(targetFrameworks));
 
             if (!Directory.Exists(_rootPersistentFolder))
             {
@@ -66,7 +66,13 @@ namespace UnityNuGet
             _sourceRepository = sourceRepositoryProvider.GetRepositories().FirstOrDefault();
             _logger = logger;
             _registry = Registry.GetInstance();
-            _nugetFramework = NuGetFramework.Parse(_targetFramework.Name);
+
+            // Initialize target framework
+            foreach (var registryTargetFramework in _targetFrameworks)
+            {
+                registryTargetFramework.Framework = NuGetFramework.Parse(registryTargetFramework.Name);
+            }
+
             _sourceCacheContext = new SourceCacheContext();
             _npmPackageRegistry = new NpmPackageRegistry();
         }
@@ -129,6 +135,13 @@ namespace UnityNuGet
         {
             var packageMetadataResource = _sourceRepository.GetResource<PackageMetadataResource>();
 
+            var versionPath = Path.Combine(_rootPersistentFolder, "version.txt");
+            var forceUpdate = !File.Exists(versionPath) || await File.ReadAllTextAsync(versionPath) != CurrentRegistryVersion;
+            if (forceUpdate)
+            {
+                _logger.LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
+            }
+
             foreach (var packageDesc in _registry)
             {
                 var packageName = packageDesc.Key;
@@ -152,30 +165,11 @@ namespace UnityNuGet
                         continue;
                     }
 
-                    PackageDependencyGroup resolvedDependencyGroup = null;
+                    var resolvedDependencyGroups = packageMeta.DependencySets.Where(dependencySet => dependencySet.TargetFramework.IsAny || _targetFrameworks.Any(targetFramework => dependencySet.TargetFramework == targetFramework.Framework)).ToList();
 
-                    foreach (var dependencySet in packageMeta.DependencySets)
+                    if (resolvedDependencyGroups.Count == 0)
                     {
-                        if (dependencySet.TargetFramework == _nugetFramework)
-                        {
-                            resolvedDependencyGroup = dependencySet;
-                            break;
-                        }
-                    }
-
-                    if (resolvedDependencyGroup == null)
-                    {
-                        resolvedDependencyGroup = packageMeta.DependencySets.FirstOrDefault(d => d.TargetFramework.Equals(NuGetFrameworkNetStandard20));
-
-                        if (resolvedDependencyGroup != null)
-                        {
-                            _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}` but it has been resolved with `{NuGetFrameworkNetStandard20Id}`");
-                        }
-                    }
-
-                    if (resolvedDependencyGroup == null)
-                    {
-                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{_targetFramework.Name}` or the minimum version `{NuGetFrameworkNetStandard20Id}`");
+                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
                         continue;
                     }
 
@@ -199,7 +193,8 @@ namespace UnityNuGet
                     var currentVersion = packageIdentity.Version;
 
                     var update = !npmPackage.DistTags.TryGetValue("latest", out var latestVersion)
-                                 || (currentVersion > NuGetVersion.Parse(latestVersion));
+                                 || (currentVersion > NuGetVersion.Parse(latestVersion))
+                                 || forceUpdate;
 
                     string npmCurrentVersion = $"{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Patch}";
 
@@ -253,34 +248,42 @@ namespace UnityNuGet
                     npmPackage.Versions[npmVersion.Version] = npmVersion;
 
                     bool hasDependencyErrors = false;
-                    foreach (var deps in resolvedDependencyGroup.Packages)
+                    foreach (var resolvedDependencyGroup in resolvedDependencyGroups)
                     {
-                        var depsId = deps.Id.ToLowerInvariant();
+                        foreach (var deps in resolvedDependencyGroup.Packages)
+                        {
+                            var depsId = deps.Id.ToLowerInvariant();
 
-                        if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
-                        {
-                            LogError($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. You must add this dependency to the registry.json file.");
-                            hasDependencyErrors = true;
-                        }
-                        else if (packageEntryDep.Ignored)
-                        {
-                            // A package that is ignored is not declared as an explicit dependency
-                            continue;
-                        }
-                        else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
-                        {
-                            LogError($"The version range `{deps.VersionRange}` for the dependency `{deps.Id}` for the package `{packageIdentity}` doesn't match the range allowed from the registry.json: `{packageEntryDep.Version}`");
-                            hasDependencyErrors = true;
-                        }
+                            if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
+                            {
+                                LogError($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. You must add this dependency to the registry.json file.");
+                                hasDependencyErrors = true;
+                            }
+                            else if (packageEntryDep.Ignored)
+                            {
+                                // A package that is ignored is not declared as an explicit dependency
+                                continue;
+                            }
+                            else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
+                            {
+                                LogError($"The version range `{deps.VersionRange}` for the dependency `{deps.Id}` for the package `{packageIdentity}` doesn't match the range allowed from the registry.json: `{packageEntryDep.Version}`");
+                                hasDependencyErrors = true;
+                                continue;
+                            }
 
-                        // Otherwise add the package as a dependency
-                        npmVersion.Dependencies.Add($"{_unityScope}.{depsId}", deps.VersionRange.MinVersion.ToString());
+                            // Otherwise add the package as a dependency
+                            var key = $"{_unityScope}.{depsId}";
+                            if (!npmVersion.Dependencies.ContainsKey(key))
+                            {
+                                npmVersion.Dependencies.Add(key, deps.VersionRange.MinVersion.ToString());
+                            }
+                        }
                     }
 
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta);
+                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate);
                         npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
@@ -291,13 +294,24 @@ namespace UnityNuGet
                     }
                 }
             }
+
+            if (forceUpdate)
+            {
+                await File.WriteAllTextAsync(versionPath, CurrentRegistryVersion);
+            }
         }
 
         /// <summary>
         /// Converts a NuGet package to Unity package if not already
         /// </summary>
-        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
+        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, bool forceUpdate)
         {
+            // If we need to force the update, we delete the previous package+sha1 files
+            if (forceUpdate)
+            {
+                DeleteUnityPackage(identity, npmPackageVersion);
+            }
+
             if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
             {
                 await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta);
@@ -352,47 +366,79 @@ namespace UnityNuGet
                 {
                     // Select the framework version that is the closest or equal to the latest configured framework version
                     var versions = (await packageReader.GetLibItemsAsync(CancellationToken.None)).ToList();
-                    var item = versions.Where(x => x.TargetFramework.Framework == _nugetFramework.Framework && x.TargetFramework.Version <= _nugetFramework.Version).OrderByDescending(x => x.TargetFramework.Version)
-                        .FirstOrDefault();
 
-                    if (item == null)
+                    var collectedItems = new Dictionary<FrameworkSpecificGroup, HashSet<RegistryTargetFramework>>();
+
+                    foreach (var targetFramework in _targetFrameworks)
                     {
-                        throw new InvalidOperationException($"The package does not contain a {_targetFramework.Name} compatible assembly");
+                        var item = versions.Where(x => x.TargetFramework.Framework == targetFramework.Framework.Framework && x.TargetFramework.Version <= targetFramework.Framework.Version).OrderByDescending(x => x.TargetFramework.Version)
+                            .FirstOrDefault();
+                        if (item == null) continue;
+                        if (!collectedItems.TryGetValue(item, out var frameworksPerGroup))
+                        {
+                            frameworksPerGroup = new HashSet<RegistryTargetFramework>();
+                            collectedItems.Add(item, frameworksPerGroup);
+                        }
+                        frameworksPerGroup.Add(targetFramework);
                     }
 
-                    foreach (var file in item.Items)
+                    if (collectedItems.Count == 0)
                     {
-                        var fileInUnityPackage = Path.GetFileName(file);
-                        string meta;
+                        throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
+                    }
 
-                        string fileExtension = Path.GetExtension(fileInUnityPackage);
+                    foreach(var groupToFrameworks in collectedItems)
+                    {
+                        var item = groupToFrameworks.Key;
+                        var frameworks = groupToFrameworks.Value;
+                        var hasMultiNetStandard = collectedItems.Count > 1;
+                        var hasOnlyNetStandard21 = collectedItems.Count == 1 && collectedItems.Values.First().All(x => x.Name == "netstandard2.1");
 
-                        if (fileExtension == ".dll")
+                        var folderPrefix = hasMultiNetStandard ? $"{frameworks.First().Name}/" : "";
+                        foreach (var file in item.Items)
                         {
-                            meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), new string[] { _targetFramework.DefineConstraint });
+                            var fileInUnityPackage = Path.GetFileName(file);
+                            string meta;
+
+                            string fileExtension = Path.GetExtension(fileInUnityPackage);
+
+                            if (fileExtension == ".dll")
+                            {
+                                // If we have multiple .NETStandard supported or there is just netstandard2.1
+                                // We will use the define coming from the configuration file
+                                // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
+                                // use NET_STANDARD
+                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage),
+                                    hasMultiNetStandard || hasOnlyNetStandard21 ? frameworks.First().DefineConstraints : new[] {"NET_STANDARD"});
+                            }
+                            else
+                            {
+                                meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), fileExtension);
+                            }
+
+                            if (meta == null)
+                            {
+                                continue;
+                            }
+
+                            memStream.Position = 0;
+                            memStream.SetLength(0);
+
+                            var stream = packageReader.GetStream(file);
+                            await stream.CopyToAsync(memStream);
+                            var buffer = memStream.ToArray();
+
+                            // write content
+                            WriteBufferToTar(tarArchive, $"{folderPrefix}{fileInUnityPackage}", buffer);
+
+                            // write meta file
+                            WriteTextFileToTar(tarArchive, $"{folderPrefix}{fileInUnityPackage}.meta", meta);
                         }
-                        else
-                        {
-                            meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), fileExtension);
-                        }
+                    }
 
-                        if (meta == null)
-                        {
-                            continue;
-                        }
-
-                        memStream.Position = 0;
-                        memStream.SetLength(0);
-
-                        var stream = packageReader.GetStream(file);
-                        stream.CopyTo(memStream);
-                        var buffer = memStream.ToArray();
-
-                        // write content
-                        WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
-
-                        // write meta file
-                        WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
+                    if (collectedItems.Count == 0)
+                    {
+                        throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
                     }
 
                     // Write the package,json
@@ -501,6 +547,20 @@ namespace UnityNuGet
             return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
         }
 
+        private void DeleteUnityPackage(PackageIdentity identity, NpmPackageVersion packageVersion)
+        {
+            var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
+            if (packageFile.Exists)
+            {
+                packageFile.Delete();
+            }
+            var sha1File = new FileInfo(GetUnityPackageSha1Path(identity, packageVersion));
+            if (sha1File.Exists)
+            {
+                sha1File.Delete();
+            }
+        }
+        
         private bool IsUnityPackageValid(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
             var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
