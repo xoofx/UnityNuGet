@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.GZip;
@@ -27,7 +28,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.0.0";
+        private const string CurrentRegistryVersion = "1.1.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -78,6 +79,14 @@ namespace UnityNuGet
         }
 
         public bool HasErrors { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a regex filter (contains) on the NuGet package, case insensitive. Default is null (no filter).
+        /// </summary>
+        /// <remarks>
+        /// This property is used for testing purpose only
+        /// </remarks>
+        public string Filter { get; set; }
 
         /// <summary>
         /// Get all packages registered.
@@ -142,12 +151,19 @@ namespace UnityNuGet
                 _logger.LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
             }
 
+            
+            var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
+            if (Filter != null)
+            {
+                _logger.LogInformation($"Filtering with regex: {Filter}");
+            }
+
             foreach (var packageDesc in _registry)
             {
                 var packageName = packageDesc.Key;
                 var packageEntry = packageDesc.Value;
                 // A package entry is ignored but allowed in the registry (case of Microsoft.CSharp)
-                if (packageEntry.Ignored)
+                if (packageEntry.Ignored || (regexFilter != null && !regexFilter.IsMatch(packageName)))
                 {
                     continue;
                 }
@@ -397,11 +413,10 @@ namespace UnityNuGet
                         var folderPrefix = hasMultiNetStandard ? $"{frameworks.First().Name}/" : "";
                         foreach (var file in item.Items)
                         {
-                            var fileInUnityPackage = Path.GetFileName(file);
+                            var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(file)}";
                             string meta;
 
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
-
                             if (fileExtension == ".dll")
                             {
                                 // If we have multiple .NETStandard supported or there is just netstandard2.1
@@ -429,10 +444,17 @@ namespace UnityNuGet
                             var buffer = memStream.ToArray();
 
                             // write content
-                            WriteBufferToTar(tarArchive, $"{folderPrefix}{fileInUnityPackage}", buffer);
+                            WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
 
                             // write meta file
-                            WriteTextFileToTar(tarArchive, $"{folderPrefix}{fileInUnityPackage}.meta", meta);
+                            WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
+                        }
+
+                        // Write folder meta
+                        if (!string.IsNullOrEmpty(folderPrefix))
+                        {
+                            // write meta file for the folder
+                            WriteTextFileToTar(tarArchive, $"{folderPrefix.Substring(0, folderPrefix.Length - 1)}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folderPrefix)));
                         }
                     }
 

@@ -24,6 +24,9 @@ namespace UnityNuGet.Tests
                 new NuGetConsoleLogger());
 
 
+            // Uncomment when testing locally
+            // registryCache.Filter = "scriban|bcl\\.asyncinterfaces|compilerservices\\.unsafe";
+
             await registryCache.Build();
 
             Assert.False(registryCache.HasErrors, "The registry failed to build, check the logs");

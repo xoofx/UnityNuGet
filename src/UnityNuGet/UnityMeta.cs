@@ -68,18 +68,29 @@ PluginImporter:
             return meta.Render(new { guid = guid.ToString("N"), constraints = string.Join("\n", defineConstraints.Select(d => $"  - {d}").ToArray()) });
         }
 
+        public static string GetMetaForFolder(Guid guid)
+        {
+            return $@"fileFormatVersion: 2
+guid: {guid:N}
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {{}}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant:
+".Replace("\r\n", "\n");
+        }
+
         private static string GetMetaForText(Guid guid)
         {
-            const string text = @"fileFormatVersion: 2
-guid: {{ guid }}
+            return $@"fileFormatVersion: 2
+guid: {guid:N}
 TextScriptImporter:
-  externalObjects: {}
+  externalObjects: {{}}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-";
-            var meta = Template.Parse(text);
-            return meta.Render(new { guid = guid.ToString("N") });
+".Replace("\r\n", "\n"); ;
         }
     }
 }
