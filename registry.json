@@ -306,6 +306,34 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Serilog": {
+    "listed": true,
+    "version": "2.9.0"
+  },
+  "Serilog.Settings.Configuration": {
+    "listed": true,
+    "version": "3.2.0"
+  },
+  "Serilog.Sinks.Async": {
+    "listed": true,
+    "version": "1.5.0"
+  },
+  "Serilog.Sinks.Console": {
+    "listed": true,
+    "version": "4.0.0"
+  },
+  "Serilog.Sinks.Debug": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Serilog.Sinks.File": {
+    "listed": true,
+    "version": "5.0.0"
+  },
+  "Serilog.Sinks.Trace": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "Sharpcompress": {
     "listed": true,
     "version": "0.24.0"
