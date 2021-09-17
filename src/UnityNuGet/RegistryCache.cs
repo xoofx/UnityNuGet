@@ -28,7 +28,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.1.0";
+        private const string CurrentRegistryVersion = "1.2.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -403,12 +403,20 @@ namespace UnityNuGet
                         throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
                     }
 
-                    foreach(var groupToFrameworks in collectedItems)
+
+                    var isPackageNetStandard21Assembly = DotNetHelper.IsNetStandard21Assembly(identity.Id);
+                    var hasMultiNetStandard = collectedItems.Count > 1;
+                    var hasOnlyNetStandard21 = collectedItems.Count == 1 && collectedItems.Values.First().All(x => x.Name == "netstandard2.1");
+
+                    if (isPackageNetStandard21Assembly)
+                    {
+                        _logger.LogInformation($"Package {identity.Id} is a system package for netstandard2.1 and will be only used for netstandard 2.0");
+                    }
+
+                    foreach (var groupToFrameworks in collectedItems)
                     {
                         var item = groupToFrameworks.Key;
                         var frameworks = groupToFrameworks.Value;
-                        var hasMultiNetStandard = collectedItems.Count > 1;
-                        var hasOnlyNetStandard21 = collectedItems.Count == 1 && collectedItems.Values.First().All(x => x.Name == "netstandard2.1");
 
                         var folderPrefix = hasMultiNetStandard ? $"{frameworks.First().Name}/" : "";
                         foreach (var file in item.Items)
@@ -419,12 +427,13 @@ namespace UnityNuGet
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
                             if (fileExtension == ".dll")
                             {
-                                // If we have multiple .NETStandard supported or there is just netstandard2.1
+                                // If we have multiple .NETStandard supported or there is just netstandard2.1 or the package can
+                                // only be used when it is not netstandard 2.1
                                 // We will use the define coming from the configuration file
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
-                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage),
-                                    hasMultiNetStandard || hasOnlyNetStandard21 ? frameworks.First().DefineConstraints : new[] {"NET_STANDARD"});
+                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : new[] { "NET_STANDARD" };
+                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), defineConstraints);
                             }
                             else
                             {
