@@ -294,7 +294,7 @@ namespace UnityNuGet
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate);
+                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry);
                         npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
@@ -326,7 +326,7 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to Unity package if not already
         /// </summary>
-        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, bool forceUpdate)
+        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, bool forceUpdate, RegistryEntry packageEntry)
         {
             // If we need to force the update, we delete the previous package+sha1 files
             if (forceUpdate)
@@ -336,7 +336,7 @@ namespace UnityNuGet
 
             if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
             {
-                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta);
+                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry);
             }
             else
             {
@@ -347,7 +347,7 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to a Unity package.
         /// </summary>
-        private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta)
+        private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, RegistryEntry packageEntry)
         {
             var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
             var unityPackageFilePath = Path.Combine(_rootPersistentFolder, unityPackageFileName);
@@ -439,7 +439,7 @@ namespace UnityNuGet
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
                                 var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : new[] { "" };
-                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), defineConstraints);
+                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), defineConstraints.Concat(packageEntry.DefineConstraints));
                             }
                             else
                             {
