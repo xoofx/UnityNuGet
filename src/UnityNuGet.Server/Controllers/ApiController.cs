@@ -33,7 +33,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpGet("-/all")]
         public JsonResult GetAll()
         {
-            var result = _cacheSingleton.Instance.All();
+            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+
+            var result = instance.All();
             return new JsonResult(result);
         }
 
@@ -41,7 +43,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpGet("{id}")]
         public JsonResult GetPackage(string id)
         {
-            var package = _cacheSingleton.Instance.GetPackage(id);
+            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+
+            var package = instance.GetPackage(id);
             if (package == null)
             {
                 return new JsonResult(NpmError.NotFound);
@@ -55,7 +59,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpHead("{id}/-/{file}")]
         public IActionResult DownloadPackage(string id, string file)
         {
-            var package = _cacheSingleton.Instance.GetPackage(id);
+            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+
+            var package = instance.GetPackage(id);
             if (package == null)
             {
                 return new JsonResult(NpmError.NotFound);
@@ -66,7 +72,7 @@ namespace UnityNuGet.Server.Controllers
                 return new JsonResult(NpmError.NotFound);
             }
 
-            var filePath = _cacheSingleton.Instance.GetPackageFilePath(file);
+            var filePath = instance.GetPackageFilePath(file);
             if (!System.IO.File.Exists(filePath))
             {
                 return new JsonResult(NpmError.NotFound);
@@ -83,6 +89,17 @@ namespace UnityNuGet.Server.Controllers
             {
                 return new PhysicalFileResult(filePath, "application/octet-stream") { FileDownloadName = file };
             }
+        }
+
+        private bool TryGetInstance(out RegistryCache cacheInstance, out NpmError npmError)
+        {
+            var instance = _cacheSingleton.Instance;
+            cacheInstance = instance;
+            var currentIndex = _cacheSingleton.ProgressPackageIndex;
+            var totalCount = _cacheSingleton.ProgressTotalPackageCount;
+            npmError = instance == null ? new NpmError("not_initialized", $"The server is initializing ({(totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0):F1}% completed). Please retry later...") : null;
+
+            return instance != null;
         }
     }
 }
