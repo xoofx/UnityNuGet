@@ -212,12 +212,7 @@ namespace UnityNuGet
                                  || (currentVersion > NuGetVersion.Parse(latestVersion))
                                  || forceUpdate;
 
-                    string npmCurrentVersion = $"{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Patch}";
-
-                    if (currentVersion.Revision != 0)
-                    {
-                        npmCurrentVersion += $"-{currentVersion.Revision}";
-                    }
+                    string npmCurrentVersion = GetNpmVersion(currentVersion);
 
                     if (update)
                     {
@@ -268,7 +263,6 @@ namespace UnityNuGet
                     {
                         foreach (var deps in resolvedDependencyGroup.Packages)
                         {
-                            var depsId = deps.Id.ToLowerInvariant();
 
                             if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
                             {
@@ -288,10 +282,11 @@ namespace UnityNuGet
                             }
 
                             // Otherwise add the package as a dependency
+                            var depsId = deps.Id.ToLowerInvariant();
                             var key = $"{_unityScope}.{depsId}";
                             if (!npmVersion.Dependencies.ContainsKey(key))
                             {
-                                npmVersion.Dependencies.Add(key, deps.VersionRange.MinVersion.ToString());
+                                npmVersion.Dependencies.Add(key, GetNpmVersion(deps.VersionRange.MinVersion));
                             }
                         }
                     }
@@ -315,6 +310,17 @@ namespace UnityNuGet
             {
                 await File.WriteAllTextAsync(versionPath, CurrentRegistryVersion);
             }
+        }
+
+        private static string GetNpmVersion(NuGetVersion currentVersion)
+        {
+            string npmCurrentVersion = $"{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Patch}";
+
+            if (currentVersion.Revision != 0)
+            {
+                npmCurrentVersion += $"-{currentVersion.Revision}";
+            }
+            return npmCurrentVersion;
         }
 
         /// <summary>
