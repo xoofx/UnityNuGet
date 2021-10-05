@@ -450,7 +450,7 @@ namespace UnityNuGet
                                 // We will use the define coming from the configuration file
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
-                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : new[] { "" };
+                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
                                 meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), defineConstraints);
                             }
                             else
