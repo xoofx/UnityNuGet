@@ -55,6 +55,10 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Injecter": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "K4os.Compression.LZ4": {
     "listed": true,
     "version": "1.0.2" 
