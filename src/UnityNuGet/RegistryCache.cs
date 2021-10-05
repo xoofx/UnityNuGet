@@ -28,7 +28,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.2.0";
+        private const string CurrentRegistryVersion = "1.3.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;

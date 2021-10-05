@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0 (5 Oct 2021)
+- Add support for .NET Standard 2.1
+- Fix packages having dependencies to 4 digits packages versions
+- Allow to packages with Unity .NET Framework Profile
+- Add several new packages
+
 ## 0.8.2 (18 Apr 2021)
 - Recover from invalid SHA1 state
 
