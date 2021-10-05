@@ -18,8 +18,8 @@ namespace UnityNuGet.Tests
                 "2019.1", 
                 " (NuGet)", 
                 new RegistryTargetFramework[] {
-                    new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "NET_STANDARD", "UNITY_2021_2_OR_NEWER"} },
-                    new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "NET_STANDARD", "!UNITY_2021_2_OR_NEWER" } },
+                    new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "UNITY_2021_2_OR_NEWER"} },
+                    new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "!UNITY_2021_2_OR_NEWER" } },
                 }, 
                 new NuGetConsoleLogger());
 
