@@ -32,9 +32,15 @@ namespace UnityNuGet.Server
                 {
                     _logger.LogInformation("Starting to update RegistryCache");
 
-                    var previousRegistryCache = _currentRegistryCache.Instance;
-                    Debug.Assert(previousRegistryCache != null);
-                    var newRegistryCache = new RegistryCache(previousRegistryCache);
+                    var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder, _currentRegistryCache.ServerUri, _registryOptions.UnityScope, _registryOptions.MinimumUnityVersion, _registryOptions.PackageNameNuGetPostFix, _registryOptions.TargetFrameworks, _currentRegistryCache.NuGetRedirectLogger);
+
+                    // Update progress
+                    newRegistryCache.OnProgress = (current, total) =>
+                    {
+                        _currentRegistryCache.ProgressTotalPackageCount = total;
+                        _currentRegistryCache.ProgressPackageIndex = current;
+                    };
+
                     await newRegistryCache.Build();
 
                     if (newRegistryCache.HasErrors)

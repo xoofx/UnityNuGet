@@ -89,6 +89,11 @@ namespace UnityNuGet
         public string Filter { get; set; }
 
         /// <summary>
+        /// OnProgress event (number of packages initialized, total number of packages)
+        /// </summary>
+        public Action<int, int> OnProgress { get; set; }
+
+        /// <summary>
         /// Get all packages registered.
         /// </summary>
         /// <returns>A list of packages registered</returns>
@@ -158,10 +163,17 @@ namespace UnityNuGet
                 _logger.LogInformation($"Filtering with regex: {Filter}");
             }
 
+            var onProgress = OnProgress;
+
+            var progressCount = 0;
             foreach (var packageDesc in _registry)
             {
                 var packageName = packageDesc.Key;
                 var packageEntry = packageDesc.Value;
+
+                // Log progress count
+                onProgress?.Invoke(++progressCount, _registry.Count);
+
                 // A package entry is ignored but allowed in the registry (case of Microsoft.CSharp)
                 if (packageEntry.Ignored || (regexFilter != null && !regexFilter.IsMatch(packageName)))
                 {
@@ -438,7 +450,7 @@ namespace UnityNuGet
                                 // We will use the define coming from the configuration file
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
-                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : new[] { "" };
+                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
                                 meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), defineConstraints.Concat(packageEntry.DefineConstraints));
                             }
                             else

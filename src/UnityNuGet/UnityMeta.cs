@@ -36,9 +36,7 @@ PluginImporter:
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
-  defineConstraints:
-{{ constraints }}
-  isPreloaded: 0
+{{ constraints }}  isPreloaded: 0
   isOverridable: 0
   isExplicitlyReferenced: 0
   validateReferences: 1
@@ -64,8 +62,12 @@ PluginImporter:
   assetBundleName: 
   assetBundleVariant: 
 ";
+
+            ;
+            var allConstraints = defineConstraints.ToList();
             var meta = Template.Parse(text);
-            return meta.Render(new { guid = guid.ToString("N"), constraints = string.Join("\n", defineConstraints.Select(d => $"  - {d}").ToArray()) });
+            return meta.Render(new { guid = guid.ToString("N"), constraints = allConstraints.Count == 0 ? string.Empty : "  defineConstraints:\n" + string.Join("\n", allConstraints.Select(d => $"  - {d}").ToArray()) }
+            );
         }
 
         public static string GetMetaForFolder(Guid guid)
