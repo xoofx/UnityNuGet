@@ -77,7 +77,8 @@ PluginImporter:
                     constraints = allConstraints.Count == 0
                         ? string.Empty
                         : $"  defineConstraints:\n{FormatConstraints()}"
-                });
+                })
+                .StripWindowsNewlines();
         }
 
         public static string GetMetaForFolder(Guid guid)
@@ -90,7 +91,7 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant:
-".Replace("\r\n", "\n");
+".StripWindowsNewlines();
         }
 
         private static string GetMetaForText(Guid guid)
@@ -102,7 +103,9 @@ TextScriptImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-".Replace("\r\n", "\n"); ;
+".StripWindowsNewlines();
         }
+
+        private static string StripWindowsNewlines(this string input) => input.Replace("\r\n", "\n");
     }
 }

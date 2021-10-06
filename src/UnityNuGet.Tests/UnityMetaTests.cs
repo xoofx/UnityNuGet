@@ -27,5 +27,12 @@ namespace UnityNuGet.Tests
             // This is on the same line in the template, so ensure it's intact
             StringAssert.Contains("\n  isPreloaded: 0\n", output);
         }
+
+        [Test]
+        public void GetMetaForDll_ContainsNoWindowsNewlines()
+        {
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), new[] {"TEST"});
+            StringAssert.DoesNotContain("\r", output);
+        }
     }
 }
