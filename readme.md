@@ -25,6 +25,11 @@ In order to use this service you simply need to edit the `Packages/manifest.json
 }
 ```
 
+> WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already, 
+> it could be that we have updated packages on the server, and in that case, so you need to clear the cache containing
+> all Unity NPM packages downdloaded from the `unitynuget-registry.azurewebsites.net` registry.
+> On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget-registry.azurewebsites.net`
+
 When opening the Package Manager Window, you should see a few packages coming from NuGet (with the postfix text ` (NuGet)`)
 
 ![UnityEditorWithNuGet](img/unity_editor_with_nuget.jpg)
