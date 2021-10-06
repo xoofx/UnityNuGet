@@ -63,11 +63,21 @@ PluginImporter:
   assetBundleVariant: 
 ";
 
-            ;
             var allConstraints = defineConstraints.ToList();
-            var meta = Template.Parse(text);
-            return meta.Render(new { guid = guid.ToString("N"), constraints = allConstraints.Count == 0 ? string.Empty : "  defineConstraints:\n" + string.Join("\n", allConstraints.Select(d => $"  - {d}").ToArray()) }
-            );
+
+            string FormatConstraints() => string.Join(
+                string.Empty,
+                allConstraints.Select(d => $"  - {d}\n"));
+
+            return Template
+                .Parse(text)
+                .Render(new
+                {
+                    guid = guid.ToString("N"),
+                    constraints = allConstraints.Count == 0
+                        ? string.Empty
+                        : $"  defineConstraints:\n{FormatConstraints()}"
+                });
         }
 
         public static string GetMetaForFolder(Guid guid)
