@@ -13,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D2A040A5
 	ProjectSection(SolutionItems) = preProject
 		..\changelog.md = ..\changelog.md
 		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
-		..\.github\workflows\deploy.yml = ..\.github\workflows\deploy.yml
 		global.json = global.json
 		..\license.txt = ..\license.txt
 		..\readme.md = ..\readme.md

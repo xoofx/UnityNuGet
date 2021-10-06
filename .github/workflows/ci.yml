@@ -1,5 +1,8 @@
 name: ci
 
+env:
+  PROJECT_NAME: UnityNuGet
+
 on:
   push:
     paths-ignore:
@@ -24,3 +27,22 @@ jobs:
 
     - name: Build & test (Release)
       run: dotnet test src -c Release
+    
+    - name: Should Deploy?
+      if: github.event_name == 'push'
+      run: |
+        if ( "${{github.ref}}" -match "^refs/tags/[0-9]+\.[0-9]+\.[0-9]+" ) {
+            echo "UNITYNUGET_DEPLOY=1" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+        }  
+
+    - name: Publish (Release)
+      if: env.UNITYNUGET_DEPLOY == 1
+      run: dotnet publish src -c Release -o build/${{env.PROJECT_NAME}}
+
+    - name: Azure Deploy
+      if: env.UNITYNUGET_DEPLOY == 1
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: unitynuget-registry
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: build/${{env.PROJECT_NAME}} 
