@@ -55,6 +55,13 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "H.InputSimulator": {
+    "listed": true,
+    "version": "1.0.8",
+    "defineConstraints": [
+      "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
+    ]
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
