@@ -489,6 +489,10 @@
     "listed": true,
     "version": "0.8.6"
   },
+  "Validation": {
+    "listed": true,
+    "version": "2.5.42"
+  },
   "VoltRpc.Communication.Pipes": {
     "listed": true,
     "version": "1.0.0"
