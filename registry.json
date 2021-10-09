@@ -313,6 +313,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "QuikGraph": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Scriban": {
     "listed": true,
     "version": "2.1.0"
