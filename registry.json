@@ -433,6 +433,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Runtime.InteropServices": {
+    "listed": true,
+    "version": "4.1.0"
+  },
   "System.Security.Cryptography.Cng": {
     "listed": true,
     "version": "4.4.0"
