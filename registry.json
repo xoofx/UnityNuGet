@@ -62,6 +62,10 @@
       "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
     ]
   },
+  "HttpMock": {
+    "listed": true,
+    "version": "2.3.1"
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
