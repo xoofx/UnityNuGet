@@ -27,11 +27,11 @@ namespace UnityNuGet
             return null;
         }
 
-        public static string GetMetaForDll(Guid guid, IEnumerable<string> defineConstraints)
+        public static string GetMetaForDll(Guid guid, bool anyPlatformEnabled, IEnumerable<string> labels, IEnumerable<string> defineConstraints)
         {
             const string text = @"fileFormatVersion: 2
 guid: {{ guid }}
-PluginImporter:
+{{ labels }}PluginImporter:
   externalObjects: {}
   serializedVersion: 2
   iconMap: {}
@@ -42,9 +42,9 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      Any: 
+      Any:
     second:
-      enabled: 1
+      enabled: {{ enabled }}
       settings: {}
   - first:
       Editor: Editor
@@ -63,20 +63,25 @@ PluginImporter:
   assetBundleVariant: 
 ";
 
+            var allLabels = labels.ToList();
             var allConstraints = defineConstraints.ToList();
 
-            string FormatConstraints() => string.Join(
+            static string FormatList(IEnumerable<string> items) => string.Join(
                 string.Empty,
-                allConstraints.Select(d => $"  - {d}\n"));
+                items.Select(d => $"  - {d}\n"));
 
             return Template
                 .Parse(text)
                 .Render(new
                 {
                     guid = guid.ToString("N"),
+                    enabled = anyPlatformEnabled ? "1" : "0",
+                    labels = allLabels.Count == 0
+                        ? string.Empty
+                        : $"labels:\n{FormatList(allLabels)}",
                     constraints = allConstraints.Count == 0
                         ? string.Empty
-                        : $"  defineConstraints:\n{FormatConstraints()}"
+                        : $"  defineConstraints:\n{FormatList(allConstraints)}"
                 })
                 .StripWindowsNewlines();
         }
