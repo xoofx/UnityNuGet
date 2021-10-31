@@ -156,7 +156,7 @@ namespace UnityNuGet
                 _logger.LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
             }
 
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -195,7 +195,7 @@ namespace UnityNuGet
 
                     var resolvedDependencyGroups = packageMeta.DependencySets.Where(dependencySet => dependencySet.TargetFramework.IsAny || _targetFrameworks.Any(targetFramework => dependencySet.TargetFramework == targetFramework.Framework)).ToList();
 
-                    if (resolvedDependencyGroups.Count == 0)
+                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0)
                     {
                         _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
                         continue;
@@ -416,11 +416,10 @@ namespace UnityNuGet
                         frameworksPerGroup.Add(targetFramework);
                     }
 
-                    if (collectedItems.Count == 0)
+                    if (!packageEntry.Analyzer && collectedItems.Count == 0)
                     {
                         throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
                     }
-
 
                     var isPackageNetStandard21Assembly = DotNetHelper.IsNetStandard21Assembly(identity.Id);
                     var hasMultiNetStandard = collectedItems.Count > 1;
@@ -429,6 +428,80 @@ namespace UnityNuGet
                     if (isPackageNetStandard21Assembly)
                     {
                         _logger.LogInformation($"Package {identity.Id} is a system package for netstandard2.1 and will be only used for netstandard 2.0");
+                    }
+
+                    if (packageEntry.Analyzer)
+                    {
+                        var packageFiles = (await packageReader.GetPackageFilesAsync(PackageSaveMode.Files, CancellationToken.None)).ToList();
+
+                        var analyzerFiles = packageFiles.Where(p => p.StartsWith("analyzers/dotnet/cs")).ToArray();
+
+                        if (analyzerFiles.Length == 0)
+                        {
+                            analyzerFiles = packageFiles.Where(p => p.StartsWith("analyzers")).ToArray();
+                        }
+
+                        var createdDirectoryList = new List<string>();
+
+                        foreach (var analyzerFile in analyzerFiles)
+                        {
+                            var folderPrefix = $"{Path.GetDirectoryName(analyzerFile).Replace($"analyzers{Path.DirectorySeparatorChar}", string.Empty)}{Path.DirectorySeparatorChar}";
+
+                            // Write folder meta
+                            if (!string.IsNullOrEmpty(folderPrefix))
+                            {
+                                var directoryNameBuilder = new StringBuilder();
+
+                                foreach (var directoryName in folderPrefix.Split(Path.DirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    directoryNameBuilder.Append(directoryName);
+                                    directoryNameBuilder.Append(Path.DirectorySeparatorChar);
+
+                                    var processedDirectoryName = directoryNameBuilder.ToString()[0..^1];
+
+                                    if (createdDirectoryList.Any(d => d.Equals(processedDirectoryName)))
+                                    {
+                                        continue;
+                                    }
+
+                                    createdDirectoryList.Add(processedDirectoryName);
+
+                                    // write meta file for the folder
+                                    WriteTextFileToTar(tarArchive, $"{processedDirectoryName}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, processedDirectoryName)));
+                                }
+                            }
+
+                            var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(analyzerFile)}";
+                            string meta;
+
+                            string fileExtension = Path.GetExtension(fileInUnityPackage);
+                            if (fileExtension == ".dll")
+                            {
+                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), false, new string[] { "RoslynAnalyzer" }, Array.Empty<string>());
+                            }
+                            else
+                            {
+                                meta = UnityMeta.GetMetaForExtension(GetStableGuid(identity, fileInUnityPackage), fileExtension);
+                            }
+
+                            if (meta == null)
+                            {
+                                continue;
+                            }
+
+                            memStream.Position = 0;
+                            memStream.SetLength(0);
+
+                            var stream = packageReader.GetStream(analyzerFile);
+                            await stream.CopyToAsync(memStream);
+                            var buffer = memStream.ToArray();
+
+                            // write content
+                            WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
+
+                            // write meta file
+                            WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
+                        }
                     }
 
                     foreach (var groupToFrameworks in collectedItems)
@@ -481,11 +554,11 @@ namespace UnityNuGet
                         if (!string.IsNullOrEmpty(folderPrefix))
                         {
                             // write meta file for the folder
-                            WriteTextFileToTar(tarArchive, $"{folderPrefix.Substring(0, folderPrefix.Length - 1)}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folderPrefix)));
+                            WriteTextFileToTar(tarArchive, $"{folderPrefix[0..^1]}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folderPrefix)));
                         }
                     }
 
-                    if (collectedItems.Count == 0)
+                    if (!packageEntry.Analyzer && collectedItems.Count == 0)
                     {
                         throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
                     }
@@ -609,7 +682,7 @@ namespace UnityNuGet
                 sha1File.Delete();
             }
         }
-        
+
         private bool IsUnityPackageValid(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
             var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
@@ -695,18 +768,16 @@ namespace UnityNuGet
 
         private static string Sha1sum(Stream stream)
         {
-            using (SHA1Managed sha1 = new SHA1Managed())
+            using var sha1 = new SHA1Managed();
+            var hash = sha1.ComputeHash(stream);
+            var sb = new StringBuilder(hash.Length * 2);
+
+            foreach (byte b in hash)
             {
-                var hash = sha1.ComputeHash(stream);
-                var sb = new StringBuilder(hash.Length * 2);
-
-                foreach (byte b in hash)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-
-                return sb.ToString();
+                sb.Append(b.ToString("x2"));
             }
+
+            return sb.ToString();
         }
 
         private void LogError(string message)

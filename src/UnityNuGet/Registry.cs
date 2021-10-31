@@ -11,7 +11,7 @@ namespace UnityNuGet
     public sealed class Registry : Dictionary<string, RegistryEntry>
     {
         private const string RegistryFileName = "registry.json";
-        private static readonly object LockRead = new object();
+        private static readonly object LockRead = new();
         private static Registry _registry = null;
 
         public static Registry Parse(string json)
