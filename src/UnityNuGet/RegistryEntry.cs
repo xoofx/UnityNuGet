@@ -20,5 +20,8 @@ namespace UnityNuGet
 
         [JsonProperty("defineConstraints")]
         public List<string> DefineConstraints { get; set; } = new();
+
+        [JsonProperty("analyzer")]
+        public bool Analyzer { get; set; }
     }
 }
