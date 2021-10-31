@@ -7,7 +7,7 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmError : NpmObject
     {
-        public static readonly NpmError NotFound = new NpmError("not_found", "document not found");
+        public static readonly NpmError NotFound = new("not_found", "document not found");
 
         public NpmError(string error, string reason)
         {

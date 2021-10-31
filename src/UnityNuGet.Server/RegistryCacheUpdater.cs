@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -32,13 +31,14 @@ namespace UnityNuGet.Server
                 {
                     _logger.LogInformation("Starting to update RegistryCache");
 
-                    var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder, _currentRegistryCache.ServerUri, _registryOptions.UnityScope, _registryOptions.MinimumUnityVersion, _registryOptions.PackageNameNuGetPostFix, _registryOptions.TargetFrameworks, _currentRegistryCache.NuGetRedirectLogger);
-
-                    // Update progress
-                    newRegistryCache.OnProgress = (current, total) =>
+                    var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder, _currentRegistryCache.ServerUri, _registryOptions.UnityScope, _registryOptions.MinimumUnityVersion, _registryOptions.PackageNameNuGetPostFix, _registryOptions.TargetFrameworks, _currentRegistryCache.NuGetRedirectLogger)
                     {
-                        _currentRegistryCache.ProgressTotalPackageCount = total;
-                        _currentRegistryCache.ProgressPackageIndex = current;
+                        // Update progress
+                        OnProgress = (current, total) =>
+                        {
+                            _currentRegistryCache.ProgressTotalPackageCount = total;
+                            _currentRegistryCache.ProgressPackageIndex = current;
+                        }
                     };
 
                     await newRegistryCache.Build();

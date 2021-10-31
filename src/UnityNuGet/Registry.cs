@@ -16,6 +16,10 @@ namespace UnityNuGet
         private static readonly object LockRead = new();
         private static Registry _registry = null;
 
+        public Registry()
+        {
+        }
+
         private Registry(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

@@ -15,7 +15,7 @@ namespace UnityNuGet.Npm
         public NpmPackageListAllResponse()
         {
             Unused = 99999;
-            Packages = new Dictionary<string, NpmPackageInfo>();
+            Packages = new();
         }
 
         [JsonProperty("_updated")]
