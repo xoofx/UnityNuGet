@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using NuGet.Versioning;
 
 namespace UnityNuGet
@@ -16,5 +17,8 @@ namespace UnityNuGet
 
         [JsonProperty("version")]
         public VersionRange Version { get; set; }
+
+        [JsonProperty("defineConstraints")]
+        public List<string> DefineConstraints { get; set; } = new();
     }
 }

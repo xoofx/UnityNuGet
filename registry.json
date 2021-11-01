@@ -55,6 +55,13 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "H.InputSimulator": {
+    "listed": true,
+    "version": "1.0.8",
+    "defineConstraints": [
+      "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
+    ]
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
@@ -306,6 +313,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "QuikGraph": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Scriban": {
     "listed": true,
     "version": "2.1.0"
@@ -320,7 +331,7 @@
   },
   "Serilog.Extensions.Logging":{
     "listed": true,
-    "version": "2.0.0"
+    "version": "3.1.0"
   },
   "Serilog.Settings.Configuration": {
     "listed": true,
