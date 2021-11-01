@@ -325,6 +325,10 @@
     "listed": true,
     "version": "2.9.0"
   },
+  "Serilog.Extensions.Logging":{
+    "listed": true,
+    "version": "3.1.0"
+  },
   "Serilog.Settings.Configuration": {
     "listed": true,
     "version": "3.2.0"
