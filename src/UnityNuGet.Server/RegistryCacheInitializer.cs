@@ -28,7 +28,7 @@ namespace UnityNuGet.Server
             this.registryCacheSingleton = registryCacheSingleton;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
             var loggerRedirect = new NuGetRedirectLogger(loggerFactory.CreateLogger("NuGet"));
 
@@ -74,6 +74,8 @@ namespace UnityNuGet.Server
             registryCacheSingleton.UnityPackageFolder = unityPackageFolder;
             registryCacheSingleton.ServerUri = uri;
             registryCacheSingleton.NuGetRedirectLogger = loggerRedirect;
+
+            return Task.CompletedTask;
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

@@ -13,7 +13,7 @@ namespace UnityNuGet.Server
         public int ProgressPackageIndex { get; set; }
 
         public int ProgressTotalPackageCount { get; set; }
-        
+
         public RegistryCache Instance { get; set; }
     }
 }

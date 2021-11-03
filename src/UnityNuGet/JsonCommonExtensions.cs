@@ -16,7 +16,7 @@ namespace UnityNuGet
         /// <summary>
         /// Settings used for serializing JSON objects in this project.
         /// </summary>
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings Settings = new()
         {
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
             DateParseHandling = DateParseHandling.None,

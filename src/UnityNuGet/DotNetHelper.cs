@@ -12,7 +12,7 @@ namespace UnityNuGet
             return NetStandard21Assemblies.Contains(packageId);
         }
 
-        private static readonly HashSet<string> NetStandard21Assemblies = new HashSet<string>()
+        private static readonly HashSet<string> NetStandard21Assemblies = new()
         {
             "Microsoft.Win32.Primitives",
             "System.AppContext",

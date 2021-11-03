@@ -47,6 +47,11 @@
     "listed": true,
     "version": "0.0.2"
   },
+  "ErrorProne.NET.CoreAnalyzers": {
+    "listed": true,
+    "version": "0.1.2",
+    "analyzer": true
+  },
   "FastEnum": {
     "listed": true,
     "version": "1.0.0"
@@ -68,7 +73,7 @@
   },
   "K4os.Compression.LZ4": {
     "listed": true,
-    "version": "1.0.2" 
+    "version": "1.0.2"
   },
   "log4net": {
     "listed": true,
@@ -140,6 +145,11 @@
   "Microsoft.Bcl.HashCode": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "Microsoft.CodeAnalysis.NetAnalyzers": {
+    "listed": true,
+    "version": "5.0.3",
+    "analyzer": true
   },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
@@ -365,6 +375,11 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "SonarAnalyzer.CSharp": {
+    "listed": true,
+    "version": "8.30.0.37606",
+    "analyzer": true
+  },
   "Stateless": {
     "listed": true,
     "version": "4.3.0"
@@ -445,6 +460,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Runtime.InteropServices": {
+    "listed": true,
+    "version": "4.1.0"
+  },
   "System.Security.Cryptography.Cng": {
     "listed": true,
     "version": "4.4.0"
@@ -500,6 +519,10 @@
   "Telnet": {
     "listed": true,
     "version": "0.8.6"
+  },
+  "Validation": {
+    "listed": true,
+    "version": "2.5.42"
   },
   "VoltRpc.Communication.Pipes": {
     "listed": true,

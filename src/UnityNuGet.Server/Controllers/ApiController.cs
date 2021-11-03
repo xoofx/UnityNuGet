@@ -97,7 +97,8 @@ namespace UnityNuGet.Server.Controllers
             cacheInstance = instance;
             var currentIndex = _cacheSingleton.ProgressPackageIndex;
             var totalCount = _cacheSingleton.ProgressTotalPackageCount;
-            npmError = instance == null ? new NpmError("not_initialized", $"The server is initializing ({(totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0):F1}% completed). Please retry later...") : null;
+            var percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
+            npmError = instance == null ? new NpmError("not_initialized", $"The server is initializing ({percent:F1}% completed). Please retry later...") : null;
 
             return instance != null;
         }
