@@ -12,17 +12,16 @@ namespace UnityNuGet.Tests
         {
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
             var registryCache = new RegistryCache(
-                unityPackages, 
-                new Uri("http://localhost/"), 
-                "org.nuget", 
-                "2019.1", 
-                " (NuGet)", 
+                unityPackages,
+                new Uri("http://localhost/"),
+                "org.nuget",
+                "2019.1",
+                " (NuGet)",
                 new RegistryTargetFramework[] {
                     new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "UNITY_2021_2_OR_NEWER"} },
                     new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "!UNITY_2021_2_OR_NEWER" } },
-                }, 
+                },
                 new NuGetConsoleLogger());
-
 
             // Uncomment when testing locally
             // registryCache.Filter = "scriban|bcl\\.asyncinterfaces|compilerservices\\.unsafe";

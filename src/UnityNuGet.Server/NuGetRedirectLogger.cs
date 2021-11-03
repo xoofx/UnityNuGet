@@ -8,7 +8,7 @@ using LogLevel = NuGet.Common.LogLevel;
 namespace UnityNuGet.Server
 {
     /// <summary>
-    /// A NuGet logger redirecting to a <see cref="Microsoft.Extensions.Logging.ILogger"/>
+    /// A NuGet logger redirecting to a <see cref="ILogger"/>
     /// </summary>
     public class NuGetRedirectLogger : LoggerBase
     {
@@ -32,23 +32,16 @@ namespace UnityNuGet.Server
 
         private static Microsoft.Extensions.Logging.LogLevel GetLogLevel(LogLevel logLevel)
         {
-            switch (logLevel)
+            return logLevel switch
             {
-                case LogLevel.Debug:
-                    return Microsoft.Extensions.Logging.LogLevel.Debug;
-                case LogLevel.Verbose:
-                    return Microsoft.Extensions.Logging.LogLevel.Trace;
-                case LogLevel.Information:
-                    return Microsoft.Extensions.Logging.LogLevel.Information;
-                case LogLevel.Minimal:
-                    return Microsoft.Extensions.Logging.LogLevel.Information;
-                case LogLevel.Warning:
-                    return Microsoft.Extensions.Logging.LogLevel.Warning;
-                case LogLevel.Error:
-                    return Microsoft.Extensions.Logging.LogLevel.Error;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null);
-            }
+                LogLevel.Debug => Microsoft.Extensions.Logging.LogLevel.Debug,
+                LogLevel.Verbose => Microsoft.Extensions.Logging.LogLevel.Trace,
+                LogLevel.Information => Microsoft.Extensions.Logging.LogLevel.Information,
+                LogLevel.Minimal => Microsoft.Extensions.Logging.LogLevel.Information,
+                LogLevel.Warning => Microsoft.Extensions.Logging.LogLevel.Warning,
+                LogLevel.Error => Microsoft.Extensions.Logging.LogLevel.Error,
+                _ => throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null),
+            };
         }
     }
 }

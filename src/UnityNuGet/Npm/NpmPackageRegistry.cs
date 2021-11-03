@@ -9,9 +9,9 @@ namespace UnityNuGet.Npm
     {
         public NpmPackageRegistry()
         {
-            Packages = new Dictionary<string, NpmPackage>();
-            ListedPackageInfos = new NpmPackageListAllResponse();
-            UnlistedPackageInfos = new NpmPackageListAllResponse();
+            Packages = new();
+            ListedPackageInfos = new();
+            UnlistedPackageInfos = new();
         }
 
         public Dictionary<string, NpmPackage> Packages { get; }
