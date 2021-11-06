@@ -367,6 +367,10 @@
     "listed": true,
     "version": "0.24.0"
   },
+  "SharpZipLib": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "SixLabors.ImageSharp": {
     "listed": true,
     "version": "1.0.0"
