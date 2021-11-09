@@ -531,5 +531,45 @@
   "VoltRpc": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "DotNetty.Common": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Buffers": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Transport": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Handlers": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs.Mqtt": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs.Http": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs.Protobuf": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs.Redis": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs.ProtocolBuffers": {
+    "listed": true,
+    "version": "0.7.0"
   }
 }
