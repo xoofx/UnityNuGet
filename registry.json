@@ -215,6 +215,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "Microsoft.Extensions.Features": {
+    "listed": true,
+    "version": "6.0.0"
+  },
   "Microsoft.Extensions.FileProviders.Abstractions": {
     "listed": true,
     "version": "2.0.0"
@@ -240,6 +244,10 @@
     "version": "2.0.0"
   },
   "Microsoft.Extensions.Http": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "Microsoft.Extensions.Http.Polly": {
     "listed": true,
     "version": "2.1.0"
   },
@@ -311,6 +319,14 @@
     "listed": true,
     "version": "11.0.1"
   },
+  "Polly": {
+    "listed": true,
+    "version": "6.0.1"
+  },
+  "Polly.Extensions.Http": {
+    "listed": true,
+    "version": "2.0.1"
+  },
   "Prism.Core": {
     "listed": true,
     "version": "7.0.0.362"
@@ -335,7 +351,7 @@
     "listed": true,
     "version": "2.9.0"
   },
-  "Serilog.Extensions.Logging":{
+  "Serilog.Extensions.Logging": {
     "listed": true,
     "version": "3.1.0"
   },
