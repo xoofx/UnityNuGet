@@ -72,13 +72,13 @@
     "listed": true,
     "version": "2.36.0"
   },
-  "Grpc.Net.ClientFactory": {
-    "listed": true,
-    "version": "2.37.0"
-  },
   "Grpc.Net.Client.Web": {
     "listed": true,
     "version": "2.36.0"
+  },
+  "Grpc.Net.ClientFactory": {
+    "listed": true,
+    "version": "2.37.0"
   },
   "Grpc.Net.Common": {
     "listed": true,
@@ -363,6 +363,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "QuikGraph": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "RestSharp": {
     "listed": true,
     "version": "106.2.2"
@@ -374,10 +378,6 @@
   "RestSharp.Serializers.SystemTextJson": {
     "listed": true,
     "version": "106.10.0"
-  },
-  "QuikGraph": {
-    "listed": true,
-    "version": "2.0.0"
   },
   "Scriban": {
     "listed": true,
