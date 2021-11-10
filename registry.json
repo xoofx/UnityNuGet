@@ -60,6 +60,30 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Grpc.Core": {
+    "listed": true,
+    "version": "1.20.0"
+  },
+  "Grpc.Core.Api": {
+    "listed": true,
+    "version": "1.20.0"
+  },
+  "Grpc.Net.Client": {
+    "listed": true,
+    "version": "2.36.0"
+  },
+  "Grpc.Net.ClientFactory": {
+    "listed": true,
+    "version": "2.37.0"
+  },
+  "Grpc.Net.Client.Web": {
+    "listed": true,
+    "version": "2.36.0"
+  },
+  "Grpc.Net.Common": {
+    "listed": true,
+    "version": "2.36.0"
+  },
   "H.InputSimulator": {
     "listed": true,
     "version": "1.0.8",
@@ -428,9 +452,17 @@
     "listed": true,
     "version": "5.0.0"
   },
+  "System.Interactive.Async": {
+    "listed": true,
+    "version": "3.2.0"
+  },
   "System.IO.Pipelines": {
     "listed": true,
     "version": "4.5.0"
+  },
+  "System.Linq.Async": {
+    "listed": true,
+    "version": "4.0.0"
   },
   "System.Memory": {
     "listed": true,
