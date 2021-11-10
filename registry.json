@@ -271,6 +271,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Microsoft.Extensions.Http.Polly": {
+    "listed": true,
+    "version": "2.1.0"
+  },
   "Microsoft.Extensions.Localization.Abstractions": {
     "listed": true,
     "version": "2.0.0"
@@ -338,6 +342,14 @@
   "Newtonsoft.Json": {
     "listed": true,
     "version": "11.0.1"
+  },
+  "Polly": {
+    "listed": true,
+    "version": "6.0.1"
+  },
+  "Polly.Extensions.Http": {
+    "listed": true,
+    "version": "2.0.1"
   },
   "Prism.Core": {
     "listed": true,
