@@ -571,5 +571,9 @@
   "DotNetty.Codecs.ProtocolBuffers": {
     "listed": true,
     "version": "0.7.0"
+  },
+  "Google.Protobuf": {
+    "listed": true,
+    "version": "3.19.1"
   }
 }
