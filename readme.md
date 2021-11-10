@@ -55,7 +55,7 @@ Beware that **all transitive dependencies of the package** must be **explicitly 
 
 Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
-> NOTE: This service is currently only tested with **`Unity 2019.1`**
+> NOTE: This service is currently only tested with **`Unity 2019.x, 2020.x and 2021.x`**
 >
 > It may not work with a more recent version of Unity
 

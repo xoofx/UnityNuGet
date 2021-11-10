@@ -1,8 +1,4 @@
 {
-  "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-    "listed": true,
-    "version": "8.0.0"
-  },
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
     "version": "1.0.0.1"
@@ -10,6 +6,10 @@
   "AutoMapper": {
     "listed": true,
     "version": "10.0.0"
+  },
+  "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+    "listed": true,
+    "version": "8.0.0"
   },
   "AutomaticGraphLayout": {
     "listed": true,
@@ -60,6 +60,30 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Grpc.Core": {
+    "listed": true,
+    "version": "1.20.0"
+  },
+  "Grpc.Core.Api": {
+    "listed": true,
+    "version": "1.20.0"
+  },
+  "Grpc.Net.Client": {
+    "listed": true,
+    "version": "2.36.0"
+  },
+  "Grpc.Net.ClientFactory": {
+    "listed": true,
+    "version": "2.37.0"
+  },
+  "Grpc.Net.Client.Web": {
+    "listed": true,
+    "version": "2.36.0"
+  },
+  "Grpc.Net.Common": {
+    "listed": true,
+    "version": "2.36.0"
+  },
   "H.InputSimulator": {
     "listed": true,
     "version": "1.0.8",
@@ -91,17 +115,6 @@
     "listed": true,
     "version": "2.1.80"
   },
-  "Microsoft.Azure.Kinect.Sensor": {
-    "listed": true,
-    "version": "1.2.0"
-  },
-  "Microsoft.Bcl.AsyncInterfaces": {
-    "listed": true,
-    "version": "1.0.0"
-  },
-  "Microsoft.CSharp": {
-    "ignore": true
-  },
   "Microsoft.AspNetCore.Connections.Abstractions": {
     "listed": true,
     "version": "2.1.0"
@@ -118,11 +131,11 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.AspNetCore.SignalR.Client.Core": {
+  "Microsoft.AspNetCore.SignalR.Client": {
     "listed": true,
     "version": "1.0.0"
   },
-  "Microsoft.AspNetCore.SignalR.Client": {
+  "Microsoft.AspNetCore.SignalR.Client.Core": {
     "listed": true,
     "version": "1.0.0"
   },
@@ -142,6 +155,14 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "Microsoft.Azure.Kinect.Sensor": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "Microsoft.Bcl.AsyncInterfaces": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Microsoft.Bcl.HashCode": {
     "listed": true,
     "version": "1.0.0"
@@ -151,11 +172,18 @@
     "version": "5.0.3",
     "analyzer": true
   },
+  "Microsoft.CSharp": {
+    "ignore": true
+  },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
     "version": "2.0.0"
   },
   "Microsoft.Extensions.Caching.Memory": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Configuration": {
     "listed": true,
     "version": "2.0.0"
   },
@@ -199,7 +227,7 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.Configuration": {
+  "Microsoft.Extensions.DependencyInjection": {
     "listed": true,
     "version": "2.0.0"
   },
@@ -207,15 +235,11 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.DependencyInjection": {
-    "listed": true,
-    "version": "2.0.0"
-  },
   "Microsoft.Extensions.DependencyModel": {
     "listed": true,
     "version": "3.0.0"
   },
-  "Microsoft.Extensions.Features":{
+  "Microsoft.Extensions.Features": {
     "listed": true,
     "version": "6.0.0"
   },
@@ -235,11 +259,11 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.Hosting.Abstractions": {
+  "Microsoft.Extensions.Hosting": {
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.Hosting": {
+  "Microsoft.Extensions.Hosting.Abstractions": {
     "listed": true,
     "version": "2.0.0"
   },
@@ -247,7 +271,15 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Microsoft.Extensions.Http.Polly": {
+    "listed": true,
+    "version": "2.1.0"
+  },
   "Microsoft.Extensions.Localization.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Microsoft.Extensions.Logging": {
     "listed": true,
     "version": "2.0.0"
   },
@@ -283,11 +315,11 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.Logging": {
+  "Microsoft.Extensions.ObjectPool": {
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Extensions.ObjectPool": {
+  "Microsoft.Extensions.Options": {
     "listed": true,
     "version": "2.0.0"
   },
@@ -298,10 +330,6 @@
   "Microsoft.Extensions.Options.DataAnnotations": {
     "listed": true,
     "version": "2.2.0"
-  },
-  "Microsoft.Extensions.Options": {
-    "listed": true,
-    "version": "2.0.0"
   },
   "Microsoft.Extensions.Primitives": {
     "listed": true,
@@ -315,17 +343,37 @@
     "listed": true,
     "version": "11.0.1"
   },
+  "Polly": {
+    "listed": true,
+    "version": "6.0.1"
+  },
+  "Polly.Extensions.Http": {
+    "listed": true,
+    "version": "2.0.1"
+  },
   "Prism.Core": {
     "listed": true,
     "version": "7.0.0.362"
+  },
+  "protobuf-net": {
+    "listed": true,
+    "version": "3.0.0"
   },
   "protobuf-net.Core": {
     "listed": true,
     "version": "3.0.0"
   },
-  "protobuf-net": {
+  "RestSharp": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "106.2.2"
+  },
+  "RestSharp.Serializers.NewtonsoftJson": {
+    "listed": true,
+    "version": "106.10.0"
+  },
+  "RestSharp.Serializers.SystemTextJson": {
+    "listed": true,
+    "version": "106.10.0"
   },
   "QuikGraph": {
     "listed": true,
@@ -343,7 +391,7 @@
     "listed": true,
     "version": "4.2.0"
   },
-  "Serilog.Extensions.Logging":{
+  "Serilog.Extensions.Logging": {
     "listed": true,
     "version": "3.1.0"
   },
@@ -374,6 +422,10 @@
   "Sharpcompress": {
     "listed": true,
     "version": "0.24.0"
+  },
+  "SharpZipLib": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "SixLabors.ImageSharp": {
     "listed": true,
@@ -416,9 +468,17 @@
     "listed": true,
     "version": "5.0.0"
   },
+  "System.Interactive.Async": {
+    "listed": true,
+    "version": "3.2.0"
+  },
   "System.IO.Pipelines": {
     "listed": true,
     "version": "4.5.0"
+  },
+  "System.Linq.Async": {
+    "listed": true,
+    "version": "4.0.0"
   },
   "System.Memory": {
     "listed": true,
@@ -440,15 +500,15 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Reflection.Emit": {
+    "listed": true,
+    "version": "4.6.0"
+  },
   "System.Reflection.Emit.ILGeneration": {
     "listed": true,
     "version": "4.6.0"
   },
   "System.Reflection.Emit.Lightweight": {
-    "listed": true,
-    "version": "4.6.0"
-  },
-  "System.Reflection.Emit": {
     "listed": true,
     "version": "4.6.0"
   },
@@ -468,6 +528,10 @@
     "listed": true,
     "version": "4.1.0"
   },
+  "System.Security.AccessControl": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Security.Cryptography.Cng": {
     "listed": true,
     "version": "4.4.0"
@@ -481,10 +545,6 @@
     "version": "4.4.0"
   },
   "System.Security.Cryptography.Xml": {
-    "listed": true,
-    "version": "4.4.0"
-  },
-  "System.Security.AccessControl": {
     "listed": true,
     "version": "4.4.0"
   },
@@ -528,11 +588,11 @@
     "listed": true,
     "version": "2.5.42"
   },
-  "VoltRpc.Communication.Pipes": {
+  "VoltRpc": {
     "listed": true,
     "version": "1.0.0"
   },
-  "VoltRpc": {
+  "VoltRpc.Communication.Pipes": {
     "listed": true,
     "version": "1.0.0"
   }
