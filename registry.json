@@ -215,6 +215,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "Microsoft.Extensions.Features": {
+    "listed": true,
+    "version": "6.0.0"
+  },
   "Microsoft.Extensions.FileProviders.Abstractions": {
     "listed": true,
     "version": "2.0.0"
@@ -323,6 +327,18 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "RestSharp": {
+    "listed": true,
+    "version": "106.2.2"
+  },
+  "RestSharp.Serializers.NewtonsoftJson": {
+    "listed": true,
+    "version": "106.10.0"
+  },
+  "RestSharp.Serializers.SystemTextJson": {
+    "listed": true,
+    "version": "106.10.0"
+  },
   "QuikGraph": {
     "listed": true,
     "version": "2.0.0"
@@ -335,7 +351,7 @@
     "listed": true,
     "version": "2.9.0"
   },
-  "Serilog.Extensions.Logging":{
+  "Serilog.Extensions.Logging": {
     "listed": true,
     "version": "3.1.0"
   },
