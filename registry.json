@@ -360,6 +360,11 @@
     "version": "7.0.0",
     "analyzer": true
   },
+  "Microsoft.VisualStudio.Threading.Analyzers": {
+    "listed": true,
+    "version": "16.3.13",
+    "analyzer": true
+  },
   "morelinq": {
     "listed": true,
     "version": "3.2.0"
