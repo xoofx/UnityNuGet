@@ -379,6 +379,11 @@
     "listed": true,
     "version": "106.10.0"
   },
+  "Roslynator.Analyzers":{
+    "listed": true,
+    "version": "1.2.0",
+    "analyzer": true
+  },
   "Scriban": {
     "listed": true,
     "version": "2.1.0"
