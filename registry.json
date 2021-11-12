@@ -564,18 +564,6 @@
     "listed": true,
     "version": "0.7.0"
   },
-  "DotNetty.Codecs.Redis": {
-    "listed": true,
-    "version": "0.7.0"
-  },
-  "DotNetty.Codecs.ProtocolBuffers": {
-    "listed": true,
-    "version": "0.7.0"
-  },
-  "DotNetty.Transport.Libuv": {
-    "listed": true,
-    "version": "0.7.0"
-  },
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
