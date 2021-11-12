@@ -91,6 +91,11 @@
       "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
     ]
   },
+  "IDisposableAnalyzers":{
+    "listed": true,
+    "version": "1.0.0",
+    "analyzer": true
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
