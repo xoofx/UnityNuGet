@@ -182,14 +182,14 @@
     "version": "2.9.0",
     "analyzer": true
   },
-  "Microsoft.CodeAnalysis.PublicApiAnalyzers": {
-    "listed": true,
-    "version": "2.9.0",
-    "analyzer": true
-  },
   "Microsoft.CodeAnalysis.NetAnalyzers": {
     "listed": true,
     "version": "5.0.3",
+    "analyzer": true
+  },
+  "Microsoft.CodeAnalysis.PublicApiAnalyzers": {
+    "listed": true,
+    "version": "2.9.0",
     "analyzer": true
   },
   "Microsoft.CSharp": {
