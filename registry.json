@@ -91,7 +91,7 @@
       "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
     ]
   },
-  "IDisposableAnalyzers":{
+  "IDisposableAnalyzers": {
     "listed": true,
     "version": "1.0.0",
     "analyzer": true
@@ -177,12 +177,12 @@
     "listed": true,
     "version": "1.0.0"
   },
-  "Microsoft.CodeAnalysis.BannedApiAnalyzers":{
+  "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
     "listed": true,
     "version": "2.9.0",
     "analyzer": true
   },
-  "Microsoft.CodeAnalysis.PublicApiAnalyzers":{
+  "Microsoft.CodeAnalysis.PublicApiAnalyzers": {
     "listed": true,
     "version": "2.9.0",
     "analyzer": true
@@ -355,7 +355,7 @@
     "listed": true,
     "version": "2.0.0"
   },
-  "Microsoft.Toolkit.Mvvm":{
+  "Microsoft.Toolkit.Mvvm": {
     "listed": true,
     "version": "7.0.0",
     "analyzer": true
@@ -409,7 +409,7 @@
     "listed": true,
     "version": "106.10.0"
   },
-  "Roslynator.Analyzers":{
+  "Roslynator.Analyzers": {
     "listed": true,
     "version": "1.2.0",
     "analyzer": true
@@ -471,12 +471,12 @@
     "listed": true,
     "version": "4.3.0"
   },
-  "StrongInject":{
+  "StrongInject": {
     "listed": true,
     "version": "1.0.0",
     "analyzer": true
   },
-  "StrongInject.Extensions.DependencyInjection":{
+  "StrongInject.Extensions.DependencyInjection": {
     "listed": true,
     "version": "0.0.1"
   },
