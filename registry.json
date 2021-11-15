@@ -360,6 +360,11 @@
     "version": "7.0.0",
     "analyzer": true
   },
+  "Microsoft.Unity.Analyzers": {
+    "listed": true,
+    "version": "1.7.0",
+    "analyzer": true
+  },
   "Microsoft.VisualStudio.Threading.Analyzers": {
     "listed": true,
     "version": "16.3.13",
