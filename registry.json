@@ -91,6 +91,11 @@
       "UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN"
     ]
   },
+  "IDisposableAnalyzers": {
+    "listed": true,
+    "version": "1.0.0",
+    "analyzer": true
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
@@ -114,6 +119,11 @@
   "MessagePack.Annotations": {
     "listed": true,
     "version": "2.1.80"
+  },
+  "Meziantou.Analyzer": {
+    "listed": true,
+    "version": "1.0.349",
+    "analyzer": true
   },
   "Microsoft.AspNetCore.Connections.Abstractions": {
     "listed": true,
@@ -167,9 +177,19 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
+    "listed": true,
+    "version": "2.9.0",
+    "analyzer": true
+  },
   "Microsoft.CodeAnalysis.NetAnalyzers": {
     "listed": true,
     "version": "5.0.3",
+    "analyzer": true
+  },
+  "Microsoft.CodeAnalysis.PublicApiAnalyzers": {
+    "listed": true,
+    "version": "2.9.0",
     "analyzer": true
   },
   "Microsoft.CSharp": {
@@ -335,6 +355,21 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Microsoft.Toolkit.Mvvm": {
+    "listed": true,
+    "version": "7.0.0",
+    "analyzer": true
+  },
+  "Microsoft.Unity.Analyzers": {
+    "listed": true,
+    "version": "1.7.0",
+    "analyzer": true
+  },
+  "Microsoft.VisualStudio.Threading.Analyzers": {
+    "listed": true,
+    "version": "16.3.13",
+    "analyzer": true
+  },
   "morelinq": {
     "listed": true,
     "version": "3.2.0"
@@ -378,6 +413,11 @@
   "RestSharp.Serializers.SystemTextJson": {
     "listed": true,
     "version": "106.10.0"
+  },
+  "Roslynator.Analyzers": {
+    "listed": true,
+    "version": "1.2.0",
+    "analyzer": true
   },
   "Scriban": {
     "listed": true,
@@ -439,6 +479,11 @@
   "Stateless": {
     "listed": true,
     "version": "4.3.0"
+  },
+  "StrongInject": {
+    "listed": true,
+    "version": "1.0.0",
+    "analyzer": true
   },
   "System.Buffers": {
     "listed": true,
