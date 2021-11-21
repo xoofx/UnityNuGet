@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0 (21 Nov 2021)
+- Add several new packages
+- Add support for Roslyn Analyzers
+
 ## 0.11.0 (5 Oct 2021)
 - Add support for .NET Standard 2.1
 - Fix packages having dependencies to 4 digits packages versions
