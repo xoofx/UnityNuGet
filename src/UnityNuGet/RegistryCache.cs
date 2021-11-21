@@ -62,6 +62,14 @@ namespace UnityNuGet
             {
                 Directory.CreateDirectory(_rootPersistentFolder);
             }
+
+            // Force NuGet packages to be in the same directory to avoid storage full on Azure.
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+            {
+                var nugetFolder = Path.Combine(_rootPersistentFolder, ".nuget");
+                Environment.SetEnvironmentVariable("NUGET_PACKAGES", nugetFolder);
+            }
+
             _settings = Settings.LoadDefaultSettings(root: null);
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(_settings), Repository.Provider.GetCoreV3());
             _sourceRepository = sourceRepositoryProvider.GetRepositories().FirstOrDefault();
