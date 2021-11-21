@@ -387,6 +387,10 @@
     "listed": true,
     "version": "2.9.0"
   },
+  "Serilog.Extensions.Hosting":{
+    "listed": true,
+    "version": "4.2.0"
+  },
   "Serilog.Extensions.Logging": {
     "listed": true,
     "version": "3.1.0"
