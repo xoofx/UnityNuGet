@@ -485,6 +485,10 @@
     "version": "1.0.0",
     "analyzer": true
   },
+  "StrongInject.Extensions.DependencyInjection":{
+    "listed":true,
+    "version": "1.4.1"
+  },
   "System.Buffers": {
     "listed": true,
     "version": "4.4.0"
