@@ -427,7 +427,7 @@
     "listed": true,
     "version": "2.9.0"
   },
-  "Serilog.Extensions.Hosting":{
+  "Serilog.Extensions.Hosting": {
     "listed": true,
     "version": "4.2.0"
   },
@@ -462,6 +462,10 @@
   "Sharpcompress": {
     "listed": true,
     "version": "0.24.0"
+  },
+  "SharpYaml": {
+    "listed": true,
+    "version": "1.8.0"
   },
   "SharpZipLib": {
     "listed": true,
