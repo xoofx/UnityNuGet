@@ -559,7 +559,7 @@ namespace UnityNuGet
                         }
 
                         // Write folder meta
-                        if (!string.IsNullOrEmpty(folderPrefix))
+                        if (!string.IsNullOrEmpty(folderPrefix) && item.Items.Any())
                         {
                             // write meta file for the folder
                             WriteTextFileToTar(tarArchive, $"{folderPrefix[0..^1]}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folderPrefix)));
