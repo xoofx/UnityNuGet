@@ -60,6 +60,10 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Google.Protobuf": {
+    "listed": true,
+    "version": "3.8.0"
+  },
   "Grpc.Core": {
     "listed": true,
     "version": "1.20.0"
