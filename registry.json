@@ -497,8 +497,8 @@
     "version": "1.0.0",
     "analyzer": true
   },
-  "StrongInject.Extensions.DependencyInjection":{
-    "listed":true,
+  "StrongInject.Extensions.DependencyInjection": {
+    "listed": true,
     "version": "1.4.1"
   },
   "System.Buffers": {
@@ -640,6 +640,18 @@
   "Telnet": {
     "listed": true,
     "version": "0.8.6"
+  },
+  "UnitsNet": {
+    "listed": true,
+    "version": "4.101.0"
+  },
+  "UnitsNet.NumberExtensions": {
+    "listed": true,
+    "version": "4.101.0"
+  },
+  "UnitsNet.Serialization.JsonNet": {
+    "listed": true,
+    "version": "4.5.0"
   },
   "Validation": {
     "listed": true,
