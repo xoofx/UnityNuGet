@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.14.0 (23 Jan 2022)
+- Add new packages
+
 ## 0.13.0 (21 Nov 2021)
 - Add several new packages
 - Add support for Roslyn Analyzers
