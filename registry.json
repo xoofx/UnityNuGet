@@ -112,9 +112,9 @@
     "listed": true,
     "version": "2.0.11"
   },
-  "MathNet.Numerics":{
-    "listed":true,
-    "version":"4.0.0"
+  "MathNet.Numerics": {
+    "listed": true,
+    "version": "4.0.0"
   },
   "McMaster.Extensions.CommandLineUtils": {
     "listed": true,
@@ -421,6 +421,10 @@
   "RestSharp.Serializers.SystemTextJson": {
     "listed": true,
     "version": "106.10.0"
+  },
+  "Rhino3dm": {
+    "listed": true,
+    "version": "7.11.0"
   },
   "Roslynator.Analyzers": {
     "listed": true,
