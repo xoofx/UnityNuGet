@@ -11,6 +11,8 @@ namespace UnityNuGet.Tests
         public async Task TestBuild()
         {
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
+            Directory.Delete(unityPackages, true);
+
             var registryCache = new RegistryCache(
                 unityPackages,
                 new Uri("http://localhost/"),
