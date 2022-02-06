@@ -23,7 +23,6 @@ namespace UnityNuGet
 
                 if (folders.Length != 3 || !folders[2].Equals("native", StringComparison.OrdinalIgnoreCase))
                 {
-
                     logger.LogInformation($"Skipping non-native library file located in the runtimes folder: {file} ...");
                     continue;
                 }
