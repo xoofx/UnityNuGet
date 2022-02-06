@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace UnityNuGet.Tests
 {
+    [Ignore("Ignore native libs tests")]
     public class NativeTests
     {
         [Test]
