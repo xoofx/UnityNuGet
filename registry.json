@@ -435,6 +435,10 @@
     "listed": true,
     "version": "2.9.0"
   },
+  "Serilog.Enrichers.Demystifier": {
+    "listed": true,
+    "version": "0.9.0"
+  },
   "Serilog.Extensions.Hosting": {
     "listed": true,
     "version": "4.2.0"
