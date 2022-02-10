@@ -575,7 +575,7 @@ namespace UnityNuGet
                     var nativeFiles = NativeLibraries.GetSupportedNativeLibsAsync(packageReader, _logger);
                     var nativeFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                    await foreach (var (file, platform, architecture) in nativeFiles)
+                    await foreach (var (file, folders, platform, architecture) in nativeFiles)
                     {
                         string extension = Path.GetExtension(file);
                         string meta = extension switch
@@ -593,10 +593,9 @@ namespace UnityNuGet
                         WriteTextFileToTar(tarArchive, $"{file}.meta", meta);
 
                         // Remember all folders for meta files
-                        var folderPath = Path.GetDirectoryName(file);
                         string folder = "";
 
-                        foreach (var relative in folderPath.Split(Path.DirectorySeparatorChar))
+                        foreach (var relative in folders)
                         {
                             folder = Path.Combine(folder, relative);
                             nativeFolders.Add(folder);

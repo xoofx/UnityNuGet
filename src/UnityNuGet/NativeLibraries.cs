@@ -11,7 +11,7 @@ namespace UnityNuGet
 {
     static class NativeLibraries
     {
-        public static async IAsyncEnumerable<(string file, string platform, string architecture)> GetSupportedNativeLibsAsync(PackageReaderBase packageReader, ILogger logger)
+        public static async IAsyncEnumerable<(string file, string[] folders, string platform, string architecture)> GetSupportedNativeLibsAsync(PackageReaderBase packageReader, ILogger logger)
         {
             var versions = await packageReader.GetItemsAsync(PackagingConstants.Folders.Runtimes, CancellationToken.None);
             var files = versions.SelectMany(v => v.Items);
@@ -63,7 +63,7 @@ namespace UnityNuGet
                     continue;
                 }
 
-                yield return (file, platform, architecture);
+                yield return (file, folders, platform, architecture);
             }
         }
 
