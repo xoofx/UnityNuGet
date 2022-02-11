@@ -578,11 +578,18 @@ namespace UnityNuGet
                     await foreach (var (file, folders, platform, architecture) in nativeFiles)
                     {
                         string extension = Path.GetExtension(file);
+                        var guid = GetStableGuid(identity, file);
                         string meta = extension switch
                         {
-                            ".dll" or ".so" or ".dylib" => NativeLibraries.GetMetaForNative(GetStableGuid(identity, file), platform, architecture, Array.Empty<string>()),
-                            _ => UnityMeta.GetMetaForExtension(GetStableGuid(identity, file), extension)
+                            ".dll" or ".so" or ".dylib" => NativeLibraries.GetMetaForNative(guid, platform, architecture, Array.Empty<string>()),
+                            _ => UnityMeta.GetMetaForExtension(guid, extension)
                         };
+
+                        if (meta == null)
+                        {
+                            _logger.LogInformation($"Skipping file without meta: {file} ...");
+                            continue;
+                        }
 
                         memStream.SetLength(0);
                         using var stream = await packageReader.GetStreamAsync(file, CancellationToken.None);
