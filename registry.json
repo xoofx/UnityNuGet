@@ -60,6 +60,22 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Google.Apis": {
+    "listed": true,
+    "version": "1.35.0"
+  },
+  "Google.Apis.AndroidPublisher.v3": {
+    "listed": true,
+    "version": "1.35.1.1312"
+  },
+  "Google.Apis.Auth": {
+    "listed": true,
+    "version": "1.35.0"
+  },
+  "Google.Apis.Core": {
+    "listed": true,
+    "version": "1.35.0"
+  },
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
