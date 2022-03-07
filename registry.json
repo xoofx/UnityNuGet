@@ -443,6 +443,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Scrutor": {
+    "listed": true,
+    "version": "4.1.0"
+  },
   "Serilog": {
     "listed": true,
     "version": "2.9.0"
