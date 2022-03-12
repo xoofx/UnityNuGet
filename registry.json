@@ -665,6 +665,11 @@
     "listed": true,
     "version": "0.8.6"
   },
+  "UniRxAnalyzer": {
+    "listed": true,
+    "version": "1.0.4.1",
+    "analyzer": true
+  },
   "UnitsNet": {
     "listed": true,
     "version": "4.101.0"
