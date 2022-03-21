@@ -39,6 +39,10 @@
     "listed": true,
     "version": "2.4.0"
   },
+  "ComradeVanti.CSharpTools.Opt": {
+    "listed": true,
+    "version": "1.0.2"
+  },
   "CsvHelper": {
     "listed": true,
     "version": "3.0.0"
