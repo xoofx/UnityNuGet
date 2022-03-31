@@ -120,6 +120,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "IsExternalInit.System.Runtime.CompilerServices": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Jdenticon-net": {
     "listed": true,
     "version": "2.2.0"
