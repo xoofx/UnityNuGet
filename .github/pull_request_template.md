@@ -8,3 +8,7 @@
 >   - if the package is not compatible with standalone player, please add a comment to a Known issues section to the top level readme.md
 > - [ ] All package dependencies with .NETStandard 2.0 target must be added to the PR (respecting the same rules above)
 >   - Note that if a future version of the package adds a new dependency, this dependency will have to be added manually as well
+> 
+> Note: The server will be updated only when a new version tag is pushed on the main branch, not necessarily after merging this pull-request.
+
+
