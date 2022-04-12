@@ -49,8 +49,9 @@ I recommend also to **specify the lowest version of your package that has suppor
 
 Beware that **all transitive dependencies of the package** must be **explicitly listed** in the registry as well.
 
-> NOTE: We reserve the right to decline a package to be available through this service
-
+> NOTE: 
+> * We reserve the right to decline a package to be available through this service
+> * The server will be updated only when a new version tag is pushed on the main branch.
 ## Compatibility
 
 Only compatible with **`Unity 2019.1`** and potentially with newer version.

@@ -39,6 +39,10 @@
     "listed": true,
     "version": "2.4.0"
   },
+  "ComradeVanti.CSharpTools.Opt": {
+    "listed": true,
+    "version": "1.0.2"
+  },
   "CsvHelper": {
     "listed": true,
     "version": "3.0.0"
@@ -64,6 +68,22 @@
   "GeneticSharp": {
     "listed": true,
     "version": "2.0.0"
+  },
+  "Google.Apis": {
+    "listed": true,
+    "version": "1.44.0"
+  },
+  "Google.Apis.AndroidPublisher.v3": {
+    "listed": true,
+    "version": "1.44.0.1872"
+  },
+  "Google.Apis.Auth": {
+    "listed": true,
+    "version": "1.44.0"
+  },
+  "Google.Apis.Core": {
+    "listed": true,
+    "version": "1.44.0"
   },
   "Google.Protobuf": {
     "listed": true,
@@ -109,6 +129,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Jdenticon-net": {
+    "listed": true,
+    "version": "2.2.0"
+  },
   "K4os.Compression.LZ4": {
     "listed": true,
     "version": "1.0.2"
@@ -117,9 +141,9 @@
     "listed": true,
     "version": "2.0.11"
   },
-  "MathNet.Numerics":{
-    "listed":true,
-    "version":"4.0.0"
+  "MathNet.Numerics": {
+    "listed": true,
+    "version": "4.0.0"
   },
   "McMaster.Extensions.CommandLineUtils": {
     "listed": true,
@@ -427,6 +451,14 @@
     "listed": true,
     "version": "106.10.0"
   },
+  "Rhino3dm": {
+    "listed": true,
+    "version": "7.6.0"
+  },
+  "Robots": {
+    "listed": true,
+    "version": "1.1.5"
+  },
   "Roslynator.Analyzers": {
     "listed": true,
     "version": "1.2.0",
@@ -436,9 +468,17 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "Scrutor": {
+    "listed": true,
+    "version": "4.1.0"
+  },
   "Serilog": {
     "listed": true,
     "version": "2.9.0"
+  },
+  "Serilog.Enrichers.Demystifier": {
+    "listed": true,
+    "version": "0.9.0"
   },
   "Serilog.Extensions.Hosting": {
     "listed": true,
@@ -467,6 +507,10 @@
   "Serilog.Sinks.File": {
     "listed": true,
     "version": "5.0.0"
+  },
+  "Serilog.Sinks.Graylog": {
+    "listed": true,
+    "version": "2.3.0"
   },
   "Serilog.Sinks.Trace": {
     "listed": true,

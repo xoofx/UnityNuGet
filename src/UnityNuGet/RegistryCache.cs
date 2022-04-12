@@ -571,6 +571,49 @@ namespace UnityNuGet
                         throw new InvalidOperationException($"The package does not contain a compatible .NET assembly {string.Join(",", _targetFrameworks.Select(x => x.Name))}");
                     }
 
+                    // Write the native libraries
+                    var nativeFiles = NativeLibraries.GetSupportedNativeLibsAsync(packageReader, _logger);
+                    var nativeFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                    await foreach (var (file, folders, platform, architecture) in nativeFiles)
+                    {
+                        string extension = Path.GetExtension(file);
+                        var guid = GetStableGuid(identity, file);
+                        string meta = extension switch
+                        {
+                            ".dll" or ".so" or ".dylib" => NativeLibraries.GetMetaForNative(guid, platform, architecture, Array.Empty<string>()),
+                            _ => UnityMeta.GetMetaForExtension(guid, extension)
+                        };
+
+                        if (meta == null)
+                        {
+                            _logger.LogInformation($"Skipping file without meta: {file} ...");
+                            continue;
+                        }
+
+                        memStream.SetLength(0);
+                        using var stream = await packageReader.GetStreamAsync(file, CancellationToken.None);
+                        await stream.CopyToAsync(memStream);
+                        var buffer = memStream.ToArray();
+
+                        WriteBufferToTar(tarArchive, file, buffer);
+                        WriteTextFileToTar(tarArchive, $"{file}.meta", meta);
+
+                        // Remember all folders for meta files
+                        string folder = "";
+
+                        foreach (var relative in folders)
+                        {
+                            folder = Path.Combine(folder, relative);
+                            nativeFolders.Add(folder);
+                        }
+                    }
+
+                    foreach (var folder in nativeFolders)
+                    {
+                        WriteTextFileToTar(tarArchive, $"{folder}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folder)));
+                    }
+
                     // Write the package,json
                     var unityPackage = CreateUnityPackage(npmPackageInfo, npmPackageVersion);
                     var unityPackageAsJson = unityPackage.ToJson();
