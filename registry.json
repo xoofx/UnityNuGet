@@ -238,31 +238,31 @@
   },
   "Microsoft.EntityFrameworkCore": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Abstractions": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Analyzers": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Proxies": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Relational": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Sqlite": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.EntityFrameworkCore.Sqlite.Core": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.1.0"
   },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
