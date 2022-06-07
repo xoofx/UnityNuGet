@@ -48,7 +48,7 @@
     "listed": true,
     "version": "1.0.2"
   },
-   "ComradeVanti.CSharpTools.Res": {
+  "ComradeVanti.CSharpTools.Res": {
     "listed": true,
     "version": "1.0.0"
   },
@@ -540,6 +540,14 @@
     "listed": true,
     "version": "8.30.0.37606",
     "analyzer": true
+  },
+  "SSH.NET": {
+    "listed": true,
+    "version": "2020.0.0"
+  },
+  "SshNet.Security.Cryptography": {
+    "listed": true,
+    "version": "1.3.0"
   },
   "Stateless": {
     "listed": true,
