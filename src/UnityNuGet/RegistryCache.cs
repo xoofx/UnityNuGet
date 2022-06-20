@@ -13,6 +13,7 @@ using ICSharpCode.SharpZipLib.Tar;
 using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Frameworks;
+using NuGet.PackageManagement;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
 using NuGet.Protocol.Core.Types;
@@ -39,7 +40,7 @@ namespace UnityNuGet
         private readonly RegistryTargetFramework[] _targetFrameworks;
         private readonly ILogger _logger;
         private readonly ISettings _settings;
-        private readonly SourceRepository _sourceRepository;
+        private readonly IEnumerable<SourceRepository> _sourceRepositories;
         private readonly SourceCacheContext _sourceCacheContext;
         private readonly Registry _registry;
         private readonly NpmPackageRegistry _npmPackageRegistry;
@@ -72,7 +73,7 @@ namespace UnityNuGet
 
             _settings = Settings.LoadDefaultSettings(root: null);
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(_settings), Repository.Provider.GetCoreV3());
-            _sourceRepository = sourceRepositoryProvider.GetRepositories().FirstOrDefault();
+            _sourceRepositories = sourceRepositoryProvider.GetRepositories();
             _logger = logger;
             _registry = Registry.GetInstance();
 
@@ -150,20 +151,34 @@ namespace UnityNuGet
             }
         }
 
+        private async Task<IEnumerable<IPackageSearchMetadata>> GetMetadataFromSources(string packageName)
+        {
+            foreach (var source in _sourceRepositories)
+            {
+                var packageMetadataResource = source.GetResource<PackageMetadataResource>();
+
+                var result = await packageMetadataResource.GetMetadataAsync(packageName, includePrerelease: false, includeUnlisted: false, _sourceCacheContext, _logger, CancellationToken.None);
+
+                if (result.Any())
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// For each package in our registry.json, query NuGet, extract package metadata, and convert them to unity packages.
         /// </summary>
         private async Task BuildInternal()
         {
-            var packageMetadataResource = _sourceRepository.GetResource<PackageMetadataResource>();
-
             var versionPath = Path.Combine(_rootPersistentFolder, "version.txt");
             var forceUpdate = !File.Exists(versionPath) || await File.ReadAllTextAsync(versionPath) != CurrentRegistryVersion;
             if (forceUpdate)
             {
                 _logger.LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
             }
-
 
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
@@ -188,7 +203,7 @@ namespace UnityNuGet
                     continue;
                 }
 
-                var packageMetaIt = await packageMetadataResource.GetMetadataAsync(packageName, false, false, _sourceCacheContext, _logger, CancellationToken.None);
+                var packageMetaIt = await GetMetadataFromSources(packageName);
                 var packageMetas = packageMetaIt.ToList();
                 foreach (var packageMeta in packageMetas)
                 {
@@ -374,8 +389,8 @@ namespace UnityNuGet
 
             _logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
 
-            var downloadResource = await _sourceRepository.GetResourceAsync<DownloadResource>(CancellationToken.None);
-            var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
+            var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                _sourceRepositories,
                 identity,
                 new PackageDownloadContext(_sourceCacheContext),
                 SettingsUtility.GetGlobalPackagesFolder(_settings),
