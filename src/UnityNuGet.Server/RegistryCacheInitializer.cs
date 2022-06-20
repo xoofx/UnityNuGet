@@ -46,7 +46,10 @@ namespace UnityNuGet.Server
                     throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
                 }
 
-                uri = new Uri(url);
+                // https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-environment-variables#dotnet_running_in_container-and-dotnet_running_in_containers
+                bool runningInContainer = configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER");
+
+                uri = new Uri(runningInContainer ? url.Replace("+", "localhost") : url);
             }
 
             // Get the current directory from registry options (prepend binary folder in dev)

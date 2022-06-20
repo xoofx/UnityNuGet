@@ -4,6 +4,13 @@
         <TargetFramework>net6.0</TargetFramework>
         <ApplicationInsightsResourceId>/subscriptions/b6745039-70e7-4641-994b-5457cb220e2a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/unitynuget-registry</ApplicationInsightsResourceId>
         <ApplicationInsightsAnnotationResourceId>/subscriptions/b6745039-70e7-4641-994b-5457cb220e2a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/unitynuget-registry</ApplicationInsightsAnnotationResourceId>
+        <UserSecretsId>1be0a769-8d75-4a27-99e0-128afcc0ffee</UserSecretsId>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DockerfileContext>.</DockerfileContext>
+        <DockerfileFile>..\..\Dockerfile</DockerfileFile>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,11 +22,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UnityNuGet\UnityNuGet.csproj" />
+        <ProjectReference Include="..\UnityNuGet\UnityNuGet.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <WCFMetadata Include="Connected Services" />
+        <WCFMetadata Include="Connected Services" />
     </ItemGroup>
 
 </Project>
