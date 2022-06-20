@@ -834,7 +834,7 @@ namespace UnityNuGet
 
         private static string Sha1sum(Stream stream)
         {
-            using var sha1 = new SHA1Managed();
+            using var sha1 = SHA1.Create();
             var hash = sha1.ComputeHash(stream);
             var sb = new StringBuilder(hash.Length * 2);
 
