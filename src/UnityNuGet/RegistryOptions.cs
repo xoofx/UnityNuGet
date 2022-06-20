@@ -8,38 +8,38 @@ namespace UnityNuGet
     public class RegistryOptions
     {
         [Required]
-        public Uri RootHttpUrl { get; set; }
+        public Uri? RootHttpUrl { get; set; }
 
         [Required]
         [RegularExpression(@"[a-z]+\.[a-z]+")]
-        public string UnityScope { get; set; }
+        public string? UnityScope { get; set; }
 
         [Required]
         [RegularExpression(@"\d+\.\d+")]
-        public string MinimumUnityVersion { get; set; }
+        public string? MinimumUnityVersion { get; set; }
 
         [Required]
-        public string PackageNameNuGetPostFix { get; set; }
+        public string? PackageNameNuGetPostFix { get; set; }
 
         [Required]
-        public string RootPersistentFolder { get; set; }
+        public string? RootPersistentFolder { get; set; }
 
         [Required]
         public TimeSpan UpdateInterval { get; set; }
 
         [Required]
-        public RegistryTargetFramework[] TargetFrameworks { get; set; }
+        public RegistryTargetFramework[]? TargetFrameworks { get; set; }
     }
 
     public class RegistryTargetFramework
     {
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
-        public string[] DefineConstraints { get; set; }
+        public string[]? DefineConstraints { get; set; }
 
         [JsonIgnore]
-        internal NuGetFramework Framework { get; set; }
+        internal NuGetFramework? Framework { get; set; }
     }
 }

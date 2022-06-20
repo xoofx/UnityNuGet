@@ -14,7 +14,7 @@ namespace UnityNuGet
     {
         private const string RegistryFileName = "registry.json";
         private static readonly object LockRead = new();
-        private static Registry _registry = null;
+        private static Registry? _registry = null;
 
         public Registry()
         {
@@ -27,7 +27,7 @@ namespace UnityNuGet
         public static Registry Parse(string json)
         {
             ArgumentNullException.ThrowIfNull(json);
-            return JsonConvert.DeserializeObject<Registry>(json, JsonCommonExtensions.Settings);
+            return JsonConvert.DeserializeObject<Registry>(json, JsonCommonExtensions.Settings)!;
         }
 
         public static Registry GetInstance()
@@ -36,7 +36,7 @@ namespace UnityNuGet
             {
                 if (_registry == null)
                 {
-                    _registry = Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(typeof(Registry).Assembly.Location), RegistryFileName)));
+                    _registry = Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(typeof(Registry).Assembly.Location)!, RegistryFileName)));
                 }
             }
             return _registry;

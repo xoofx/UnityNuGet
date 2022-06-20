@@ -18,7 +18,7 @@ namespace UnityNuGet
 
             foreach (var file in files)
             {
-                var folderPath = Path.GetDirectoryName(file);
+                var folderPath = Path.GetDirectoryName(file)!;
                 var folders = folderPath.Split(Path.DirectorySeparatorChar);
 
                 if (folders.Length != 3 || !folders[2].Equals("native", StringComparison.OrdinalIgnoreCase))

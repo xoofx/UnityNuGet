@@ -95,12 +95,12 @@ namespace UnityNuGet
         /// <remarks>
         /// This property is used for testing purpose only
         /// </remarks>
-        public string Filter { get; set; }
+        public string? Filter { get; set; }
 
         /// <summary>
         /// OnProgress event (number of packages initialized, total number of packages)
         /// </summary>
-        public Action<int, int> OnProgress { get; set; }
+        public Action<int, int>? OnProgress { get; set; }
 
         /// <summary>
         /// Get all packages registered.
@@ -116,7 +116,7 @@ namespace UnityNuGet
         /// </summary>
         /// <param name="packageId"></param>
         /// <returns>A npm package or null if not found</returns>
-        public NpmPackage GetPackage(string packageId)
+        public NpmPackage? GetPackage(string packageId)
         {
             ArgumentNullException.ThrowIfNull(packageId);
             _npmPackageRegistry.Packages.TryGetValue(packageId, out var package);
@@ -151,7 +151,7 @@ namespace UnityNuGet
             }
         }
 
-        private async Task<IEnumerable<IPackageSearchMetadata>> GetMetadataFromSources(string packageName)
+        private async Task<IEnumerable<IPackageSearchMetadata>?> GetMetadataFromSources(string packageName)
         {
             foreach (var source in _sourceRepositories)
             {
@@ -204,14 +204,14 @@ namespace UnityNuGet
                 }
 
                 var packageMetaIt = await GetMetadataFromSources(packageName);
-                var packageMetas = packageMetaIt.ToList();
+                var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
                 foreach (var packageMeta in packageMetas)
                 {
                     var packageIdentity = packageMeta.Identity;
                     var packageId = packageIdentity.Id.ToLowerInvariant();
                     var npmPackageId = $"{_unityScope}.{packageId}";
 
-                    if (!packageEntry.Version.Satisfies(packageMeta.Identity.Version))
+                    if (packageEntry.Version == null || !packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
                         continue;
                     }
@@ -428,7 +428,7 @@ namespace UnityNuGet
 
                     foreach (var targetFramework in _targetFrameworks)
                     {
-                        var item = versions.Where(x => x.TargetFramework.Framework == targetFramework.Framework.Framework && x.TargetFramework.Version <= targetFramework.Framework.Version).OrderByDescending(x => x.TargetFramework.Version)
+                        var item = versions.Where(x => x.TargetFramework.Framework == targetFramework.Framework?.Framework && x.TargetFramework.Version <= targetFramework.Framework.Version).OrderByDescending(x => x.TargetFramework.Version)
                             .FirstOrDefault();
                         if (item == null) continue;
                         if (!collectedItems.TryGetValue(item, out var frameworksPerGroup))
@@ -468,7 +468,7 @@ namespace UnityNuGet
 
                         foreach (var analyzerFile in analyzerFiles)
                         {
-                            var folderPrefix = $"{Path.GetDirectoryName(analyzerFile).Replace($"analyzers{Path.DirectorySeparatorChar}", string.Empty)}{Path.DirectorySeparatorChar}";
+                            var folderPrefix = $"{Path.GetDirectoryName(analyzerFile)!.Replace($"analyzers{Path.DirectorySeparatorChar}", string.Empty)}{Path.DirectorySeparatorChar}";
 
                             // Write folder meta
                             if (!string.IsNullOrEmpty(folderPrefix))
@@ -495,7 +495,7 @@ namespace UnityNuGet
                             }
 
                             var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(analyzerFile)}";
-                            string meta;
+                            string? meta;
 
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
                             if (fileExtension == ".dll")
@@ -536,7 +536,7 @@ namespace UnityNuGet
                         foreach (var file in item.Items)
                         {
                             var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(file)}";
-                            string meta;
+                            string? meta;
 
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
                             if (fileExtension == ".dll")
@@ -547,7 +547,7 @@ namespace UnityNuGet
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
                                 var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
-                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), true, Array.Empty<string>(), defineConstraints.Concat(packageEntry.DefineConstraints));
+                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), true, Array.Empty<string>(), defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : Array.Empty<string>());
                             }
                             else
                             {
@@ -594,7 +594,7 @@ namespace UnityNuGet
                     {
                         string extension = Path.GetExtension(file);
                         var guid = GetStableGuid(identity, file);
-                        string meta = extension switch
+                        string? meta = extension switch
                         {
                             ".dll" or ".so" or ".dylib" => NativeLibraries.GetMetaForNative(guid, platform, architecture, Array.Empty<string>()),
                             _ => UnityMeta.GetMetaForExtension(guid, extension)
@@ -634,11 +634,11 @@ namespace UnityNuGet
                     var unityPackageAsJson = unityPackage.ToJson();
                     const string packageJsonFileName = "package.json";
                     WriteTextFileToTar(tarArchive, packageJsonFileName, unityPackageAsJson);
-                    WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json"));
+                    WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json")!);
 
                     // Write the license to the package if any
-                    string license = null;
-                    string licenseUrlText = null;
+                    string? license = null;
+                    string? licenseUrlText = null;
 
                     var licenseUrl = packageMeta.LicenseMetadata?.LicenseUrl.ToString() ?? packageMeta.LicenseUrl?.ToString();
                     if (!string.IsNullOrEmpty(licenseUrl))
@@ -689,7 +689,7 @@ namespace UnityNuGet
                     {
                         const string licenseMdFile = "License.md";
                         WriteTextFileToTar(tarArchive, licenseMdFile, license);
-                        WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md"));
+                        WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md")!);
                     }
                 }
 
@@ -775,7 +775,7 @@ namespace UnityNuGet
 
         private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageSha1FileName(identity, packageVersion));
 
-        private void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
+        private static void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
         {
             ArgumentNullException.ThrowIfNull(tarOut);
             ArgumentNullException.ThrowIfNull(filePath);

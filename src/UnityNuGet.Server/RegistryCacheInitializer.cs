@@ -32,7 +32,7 @@ namespace UnityNuGet.Server
         {
             var loggerRedirect = new NuGetRedirectLogger(loggerFactory.CreateLogger("NuGet"));
 
-            Uri uri = registryOptions.RootHttpUrl;
+            Uri uri = registryOptions.RootHttpUrl!;
 
             bool isDevelopment = hostEnvironment.IsDevelopment();
             if (isDevelopment)
@@ -58,7 +58,7 @@ namespace UnityNuGet.Server
             if (isDevelopment)
             {
                 var currentDirectory = Path.GetDirectoryName(typeof(Startup).Assembly.Location)!;
-                unityPackageFolder = Path.Combine(currentDirectory, new DirectoryInfo(registryOptions.RootPersistentFolder).Name);
+                unityPackageFolder = Path.Combine(currentDirectory, new DirectoryInfo(registryOptions.RootPersistentFolder!).Name);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace UnityNuGet.Server
                 }
                 else
                 {
-                    unityPackageFolder = Path.Combine(Directory.GetCurrentDirectory(), registryOptions.RootPersistentFolder);
+                    unityPackageFolder = Path.Combine(Directory.GetCurrentDirectory(), registryOptions.RootPersistentFolder!);
                 }
             }
             loggerRedirect.LogInformation($"Using Unity Package folder `{unityPackageFolder}`");
