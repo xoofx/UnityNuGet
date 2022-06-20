@@ -26,7 +26,7 @@ namespace UnityNuGet
 
         public static Registry Parse(string json)
         {
-            if (json == null) throw new ArgumentNullException(nameof(json));
+            ArgumentNullException.ThrowIfNull(json);
             return JsonConvert.DeserializeObject<Registry>(json, JsonCommonExtensions.Settings);
         }
 

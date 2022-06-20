@@ -118,7 +118,7 @@ namespace UnityNuGet
         /// <returns>A npm package or null if not found</returns>
         public NpmPackage GetPackage(string packageId)
         {
-            if (packageId == null) throw new ArgumentNullException(nameof(packageId));
+            ArgumentNullException.ThrowIfNull(packageId);
             _npmPackageRegistry.Packages.TryGetValue(packageId, out var package);
             return package;
         }
@@ -130,7 +130,7 @@ namespace UnityNuGet
         /// <returns>The file path of the package on the disk</returns>
         public string GetPackageFilePath(string packageFileName)
         {
-            if (packageFileName == null) throw new ArgumentNullException(nameof(packageFileName));
+            ArgumentNullException.ThrowIfNull(packageFileName);
             packageFileName = packageFileName.Replace("/", packageFileName.Replace(".", string.Empty));
             var packageFilePath = Path.Combine(_rootPersistentFolder, packageFileName);
             return packageFilePath;
@@ -777,19 +777,19 @@ namespace UnityNuGet
 
         private void WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content)
         {
-            if (tarOut == null) throw new ArgumentNullException(nameof(tarOut));
-            if (filePath == null) throw new ArgumentNullException(nameof(filePath));
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            ArgumentNullException.ThrowIfNull(tarOut);
+            ArgumentNullException.ThrowIfNull(filePath);
+            ArgumentNullException.ThrowIfNull(content);
 
             var buffer = Utf8EncodingNoBom.GetBytes(content);
             WriteBufferToTar(tarOut, filePath, buffer);
         }
 
-        private void WriteBufferToTar(TarOutputStream tarOut, string filePath, byte[] buffer)
+        private static void WriteBufferToTar(TarOutputStream tarOut, string filePath, byte[] buffer)
         {
-            if (tarOut == null) throw new ArgumentNullException(nameof(tarOut));
-            if (filePath == null) throw new ArgumentNullException(nameof(filePath));
-            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+            ArgumentNullException.ThrowIfNull(tarOut);
+            ArgumentNullException.ThrowIfNull(filePath);
+            ArgumentNullException.ThrowIfNull(buffer);
 
             filePath = filePath.Replace(@"\", "/");
             filePath = filePath.TrimStart('/');
