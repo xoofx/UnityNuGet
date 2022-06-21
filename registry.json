@@ -733,5 +733,13 @@
   "VoltRpc.Communication.Pipes": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "VoltRpc.Extension.Memory": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "VoltRpc.Extension.Vectors": {
+    "listed": true,
+    "version": "1.0.0"
   }
 }
