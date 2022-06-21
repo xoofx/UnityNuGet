@@ -19,19 +19,19 @@ namespace UnityNuGet.Npm
         }
 
         [JsonProperty("_id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("_rev")]
         public string Revision { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("license")]
-        public string License { get; set; }
+        public string? License { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [JsonProperty("dist-tags")]
         public Dictionary<string, string> DistTags { get; }
@@ -43,7 +43,7 @@ namespace UnityNuGet.Npm
         public Dictionary<string, DateTime> Time { get; }
 
         [JsonProperty("repository", NullValueHandling = NullValueHandling.Ignore)]
-        public NpmSourceRepository Repository { get; set; }
+        public NpmSourceRepository? Repository { get; set; }
 
         [JsonProperty("users")]
         public Dictionary<string, string> Users { get; }

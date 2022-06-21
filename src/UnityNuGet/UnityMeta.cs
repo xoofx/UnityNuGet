@@ -10,7 +10,7 @@ namespace UnityNuGet
     /// </summary>
     internal static class UnityMeta
     {
-        public static string GetMetaForExtension(Guid guid, string extension)
+        public static string? GetMetaForExtension(Guid guid, string extension)
         {
             switch (extension)
             {

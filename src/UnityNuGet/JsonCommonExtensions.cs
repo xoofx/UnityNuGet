@@ -34,14 +34,14 @@ namespace UnityNuGet
         /// </summary>
         private class VersionConverter : JsonConverter<VersionRange>
         {
-            public override void WriteJson(JsonWriter writer, VersionRange value, JsonSerializer serializer)
+            public override void WriteJson(JsonWriter writer, VersionRange? value, JsonSerializer serializer)
             {
-                writer.WriteValue(value.ToString());
+                writer.WriteValue(value?.ToString());
             }
 
-            public override VersionRange ReadJson(JsonReader reader, Type objectType, VersionRange existingValue, bool hasExistingValue, JsonSerializer serializer)
+            public override VersionRange? ReadJson(JsonReader reader, Type objectType, VersionRange? existingValue, bool hasExistingValue, JsonSerializer serializer)
             {
-                string s = (string)reader.Value;
+                string? s = (string?)reader.Value;
                 return VersionRange.Parse(s);
             }
         }

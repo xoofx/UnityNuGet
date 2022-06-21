@@ -31,7 +31,7 @@ namespace UnityNuGet.Server
                 {
                     _logger.LogInformation("Starting to update RegistryCache");
 
-                    var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder, _currentRegistryCache.ServerUri, _registryOptions.UnityScope, _registryOptions.MinimumUnityVersion, _registryOptions.PackageNameNuGetPostFix, _registryOptions.TargetFrameworks, _currentRegistryCache.NuGetRedirectLogger)
+                    var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder!, _currentRegistryCache.ServerUri!, _registryOptions.UnityScope!, _registryOptions.MinimumUnityVersion!, _registryOptions.PackageNameNuGetPostFix!, _registryOptions.TargetFrameworks!, _currentRegistryCache.NuGetRedirectLogger!)
                     {
                         // Update progress
                         OnProgress = (current, total) =>

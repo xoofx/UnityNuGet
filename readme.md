@@ -76,6 +76,31 @@ services:
 
 There is a complete example in [examples/docker](examples/docker).
 
+### Accessing a private NuGet feed from Azure DevOps
+
+As documented in the example, it is possible to provide a custom NuGet.Config file.
+
+To add a private feed, the following fields must be filled in.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="MyCustomFeed" value="https://pkgs.dev.azure.com/<ORG_NAME>/<PROJECT_NAME>/_packaging/<FEED_NAME>/nuget/v3/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <MyCustomFeed>
+      <add key="Username" value="<Azure DevOps Email>" />
+      <add key="ClearTextPassword" value="<Azure DevOps PAT>" />
+    </MyCustomFeed>
+  </packageSourceCredentials>
+</configuration>
+```
+
+**Note**: The Azure DevOps PAT must have Packaging (Read) permissions.
+
 ## FAQ
 
 ### Where is hosted this service?
