@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Threading;
-using NuGet.Packaging;
 using NuGet.Common;
+using NuGet.Packaging;
 using Scriban;
 
 namespace UnityNuGet
@@ -67,17 +67,33 @@ namespace UnityNuGet
             }
         }
 
-        public static string GetMetaForNative(Guid guid, string platform, string architecture, string[] labels)
+        private readonly struct PlatformEnables
         {
-            // (Editor, Linux64, OSXUniversal, Win, Win64)
-            var enables = (platform, architecture) switch
+            public readonly int Editor, Linux64, OSXUniversal, Win, Win64;
+
+            public PlatformEnables(int editor, int linux64, int oSXUniversal, int win, int win64)
             {
-                ("Linux", _) => (1, 1, 0, 0, 0),
-                ("OSX", _) => (1, 0, 1, 0, 0),
-                ("Windows", "x86") => (0, 0, 0, 1, 0),
-                ("Windows", "x86_64") => (1, 0, 0, 0, 1),
-                _ => throw new ArgumentException("Unsupported configuration")
+                Editor = editor;
+                Linux64 = linux64;
+                OSXUniversal = oSXUniversal;
+                Win = win;
+                Win64 = win64;
+            }
+        }
+
+        public static string? GetMetaForNative(Guid guid, string platform, string architecture, string[] labels)
+        {
+            // TODO: Support other platforms
+            PlatformEnables? enables = (platform, architecture) switch
+            {
+                ("Linux", _) => new(1, 1, 0, 0, 0),
+                ("OSX", _) => new(1, 0, 1, 0, 0),
+                ("Windows", "x86") => new(0, 0, 0, 1, 0),
+                ("Windows", "x86_64") => new(1, 0, 0, 0, 1),
+                _ => null,
             };
+
+            if (enables is null) return null;
 
             const string text = @"{{ cpu(x) = x == 1 ? architecture : ""None"" }}fileFormatVersion: 2
 guid: {{ guid }}
@@ -97,11 +113,11 @@ guid: {{ guid }}
     second:
       enabled: 0
       settings:
-        Exclude Editor: {{ 1 - enables.item1 }}
-        Exclude Linux64: {{ 1 - enables.item2 }}
-        Exclude OSXUniversal: {{ 1 - enables.item3 }}
-        Exclude Win: {{ 1 - enables.item4 }}
-        Exclude Win64: {{ 1 - enables.item5 }}
+        Exclude Editor: {{ 1 - enables.Editor }}
+        Exclude Linux64: {{ 1 - enables.Linux64 }}
+        Exclude OSXUniversal: {{ 1 - enables.OSXUniversal }}
+        Exclude Win: {{ 1 - enables.Win }}
+        Exclude Win64: {{ 1 - enables.Win64 }}
   - first:
       Any: 
     second:
@@ -110,35 +126,35 @@ guid: {{ guid }}
   - first:
       Editor: Editor
     second:
-      enabled: {{ enables.item1 }}
+      enabled: {{ enables.Editor }}
       settings:
-        CPU: {{ cpu enables.item1 }}
+        CPU: {{ cpu enables.Editor }}
         DefaultValueInitialized: true
-        OS: {{ enables.item1 == 1 ? platform : ""None"" }}
+        OS: {{ enables.Editor == 1 ? platform : ""None"" }}
   - first:
       Standalone: Linux64
     second:
-      enabled: {{ enables.item2 }}
+      enabled: {{ enables.Linux64 }}
       settings:
-        CPU: {{ cpu enables.item2 }}
+        CPU: {{ cpu enables.Linux64 }}
   - first:
       Standalone: OSXUniversal
     second:
-      enabled: {{ enables.item3 }}
+      enabled: {{ enables.OSXUniversal }}
       settings:
-        CPU: {{ cpu enables.item3 }}
+        CPU: {{ cpu enables.OSXUniversal }}
   - first:
       Standalone: Win
     second:
-      enabled: {{ enables.item4 }}
+      enabled: {{ enables.Win }}
       settings:
-        CPU: {{ cpu enables.item4 }}
+        CPU: {{ cpu enables.Win }}
   - first:
       Standalone: Win64
     second:
-      enabled: {{ enables.item5 }}
+      enabled: {{ enables.Win64 }}
       settings:
-        CPU: {{ cpu enables.item5 }}
+        CPU: {{ cpu enables.Win64 }}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

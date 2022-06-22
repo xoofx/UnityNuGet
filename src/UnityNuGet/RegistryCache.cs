@@ -217,8 +217,18 @@ namespace UnityNuGet
                     }
 
                     var resolvedDependencyGroups = packageMeta.DependencySets.Where(dependencySet => dependencySet.TargetFramework.IsAny || _targetFrameworks.Any(targetFramework => dependencySet.TargetFramework == targetFramework.Framework)).ToList();
+                    
+                    // TODO: Either don't download or only download once
+                    var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                        _sourceRepositories,
+                        packageIdentity,
+                        new PackageDownloadContext(_sourceCacheContext),
+                        SettingsUtility.GetGlobalPackagesFolder(_settings),
+                        _logger, CancellationToken.None);
+                    var packageReader = downloadResult.PackageReader;
+                    var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(packageReader, _logger).AnyAsync();
 
-                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0)
+                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0 && !hasNativeLib)
                     {
                         _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
                         continue;

@@ -236,6 +236,10 @@
   "Microsoft.CSharp": {
     "ignore": true
   },
+  "Microsoft.Data.Sqlite.Core":{
+    "listed": true,
+    "version": "5.0.8"
+  },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
     "version": "2.0.0"
@@ -415,6 +419,10 @@
     "listed": true,
     "version": "3.2.0"
   },
+  "NeoSmart.Caching.Sqlite":{
+    "listed": true,
+    "version": "5.0.2"
+  },
   "Newtonsoft.Json": {
     "listed": true,
     "version": "11.0.1"
@@ -561,6 +569,22 @@
   "StrongInject.Extensions.DependencyInjection": {
     "listed": true,
     "version": "1.4.1"
+  },
+  "SQLitePCLRaw.bundle_green":{
+    "listed": true,
+    "version": "2.0.7"
+  },
+  "SQLitePCLRaw.core":{
+    "listed": true,
+    "version": "2.0.4"
+  },
+  "SQLitePCLRaw.lib.e_sqlite3":{
+    "listed": true,
+    "version": "2.0.7"
+  },
+  "SQLitePCLRaw.provider.e_sqlite3":{
+    "listed": true,
+    "version": "2.0.7"
   },
   "System.Buffers": {
     "listed": true,
