@@ -141,6 +141,14 @@
     "listed": true,
     "version": "1.0.2"
   },
+  "LiteDB": {
+    "listed": true,
+    "version": "5.0.12"
+  },
+  "LiteDb.Extensions.Caching": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "log4net": {
     "listed": true,
     "version": "2.0.11"
