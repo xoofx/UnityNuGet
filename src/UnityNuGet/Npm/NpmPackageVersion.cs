@@ -16,10 +16,10 @@ namespace UnityNuGet.Npm
         }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("version")]
-        public string Version { get; set; }
+        public string? Version { get; set; }
 
         [JsonProperty("dist")]
         public NpmDistribution Distribution { get; }
@@ -28,24 +28,24 @@ namespace UnityNuGet.Npm
         public Dictionary<string, string> Dependencies { get; }
 
         [JsonProperty("_id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("unity", NullValueHandling = NullValueHandling.Ignore)]
-        public string Unity { get; set; }
+        public string? Unity { get; set; }
 
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [JsonProperty("displayName", NullValueHandling = NullValueHandling.Ignore)]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [JsonProperty("scripts", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string> Scripts { get; }
 
         [JsonProperty("repository", NullValueHandling = NullValueHandling.Ignore)]
-        public NpmSourceRepository Repository { get; set; }
+        public NpmSourceRepository? Repository { get; set; }
 
         [JsonProperty("author", NullValueHandling = NullValueHandling.Ignore)]
-        public string Author { get; set; }
+        public string? Author { get; set; }
     }
 }
