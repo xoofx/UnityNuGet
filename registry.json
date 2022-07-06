@@ -61,6 +61,11 @@
     "version": "0.1.2",
     "analyzer": true
   },
+  "ErrorProne.NET.Structs": {
+    "listed": true,
+    "version": "0.1.2",
+    "analyzer": true
+  },
   "FastEnum": {
     "listed": true,
     "version": "1.0.0"
