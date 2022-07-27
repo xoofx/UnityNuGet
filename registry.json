@@ -711,7 +711,10 @@
   },
   "NSubstitute": {
     "listed": true,
-    "version": "4.4.0"
+    "version": "4.4.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "NSubstitute.Analyzers.CSharp": {
     "listed": true,
