@@ -94,6 +94,10 @@
     "listed": true,
     "version": "1.44.0"
   },
+  "Google.Cloud.Speech.V1": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
