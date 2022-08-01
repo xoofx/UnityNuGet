@@ -78,6 +78,18 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Google.Api.CommonProtos": {
+    "listed": true,
+    "version": "1.7.0"
+  },
+  "Google.Api.Gax": {
+    "listed": true,
+    "version": "2.7.0"
+  },
+  "Google.Api.Gax.Grpc": {
+    "listed": true,
+    "version": "2.7.0"
+  },
   "Google.Apis": {
     "listed": true,
     "version": "1.44.0"
@@ -98,9 +110,17 @@
     "listed": true,
     "version": "1.2.0"
   },
+  "Google.LongRunning": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
+  },
+  "Grpc.Auth": {
+    "listed": true,
+    "version": "1.20.0"
   },
   "Grpc.Core": {
     "listed": true,
