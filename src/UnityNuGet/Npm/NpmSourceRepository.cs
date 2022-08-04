@@ -8,17 +8,14 @@ namespace UnityNuGet.Npm
     public partial class NpmSourceRepository : NpmObject
     {
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [JsonProperty("revision")]
-        public string Revision { get; set; }
+        public string? Revision { get; set; }
 
-        public NpmSourceRepository Clone()
-        {
-            return (NpmSourceRepository)MemberwiseClone();
-        }
+        public NpmSourceRepository Clone() => (NpmSourceRepository)MemberwiseClone();
     }
 }

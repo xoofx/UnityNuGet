@@ -15,22 +15,22 @@ namespace UnityNuGet
         }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("version")]
-        public string Version { get; set; }
+        public string? Version { get; set; }
 
         [JsonProperty("unity")]
-        public string Unity { get; set; }
+        public string? Unity { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [JsonProperty("keywords")]
         public List<string> Keywords { get; }
 
         [JsonProperty("category")]
-        public string Category { get; set; }
+        public string? Category { get; set; }
 
         [JsonProperty("dependencies")]
         public Dictionary<string, string> Dependencies { get; }

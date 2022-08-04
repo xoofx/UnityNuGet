@@ -9,9 +9,9 @@ namespace UnityNuGet.Npm
     public class NpmDistribution : NpmObject
     {
         [JsonProperty("tarball")]
-        public Uri Tarball { get; set; }
+        public Uri? Tarball { get; set; }
 
         [JsonProperty("shasum")]
-        public string Shasum { get; set; }
+        public string? Shasum { get; set; }
     }
 }
