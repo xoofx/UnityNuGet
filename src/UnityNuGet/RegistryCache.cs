@@ -217,8 +217,17 @@ namespace UnityNuGet
                     }
 
                     var resolvedDependencyGroups = packageMeta.DependencySets.Where(dependencySet => dependencySet.TargetFramework.IsAny || _targetFrameworks.Any(targetFramework => dependencySet.TargetFramework == targetFramework.Framework)).ToList();
+                    
+                    var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                        _sourceRepositories,
+                        packageIdentity,
+                        new PackageDownloadContext(_sourceCacheContext),
+                        SettingsUtility.GetGlobalPackagesFolder(_settings),
+                        _logger, CancellationToken.None);
 
-                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0)
+                    var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, _logger).AnyAsync();
+
+                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0 && !hasNativeLib)
                     {
                         _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
                         continue;
@@ -329,7 +338,7 @@ namespace UnityNuGet
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry);
+                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry, downloadResult);
                         npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
@@ -361,7 +370,16 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to Unity package if not already
         /// </summary>
-        private async Task ConvertNuGetToUnityPackageIfDoesNotExist(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, bool forceUpdate, RegistryEntry packageEntry)
+        private async Task ConvertNuGetToUnityPackageIfDoesNotExist
+        (
+            PackageIdentity identity,
+            NpmPackageInfo npmPackageInfo,
+            NpmPackageVersion npmPackageVersion,
+            IPackageSearchMetadata packageMeta,
+            bool forceUpdate,
+            RegistryEntry packageEntry,
+            DownloadResourceResult downloadResult
+        )
         {
             // If we need to force the update, we delete the previous package+sha1 files
             if (forceUpdate)
@@ -371,7 +389,7 @@ namespace UnityNuGet
 
             if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
             {
-                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry);
+                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry, downloadResult);
             }
             else
             {
@@ -382,19 +400,21 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to a Unity package.
         /// </summary>
-        private async Task ConvertNuGetPackageToUnity(PackageIdentity identity, NpmPackageInfo npmPackageInfo, NpmPackageVersion npmPackageVersion, IPackageSearchMetadata packageMeta, RegistryEntry packageEntry)
+        private async Task ConvertNuGetPackageToUnity
+        (
+            PackageIdentity identity,
+            NpmPackageInfo npmPackageInfo,
+            NpmPackageVersion npmPackageVersion,
+            IPackageSearchMetadata packageMeta,
+            RegistryEntry packageEntry,
+            DownloadResourceResult downloadResult
+        )
         {
             var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
             var unityPackageFilePath = Path.Combine(_rootPersistentFolder, unityPackageFileName);
 
             _logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
 
-            var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
-                _sourceRepositories,
-                identity,
-                new PackageDownloadContext(_sourceCacheContext),
-                SettingsUtility.GetGlobalPackagesFolder(_settings),
-                _logger, CancellationToken.None);
             var packageReader = downloadResult.PackageReader;
 
             // Update Repository metadata if necessary
