@@ -89,6 +89,8 @@ namespace UnityNuGet
 
         public bool HasErrors { get; private set; }
 
+        public bool HasWarnings { get; private set; }
+
         /// <summary>
         /// Gets or sets a regex filter (contains) on the NuGet package, case insensitive. Default is null (no filter).
         /// </summary>
@@ -310,7 +312,7 @@ namespace UnityNuGet
 
                             if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
                             {
-                                LogError($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. You must add this dependency to the registry.json file.");
+                                LogWarning($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. You must add this dependency to the registry.json file.");
                                 hasDependencyErrors = true;
                             }
                             else if (packageEntryDep.Ignored)
@@ -320,7 +322,7 @@ namespace UnityNuGet
                             }
                             else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
                             {
-                                LogError($"The version range `{deps.VersionRange}` for the dependency `{deps.Id}` for the package `{packageIdentity}` doesn't match the range allowed from the registry.json: `{packageEntryDep.Version}`");
+                                LogWarning($"The version range `{deps.VersionRange}` for the dependency `{deps.Id}` for the package `{packageIdentity}` doesn't match the range allowed from the registry.json: `{packageEntryDep.Version}`");
                                 hasDependencyErrors = true;
                                 continue;
                             }
@@ -731,7 +733,7 @@ namespace UnityNuGet
                     // ignored
                 }
 
-                LogError($"Error while processing package `{identity}`. Reason: {ex}");
+                LogWarning($"Error while processing package `{identity}`. Reason: {ex}");
             }
         }
 
@@ -864,6 +866,12 @@ namespace UnityNuGet
             }
 
             return sb.ToString();
+        }
+
+        private void LogWarning(string message)
+        {
+            _logger.LogWarning(message);
+            HasWarnings = true;
         }
 
         private void LogError(string message)
