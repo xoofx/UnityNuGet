@@ -21,12 +21,12 @@ namespace UnityNuGet.Server
 
         public override void Log(ILogMessage message)
         {
-            LoggerExtensions.Log(_logger, GetLogLevel(message.Level), message.Message);
+            LoggerExtensions.Log(_logger, GetLogLevel(message.Level), "{Message}", message.Message);
         }
 
         public override Task LogAsync(ILogMessage message)
         {
-            LoggerExtensions.Log(_logger, GetLogLevel(message.Level), message.Message);
+            LoggerExtensions.Log(_logger, GetLogLevel(message.Level), "{Message}", message.Message);
             return Task.CompletedTask;
         }
 

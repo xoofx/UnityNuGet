@@ -20,7 +20,7 @@ namespace UnityNuGet.Server
                 {
                     builder.AppendLine($"{header.Key}:{header.Value}");
                 }
-                logger.LogInformation("Request: " + builder.ToString());
+                logger.LogInformation("Request: {Request}", builder.ToString());
                 await next.Invoke();
 
                 builder.Length = 0;
@@ -29,7 +29,7 @@ namespace UnityNuGet.Server
                 {
                     builder.AppendLine($"{header.Key}:{header.Value}");
                 }
-                logger.LogInformation("Response: " + builder.ToString());
+                logger.LogInformation("Response: {Response}", builder.ToString());
             });
         }
     }
