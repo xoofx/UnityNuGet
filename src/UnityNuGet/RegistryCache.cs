@@ -87,10 +87,6 @@ namespace UnityNuGet
             _npmPackageRegistry = new NpmPackageRegistry();
         }
 
-        public bool HasErrors { get; private set; }
-
-        public bool HasWarnings { get; private set; }
-
         /// <summary>
         /// Gets or sets a regex filter (contains) on the NuGet package, case insensitive. Default is null (no filter).
         /// </summary>
@@ -103,6 +99,21 @@ namespace UnityNuGet
         /// OnProgress event (number of packages initialized, total number of packages)
         /// </summary>
         public Action<int, int>? OnProgress { get; set; }
+
+        /// <summary>
+        /// OnInformation event (information message)
+        /// </summary>
+        public Action<string>? OnInformation { get; set; }
+
+        /// <summary>
+        /// OnWarning event (warning message)
+        /// </summary>
+        public Action<string>? OnWarning { get; set; }
+
+        /// <summary>
+        /// OnError event (error message)
+        /// </summary>
+        public Action<string>? OnError { get; set; }
 
         /// <summary>
         /// Get all packages registered.
@@ -179,13 +190,13 @@ namespace UnityNuGet
             var forceUpdate = !File.Exists(versionPath) || await File.ReadAllTextAsync(versionPath) != CurrentRegistryVersion;
             if (forceUpdate)
             {
-                _logger.LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
+                LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
             }
 
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
-                _logger.LogInformation($"Filtering with regex: {Filter}");
+                LogInformation($"Filtering with regex: {Filter}");
             }
 
             var onProgress = OnProgress;
@@ -231,7 +242,7 @@ namespace UnityNuGet
 
                     if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0 && !hasNativeLib)
                     {
-                        _logger.LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
+                        LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
                         continue;
                     }
 
@@ -415,7 +426,7 @@ namespace UnityNuGet
             var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
             var unityPackageFilePath = Path.Combine(_rootPersistentFolder, unityPackageFileName);
 
-            _logger.LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
+            LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
 
             var packageReader = downloadResult.PackageReader;
 
@@ -472,7 +483,7 @@ namespace UnityNuGet
 
                     if (isPackageNetStandard21Assembly)
                     {
-                        _logger.LogInformation($"Package {identity.Id} is a system package for netstandard2.1 and will be only used for netstandard 2.0");
+                        LogInformation($"Package {identity.Id} is a system package for netstandard2.1 and will be only used for netstandard 2.0");
                     }
 
                     if (packageEntry.Analyzer)
@@ -624,7 +635,7 @@ namespace UnityNuGet
 
                         if (meta == null)
                         {
-                            _logger.LogInformation($"Skipping file without meta: {file} ...");
+                            LogInformation($"Skipping file without meta: {file} ...");
                             continue;
                         }
 
@@ -868,16 +879,22 @@ namespace UnityNuGet
             return sb.ToString();
         }
 
+        private void LogInformation(string message)
+        {
+            _logger.LogInformation(message);
+            OnInformation?.Invoke(message);
+        }
+
         private void LogWarning(string message)
         {
             _logger.LogWarning(message);
-            HasWarnings = true;
+            OnWarning?.Invoke(message);
         }
 
         private void LogError(string message)
         {
             _logger.LogError(message);
-            HasErrors = true;
+            OnError?.Invoke(message);
         }
 
         private static List<string> SplitCommaSeparatedString(string input)

@@ -22,6 +22,8 @@ namespace UnityNuGet.Server
                         services.AddHostedService<RegistryCacheInitializer>();
                         // Add the registry cache updater
                         services.AddHostedService<RegistryCacheUpdater>();
+                        // Add the registry cache report
+                        services.AddSingleton<RegistryCacheReport>();
                         services.AddSingleton<RegistryCacheSingleton>();
 
                         services.AddOptions<RegistryOptions>()
