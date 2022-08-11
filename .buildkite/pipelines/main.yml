@@ -1,0 +1,52 @@
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# omgcmd { overwrite: false }
+
+steps:
+  - label: ":terraform: Terraform CI"
+    command: make tf-ci-apply
+    agents:
+      os: linux
+      hardware_env: dev
+    branches: omg
+    concurrency: 1
+    concurrency_group: ci_UnityNuGet
+  - wait
+  - label: ":file_cabinet: Get Version"
+    command:
+      - .buildkite/tasks/version.sh
+    agents:
+      os: linux
+      hardware_env: dev
+  - wait
+  - label: ":hammer: Build"
+    command:
+      - .buildkite/tasks/build.sh
+    agents:
+      os: linux
+      hardware_env: dev
+    artifact_paths:
+      - "out/**/*"
+  - wait
+  - label: ":rocket: Publish"
+    command:
+      - .buildkite/tasks/publish.sh
+    agents:
+      os: linux
+      hardware_env: dev
+    branches: omg
+    concurrency: 1
+    concurrency_group: publish_UnityNuGet
+    retry:
+      automatic:
+        exit_status: "*"
+        limit: 3

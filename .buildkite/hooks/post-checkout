@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# Runs after the source code checkout and prepares the
+# source tree before running the `pre-command` and
+# `command` hooks.
+
+set -euo pipefail
+
+#########################
+# Setup Git LFS
+#########################
+
+git lfs install
+git lfs pull

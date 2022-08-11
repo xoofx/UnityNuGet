@@ -1,0 +1,92 @@
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# http://editorconfig.org
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{cs,cfg,java,py,kt}]
+indent_size = 4
+
+[*.{sln,sln.template}]
+indent_style = tab
+indent_size = 4
+
+[*.{cs,vb}]
+# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/configuration-options
+dotnet_analyzer_diagnostic.severity = error
+dotnet_code_quality.ca1711.allowed_suffixes = Flags|Queue
+dotnet_sort_system_directives_first = true
+dotnet_style_prefer_conditional_expression_over_return = false
+
+# Disable IDE0010 & IDE0072: Add missing cases to switch statement / expression
+# This rule is quite noisy in our codebase because of the way our ECS
+# system leverages enums & case statements. There are no configurable code
+# style options to allow 'default' to override not handling each enum, so
+# correcting this style issue will make some areas of our code more
+# difficult to read and maintain.
+dotnet_diagnostic.IDE0010.severity = silent
+dotnet_diagnostic.IDE0072.severity = silent
+
+# Disable IDE0130: Namespace does not match folder structure
+# There's a bug in Roslyn that ships with Visual Studio 16.11.2
+# that causes it to want to namespaces with trailing dots:
+# Namespace "OMG.ServerLib" does not match folder structure, expected "Omg.Shared."
+dotnet_diagnostic.IDE0130.severity = silent
+dotnet_style_namespace_match_folder = false
+
+# Disable IDE0050, which suggests converting anonymous types to tuples
+# because the syntax is "clean". Well excuse me, but that also makes
+# them render incorrectly when converted to JSON, thank you.
+dotnet_diagnostic.IDE0050.severity = silent
+
+[*.cs]
+csharp_new_line_before_catch = false
+csharp_new_line_before_else = false
+csharp_new_line_before_finally = false
+csharp_new_line_before_open_brace = none
+csharp_prefer_simple_using_statement = false
+csharp_space_between_method_declaration_name_and_open_parenthesis = true
+
+# Disable var style enforcement; we want to have and enforce a consistent style
+# but haven't been able to find the right combination to enforce 'var' when
+# the type is apparent.
+csharp_style_var_elsewhere = false:none
+csharp_style_var_for_built_in_types = true:none
+csharp_style_var_when_type_is_apparent = true:none
+
+# Blocks are allowed
+csharp_prefer_braces = false:suggestion
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+
+# Ignore "Do not declare instance fields"
+# This diagnostic message is ... kinda useful? but it prevents declaring
+# readonly public fields and requires getters instead, so disabling it
+dotnet_diagnostic.CA1051.severity = none
+
+# Disable C# 9.0 style rules. Unity is locked to C# 7.3 (soon to be C# 8.0) and
+# we prefer that our style between the two projects is as consistent as possible
+csharp_style_prefer_pattern_matching = false
+
+[*.Generated.cs]
+# Analyzer will ignore all files ending in Generated.cs
+generated_code = true
+
+[{Makefile,**.mk,go.mod,go.sum,*.go,.gitmodules}]
+indent_style = tab
+indent_size = 4
+
+[Dockerfile]
+indent_size = 4

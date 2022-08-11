@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# shellcheck disable=SC2009
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE="$(realpath "$SCRIPT_DIR/..")"
+
+readonly ADDITIONAL_PROXY_CFG="$PWD/.proxies"
+readonly PID_DIR="${WORKSPACE}/.pid"
+mkdir -p "$PID_DIR"
+
+PROXIES=(
+  "consul boundary connect -target-name consul_target -target-scope-name infra -listen-addr 127.0.0.1 -listen-port ${CONSUL_PROXY_PORT:-8501}" \
+  "nomad boundary connect -target-name nomad_target -target-scope-name infra -listen-addr 127.0.0.1 -listen-port ${NOMAD_PROXY_PORT:-4646}" \
+)
+
+if [[ -s "$ADDITIONAL_PROXY_CFG" ]]; then
+  while IFS= read -r line; do
+    PROXIES+=( "$line" )
+  done < "$ADDITIONAL_PROXY_CFG"
+fi
+
+_status() {
+  echo "==== Running Proxies ===="
+  ps -ef | grep -v grep | grep boundary
+}
+
+_disconnect() {
+  for f in "$PID_DIR"/*; do
+    [[ -e "$f" ]] || continue
+
+    while IFS= read -r line; do
+      # format is <name> <pid>
+      IFS=' ' read -r name pid <<< "$line"
+
+      echo "Disconnecting $name proxy PID $pid..."
+      kill "$pid" > /dev/null 2>&1 || true
+      wait "$pid" > /dev/null 2>&1 || true
+    done < "$f"
+
+    rm "$f"
+  done
+}
+
+_connect() {
+  for line in "${PROXIES[@]}"; do
+    # format is <name> <cmd>
+    IFS=' ' read -r name cmd <<< "$line"
+
+    echo "==== Connecting $name proxy ===="
+    eval "$cmd > /dev/null &"
+    local pid=$!
+
+    echo "Proxy $name running on PID $pid"
+    echo "$name $pid" > "$PID_DIR/$name.pid"
+  done
+}
+
+while getopts "scd" opt; do
+  case "${opt}" in
+  s)
+    _status
+    ;;
+  c)
+    _disconnect
+    _connect
+    _status
+    ;;
+  d)
+    _disconnect
+    ;;
+  :)
+    fail "Invalid option: $OPTARG requires an argument"
+    ;;
+  \?)
+    fail "Invalid option: $OPTARG"
+    ;;
+  esac
+done
+shift $((OPTIND - 1))

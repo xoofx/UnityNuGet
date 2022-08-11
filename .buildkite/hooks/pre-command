@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# Runs before the build command and sets environment variables
+# specific for the repository's project before running the
+# `command` hook.
+
+set -euo pipefail
+
+export BUILD_SERVER=1
+export OMG_ROLLBAR__ENABLED=false

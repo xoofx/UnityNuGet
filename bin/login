@@ -1,0 +1,303 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# shellcheck disable=SC1090
+# shellcheck disable=SC2059
+
+set -euo pipefail
+
+readonly ENV=$1
+readonly INFRA_ENV=$2
+readonly ENV_FILE=$3
+readonly FULL_TF_DIR=$4
+
+readonly SECRETS_DIR="${HOME}/.config/omg/${INFRA_ENV}"
+readonly BOUNDARY_TOKEN_PATH="${SECRETS_DIR}/.boundary-token"
+readonly CONSUL_TOKEN_PATH="${SECRETS_DIR}/.consul-token"
+readonly VAULT_TOKEN_PATH="${SECRETS_DIR}/.vault-token"
+readonly CERT_METADATA_PATH="${SECRETS_DIR}/cli-metadata.json"
+readonly CLI_CERT="${SECRETS_DIR}/cli.crt"
+readonly CLI_KEY="${SECRETS_DIR}/cli.key"
+readonly INTERMEDIATE_CA="${SECRETS_DIR}/intermediate-ca.crt"
+readonly ROOT_CA="${SECRETS_DIR}/ca.crt"
+readonly PFX_CERT="${SECRETS_DIR}/cli.pfx"
+
+readonly WSL_CERT_PATH="\\\\wsl$\\${WSL_DISTRIBUTION:-Ubuntu}\\home\\$USER\\.config\\omg\\$INFRA_ENV"
+
+# Validate args
+if [[ -z ${ENV+x} ]] || [[ -z ${ENV_FILE+x} ]]; then
+  echo "Usage: login <project_environment_name> <infra_environment_name> <output_env_file> <project_terraform_dir>"
+  exit 1
+fi
+
+echo "==== Configuring shell for environment: $ENV ===="
+echo "Using secrets directory: $SECRETS_DIR"
+mkdir -p "$SECRETS_DIR"
+
+# Clean the environment and set reasonable defaults
+unset BOUNDARY_ADDR
+unset BOUNDARY_AUTH_METHOD_ID
+unset BOUNDARY_TOKEN
+unset CONSUL_HTTP_ADDR
+unset CONSUL_HTTP_TOKEN
+unset CONSUL_CACERT
+unset CONSUL_CAPATH
+unset CONSUL_CLIENT_CERT
+unset CONSUL_CLIENT_KEY
+unset NOMAD_ADDR
+unset NOMAD_CACERT
+unset NOMAD_CAPATH
+unset NOMAD_CLIENT_CERT
+unset NOMAD_CLIENT_KEY
+unset VAULT_ADDR
+unset VAULT_CACERT
+unset VAULT_CAPATH
+unset VAULT_TOKEN
+
+if [[ -z "${TF_VAR_use_assume_role:-}" ]]; then
+  # Log into AWS if needed
+  login_result="$(aws sts get-caller-identity --profile "$INFRA_ENV" || true)"
+  if [[ -z "$login_result" ]]; then
+    aws sso login --profile "$INFRA_ENV"
+  fi
+  unset login_result
+fi
+
+readonly ENV_TF_DIR="terraform/environments/$ENV"
+
+touch "$ENV_FILE"
+chmod 600 "$ENV_FILE"
+
+# dont set this readonly as they will eventually get set by terraform ouputs once the env is bootstrapped
+CONSUL_PROXY_PORT=8501
+NOMAD_PROXY_PORT=4646
+
+if [[ "$INFRA_ENV" == "prod" ]]; then
+  CONSUL_PROXY_PORT=8502
+  NOMAD_PROXY_PORT=4647
+fi
+
+{
+  echo "export BOUNDARY_ADDR=\"https://boundary.${INFRA_ENV}.onemoregame.live\""
+  echo "export VAULT_ADDR=\"https://vault.${INFRA_ENV}.onemoregame.live\""
+  echo "export CONSUL_HTTP_ADDR=\"https://consul-internal.${INFRA_ENV}.onemoregame.live:$CONSUL_PROXY_PORT\""
+  echo "export NOMAD_ADDR=\"https://nomad-internal.${INFRA_ENV}.onemoregame.live:$NOMAD_PROXY_PORT\""
+} > "$ENV_FILE"
+
+source "$ENV_FILE"
+
+if [[ "$PWD" == *"$ENV_TF_DIR" ]]; then
+  pushd . || exit 1
+else
+  pushd "$FULL_TF_DIR" || exit 1
+fi
+
+# Source and validate the generated values for this env
+readonly GENERATED_ENV="$FULL_TF_DIR/out/.generated.env"
+if [[ ! -s "$GENERATED_ENV" ]]; then
+  terraform init
+  terraform apply -target module.locals -auto-approve
+fi
+
+source "$GENERATED_ENV"
+
+# ====== todo @jared: begin temp - can remove after 2022.05.01
+if [[ "${BOUNDARY_AUTH_METHOD_ID:-}" == "amoidc_XyBIC4vFRK" ]] || [[ "${BOUNDARY_AUTH_METHOD_ID:-}" == "amoidc_GUzRSp7gaa" ]]; then
+  echo "Detected an out of date Boundary auth method. Re-initializing env..."
+  rm -rf "$ENV_TF_DIR/out"
+  terraform init
+  terraform apply -target module.locals -auto-approve
+  source "$GENERATED_ENV"
+fi
+# ====== end temp
+
+echo "export GENERATED_ENV_FILE=$GENERATED_ENV" >> "$ENV_FILE"
+
+if [[ $ENV_NAME != "$INFRA_ENV" ]]; then
+  echo "Error: Configured environment name (${ENV_NAME}) does not match the one used on the command line ${INFRA_ENV}"
+  exit 1
+fi
+
+# Boundary login
+echo "==== Boundary ===="
+BOUNDARY_TOKEN_REFRESH_REQUIRED=true
+if [[ -s "$BOUNDARY_TOKEN_PATH" ]]; then
+  BOUNDARY_TOKEN="$(cat "$BOUNDARY_TOKEN_PATH")"
+  export BOUNDARY_TOKEN
+
+  if boundary accounts list > /dev/null; then
+    echo "Using saved token from $BOUNDARY_TOKEN_PATH"
+    BOUNDARY_TOKEN_REFRESH_REQUIRED=false
+  fi
+fi
+
+if [[ $BOUNDARY_TOKEN_REFRESH_REQUIRED == true ]]; then
+  echo "Boundary login required. Launching default browser..."
+  if [[ -z $BOUNDARY_AUTH_METHOD_ID ]]; then
+    echo "Error: Boundary auth method not set. To continue, either..."
+    echo "    1) export BOUNDARY_AUTH_METHOD_ID with a valid oidc auth method for the installation (you can get this by logging into the web page at $BOUNDARY_ADDR)"
+    echo "    2) Log into our cloud providers and run make tf-${ENV}-core, then tf-${ENV}-core-apply to update the infrastructure core and export a valid configuration to your local filesystem"
+    exit 1
+  fi
+
+  AUTH_JSON=$(boundary authenticate oidc -auth-method-id "$BOUNDARY_AUTH_METHOD_ID" -format=json)
+  TOKEN=$(echo "${AUTH_JSON//Opening returned authentication URL in your browser...}" | jq -r '.item.attributes.token')
+
+  if [[ -z ${TOKEN} ]]; then
+    echo "Error: Boundary login failed"
+    exit 1
+  fi
+
+  echo "Boundary login successful. Token exported as BOUNDARY_TOKEN..."
+  BOUNDARY_TOKEN=${TOKEN}
+  export BOUNDARY_TOKEN
+fi
+
+echo "export BOUNDARY_TOKEN=$BOUNDARY_TOKEN" >> "$ENV_FILE"
+echo "$BOUNDARY_TOKEN" > "$BOUNDARY_TOKEN_PATH"
+chmod 0600 "$BOUNDARY_TOKEN_PATH"
+
+
+# Vault login
+echo "==== Vault ===="
+VAULT_TOKEN_REFRESH_REQUIRED=true
+if [[ -s "$VAULT_TOKEN_PATH" ]]; then
+  VAULT_TOKEN=$(cat "$VAULT_TOKEN_PATH")
+  export VAULT_TOKEN
+else
+  if vault token lookup -format=json; then
+    VAULT_TOKEN=$(echo "$VAULT_DATA" | jq -r .data.id)
+    export VAULT_TOKEN
+  fi
+fi
+
+if [[ -n ${VAULT_TOKEN:+x} ]]; then
+  if vault token lookup > /dev/null; then
+    echo "Using saved token from $VAULT_TOKEN_PATH"
+    VAULT_TOKEN_REFRESH_REQUIRED=false
+  fi
+fi
+
+if [[ $VAULT_TOKEN_REFRESH_REQUIRED == true ]]; then
+  echo "Vault login required. Launching default browser..."
+  TOKEN=$(vault login -method=oidc -field=token -no-store)
+
+  if [[ -z $TOKEN ]]; then
+    echo "Error: Vault login failed"
+    exit 1
+  fi
+
+  echo "Vault login successful. Token exported as VAULT_TOKEN..."
+  VAULT_TOKEN="$TOKEN"
+  export VAULT_TOKEN
+fi
+
+echo "export VAULT_TOKEN=$VAULT_TOKEN" >> "$ENV_FILE"
+echo "$VAULT_TOKEN" > "$VAULT_TOKEN_PATH"
+chmod 0600 "$VAULT_TOKEN_PATH"
+
+
+# Client certificate
+CERT_RENEWAL_REQUIRED=true
+if [[ -s "$CERT_METADATA_PATH" ]]; then
+  NOW=$(date +%s)
+  EXPIRATION=$(jq -r .data.expiration < "$CERT_METADATA_PATH")
+
+  echo "Existing client cert found with an expirtation of $EXPIRATION. Current time is $NOW"
+
+  if [[ $NOW < $EXPIRATION ]]; then
+    echo "Existing cert still valid"
+    CERT_RENEWAL_REQUIRED=false
+  fi
+else
+  echo "No existing client cert detected"
+fi
+
+if [[ $CERT_RENEWAL_REQUIRED == true ]]; then
+  echo "Requesting environment certs from Vault..."
+  vault write -format=json /pki_int/issue/consul common_name="${HOSTNAME}.${ENV_DOMAIN}" > "$CERT_METADATA_PATH"
+  chmod 0600 "$CERT_METADATA_PATH"
+fi
+
+if [[ ! -s "$ROOT_CA" ]]; then
+  vault read -field certificate pki/cert/ca > "$ROOT_CA"
+fi
+
+CERT_JSON=$(cat "$CERT_METADATA_PATH")
+echo "$CERT_JSON" | jq -r .data.certificate > "$CLI_CERT"
+echo "$CERT_JSON" | jq -r .data.private_key > "$CLI_KEY"
+echo "$CERT_JSON" | jq -r .data.issuing_ca > "$INTERMEDIATE_CA"
+
+if [[ -s "$PFX_CERT" ]]; then
+  OLD_FINGERPRINT="$(openssl pkcs12 -in "$PFX_CERT" -nodes -passin pass: | openssl x509 -noout -fingerprint | sed s/"SHA1 Fingerprint="// | sed s/://g)"
+fi
+
+openssl pkcs12 -export -out "$PFX_CERT" -in "$CLI_CERT" -inkey "$CLI_KEY" -certfile "$INTERMEDIATE_CA" -certfile "$ROOT_CA" -passout pass:
+
+pushd "$SECRETS_DIR" || exit 1
+chmod 0644 ./*.crt
+chmod 0600 ./*.key
+chmod 0600 ./*.pfx
+popd || exit 1
+
+unset CERT_JSON
+
+{
+  echo "export CONSUL_CACERT=$INTERMEDIATE_CA"
+  echo "export CONSUL_CLIENT_CERT=$CLI_CERT"
+  echo "export CONSUL_CLIENT_KEY=$CLI_KEY"
+
+  echo "export NOMAD_CACERT=$INTERMEDIATE_CA"
+  echo "export NOMAD_CLIENT_CERT=$CLI_CERT"
+  echo "export NOMAD_CLIENT_KEY=$CLI_KEY"
+} >> "$ENV_FILE"
+
+# update environment for upcoming Consul calls
+source "$ENV_FILE"
+
+# Consul token
+echo "==== Consul Token ===="
+CONSUL_TOKEN_REFRESH_REQUIRED=true
+if [[ -s "$CONSUL_TOKEN_PATH" ]]; then
+  CONSUL_HTTP_TOKEN=$(cat "$CONSUL_TOKEN_PATH")
+  export CONSUL_HTTP_TOKEN
+
+  if ! nc -z 127.0.0.1 "$CONSUL_PROXY_PORT"; then
+    boundary connect -target-name consul_target -target-scope-name infra -listen-addr 127.0.0.1 -listen-port "$CONSUL_PROXY_PORT" > /dev/null &
+    sleep 1s
+    readonly CONSUL_CONN_PID=$!
+    echo "Boundary->Consul proxy running as PID $CONSUL_CONN_PID"
+  fi
+
+  if consul info > /dev/null; then
+    echo "Using saved token from $CONSUL_TOKEN_PATH"
+    CONSUL_TOKEN_REFRESH_REQUIRED=false
+  fi
+
+  if [[ -n ${CONSUL_CONN_PID+x} ]]; then
+    kill $CONSUL_CONN_PID || true
+    sleep 1s
+  fi
+fi
+
+if [[ $CONSUL_TOKEN_REFRESH_REQUIRED == true ]]; then
+  echo "Refreshing Consul ACL Token..."
+  CONSUL_HTTP_TOKEN=$(vault read -field=token consul/creds/operator-role)
+  export CONSUL_HTTP_TOKEN
+fi
+
+echo "export CONSUL_HTTP_TOKEN=$CONSUL_HTTP_TOKEN" >> "$ENV_FILE"
+echo "$CONSUL_HTTP_TOKEN" > "$CONSUL_TOKEN_PATH"
+chmod 0600 "$CONSUL_TOKEN_PATH"
+
+popd || exit 1

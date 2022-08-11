@@ -1,0 +1,16 @@
+{
+  "nixpkgs": {
+    "date": "2022-03-04T16:09:08+01:00",
+    "ref": "refs/heads/nixos-21.11",
+    "rev": "47cd6702934434dd02bc53a67dbce3e5493e33a2",
+    "sha256": "0kf9gxlk1p615dh7v0i4563ha5s1mnir4rbcrn6ck3f6r3vrlx8j",
+    "url": "https://github.com/NixOS/nixpkgs"
+  },
+  "omgpkgs": {
+    "date": "2021-09-15T18:10:53+00:00",
+    "ref": "refs/heads/master",
+    "rev": "7c4b1f4fb962f36f37a6a34f699f9a90976a13ce",
+    "sha256": "15ykd6hkv43f249ivd2qg214zswx0hpvjx7bxw1siphr59plh632",
+    "url": "https://github.com/PlayOneMoreGame/omgpkgs.git"
+  }
+}

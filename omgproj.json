@@ -1,0 +1,10 @@
+{
+  "Name": "UnityNuGet",
+  "Description": "",
+  "CodeLanguage": "CSharp",
+  "MasterBranch": "main",
+  "BaseDir": ".",
+  "Features": [
+    "nixshell"
+  ]
+}

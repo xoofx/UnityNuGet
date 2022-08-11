@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# A lightweight shim around the `vault ssh` subcommand. This shim populates
+# required flags which canno tbe provided by environment variables.
+
+set -euo pipefail
+
+readonly HOST_ID=$1
+
+exec boundary connect ssh \
+  -target-name ssh_target \
+  -target-scope-name infra \
+  -host-id "$HOST_ID" \
+  -- \
+  -l ubuntu \
+  -i ~/.ssh/admin_rsa

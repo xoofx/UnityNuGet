@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# Overrides the default command running behavior of Buildkite
+# to setup the Buildkite worker's shell environment using
+# direnv and NixOS. This ensures that executing build steps
+# behaves identically to the developer's workstation.
+
+set -euo pipefail
+
+#########################
+# Setup shell environment
+#########################
+
+# The following 4 lines are functionally equivalent to running
+# `direnv allow` from an interactive shell.
+PROMPT_COMMAND=""
+eval "$(direnv hook bash)"
+eval "$(direnv stdlib)"
+source ".envrc"
+
+#########################
+# Run original command
+#########################
+
+eval "$BUILDKITE_COMMAND"

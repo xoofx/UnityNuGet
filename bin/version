@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# shellcheck disable=SC1090
+
+set -euo pipefail
+
+export MAJOR_VER=0
+export MINOR_VER=0

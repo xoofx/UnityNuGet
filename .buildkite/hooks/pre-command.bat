@@ -1,0 +1,4 @@
+@echo off
+
+SET BUILD_SERVER=1
+SET OMG_ROLLBAR__ENABLED=false

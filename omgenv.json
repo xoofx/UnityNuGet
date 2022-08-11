@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "Name": "dev",
+    "InfraEnvName": "dev",
+    "BaseDir": ".",
+    "Features": [
+      "terraform"
+    ]
+  }
+}

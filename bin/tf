@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+#########################################################################
+#
+#                 -- Generated with omgcmd --
+#      (do not edit unless you know what you're doing)
+#
+#########################################################################
+
+# Copyright (C) 2022 One More Game - All Rights Reserved
+# Unauthorized copying of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+
+# shellcheck disable=SC1090
+
+
+set -euo pipefail
+
+ENV=$1
+shift
+
+readonly SRV_ENV_PATH="./out/.generated.srv.env"
+
+if [[ "$OMG_ENV" == "GLOBAL" ]]; then
+  terraform "$@"
+else
+  if [[ -s "$SRV_ENV_PATH" ]] && [[ ${BUILD_SERVER:-0} == 1 ]]; then
+    readonly GENERATED_ENV_PATH="$SRV_ENV_PATH"
+  else
+    readonly GENERATED_ENV_PATH="./out/.generated.env"
+  fi
+
+  readonly OVERRIDE_ENV_PATH="./.override.env"
+
+  if [[ -s "$GENERATED_ENV_PATH" ]]; then
+    echo "Sourcing $GENERATED_ENV_PATH..."
+    source "$GENERATED_ENV_PATH"
+  fi
+
+  if [[ -s "$OVERRIDE_ENV_PATH" ]]; then
+    echo "Sourcing $OVERRIDE_ENV_PATH..."
+    source "$OVERRIDE_ENV_PATH"
+  fi
+
+  if [[ ${USE_DEVCONTAINER:-true} == true ]] && [[ ${BUILD_SERVER:-0} == 1 ]]; then
+    # Devcontainers on build servers always use the environment's Consul and Nomad clusters
+    # for comms
+    export CONSUL_HTTP_ADDR="https://consul.service.consul:8501"
+    export NOMAD_ADDR="https://nomad.service.consul:4646"
+  fi
+
+  if [[ -n ${ENV_NAME+x} ]] && { [[ -z ${OMG_ENV+x} ]] || [[ "$OMG_ENV" == "unset" ]]; }; then
+    echo "Set OMG_ENV=$ENV_NAME"
+    OMG_ENV=$ENV_NAME
+  else
+    echo "Using previously set value: OMG_ENV=$OMG_ENV"
+  fi
+
+  if [[ "$ENV" == "$OMG_ENV" ]]; then
+    # go ahead and run if we were able to configure ourselves correctly
+    terraform "$@"
+  else
+    echo "Environment mismatch. Expected $ENV, Got $OMG_ENV"
+    exit 1
+  fi
+fi
