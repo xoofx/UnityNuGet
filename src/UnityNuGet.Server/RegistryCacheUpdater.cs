@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -12,12 +13,14 @@ namespace UnityNuGet.Server
     /// </summary>
     internal sealed class RegistryCacheUpdater : BackgroundService
     {
+        private readonly RegistryCacheReport _registryCacheReport;
         private readonly RegistryCacheSingleton _currentRegistryCache;
         private readonly ILogger _logger;
         private readonly RegistryOptions _registryOptions;
 
-        public RegistryCacheUpdater(RegistryCacheSingleton currentRegistryCache, ILogger<RegistryCacheUpdater> logger, IOptions<RegistryOptions> registryOptionsAccessor)
+        public RegistryCacheUpdater(RegistryCacheReport registryCacheReport, RegistryCacheSingleton currentRegistryCache, ILogger<RegistryCacheUpdater> logger, IOptions<RegistryOptions> registryOptionsAccessor)
         {
+            _registryCacheReport = registryCacheReport;
             _currentRegistryCache = currentRegistryCache;
             _logger = logger;
             _registryOptions = registryOptionsAccessor.Value;
@@ -31,6 +34,8 @@ namespace UnityNuGet.Server
                 {
                     _logger.LogInformation("Starting to update RegistryCache");
 
+                    _registryCacheReport.Start();
+
                     var newRegistryCache = new RegistryCache(_currentRegistryCache.UnityPackageFolder!, _currentRegistryCache.ServerUri!, _registryOptions.UnityScope!, _registryOptions.MinimumUnityVersion!, _registryOptions.PackageNameNuGetPostFix!, _registryOptions.TargetFrameworks!, _currentRegistryCache.NuGetRedirectLogger!)
                     {
                         // Update progress
@@ -38,12 +43,15 @@ namespace UnityNuGet.Server
                         {
                             _currentRegistryCache.ProgressTotalPackageCount = total;
                             _currentRegistryCache.ProgressPackageIndex = current;
-                        }
+                        },
+                        OnInformation = message => _registryCacheReport.AddInformation(message),
+                        OnWarning = message => _registryCacheReport.AddWarning(message),
+                        OnError = message => _registryCacheReport.AddError(message)
                     };
 
                     await newRegistryCache.Build();
 
-                    if (newRegistryCache.HasErrors)
+                    if (_registryCacheReport.ErrorMessages.Any())
                     {
                         _logger.LogInformation("RegistryCache not updated due to errors. See previous logs");
                     }
@@ -55,12 +63,19 @@ namespace UnityNuGet.Server
                         _logger.LogInformation("RegistryCache successfully updated");
                     }
 
+                    _registryCacheReport.Complete();
+
                     await Task.Delay((int)_registryOptions.UpdateInterval.TotalMilliseconds, stoppingToken);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error while building a new registry cache. Reason: {ex}");
+                string message = "Error while building a new registry cache.";
+
+                _logger.LogError(ex, "{Message}", message);
+
+                _registryCacheReport.AddError($"{message}. Reason: {ex}");
+                _registryCacheReport.Complete();
             }
         }
     }
