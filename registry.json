@@ -1,4 +1,8 @@
 {
+  "Asmodat.Standard.SSH.NET": {
+    "listed": true,
+    "version": "(,1.0.0.1]"
+  },
   "AutoMapper": {
     "listed": true,
     "version": "10.0.0"
@@ -252,7 +256,7 @@
   "Microsoft.CSharp": {
     "ignore": true
   },
-  "Microsoft.Data.Sqlite.Core":{
+  "Microsoft.Data.Sqlite.Core": {
     "listed": true,
     "version": "5.0.8"
   },
@@ -446,7 +450,7 @@
     "listed": true,
     "version": "3.2.0"
   },
-  "NeoSmart.Caching.Sqlite":{
+  "NeoSmart.Caching.Sqlite": {
     "listed": true,
     "version": "5.0.2"
   },
@@ -576,19 +580,19 @@
     "version": "8.30.0.37606",
     "analyzer": true
   },
-  "SQLitePCLRaw.bundle_green":{
+  "SQLitePCLRaw.bundle_green": {
     "listed": true,
     "version": "2.0.7"
   },
-  "SQLitePCLRaw.core":{
+  "SQLitePCLRaw.core": {
     "listed": true,
     "version": "2.0.4"
   },
-  "SQLitePCLRaw.lib.e_sqlite3":{
+  "SQLitePCLRaw.lib.e_sqlite3": {
     "listed": true,
     "version": "2.0.7"
   },
-  "SQLitePCLRaw.provider.e_sqlite3":{
+  "SQLitePCLRaw.provider.e_sqlite3": {
     "listed": true,
     "version": "2.0.7"
   },
