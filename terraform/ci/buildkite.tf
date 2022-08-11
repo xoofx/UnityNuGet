@@ -16,10 +16,10 @@ resource "buildkite_pipeline" "this" {
   repository                               = github_repository.this.ssh_clone_url
   branch_configuration                     = "!wip-*"
   cancel_intermediate_builds               = true
-  cancel_intermediate_builds_branch_filter = "!omg"
-  default_branch                           = "omg"
+  cancel_intermediate_builds_branch_filter = "!master"
+  default_branch                           = "master"
   skip_intermediate_builds                 = true
-  skip_intermediate_builds_branch_filter   = "!omg"
+  skip_intermediate_builds_branch_filter   = "!master"
   steps                                    = <<EOH
 steps:
   - command: "buildkite-agent pipeline upload .buildkite/pipelines/main.yml"

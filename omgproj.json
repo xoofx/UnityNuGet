@@ -2,7 +2,7 @@
   "Name": "UnityNuGet",
   "Description": "",
   "CodeLanguage": "CSharp",
-  "MasterBranch": "main",
+  "MasterBranch": "master",
   "BaseDir": ".",
   "Features": [
     "nixshell"

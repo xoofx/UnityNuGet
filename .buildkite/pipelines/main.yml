@@ -17,7 +17,7 @@ steps:
     agents:
       os: linux
       hardware_env: dev
-    branches: omg
+    branches: master
     concurrency: 1
     concurrency_group: ci_UnityNuGet
   - wait
@@ -43,7 +43,7 @@ steps:
     agents:
       os: linux
       hardware_env: dev
-    branches: omg
+    branches: master
     concurrency: 1
     concurrency_group: publish_UnityNuGet
     retry:
