@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using UnityNuGet.Npm;
 
@@ -16,10 +18,12 @@ namespace UnityNuGet.Server.Controllers
     public class ApiController : ControllerBase
     {
         private readonly RegistryCacheSingleton _cacheSingleton;
+        private readonly RegistryCacheReport _registryCacheReport;
 
-        public ApiController(RegistryCacheSingleton cacheSingleton)
+        public ApiController(RegistryCacheSingleton cacheSingleton, RegistryCacheReport registryCacheReport)
         {
             _cacheSingleton = cacheSingleton;
+            _registryCacheReport = registryCacheReport;
         }
 
         // GET /
@@ -98,7 +102,31 @@ namespace UnityNuGet.Server.Controllers
             var currentIndex = _cacheSingleton.ProgressPackageIndex;
             var totalCount = _cacheSingleton.ProgressTotalPackageCount;
             var percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
-            npmError = instance == null ? new NpmError("not_initialized", $"The server is initializing ({percent:F1}% completed). Please retry later...") : null;
+
+            if (instance == null)
+            {
+                if (_registryCacheReport.ErrorMessages.Any())
+                {
+                    var stringBuilder = new StringBuilder();
+                    stringBuilder.AppendLine("Error initializing the server:");
+
+                    if (_registryCacheReport.ErrorMessages.Any())
+                    {
+                        foreach (var error in _registryCacheReport.ErrorMessages)
+                        {
+                            stringBuilder.AppendLine(error);
+                        }
+                    }
+
+                    npmError = new NpmError("not_initialized", stringBuilder.ToString());
+                } else
+                {
+                    npmError = new NpmError("not_initialized", $"The server is initializing ({percent:F1}% completed). Please retry later...");
+                }
+            } else
+            {
+                npmError = null;
+            }
 
             return instance != null;
         }
