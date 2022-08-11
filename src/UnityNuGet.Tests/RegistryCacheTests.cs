@@ -10,6 +10,8 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task TestBuild()
         {
+            var errorsTriggered = false;
+
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
             var registryCache = new RegistryCache(
                 unityPackages,
@@ -21,14 +23,20 @@ namespace UnityNuGet.Tests
                     new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "UNITY_2021_2_OR_NEWER"} },
                     new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "!UNITY_2021_2_OR_NEWER" } },
                 },
-                new NuGetConsoleLogger());
+                new NuGetConsoleLogger())
+            {
+                OnError = message =>
+                {
+                    errorsTriggered = true;
+                }
+            };
 
             // Uncomment when testing locally
             // registryCache.Filter = "scriban|bcl\\.asyncinterfaces|compilerservices\\.unsafe";
 
             await registryCache.Build();
 
-            Assert.False(registryCache.HasErrors, "The registry failed to build, check the logs");
+            Assert.False(errorsTriggered, "The registry failed to build, check the logs");
 
             var allResult = registryCache.All();
             Assert.True(allResult.Packages.Count >= 3);
