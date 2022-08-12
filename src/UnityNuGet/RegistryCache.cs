@@ -230,7 +230,7 @@ namespace UnityNuGet
                     }
 
                     var resolvedDependencyGroups = packageMeta.DependencySets.Where(dependencySet => dependencySet.TargetFramework.IsAny || _targetFrameworks.Any(targetFramework => dependencySet.TargetFramework == targetFramework.Framework)).ToList();
-                    
+
                     var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
                         _sourceRepositories,
                         packageIdentity,

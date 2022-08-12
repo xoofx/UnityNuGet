@@ -113,11 +113,13 @@ namespace UnityNuGet.Server.Controllers
                     }
 
                     npmError = new NpmError("not_initialized", stringBuilder.ToString());
-                } else
+                }
+                else
                 {
                     npmError = new NpmError("not_initialized", $"The server is initializing ({_registryCacheReport.Progress:F1}% completed). Please retry later...");
                 }
-            } else
+            }
+            else
             {
                 npmError = null;
             }
