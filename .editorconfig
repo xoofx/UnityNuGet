@@ -1,0 +1,2 @@
+[*.{cs,json,txt,yml}]
+end_of_line = lf
