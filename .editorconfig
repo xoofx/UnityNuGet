@@ -1,2 +1,5 @@
+# top-most EditorConfig file
+root = true
+
 [*.{cs,json,txt,yml}]
 end_of_line = lf
