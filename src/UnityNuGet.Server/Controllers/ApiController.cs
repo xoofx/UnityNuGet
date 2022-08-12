@@ -99,9 +99,6 @@ namespace UnityNuGet.Server.Controllers
         {
             var instance = _cacheSingleton.Instance;
             cacheInstance = instance;
-            var currentIndex = _cacheSingleton.ProgressPackageIndex;
-            var totalCount = _cacheSingleton.ProgressTotalPackageCount;
-            var percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
 
             if (instance == null)
             {
@@ -110,18 +107,15 @@ namespace UnityNuGet.Server.Controllers
                     var stringBuilder = new StringBuilder();
                     stringBuilder.AppendLine("Error initializing the server:");
 
-                    if (_registryCacheReport.ErrorMessages.Any())
+                    foreach (var error in _registryCacheReport.ErrorMessages)
                     {
-                        foreach (var error in _registryCacheReport.ErrorMessages)
-                        {
-                            stringBuilder.AppendLine(error);
-                        }
+                        stringBuilder.AppendLine(error);
                     }
 
                     npmError = new NpmError("not_initialized", stringBuilder.ToString());
                 } else
                 {
-                    npmError = new NpmError("not_initialized", $"The server is initializing ({percent:F1}% completed). Please retry later...");
+                    npmError = new NpmError("not_initialized", $"The server is initializing ({_registryCacheReport.Progress:F1}% completed). Please retry later...");
                 }
             } else
             {
