@@ -34,10 +34,7 @@ namespace UnityNuGet
         {
             lock (LockRead)
             {
-                if (_registry == null)
-                {
-                    _registry = Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(typeof(Registry).Assembly.Location)!, RegistryFileName)));
-                }
+                _registry ??= Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(typeof(Registry).Assembly.Location)!, RegistryFileName)));
             }
             return _registry;
         }

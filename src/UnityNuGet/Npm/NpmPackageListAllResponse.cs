@@ -26,7 +26,9 @@ namespace UnityNuGet.Npm
 
         // everything else gets stored here
         [JsonExtensionData]
+#pragma warning disable IDE0051 // Remove unused private members
         private IDictionary<string, JToken> AdditionalData
+#pragma warning restore IDE0051 // Remove unused private members
         {
             get
             {

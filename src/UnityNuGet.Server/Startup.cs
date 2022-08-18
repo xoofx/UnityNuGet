@@ -34,6 +34,8 @@ namespace UnityNuGet.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapStatus();
             });
         }
     }

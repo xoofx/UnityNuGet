@@ -1,7 +1,7 @@
 {
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
-    "version": "1.0.0.1"
+    "version": "(,1.0.0.1]"
   },
   "AutoMapper": {
     "listed": true,
