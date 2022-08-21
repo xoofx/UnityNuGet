@@ -42,6 +42,138 @@
     "listed": true,
     "version": "1.1.0"
   },
+  "CLSS.Constants.DefaultRandom": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "CLSS.Constants.NoOp": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.Constants.ValueEquivalentStrings": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.CommonMathOps": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IComparable.ClampToRange": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IComparable.InRange": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "CLSS.ExtensionMethods.IDictionary.GetOrAdd": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IDictionary.MoveKey": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IDictionary.SwapKeys": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IEnumerable.ForEach": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IEnumerable.Looping": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IEnumerable.MinMaxBy": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IEnumerator.LoopNext": {
+    "listed": true,
+    "version": "1.0.1"
+  },
+  "CLSS.ExtensionMethods.IList.ExclusiveSample": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.FillBy": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.FirstLastIndex": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.GetLoopingElementAt": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.ExtensionMethods.IList.GetRandom": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.GetWeightedRandom": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.Shuffle": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.IList.SwapIndices": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "CLSS.ExtensionMethods.Object.As": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.ExtensionMethods.Object.Is": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.ExtensionMethods.Object.ToStringFormattedBy": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.ExtensionMethods.Pipe": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "CLSS.ExtensionMethods.Reference.Action.Once": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.ExtensionMethods.String.AsEnum": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.Types.EventLatch": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.Types.MemoizedFunc": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.Types.Reference": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.Types.SortedAction": {
+    "listed": true,
+    "version": "1.1.0"
+  },
+  "CLSS.Types.ValueRange": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "CLSS.Types.WeightedSampler": {
+    "listed": true,
+    "version": "1.1.0"
+  },
   "codecracker.CSharp": {
     "listed": true,
     "version": "1.1.0",
