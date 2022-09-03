@@ -59,6 +59,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Dev.ComradeVanti.Nothing": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "CsvHelper": {
     "listed": true,
     "version": "3.0.0"
