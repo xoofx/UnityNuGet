@@ -59,6 +59,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Coroutine.NET": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "CsvHelper": {
     "listed": true,
     "version": "3.0.0"
@@ -515,6 +519,14 @@
     "listed": true,
     "version": "4.1.0"
   },
+  "Segment.Analytics.CSharp": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Serialization.NET": {
+    "listed": true,
+    "version": "0.1.0"
+  },
   "Serilog": {
     "listed": true,
     "version": "2.9.0"
@@ -579,6 +591,10 @@
     "listed": true,
     "version": "8.30.0.37606",
     "analyzer": true
+  },
+  "Sovran.NET": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "SQLitePCLRaw.bundle_green": {
     "listed": true,
