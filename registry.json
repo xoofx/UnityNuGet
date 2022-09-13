@@ -51,6 +51,10 @@
     "listed": true,
     "version": "2.4.0"
   },
+  "CommunityToolkit.Mvvm": {
+    "listed": true,
+    "version": "7.0.1"
+  },
   "ComradeVanti.CSharpTools.Opt": {
     "listed": true,
     "version": "1.0.2"
