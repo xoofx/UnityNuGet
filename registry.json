@@ -519,10 +519,6 @@
     "listed": true,
     "version": "4.1.0"
   },
-  "Segment.Analytics.CSharp": {
-    "listed": true,
-    "version": "1.0.0"
-  },
   "Serialization.NET": {
     "listed": true,
     "version": "0.1.0"
