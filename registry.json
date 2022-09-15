@@ -219,6 +219,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "DnsClient": {
+    "listed": true,
+    "version": "1.3.1"
+  },
   "Eflatun.Expansions": {
     "listed": true,
     "version": "0.0.2"
@@ -616,6 +620,26 @@
     "listed": true,
     "version": "16.3.13",
     "analyzer": true
+  },
+  "MongoDB.Driver": {
+    "listed": true,
+    "version": "2.11.0"
+  },
+  "MongoDB.Driver.Core": {
+    "listed": true,
+    "version": "2.11.0"
+  },
+  "MongoDB.Driver.GridFS": {
+    "listed": true,
+    "version": "2.11.0"
+  },
+  "MongoDB.Bson": {
+    "listed": true,
+    "version": "2.11.0"
+  },
+  "MongoDB.Libmongocrypt": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "Moq": {
     "listed": true,
