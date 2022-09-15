@@ -621,6 +621,10 @@
     "version": "16.3.13",
     "analyzer": true
   },
+  "MongoDB.Bson": {
+    "listed": true,
+    "version": "2.11.0"
+  },
   "MongoDB.Driver": {
     "listed": true,
     "version": "2.11.0"
@@ -630,10 +634,6 @@
     "version": "2.11.0"
   },
   "MongoDB.Driver.GridFS": {
-    "listed": true,
-    "version": "2.11.0"
-  },
-  "MongoDB.Bson": {
     "listed": true,
     "version": "2.11.0"
   },
