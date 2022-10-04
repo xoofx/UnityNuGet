@@ -1,7 +1,7 @@
 {
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
-    "version": "(,1.0.0.1]"
+    "version": "[1.0.0,1.0.0.1]"
   },
   "AutoMapper": {
     "listed": true,
@@ -239,7 +239,7 @@
   },
   "GeneticSharp": {
     "listed": true,
-    "version": "2.0.0"
+    "version": "[2.0.0,3.0.0)"
   },
   "Google.Apis": {
     "listed": true,
@@ -578,7 +578,7 @@
   },
   "Microsoft.NET.StringTools": {
     "listed": true,
-    "version": "1.0.0"
+    "version": "[1.0.0]"
   },
   "Microsoft.Toolkit.Mvvm": {
     "listed": true,
