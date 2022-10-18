@@ -312,6 +312,10 @@
     "listed": true,
     "version": "2.2.0"
   },
+  "JsonSubTypes": {
+    "listed": true,
+    "version": "1.4.0"
+  },
   "K4os.Compression.LZ4": {
     "listed": true,
     "version": "1.0.2"
