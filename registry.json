@@ -27,6 +27,10 @@
     "listed": true,
     "version": "0.1.6"
   },
+  "Bogus": {
+    "listed": true,
+    "version": "17.0.1"
+  },
   "BugSplatDotNetStandard": {
     "listed": true,
     "version": "1.0.0"
