@@ -951,6 +951,10 @@
     "listed": true,
     "version": "4.5.0"
   },
+  "System.Threading.RateLimiting": {
+    "listed": true,
+    "version": "7.0.0"
+  },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
