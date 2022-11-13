@@ -33,7 +33,7 @@
   },
   "Castle.Core": {
     "listed": true,
-    "version": "5.0.0",
+    "version": "4.4.0",
     "defineConstraints": [
       "UNITY_EDITOR"
     ]
@@ -429,7 +429,40 @@
   },
   "Microsoft.Data.Sqlite.Core": {
     "listed": true,
-    "version": "5.0.8"
+    "version": "3.1.0"
+  },
+  "Microsoft.DotNet.PlatformAbstractions": {
+    "listed": true,
+    "version": "3.1.0",
+    "analyzer": true
+  },
+  "Microsoft.EntityFrameworkCore": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Abstractions": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Analyzers": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Proxies": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Relational": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Sqlite": {
+    "listed": true,
+    "version": "3.1.0"
+  },
+  "Microsoft.EntityFrameworkCore.Sqlite.Core": {
+    "listed": true,
+    "version": "3.1.0"
   },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
@@ -779,21 +812,25 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "SQLitePCLRaw.bundle_e_sqlite3": {
+    "listed": true,
+    "version": "2.0.2"
+  },
   "SQLitePCLRaw.bundle_green": {
     "listed": true,
-    "version": "2.0.7"
+    "version": "2.0.2"
   },
   "SQLitePCLRaw.core": {
     "listed": true,
-    "version": "2.0.4"
+    "version": "2.0.2"
   },
   "SQLitePCLRaw.lib.e_sqlite3": {
     "listed": true,
-    "version": "2.0.7"
+    "version": "2.0.2"
   },
   "SQLitePCLRaw.provider.e_sqlite3": {
     "listed": true,
-    "version": "2.0.7"
+    "version": "2.0.2"
   },
   "SSH.NET": {
     "listed": true,
