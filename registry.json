@@ -3,6 +3,14 @@
     "listed": true,
     "version": "[1.0.0,1.0.0.1]"
   },
+  "AsyncAwaitBestPractices": {
+    "listed": true,
+    "version": "4.0.1"
+  },
+  "AsyncAwaitBestPractices.MVVM": {
+    "listed": true,
+    "version": "4.0.1"
+  },
   "AutoMapper": {
     "listed": true,
     "version": "10.0.0"
