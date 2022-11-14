@@ -243,7 +243,7 @@
   },
   "FluentAssertions": {
     "listed": true,
-    "version": "5.0.0",
+    "version": "5.4.0",
     "defineConstraints": [
       "UNITY_EDITOR"
     ]
@@ -318,7 +318,7 @@
   },
   "JsonSubTypes": {
     "listed": true,
-    "version": "1.4.0"
+    "version": "2.0.0"
   },
   "K4os.Compression.LZ4": {
     "listed": true,
@@ -438,31 +438,31 @@
   },
   "Microsoft.EntityFrameworkCore": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Abstractions": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Analyzers": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Proxies": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Relational": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Sqlite": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.EntityFrameworkCore.Sqlite.Core": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "[3.1.0,6.0.0)"
   },
   "Microsoft.Extensions.Caching.Abstractions": {
     "listed": true,
@@ -643,25 +643,29 @@
     "version": "16.3.13",
     "analyzer": true
   },
+  "Microsoft.Win32.Registry": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "MongoDB.Bson": {
     "listed": true,
-    "version": "2.11.0"
+    "version": "2.12.0"
   },
   "MongoDB.Driver": {
     "listed": true,
-    "version": "2.11.0"
+    "version": "2.12.0"
   },
   "MongoDB.Driver.Core": {
     "listed": true,
-    "version": "2.11.0"
+    "version": "2.12.0"
   },
   "MongoDB.Driver.GridFS": {
     "listed": true,
-    "version": "2.11.0"
+    "version": "2.12.0"
   },
   "MongoDB.Libmongocrypt": {
     "listed": true,
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "Moq": {
     "listed": true,
@@ -787,9 +791,9 @@
     "listed": true,
     "version": "3.0.0"
   },
-  "Sharpcompress": {
+  "SharpCompress": {
     "listed": true,
-    "version": "0.24.0"
+    "version": "0.22.0"
   },
   "SharpYaml": {
     "listed": true,
@@ -800,6 +804,10 @@
     "version": "1.0.0"
   },
   "SixLabors.ImageSharp": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Snappier": {
     "listed": true,
     "version": "1.0.0"
   },
@@ -1036,5 +1044,9 @@
   "VoltRpc.Extension.Vectors": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "ZstdSharp.Port": {
+    "listed": true,
+    "version": "0.1.0"
   }
 }
