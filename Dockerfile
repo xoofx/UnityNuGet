@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0.100 AS build
 WORKDIR /app
 
 RUN mkdir -p src/UnityNuGet && mkdir -p src/UnityNuGet.Server && mkdir -p src/UnityNuGet.Tests
