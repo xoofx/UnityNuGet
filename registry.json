@@ -56,51 +56,51 @@
   },
   "CLSS.Constants.DefaultRandom": {
     "listed": true,
-    "version": "1.2.1"
+    "version": "1.2.0"
   },
   "CLSS.Constants.NoOp": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.Constants.ValueEquivalentStrings": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.CommonMathOps": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IComparable.ClampToRange": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IComparable.InRange": {
     "listed": true,
-    "version": "1.3.0"
+    "version": "1.2.0"
   },
   "CLSS.ExtensionMethods.IDictionary.GetOrAdd": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IDictionary.MoveKey": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IDictionary.RemoveAndProcess": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IDictionary.SwapKeys": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.ForEach": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.Looping": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.1.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.MinMaxBy": {
     "listed": true,
@@ -136,7 +136,7 @@
   },
   "CLSS.ExtensionMethods.IList.RemoveAndProcess": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.Shuffle": {
     "listed": true,
@@ -168,11 +168,11 @@
   },
   "CLSS.ExtensionMethods.String.AsEnum": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.Types.AgnosticObjectPool": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.Types.EventLatch": {
     "listed": true,
@@ -192,7 +192,7 @@
   },
   "CLSS.Types.ValueRange": {
     "listed": true,
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "CLSS.Types.WeightedSampler": {
     "listed": true,
