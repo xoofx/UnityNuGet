@@ -38,6 +38,10 @@
   "BugSplatDotNetStandard": {
     "listed": true,
     "version": "1.0.0"
+  }
+  "BouncyCastle.Cryptography": {
+    "listed": true,
+    "version": "2.0.0"
   },
   "Castle.Core": {
     "listed": true,
@@ -701,6 +705,10 @@
   "Polly.Extensions.Http": {
     "listed": true,
     "version": "2.0.1"
+  },
+  "Portable.BouncyCastle": {
+    "listed": true,
+    "version": "1.9.0"
   },
   "Prism.Core": {
     "listed": true,
