@@ -852,11 +852,8 @@ namespace UnityNuGet
         {
             var guid = new byte[16];
             var inputBytes = Encoding.UTF8.GetBytes(text);
-            using (var algorithm = SHA1.Create())
-            {
-                var hash = algorithm.ComputeHash(inputBytes);
-                Array.Copy(hash, 0, guid, 0, guid.Length);
-            }
+            var hash = SHA1.HashData(inputBytes);
+            Array.Copy(hash, 0, guid, 0, guid.Length);
 
             // Follow UUID for SHA1 based GUID 
             const int version = 5; // SHA1 (3 for MD5)
@@ -867,8 +864,7 @@ namespace UnityNuGet
 
         private static string Sha1sum(Stream stream)
         {
-            using var sha1 = SHA1.Create();
-            var hash = sha1.ComputeHash(stream);
+            var hash = SHA1.HashData(stream);
             var sb = new StringBuilder(hash.Length * 2);
 
             foreach (byte b in hash)
