@@ -14,5 +14,14 @@ namespace UnityNuGet.Tests
 
             Assert.AreEqual(sortedPackageNames, originalPackageNames);
         }
+
+        [Test]
+        public void TestBuiltInPackages()
+        {
+            var registry = Registry.GetInstance();
+            var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
+
+            Assert.IsEmpty(packageNames);
+        }
     }
 }

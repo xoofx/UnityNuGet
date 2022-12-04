@@ -969,9 +969,6 @@
     "listed": true,
     "version": "4.4.0"
   },
-  "System.Security.Cryptography.X509Certificates": {
-    "ignore": true
-  },
   "System.Security.Cryptography.Xml": {
     "listed": true,
     "version": "4.4.0"
