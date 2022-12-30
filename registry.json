@@ -9,31 +9,31 @@
   },
   "AsyncAwaitBestPractices.MVVM": {
     "listed": true,
-    "version": "4.0.1"
+    "version": "5.0.2"
   },
   "AutoMapper": {
     "listed": true,
-    "version": "10.0.0"
+    "version": "7.0.1"
   },
   "AutoMapper.Extensions.Microsoft.DependencyInjection": {
     "listed": true,
-    "version": "8.0.0"
+    "version": "3.0.1"
   },
   "AutomaticGraphLayout": {
     "listed": true,
-    "version": "1.1.6"
+    "version": "1.1.4.3"
   },
   "AWSSDK.Core": {
     "listed": true,
-    "version": "3.5.0"
+    "version": "3.3.100"
   },
   "AWSSDK.S3": {
     "listed": true,
-    "version": "3.5.0"
+    "version": "3.3.100"
   },
   "Ben.Demystifier": {
     "listed": true,
-    "version": "0.1.6"
+    "version": "0.0.43"
   },
   "BugSplatDotNetStandard": {
     "listed": true,
@@ -41,18 +41,18 @@
   },
   "Castle.Core": {
     "listed": true,
-    "version": "4.4.0",
+    "version": "5.0.0",
     "defineConstraints": [
       "UNITY_EDITOR"
     ]
   },
   "CircularBuffer": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.2"
   },
   "CLSS.Constants.DefaultRandom": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.0.0"
   },
   "CLSS.Constants.NoOp": {
     "listed": true,
@@ -60,27 +60,27 @@
   },
   "CLSS.Constants.ValueEquivalentStrings": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.CommonMathOps": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IComparable.ClampToRange": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IComparable.InRange": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IDictionary.GetOrAdd": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IDictionary.MoveKey": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IDictionary.RemoveAndProcess": {
     "listed": true,
@@ -88,15 +88,15 @@
   },
   "CLSS.ExtensionMethods.IDictionary.SwapKeys": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.ForEach": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.Looping": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IEnumerable.MinMaxBy": {
     "listed": true,
@@ -108,15 +108,15 @@
   },
   "CLSS.ExtensionMethods.IList.ExclusiveSample": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.FillBy": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.FirstLastIndex": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.GetLoopingElementAt": {
     "listed": true,
@@ -124,11 +124,11 @@
   },
   "CLSS.ExtensionMethods.IList.GetRandom": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.GetWeightedRandom": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.RemoveAndProcess": {
     "listed": true,
@@ -136,11 +136,11 @@
   },
   "CLSS.ExtensionMethods.IList.Shuffle": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.IList.SwapIndices": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.Object.As": {
     "listed": true,
@@ -148,7 +148,7 @@
   },
   "CLSS.ExtensionMethods.Object.Is": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.Object.ToStringFormattedBy": {
     "listed": true,
@@ -156,7 +156,7 @@
   },
   "CLSS.ExtensionMethods.Pipe": {
     "listed": true,
-    "version": "1.3.0"
+    "version": "1.0.0"
   },
   "CLSS.ExtensionMethods.Reference.Action.Once": {
     "listed": true,
@@ -176,7 +176,7 @@
   },
   "CLSS.Types.MemoizedFunc": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.0.0"
   },
   "CLSS.Types.Reference": {
     "listed": true,
@@ -184,7 +184,7 @@
   },
   "CLSS.Types.SortedAction": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "CLSS.Types.ValueRange": {
     "listed": true,
@@ -192,7 +192,7 @@
   },
   "CLSS.Types.WeightedSampler": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "1.0.0"
   },
   "codecracker.CSharp": {
     "listed": true,
@@ -229,11 +229,11 @@
   },
   "DnsClient": {
     "listed": true,
-    "version": "1.3.1"
+    "version": "1.1.0"
   },
   "Eflatun.Expansions": {
     "listed": true,
-    "version": "0.0.2"
+    "version": "0.0.1"
   },
   "ErrorProne.NET.CoreAnalyzers": {
     "listed": true,
@@ -251,7 +251,7 @@
   },
   "FluentAssertions": {
     "listed": true,
-    "version": "5.4.0",
+    "version": "5.0.0",
     "defineConstraints": [
       "UNITY_EDITOR"
     ]
@@ -262,19 +262,19 @@
   },
   "Google.Apis": {
     "listed": true,
-    "version": "1.44.0"
+    "version": "1.35.0"
   },
   "Google.Apis.AndroidPublisher.v3": {
     "listed": true,
-    "version": "1.44.0.1872"
+    "version": "1.35.1.1312"
   },
   "Google.Apis.Auth": {
     "listed": true,
-    "version": "1.44.0"
+    "version": "1.35.0"
   },
   "Google.Apis.Core": {
     "listed": true,
-    "version": "1.44.0"
+    "version": "1.35.0"
   },
   "Google.Protobuf": {
     "listed": true,
@@ -326,7 +326,7 @@
   },
   "JsonSubTypes": {
     "listed": true,
-    "version": "2.0.0"
+    "version": "1.4.0"
   },
   "K4os.Compression.LZ4": {
     "listed": true,
@@ -334,7 +334,7 @@
   },
   "LiteDB": {
     "listed": true,
-    "version": "5.0.1"
+    "version": "4.0.0"
   },
   "LiteDb.Extensions.Caching": {
     "listed": true,
@@ -342,7 +342,7 @@
   },
   "log4net": {
     "listed": true,
-    "version": "2.0.11"
+    "version": "2.0.9"
   },
   "MathNet.Numerics": {
     "listed": true,
@@ -350,15 +350,15 @@
   },
   "McMaster.Extensions.CommandLineUtils": {
     "listed": true,
-    "version": "2.2.0"
+    "version": "2.0.0"
   },
   "MessagePack": {
     "listed": true,
-    "version": "2.1.80"
+    "version": "1.7.0"
   },
   "MessagePack.Annotations": {
     "listed": true,
-    "version": "2.1.80"
+    "version": "2.0.323"
   },
   "Meziantou.Analyzer": {
     "listed": true,
@@ -399,7 +399,7 @@
   },
   "Microsoft.AspNetCore.SignalR.Protocols.MessagePack": {
     "listed": true,
-    "version": "5.0.0"
+    "version": "1.0.0"
   },
   "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson": {
     "listed": true,
@@ -437,7 +437,7 @@
   },
   "Microsoft.Data.Sqlite.Core": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "2.0.0"
   },
   "Microsoft.DotNet.PlatformAbstractions": {
     "listed": true,
@@ -510,7 +510,7 @@
   },
   "Microsoft.Extensions.Configuration.Json": {
     "listed": true,
-    "version": "2.1.0"
+    "version": "2.0.0"
   },
   "Microsoft.Extensions.Configuration.NewtonsoftJson": {
     "listed": true,
@@ -518,7 +518,7 @@
   },
   "Microsoft.Extensions.Configuration.UserSecrets": {
     "listed": true,
-    "version": "2.1.0"
+    "version": "2.0.0"
   },
   "Microsoft.Extensions.Configuration.Xml": {
     "listed": true,
@@ -558,7 +558,7 @@
   },
   "Microsoft.Extensions.Hosting": {
     "listed": true,
-    "version": "2.0.0"
+    "version": "2.1.0"
   },
   "Microsoft.Extensions.Hosting.Abstractions": {
     "listed": true,
@@ -602,11 +602,11 @@
   },
   "Microsoft.Extensions.Logging.EventSource": {
     "listed": true,
-    "version": "2.1.0"
+    "version": "2.0.0"
   },
   "Microsoft.Extensions.Logging.Log4Net.AspNetCore": {
     "listed": true,
-    "version": "5.0.3"
+    "version": "2.0.1"
   },
   "Microsoft.Extensions.Logging.TraceSource": {
     "listed": true,
@@ -636,6 +636,9 @@
     "listed": true,
     "version": "[1.0.0]"
   },
+  "Microsoft.NETCore.Platforms": {
+    "ignore": true
+  },
   "Microsoft.Toolkit.Mvvm": {
     "listed": true,
     "version": "7.0.0",
@@ -657,19 +660,19 @@
   },
   "MongoDB.Bson": {
     "listed": true,
-    "version": "2.12.0"
+    "version": "2.11.0"
   },
   "MongoDB.Driver": {
     "listed": true,
-    "version": "2.12.0"
+    "version": "2.11.0"
   },
   "MongoDB.Driver.Core": {
     "listed": true,
-    "version": "2.12.0"
+    "version": "2.11.0"
   },
   "MongoDB.Driver.GridFS": {
     "listed": true,
-    "version": "2.12.0"
+    "version": "2.11.0"
   },
   "MongoDB.Libmongocrypt": {
     "listed": true,
@@ -677,18 +680,18 @@
   },
   "Moq": {
     "listed": true,
-    "version": "4.18.0",
+    "version": "4.11.0",
     "defineConstraints": [
       "UNITY_EDITOR"
     ]
   },
   "morelinq": {
     "listed": true,
-    "version": "3.2.0"
+    "version": "2.7.0"
   },
   "NeoSmart.Caching.Sqlite": {
     "listed": true,
-    "version": "5.0.2"
+    "version": "0.1.0"
   },
   "Newtonsoft.Json": {
     "listed": true,
@@ -708,7 +711,7 @@
   },
   "protobuf-net": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "2.3.6"
   },
   "protobuf-net.Core": {
     "listed": true,
@@ -716,11 +719,11 @@
   },
   "QuikGraph": {
     "listed": true,
-    "version": "2.0.0"
+    "version": "1.0.0"
   },
   "RestSharp": {
     "listed": true,
-    "version": "106.2.2"
+    "version": "106.0.0"
   },
   "RestSharp.Serializers.NewtonsoftJson": {
     "listed": true,
@@ -732,11 +735,11 @@
   },
   "Rhino3dm": {
     "listed": true,
-    "version": "7.6.0"
+    "version": "0.1.0"
   },
   "Robots": {
     "listed": true,
-    "version": "1.1.5"
+    "version": "1.1.7"
   },
   "Roslynator.Analyzers": {
     "listed": true,
@@ -745,19 +748,19 @@
   },
   "Scriban": {
     "listed": true,
-    "version": "2.1.0"
+    "version": "1.2.4"
   },
   "Scrutor": {
     "listed": true,
-    "version": "4.1.0"
+    "version": "3.0.1"
   },
   "Serialization.NET": {
     "listed": true,
-    "version": "0.1.0"
+    "version": "1.0.0"
   },
   "Serilog": {
     "listed": true,
-    "version": "2.9.0"
+    "version": "2.8.0"
   },
   "Serilog.Enrichers.Demystifier": {
     "listed": true,
@@ -765,19 +768,19 @@
   },
   "Serilog.Extensions.Hosting": {
     "listed": true,
-    "version": "4.2.0"
+    "version": "2.0.0"
   },
   "Serilog.Extensions.Logging": {
     "listed": true,
-    "version": "3.1.0"
+    "version": "2.0.0"
   },
   "Serilog.Settings.Configuration": {
     "listed": true,
-    "version": "3.2.0"
+    "version": "3.0.0"
   },
   "Serilog.Sinks.Async": {
     "listed": true,
-    "version": "1.5.0"
+    "version": "1.4.0"
   },
   "Serilog.Sinks.Console": {
     "listed": true,
@@ -785,15 +788,15 @@
   },
   "Serilog.Sinks.Debug": {
     "listed": true,
-    "version": "2.0.0"
+    "version": "1.0.1"
   },
   "Serilog.Sinks.File": {
     "listed": true,
-    "version": "5.0.0"
+    "version": "4.1.0"
   },
   "Serilog.Sinks.Graylog": {
     "listed": true,
-    "version": "2.3.0"
+    "version": "1.1.89"
   },
   "Serilog.Sinks.Trace": {
     "listed": true,
@@ -801,11 +804,11 @@
   },
   "SharpCompress": {
     "listed": true,
-    "version": "0.22.0"
+    "version": "0.19.0"
   },
   "SharpYaml": {
     "listed": true,
-    "version": "1.8.0"
+    "version": "1.6.4"
   },
   "SharpZipLib": {
     "listed": true,
@@ -830,23 +833,23 @@
   },
   "SQLitePCLRaw.bundle_e_sqlite3": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.0.0"
   },
   "SQLitePCLRaw.bundle_green": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.0.0"
   },
   "SQLitePCLRaw.core": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.0.0"
   },
   "SQLitePCLRaw.lib.e_sqlite3": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.0.0"
   },
   "SQLitePCLRaw.provider.e_sqlite3": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.1.0"
   },
   "SSH.NET": {
     "listed": true,
@@ -983,11 +986,11 @@
   },
   "System.ServiceModel.Primitives": {
     "listed": true,
-    "version": "4.6.0"
+    "version": "4.4.0"
   },
   "System.Text.Encoding.CodePages": {
     "listed": false,
-    "version": "4.5.0"
+    "version": "4.4.0"
   },
   "System.Text.Encodings.Web": {
     "listed": true,
@@ -1020,19 +1023,19 @@
   },
   "UnitsNet": {
     "listed": true,
-    "version": "4.101.0"
+    "version": "4.0.0"
   },
   "UnitsNet.NumberExtensions": {
     "listed": true,
-    "version": "4.101.0"
+    "version": "4.44.0"
   },
   "UnitsNet.Serialization.JsonNet": {
     "listed": true,
-    "version": "4.5.0"
+    "version": "4.0.0"
   },
   "Validation": {
     "listed": true,
-    "version": "2.5.51"
+    "version": "2.5.42"
   },
   "VoltRpc": {
     "listed": true,
@@ -1052,6 +1055,6 @@
   },
   "ZstdSharp.Port": {
     "listed": true,
-    "version": "0.1.0"
+    "version": "0.5.0"
   }
 }
