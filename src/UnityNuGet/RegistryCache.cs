@@ -364,8 +364,17 @@ namespace UnityNuGet
 
                                 if (packageDependency != null)
                                 {
-                                    resolvedDeps = packageDependency;
-                                    LogWarning($"Overwriting dependency `{deps.Id} {deps.VersionRange}` of the package `{packageIdentity}` in favor of `{resolvedDeps.Id} {resolvedDeps.VersionRange}` because it is not compatible with {string.Join(",", _targetFrameworks.Select(x => x.Name))}.");
+                                    if (deps.VersionRange.MinVersion > packageDependency.VersionRange.MinVersion)
+                                    {
+                                        packageDependency = new PackageDependency(packageDependency.Id, deps.VersionRange);
+                                        resolvedDeps = packageDependency;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        resolvedDeps = packageDependency;
+                                        LogWarning($"Overwriting dependency `{deps.Id} {deps.VersionRange}` of the package `{packageIdentity}` in favor of `{resolvedDeps.Id} {resolvedDeps.VersionRange}` because it is not compatible with {string.Join(",", _targetFrameworks.Select(x => x.Name))}.");
+                                    }
                                 }
                                 else
                                 {
