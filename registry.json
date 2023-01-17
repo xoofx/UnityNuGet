@@ -35,13 +35,13 @@
     "listed": true,
     "version": "0.0.43"
   },
-  "BugSplatDotNetStandard": {
-    "listed": true,
-    "version": "1.0.0"
-  }
   "BouncyCastle.Cryptography": {
     "listed": true,
     "version": "2.0.0"
+  },
+  "BugSplatDotNetStandard": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "Castle.Core": {
     "listed": true,
@@ -666,9 +666,9 @@
     "listed": true,
     "version": "4.4.0"
   },
-  "MimeTypeMapOfficial":{
+  "MimeTypeMapOfficial": {
     "listed": true,
-    "versi": "1.0.8"
+    "version": "1.0.8"
   },
   "MongoDB.Bson": {
     "listed": true,
@@ -724,7 +724,7 @@
   },
   "Portable.BouncyCastle": {
     "listed": true,
-    "version": "1.8.1.4"
+    "version": "1.8.1.3"
   },
   "Prism.Core": {
     "listed": true,
