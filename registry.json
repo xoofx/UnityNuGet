@@ -50,6 +50,10 @@
     "listed": true,
     "version": "1.0.2"
   },
+  "CLSS.Constants.CollectionPool": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "CLSS.Constants.DefaultRandom": {
     "listed": true,
     "version": "1.0.0"
