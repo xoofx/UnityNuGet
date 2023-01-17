@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban;
+using Scriban.Parsing;
+using Scriban.Runtime;
 using UnityNuGet.Server;
 
 namespace Microsoft.AspNetCore.Builder
@@ -58,15 +60,27 @@ namespace Microsoft.AspNetCore.Builder
                     message = $"Time remaining for the next update: {(registryCacheReport.TimeRemainingForNextUpdate != null ? registryCacheReport.TimeRemainingForNextUpdate.Value.ToString(@"hh\:mm\:ss") : string.Empty)}";
                 }
 
+                var model = new
+                {
+                    message,
+                    informationMessages = registryCacheReport.InformationMeessages,
+                    warningMessages = registryCacheReport.WarningMessages,
+                    errorMessages = registryCacheReport.ErrorMessages
+                };
+
+                var template = Template
+                    .Parse(text);
+
+                var scriptObject = new ScriptObject();
+                scriptObject.Import(model);
+
+                var templateContext = template.LexerOptions.Lang == ScriptLang.Liquid ? new LiquidTemplateContext() : new TemplateContext();
+                templateContext.LoopLimit = 0;
+                templateContext.PushGlobal(scriptObject);
+
                 string output = Template
                     .Parse(text)
-                    .Render(new
-                    {
-                        message,
-                        informationMessages = registryCacheReport.InformationMeessages,
-                        warningMessages = registryCacheReport.WarningMessages,
-                        errorMessages = registryCacheReport.ErrorMessages
-                    });
+                    .Render(templateContext);
                 await context.Response.WriteAsync(output);
             });
         }
