@@ -666,6 +666,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "MimeTypeMapOfficial":{
+    "listed": true,
+    "versi": "1.0.8"
+  },
   "MongoDB.Bson": {
     "listed": true,
     "version": "2.11.0"
