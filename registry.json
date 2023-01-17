@@ -738,6 +738,14 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "protobuf-net.Grpc": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "protobuf-net.Grpc.ClientFactory": {
+    "listed": true,
+    "version": "1.0.177"
+  },
   "QuikGraph": {
     "listed": true,
     "version": "1.0.0"
