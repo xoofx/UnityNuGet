@@ -1042,8 +1042,8 @@
     "version": "7.0.0"
   },
   "System.Threading.Tasks.Extensions": {
-    "listed": false,
-    "version": "4.4.0"
+    "listed": true,
+    "version": "4.5.4"
   },
   "Telnet": {
     "listed": true,
