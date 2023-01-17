@@ -16,7 +16,9 @@ namespace UnityNuGet
         private static readonly object LockRead = new();
         private static Registry? _registry = null;
 
-        public Registry()
+        // A comparer is established for cases where the dependency name is not set to the correct case.
+        // Example: https://www.nuget.org/packages/NeoSmart.Caching.Sqlite/0.1.0#dependencies-body-tab
+        public Registry() : base(StringComparer.OrdinalIgnoreCase)
         {
         }
 

@@ -6,6 +6,10 @@ This project provides a seamlessly integration of a [curated list](registry.json
 
 > DISCLAIMER: This is not an official service provided by Unity Technologies Inc.
 
+## Installation
+
+### Add scope registry (manifest.json):
+
 In order to use this service you simply need to edit the `Packages/manifest.json` in your project and add the following scoped registry:
 
 ```json
@@ -25,10 +29,28 @@ In order to use this service you simply need to edit the `Packages/manifest.json
 }
 ```
 
+### Add scope registry (Package Manager UI):
+
+Instructions: https://docs.unity3d.com/Manual/class-PackageManager.html
+
+```
+Name: Unity NuGet
+
+Url: https://unitynuget-registry.azurewebsites.net
+
+Scope(s): org.nuget
+```
+
+### Disable Assembly Version Validation
+
+Uncheck: "Project Settings > Player > Other Settings > Configuration > Assembly Version Validation"
+
 > WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already, 
 > it could be that we have updated packages on the server, and in that case, you need to clear the cache containing
 > all Unity NPM packages downdloaded from the `unitynuget-registry.azurewebsites.net` registry.
 > On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget-registry.azurewebsites.net`
+>
+> Cache locations by OS: https://docs.unity3d.com/Manual/upm-cache.html
 
 When opening the Package Manager Window, you should see a few packages coming from NuGet (with the postfix text ` (NuGet)`)
 
@@ -45,13 +67,14 @@ Your NuGet package needs to respect a few constraints in order to be listed in t
 
 You can send a PR to this repository to modify the [registry.json](registry.json) file (don't forget to maintain the alphabetical order)
 
-I recommend also to **specify the lowest version of your package that has support for `.NETStandard2.0`** upward so that other packages depending on your package have a chance to work with.
+You also need to **specify the lowest version of your package that has support for `.NETStandard2.0`** upward so that other packages depending on your package have a chance to work with.
 
 Beware that **all transitive dependencies of the package** must be **explicitly listed** in the registry as well.
 
 > NOTE: 
 > * We reserve the right to decline a package to be available through this service
 > * The server will be updated only when a new version tag is pushed on the main branch.
+
 ## Compatibility
 
 Only compatible with **`Unity 2019.1`** and potentially with newer version.
@@ -99,27 +122,29 @@ To add a private feed, the following fields must be filled in.
 </configuration>
 ```
 
-**Note**: The Azure DevOps PAT must have Packaging (Read) permissions.
+**Note**: [The Azure DevOps PAT](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) must have Packaging (Read) permissions.
 
 ## FAQ
 
-### Where is hosted this service?
+### **Where is hosted this service?**
 
 On Azure through my own Azure credits coming from my MVP subscription, enjoy!
 
-### Why can't you add all NuGet packages?
+### **Why can't you add all NuGet packages?**
 
 The reason is that many NuGet packages are not compatible with Unity, or do not provide .NETStandard2.0 assemblies or are not relevant for being used within Unity.
 
 Also currently the Package Manager doesn't provide a way to filter easily packages, so the UI is currently not adequate to list lots of packages.
 
-### Why does it require .NETStandard2.0?
+### **Why does it require .NETStandard2.0?**
 
 Since 2019.1, Unity is now compatible with `.NETStandard2.0` and it is the .NET profile that is preferred to be used
 
 Having a `.NETStandard2.0` for NuGet packages for Unity can ensure that the experience to add a package to your project is consistent and well supported.
 
-### How this service is working?
+More information: https://docs.unity3d.com/Manual/dotnetProfileSupport.html
+
+### **How this service is working?**
 
 This project implements a simplified compatible NPM server in C# using ASP.NET Core and converts NuGet packages to Unity packages before serving them. 
 
