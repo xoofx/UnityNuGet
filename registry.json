@@ -11,6 +11,10 @@
     "listed": true,
     "version": "5.0.2"
   },
+  "AsyncKeyedLock": {
+    "listed": true,
+    "version": "6.0.5"
+  },  
   "AutoMapper": {
     "listed": true,
     "version": "7.0.1"
