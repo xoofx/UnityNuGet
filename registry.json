@@ -1062,6 +1062,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "WebDav.Client": {
+    "listed": true,
+    "version": "2.3.0"
+  },
   "ZstdSharp.Port": {
     "listed": true,
     "version": "0.5.0"
