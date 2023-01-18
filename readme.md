@@ -43,7 +43,12 @@ Scope(s): org.nuget
 
 ### Disable Assembly Version Validation
 
-Uncheck: "Project Settings > Player > Other Settings > Configuration > Assembly Version Validation"
+This step is necessary to ensure that binding redirects for [strongly named assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/strong-named) in NuGet packages resolve correctly to paths _within the Unity project_. 
+
+- In Unity 2022.2+, this is the [default behavior](https://forum.unity.com/threads/editor-assembly-loading-issues-unloading-broken-assembly-could-not-load-signature.754508/#post-8647791), so no action is required.
+- For earlier Unity versions, uncheck "Project Settings > Player > Other Settings > Configuration > Assembly Version Validation"
+
+### Verify installation
 
 > WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already, 
 > it could be that we have updated packages on the server, and in that case, you need to clear the cache containing
