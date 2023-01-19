@@ -713,6 +713,18 @@
     "listed": true,
     "version": "11.0.1"
   },
+  "NSubstitute": {
+    "listed": true,
+    "version": "4.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
+  },
+  "NSubstitute.Analyzers.CSharp": {
+    "listed": true,
+    "version": "1.0.15",
+    "analyzer": true
+  },
   "NUnit.Analyzers": {
     "listed": true,
     "version": "[2.0.0,3.3.0]",
