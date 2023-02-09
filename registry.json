@@ -35,6 +35,10 @@
     "listed": true,
     "version": "3.3.100"
   },
+  "AWSSDK.SecurityToken": {
+    "listed": true,
+    "version": "3.3.100"
+  },
   "Ben.Demystifier": {
     "listed": true,
     "version": "0.0.43"

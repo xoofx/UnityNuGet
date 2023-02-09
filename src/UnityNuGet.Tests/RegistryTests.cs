@@ -51,6 +51,8 @@ namespace UnityNuGet.Tests
             var excludedPackages = new string[] {
                 // All versions target "Any" and not .netstandard2.0 / 2.1
                 @"AWSSDK.S3",
+                // All versions target "Any" and not .netstandard2.0 / 2.1
+                @"AWSSDK.SecurityToken",
                 // Although 2.x targets .netstandard2.0 it has an abandoned dependency (Remotion.Linq) that does not target .netstandard2.0.
                 // 3.1.0 is set because 3.0.x only targets .netstandard2.1.
                 @"Microsoft.EntityFrameworkCore.*",
