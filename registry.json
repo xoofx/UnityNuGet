@@ -1,4 +1,8 @@
 {
+  "Akka": {
+    "listed": true,
+    "version": "1.4.1"
+  },
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
     "version": "[1.0.0,1.0.0.1]"
