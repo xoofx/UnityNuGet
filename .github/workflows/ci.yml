@@ -37,7 +37,7 @@ jobs:
 
     - name: Publish (Release)
       if: env.UNITYNUGET_DEPLOY == 1
-      run: dotnet publish src -c Release -o build/${{env.PROJECT_NAME}}
+      run: dotnet publish src/UnityNuGet.Server.csproj -c Release -o build/${{env.PROJECT_NAME}}
 
     - name: Azure Deploy
       if: env.UNITYNUGET_DEPLOY == 1
