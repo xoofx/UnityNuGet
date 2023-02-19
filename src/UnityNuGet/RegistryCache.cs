@@ -181,6 +181,16 @@ namespace UnityNuGet
             return null;
         }
 
+        private async Task<DownloadResourceResult> GetPackageDownloadResourceResult(PackageIdentity packageIdentity)
+        {
+            return await PackageDownloader.GetDownloadResourceResultAsync(
+                _sourceRepositories,
+                packageIdentity,
+                new PackageDownloadContext(_sourceCacheContext),
+                SettingsUtility.GetGlobalPackagesFolder(_settings),
+                _logger, CancellationToken.None);
+        }
+
         /// <summary>
         /// For each package in our registry.json, query NuGet, extract package metadata, and convert them to unity packages.
         /// </summary>
@@ -200,6 +210,8 @@ namespace UnityNuGet
             }
 
             var onProgress = OnProgress;
+
+            var globalPackagesFolder = SettingsUtility.GetGlobalPackagesFolder(_settings);
 
             var progressCount = 0;
             foreach (var packageDesc in _registry)
@@ -231,19 +243,17 @@ namespace UnityNuGet
 
                     var resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageMeta.DependencySets, _targetFrameworks);
 
-                    var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
-                        _sourceRepositories,
-                        packageIdentity,
-                        new PackageDownloadContext(_sourceCacheContext),
-                        SettingsUtility.GetGlobalPackagesFolder(_settings),
-                        _logger, CancellationToken.None);
-
-                    var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, _logger).AnyAsync();
-
-                    if (!packageEntry.Analyzer && !resolvedDependencyGroups.Any() && !hasNativeLib)
+                    if (!packageEntry.Analyzer && !resolvedDependencyGroups.Any())
                     {
-                        LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
-                        continue;
+                        using var downloadResult = await GetPackageDownloadResourceResult(packageIdentity);
+
+                        var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, _logger).AnyAsync();
+
+                        if (!hasNativeLib)
+                        {
+                            LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
+                            continue;
+                        }
                     }
 
                     if (!_npmPackageRegistry.Packages.TryGetValue(npmPackageId, out var npmPackage))
@@ -397,13 +407,27 @@ namespace UnityNuGet
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry, downloadResult);
+                        bool packageConverted = await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry);
                         npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
                         if (update)
                         {
                             npmPackage.Repository = npmVersion.Repository?.Clone();
+                        }
+
+                        if (packageConverted)
+                        {
+                            string localPackagePath = Path.Combine(globalPackagesFolder, packageIdentity.Id.ToLowerInvariant(), packageIdentity.Version.ToString());
+
+                            if (Directory.Exists(localPackagePath))
+                            {
+                                Directory.Delete(localPackagePath, true);
+                            }
+                            else
+                            {
+                                LogWarning($"The NuGet package cache folder could not be deleted because it does not exist: {localPackagePath}");
+                            }
                         }
                     }
                 }
@@ -429,15 +453,14 @@ namespace UnityNuGet
         /// <summary>
         /// Converts a NuGet package to Unity package if not already
         /// </summary>
-        private async Task ConvertNuGetToUnityPackageIfDoesNotExist
+        private async Task<bool> ConvertNuGetToUnityPackageIfDoesNotExist
         (
             PackageIdentity identity,
             NpmPackageInfo npmPackageInfo,
             NpmPackageVersion npmPackageVersion,
             IPackageSearchMetadata packageMeta,
             bool forceUpdate,
-            RegistryEntry packageEntry,
-            DownloadResourceResult downloadResult
+            RegistryEntry packageEntry
         )
         {
             // If we need to force the update, we delete the previous package+sha1 files
@@ -448,11 +471,15 @@ namespace UnityNuGet
 
             if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
             {
-                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry, downloadResult);
+                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry);
+
+                return true;
             }
             else
             {
                 npmPackageVersion.Distribution.Shasum = await ReadUnityPackageSha1(identity, npmPackageVersion);
+
+                return false;
             }
         }
 
@@ -465,8 +492,7 @@ namespace UnityNuGet
             NpmPackageInfo npmPackageInfo,
             NpmPackageVersion npmPackageVersion,
             IPackageSearchMetadata packageMeta,
-            RegistryEntry packageEntry,
-            DownloadResourceResult downloadResult
+            RegistryEntry packageEntry
         )
         {
             var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
@@ -474,7 +500,9 @@ namespace UnityNuGet
 
             LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
 
-            var packageReader = downloadResult.PackageReader;
+            using var downloadResult = await GetPackageDownloadResourceResult(identity);
+
+            using var packageReader = downloadResult.PackageReader;
 
             // Update Repository metadata if necessary
             var repoMeta = packageReader.NuspecReader.GetRepositoryMetadata();
@@ -494,7 +522,7 @@ namespace UnityNuGet
 
             try
             {
-                var memStream = new MemoryStream();
+                using var memStream = new MemoryStream();
 
                 using (var outStream = File.Create(unityPackageFilePath))
                 using (var gzoStream = new GZipOutputStream(outStream))
@@ -593,7 +621,7 @@ namespace UnityNuGet
                             memStream.Position = 0;
                             memStream.SetLength(0);
 
-                            var stream = await packageReader.GetStreamAsync(analyzerFile, CancellationToken.None);
+                            using var stream = await packageReader.GetStreamAsync(analyzerFile, CancellationToken.None);
                             await stream.CopyToAsync(memStream);
                             var buffer = memStream.ToArray();
 
@@ -640,7 +668,7 @@ namespace UnityNuGet
                             memStream.Position = 0;
                             memStream.SetLength(0);
 
-                            var stream = await packageReader.GetStreamAsync(file, CancellationToken.None);
+                            using var stream = await packageReader.GetStreamAsync(file, CancellationToken.None);
                             await stream.CopyToAsync(memStream);
                             var buffer = memStream.ToArray();
 
