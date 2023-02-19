@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -10,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
+using Newtonsoft.Json;
 using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Frameworks;
@@ -28,6 +30,8 @@ namespace UnityNuGet
     /// </summary>
     public class RegistryCache
     {
+        public static bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
+        
         // Change this version number if the content of the packages are changed by an update of this class
         private const string CurrentRegistryVersion = "1.4.0";
 
@@ -65,7 +69,7 @@ namespace UnityNuGet
             }
 
             // Force NuGet packages to be in the same directory to avoid storage full on Azure.
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME")))
+            if (IsRunningOnAzure)
             {
                 var nugetFolder = Path.Combine(_rootPersistentFolder, ".nuget");
                 Environment.SetEnvironmentVariable("NUGET_PACKAGES", nugetFolder);
@@ -201,8 +205,11 @@ namespace UnityNuGet
             if (forceUpdate)
             {
                 LogInformation($"Registry version changed to {CurrentRegistryVersion} - Regenerating all packages");
-            }
 
+                // Clear the cache entirely
+                _npmPackageRegistry.Reset();
+            }
+            
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -228,20 +235,51 @@ namespace UnityNuGet
                     continue;
                 }
 
+                var packageId = packageName.ToLowerInvariant();
+                var npmPackageId = $"{_unityScope}.{packageId}";
+                NpmPackageCacheEntry? cacheEntry = null;
+                NpmPackage? npmPackage = null;
+                NpmPackageInfo? npmPackageInfo = null;
+
+                if (!forceUpdate && !_npmPackageRegistry.Packages.TryGetValue(npmPackageId, out npmPackage))
+                {
+                    if (TryReadPackageCacheEntry(packageId, out cacheEntry))
+                    {
+                        npmPackage = cacheEntry.Package!;
+                        npmPackageInfo = cacheEntry.Info!;
+                        _npmPackageRegistry.AddPackage(cacheEntry, packageEntry.Listed);
+                    }
+                }
+
                 var packageMetaIt = await GetMetadataFromSources(packageName);
                 var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
                 foreach (var packageMeta in packageMetas)
                 {
                     var packageIdentity = packageMeta.Identity;
-                    var packageId = packageIdentity.Id.ToLowerInvariant();
-                    var npmPackageId = $"{_unityScope}.{packageId}";
+                    // Update latest version
+                    var currentVersion = packageIdentity.Version;
+                    string npmCurrentVersion = GetNpmVersion(currentVersion);
+
 
                     if (packageEntry.Version == null || !packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
                         continue;
                     }
 
-                    var resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageMeta.DependencySets, _targetFrameworks);
+                    // If the package id is cached already, we don't need to generate it again
+                    if (npmPackage != null && npmPackage.Versions.TryGetValue(npmCurrentVersion, out var existingVersion))
+                    {
+                        // If the package tgz exists, we don't need to regenerate it again
+                        var packageTgz = new FileInfo(GetUnityPackagePath(packageIdentity, existingVersion));
+                        var packageSha1 = new FileInfo(GetUnityPackageSha1Path(packageIdentity, existingVersion));
+
+                        if (packageTgz.Exists && packageTgz.Length > 0 && packageSha1.Exists && packageSha1.Length > 0)
+                        {
+                            continue;
+                        }
+                    }
+
+                    var resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageMeta.DependencySets, _targetFrameworks).ToList();
 
                     if (!packageEntry.Analyzer && !resolvedDependencyGroups.Any())
                     {
@@ -256,30 +294,12 @@ namespace UnityNuGet
                         }
                     }
 
-                    if (!_npmPackageRegistry.Packages.TryGetValue(npmPackageId, out var npmPackage))
-                    {
-                        npmPackage = new NpmPackage();
-                        _npmPackageRegistry.Packages.Add(npmPackageId, npmPackage);
-                    }
-
-                    // One NpmPackage (for package request)
-
-                    var packageInfoList = packageEntry.Listed ? _npmPackageRegistry.ListedPackageInfos : _npmPackageRegistry.UnlistedPackageInfos;
-
-                    if (!packageInfoList.Packages.TryGetValue(npmPackageId, out var npmPackageInfo))
-                    {
-                        npmPackageInfo = new NpmPackageInfo();
-                        packageInfoList.Packages.Add(npmPackageId, npmPackageInfo);
-                    }
-
-                    // Update latest version
-                    var currentVersion = packageIdentity.Version;
+                    npmPackage ??= new NpmPackage();
+                    npmPackageInfo ??= new NpmPackageInfo();
 
                     var update = !npmPackage.DistTags.TryGetValue("latest", out var latestVersion)
                                  || (currentVersion > NuGetVersion.Parse(latestVersion))
                                  || forceUpdate;
-
-                    string npmCurrentVersion = GetNpmVersion(currentVersion);
 
                     if (update)
                     {
@@ -310,6 +330,12 @@ namespace UnityNuGet
                             npmPackageInfo.Keywords.Add("nuget");
                             npmPackageInfo.Keywords.AddRange(SplitCommaSeparatedString(packageMeta.Tags));
                         }
+                    }
+
+                    if (cacheEntry is null)
+                    {
+                        cacheEntry = new NpmPackageCacheEntry { Package = npmPackage, Info = npmPackageInfo };
+                        _npmPackageRegistry.AddPackage(cacheEntry, packageEntry.Listed);
                     }
 
                     var npmVersion = new NpmPackageVersion
@@ -416,7 +442,10 @@ namespace UnityNuGet
                             npmPackage.Repository = npmVersion.Repository?.Clone();
                         }
 
-                        if (packageConverted)
+                        // Update the cache entry
+                        await WritePackageCacheEntry(packageId, cacheEntry);
+
+                        if (packageConverted && IsRunningOnAzure)
                         {
                             string localPackagePath = Path.Combine(globalPackagesFolder, packageIdentity.Id.ToLowerInvariant(), packageIdentity.Version.ToString());
 
@@ -836,6 +865,11 @@ namespace UnityNuGet
             return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
         }
 
+        private string GetUnityPackageDescFileName(string packageName)
+        {
+            return $"{_unityScope}.{packageName}.json";
+        }
+
         private string GetUnityPackageSha1FileName(PackageIdentity identity, NpmPackageVersion packageVersion)
         {
             return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
@@ -880,6 +914,44 @@ namespace UnityNuGet
         private string GetUnityPackagePath(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageFileName(identity, packageVersion));
 
         private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageSha1FileName(identity, packageVersion));
+
+        private string GetUnityPackageDescPath(string packageName) => Path.Combine(_rootPersistentFolder, GetUnityPackageDescFileName(packageName));
+
+        private bool TryReadPackageCacheEntry(string packageName, [NotNullWhen(true)] out NpmPackageCacheEntry? cacheEntry)
+        {
+            cacheEntry = null;
+            var path = GetUnityPackageDescPath(packageName);
+
+            if (!File.Exists(path)) return false;
+
+            try
+            {
+                var cacheEntryAsJson = File.ReadAllText(path);
+                cacheEntry = JsonConvert.DeserializeObject<NpmPackageCacheEntry>(cacheEntryAsJson, JsonCommonExtensions.Settings);
+                if (cacheEntry != null)
+                {
+                    cacheEntry.Json = cacheEntryAsJson;
+                }
+                return cacheEntry != null;
+            }
+            catch
+            {
+                // ignore
+            }
+
+            return false;
+        }
+
+        private async Task WritePackageCacheEntry(string packageName, NpmPackageCacheEntry cacheEntry)
+        {
+            var path = GetUnityPackageDescPath(packageName);
+            var newJson = cacheEntry.ToJson();
+            // Only update if entry is different
+            if (!string.Equals(newJson, cacheEntry.Json, StringComparison.InvariantCulture))
+            {
+                await File.WriteAllTextAsync(path, cacheEntry.ToJson());
+            }
+        }
 
         private static async Task WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content, CancellationToken cancellationToken = default)
         {
