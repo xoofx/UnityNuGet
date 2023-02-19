@@ -420,7 +420,14 @@ namespace UnityNuGet
                         {
                             string localPackagePath = Path.Combine(globalPackagesFolder, packageIdentity.Id.ToLowerInvariant(), packageIdentity.Version.ToString());
 
-                            Directory.Delete(localPackagePath, true);
+                            if (Directory.Exists(localPackagePath))
+                            {
+                                Directory.Delete(localPackagePath, true);
+                            }
+                            else
+                            {
+                                LogWarning($"The NuGet package cache folder could not be deleted because it does not exist: {localPackagePath}");
+                            }
                         }
                     }
                 }
