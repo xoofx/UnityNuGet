@@ -41,5 +41,10 @@ namespace UnityNuGet.Npm
                 return marshalPackages;
             }
         }
+
+        public void Reset()
+        {
+            Packages.Clear();
+        }
     }
 }
