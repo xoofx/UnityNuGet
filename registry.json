@@ -51,6 +51,10 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Boxed.Mapping": {
+    "listed": true,
+    "version": "1.2.0"
+  },
   "BugSplatDotNetStandard": {
     "listed": true,
     "version": "1.0.0"
