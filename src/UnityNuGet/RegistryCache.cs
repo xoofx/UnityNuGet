@@ -221,8 +221,17 @@ namespace UnityNuGet
             var globalPackagesFolder = SettingsUtility.GetGlobalPackagesFolder(_settings);
 
             var progressCount = 0;
+
+            // Make a copy of the registry as we may add dependencies to it.
+            var registryQueue = new Queue<KeyValuePair<string, RegistryEntry>>();
             foreach (var packageDesc in _registry)
             {
+                registryQueue.Enqueue(packageDesc);
+            }
+
+            while (registryQueue.Count > 0)
+            {
+                var packageDesc = registryQueue.Dequeue();
                 var packageName = packageDesc.Key;
                 var packageEntry = packageDesc.Value;
 
@@ -363,12 +372,21 @@ namespace UnityNuGet
 
                             PackageDependency resolvedDeps = deps;
 
+                            // Add the dependency implicitly if it is not referenced explicitly
                             if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
                             {
-                                LogError($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. You must add this dependency to the registry.json file.");
-                                hasDependencyErrors = true;
+                                LogWarning($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. Consider adding \"{deps.Id}\": {{ \"version\": \"{deps.VersionRange}\" }} to the registry.json file.");
+
+                                packageEntryDep = new RegistryEntry
+                                {
+                                    Version = deps.VersionRange,
+                                    Listed = packageDesc.Value.Listed,
+                                };
+                                _registry.Add(deps.Id, packageEntryDep);
+                                registryQueue.Enqueue(new KeyValuePair<string, RegistryEntry>(deps.Id, packageEntryDep));
                             }
-                            else if (packageEntryDep.Ignored)
+
+                            if (packageEntryDep.Ignored)
                             {
                                 // A package that is ignored is not declared as an explicit dependency
                                 continue;
