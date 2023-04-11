@@ -807,6 +807,10 @@
     "listed": true,
     "version": "3.0.1"
   },
+  "Semver": {
+    "listed": true,
+    "version": "2.1.0"
+  },
   "Serialization.NET": {
     "listed": true,
     "version": "1.0.0"
