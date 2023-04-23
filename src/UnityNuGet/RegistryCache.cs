@@ -30,7 +30,7 @@ namespace UnityNuGet
     /// </summary>
     public class RegistryCache
     {
-        public static bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
+        public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
 
         // Change this version number if the content of the packages are changed by an update of this class
         private const string CurrentRegistryVersion = "1.4.0";
@@ -200,6 +200,8 @@ namespace UnityNuGet
         /// </summary>
         private async Task BuildInternal()
         {
+            Registry currentRegistry = new Registry(_registry);
+
             var versionPath = Path.Combine(_rootPersistentFolder, "version.txt");
             var forceUpdate = !File.Exists(versionPath) || await File.ReadAllTextAsync(versionPath) != CurrentRegistryVersion;
             if (forceUpdate)
@@ -224,7 +226,7 @@ namespace UnityNuGet
 
             // Make a copy of the registry as we may add dependencies to it.
             var registryQueue = new Queue<KeyValuePair<string, RegistryEntry>>();
-            foreach (var packageDesc in _registry)
+            foreach (var packageDesc in currentRegistry)
             {
                 registryQueue.Enqueue(packageDesc);
             }
@@ -236,7 +238,7 @@ namespace UnityNuGet
                 var packageEntry = packageDesc.Value;
 
                 // Log progress count
-                onProgress?.Invoke(++progressCount, _registry.Count);
+                onProgress?.Invoke(++progressCount, currentRegistry.Count);
 
                 // A package entry is ignored but allowed in the registry (case of Microsoft.CSharp)
                 if (packageEntry.Ignored || (regexFilter != null && !regexFilter.IsMatch(packageName)))
@@ -268,7 +270,6 @@ namespace UnityNuGet
                     // Update latest version
                     var currentVersion = packageIdentity.Version;
                     string npmCurrentVersion = GetNpmVersion(currentVersion);
-
 
                     if (packageEntry.Version == null || !packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
@@ -373,7 +374,7 @@ namespace UnityNuGet
                             PackageDependency resolvedDeps = deps;
 
                             // Add the dependency implicitly if it is not referenced explicitly
-                            if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
+                            if (!currentRegistry.TryGetValue(deps.Id, out var packageEntryDep))
                             {
                                 VersionRange versionRange = deps.VersionRange;
 
@@ -396,7 +397,7 @@ namespace UnityNuGet
                                     Version = versionRange,
                                     Listed = packageDesc.Value.Listed,
                                 };
-                                _registry.Add(deps.Id, packageEntryDep);
+                                currentRegistry.Add(deps.Id, packageEntryDep);
                                 registryQueue.Enqueue(new KeyValuePair<string, RegistryEntry>(deps.Id, packageEntryDep));
                             }
 
@@ -418,7 +419,7 @@ namespace UnityNuGet
 
                                     if (dependencyResolvedDependencyGroups.Any())
                                     {
-                                        _registry.TryGetValue(dependencyPackageMeta.Identity.Id, out var registryEntry);
+                                        currentRegistry.TryGetValue(dependencyPackageMeta.Identity.Id, out var registryEntry);
 
                                         var registryMinimumVersion = registryEntry?.Version?.MinVersion;
 

@@ -22,6 +22,10 @@ namespace UnityNuGet
         {
         }
 
+        public Registry(IEnumerable<KeyValuePair<string, RegistryEntry>> collection) : base(collection)
+        {
+        }
+
         private Registry(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
