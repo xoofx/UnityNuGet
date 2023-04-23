@@ -239,6 +239,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "CSharpFunctionalExtensions": {
+    "listed": true,
+    "version": "1.8.1"
+  },
   "CsvHelper": {
     "listed": true,
     "version": "3.0.0"
