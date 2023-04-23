@@ -31,7 +31,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         public static bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-        
+
         // Change this version number if the content of the packages are changed by an update of this class
         private const string CurrentRegistryVersion = "1.4.0";
 
@@ -209,7 +209,7 @@ namespace UnityNuGet
                 // Clear the cache entirely
                 _npmPackageRegistry.Reset();
             }
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -375,11 +375,25 @@ namespace UnityNuGet
                             // Add the dependency implicitly if it is not referenced explicitly
                             if (!_registry.TryGetValue(deps.Id, out var packageEntryDep))
                             {
-                                LogWarning($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. Consider adding \"{deps.Id}\": {{ \"version\": \"{deps.VersionRange}\" }} to the registry.json file.");
+                                VersionRange versionRange = deps.VersionRange;
+
+                                var packageMetaItDep = await GetMetadataFromSources(deps.Id);
+
+                                if (packageMetaItDep != null)
+                                {
+                                    var minimumCompatiblePackageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(packageMetaItDep, _targetFrameworks);
+
+                                    if (minimumCompatiblePackageIdentity != null)
+                                    {
+                                        versionRange = new VersionRange(minimumCompatiblePackageIdentity.Version);
+                                    }
+                                }
+
+                                LogWarning($"The package `{packageIdentity}` has a dependency on `{deps.Id}` which is not in the registry. Consider adding \"{deps.Id}\": {{ \"version\": \"{versionRange.MinVersion}\" }} to the registry.json file.");
 
                                 packageEntryDep = new RegistryEntry
                                 {
-                                    Version = deps.VersionRange,
+                                    Version = versionRange,
                                     Listed = packageDesc.Value.Listed,
                                 };
                                 _registry.Add(deps.Id, packageEntryDep);
