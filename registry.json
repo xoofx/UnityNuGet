@@ -392,6 +392,10 @@
     "listed": true,
     "version": "2.0.323"
   },
+  "MessagePipe": {
+    "listed": true,
+    "version": "0.0.1"
+  },
   "Meziantou.Analyzer": {
     "listed": true,
     "version": "1.0.349",
