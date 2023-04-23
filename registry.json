@@ -284,6 +284,14 @@
       "UNITY_EDITOR"
     ]
   },
+  "FluentValidation": {
+    "listed": true,
+    "version": "7.3.0"
+  },
+  "FluentValidation.DependencyInjectionExtensions": {
+    "listed": true,
+    "version": "8.2.2"
+  },
   "GeneticSharp": {
     "listed": true,
     "version": "[2.0.0,3.0.0)"
