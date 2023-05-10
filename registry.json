@@ -349,7 +349,10 @@
   },
   "HarmonyX": {
     "listed": true,
-    "version": "2.0.2"
+    "version": "2.0.2",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "IDisposableAnalyzers": {
     "listed": true,
@@ -732,15 +735,24 @@
   },
   "Mono.Cecil": {
     "listed": true,
-    "version": "0.11.0"
+    "version": "0.11.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "MonoMod.RuntimeDetour": {
     "listed": true,
-    "version": "18.11.9.9"
+    "version": "18.11.9.9",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "MonoMod.Utils": {
     "listed": true,
-    "version": "18.11.9.9"
+    "version": "18.11.9.9",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "Moq": {
     "listed": true,
