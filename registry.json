@@ -18,7 +18,7 @@
   "AsyncKeyedLock": {
     "listed": true,
     "version": "1.0.0"
-  },  
+  },
   "AutoMapper": {
     "listed": true,
     "version": "7.0.1"
@@ -472,6 +472,14 @@
     "listed": true,
     "version": "2.9.0",
     "analyzer": true
+  },
+  "Microsoft.CodeAnalysis.Common": {
+    "listed": true,
+    "version": "3.0.0"
+  },
+  "Microsoft.CodeAnalysis.CSharp": {
+    "listed": true,
+    "version": "3.0.0"
   },
   "Microsoft.CodeAnalysis.NetAnalyzers": {
     "listed": true,
