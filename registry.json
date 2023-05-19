@@ -468,6 +468,11 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Microsoft.CodeAnalysis.Analyzers": {
+    "listed": true,
+    "version": "3.0.0",
+    "analyzer": true
+  },
   "Microsoft.CodeAnalysis.BannedApiAnalyzers": {
     "listed": true,
     "version": "2.9.0",
