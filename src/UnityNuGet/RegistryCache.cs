@@ -564,14 +564,14 @@ namespace UnityNuGet
 
                     var collectedItems = new Dictionary<FrameworkSpecificGroup, HashSet<RegistryTargetFramework>>();
 
-                    foreach (var closestVersion in closestVersions)
+                    foreach (var (item, targetFramework) in closestVersions)
                     {
-                        if (!collectedItems.TryGetValue(closestVersion.Item1, out var frameworksPerGroup))
+                        if (!collectedItems.TryGetValue(item, out var frameworksPerGroup))
                         {
                             frameworksPerGroup = new HashSet<RegistryTargetFramework>();
-                            collectedItems.Add(closestVersion.Item1, frameworksPerGroup);
+                            collectedItems.Add(item, frameworksPerGroup);
                         }
-                        frameworksPerGroup.Add(closestVersion.Item2);
+                        frameworksPerGroup.Add(targetFramework);
                     }
 
                     if (!packageEntry.Analyzer && collectedItems.Count == 0)
@@ -662,14 +662,17 @@ namespace UnityNuGet
                         }
                     }
 
-                    foreach (var groupToFrameworks in collectedItems)
+                    foreach (var (item, frameworks) in collectedItems)
                     {
-                        var item = groupToFrameworks.Key;
-                        var frameworks = groupToFrameworks.Value;
-
                         var folderPrefix = hasMultiNetStandard ? $"{frameworks.First().Name}/" : "";
                         foreach (var file in item.Items)
                         {
+                            // reject resource dlls since Unity can't use them and we're not handling paths
+                            if (file.EndsWith(".resources.dll", StringComparison.OrdinalIgnoreCase))
+                            {
+                                continue;
+                            }
+
                             var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(file)}";
                             string? meta;
 
