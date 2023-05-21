@@ -480,11 +480,17 @@
   },
   "Microsoft.CodeAnalysis.Common": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "Microsoft.CodeAnalysis.CSharp": {
     "listed": true,
-    "version": "3.0.0"
+    "version": "3.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
   },
   "Microsoft.CodeAnalysis.NetAnalyzers": {
     "listed": true,
