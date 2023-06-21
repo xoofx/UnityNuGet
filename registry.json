@@ -759,6 +759,27 @@
       "UNITY_EDITOR"
     ]
   },
+  "MonoMod.Backports": {
+    "listed": true,
+    "version": "1.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
+  },
+  "MonoMod.Core": {
+    "listed": true,
+    "version": "1.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
+  },
+  "MonoMod.ILHelpers": {
+    "listed": true,
+    "version": "1.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
+  },
   "MonoMod.RuntimeDetour": {
     "listed": true,
     "version": "18.11.9.9",
