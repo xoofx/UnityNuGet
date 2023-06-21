@@ -40,11 +40,7 @@ namespace UnityNuGet.Server
                 var urls = configuration[WebHostDefaults.ServerUrlsKey];
 
                 // Select HTTPS in production, HTTP in development
-                var url = urls?.Split(';').FirstOrDefault(x => !x.StartsWith("https"));
-                if (url == null)
-                {
-                    throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
-                }
+                var url = (urls?.Split(';').FirstOrDefault(x => !x.StartsWith("https"))) ?? throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
 
                 // https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-environment-variables#dotnet_running_in_container-and-dotnet_running_in_containers
                 bool runningInContainer = configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER");
