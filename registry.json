@@ -3,6 +3,10 @@
     "listed": true,
     "version": "1.4.1"
   },
+  "Antlr4.Runtime.Standard": {
+    "listed": true,
+    "version": "4.9.1"
+  },
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
     "version": "[1.0.0,1.0.0.1]"
