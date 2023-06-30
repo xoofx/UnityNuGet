@@ -15,6 +15,9 @@ namespace UnityNuGet
         [JsonProperty("listed")]
         public bool Listed { get; set; }
 
+        [JsonProperty("scope")]
+        public string? UnityScope { get; set; }
+
         [JsonProperty("version")]
         public VersionRange? Version { get; set; }
 

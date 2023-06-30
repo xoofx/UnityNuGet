@@ -236,14 +236,15 @@ namespace UnityNuGet
                 }
 
                 var packageId = packageName.ToLowerInvariant();
-                var npmPackageId = $"{_unityScope}.{packageId}";
+                var unityScope = (packageEntry.UnityScope ?? _unityScope).ToLowerInvariant();
+                var npmPackageId = $"{unityScope}.{packageId}";
                 NpmPackageCacheEntry? cacheEntry = null;
                 NpmPackage? npmPackage = null;
                 NpmPackageInfo? npmPackageInfo = null;
 
                 if (!forceUpdate && !_npmPackageRegistry.Packages.TryGetValue(npmPackageId, out npmPackage))
                 {
-                    if (TryReadPackageCacheEntry(packageId, out cacheEntry))
+                    if (TryReadPackageCacheEntry(unityScope, packageId, out cacheEntry))
                     {
                         npmPackage = cacheEntry.Package!;
                         npmPackageInfo = cacheEntry.Info!;
@@ -270,8 +271,8 @@ namespace UnityNuGet
                     if (npmPackage != null && npmPackage.Versions.TryGetValue(npmCurrentVersion, out var existingVersion))
                     {
                         // If the package tgz exists, we don't need to regenerate it again
-                        var packageTgz = new FileInfo(GetUnityPackagePath(packageIdentity, existingVersion));
-                        var packageSha1 = new FileInfo(GetUnityPackageSha1Path(packageIdentity, existingVersion));
+                        var packageTgz = new FileInfo(GetUnityPackagePath(unityScope, packageIdentity, existingVersion));
+                        var packageSha1 = new FileInfo(GetUnityPackageSha1Path(unityScope, packageIdentity, existingVersion));
 
                         if (packageTgz.Exists && packageTgz.Length > 0 && packageSha1.Exists && packageSha1.Length > 0)
                         {
@@ -347,7 +348,7 @@ namespace UnityNuGet
                         Author = npmPackageInfo.Author,
                         DisplayName = packageMeta.Title + _packageNameNuGetPostFix
                     };
-                    npmVersion.Distribution.Tarball = new Uri(_rootHttpUri, $"{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity, npmVersion)}");
+                    npmVersion.Distribution.Tarball = new Uri(_rootHttpUri, $"{npmPackage.Id}/-/{GetUnityPackageFileName(unityScope, packageIdentity, npmVersion)}");
                     npmVersion.Unity = _minimumUnityVersion;
                     npmPackage.Versions[npmVersion.Version] = npmVersion;
 
@@ -422,7 +423,8 @@ namespace UnityNuGet
 
                             // Otherwise add the package as a dependency
                             var depsId = resolvedDeps.Id.ToLowerInvariant();
-                            var key = $"{_unityScope}.{depsId}";
+                            var depsUnityScope = (packageEntryDep!.UnityScope ?? _unityScope).ToLowerInvariant();
+                            var key = $"{depsUnityScope}.{depsId}";
                             if (!npmVersion.Dependencies.ContainsKey(key))
                             {
                                 npmVersion.Dependencies.Add(key, GetNpmVersion(resolvedDeps.VersionRange.MinVersion));
@@ -433,8 +435,8 @@ namespace UnityNuGet
                     // If we don't have any dependencies error, generate the package
                     if (!hasDependencyErrors)
                     {
-                        bool packageConverted = await ConvertNuGetToUnityPackageIfDoesNotExist(packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry);
-                        npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(packageIdentity, npmVersion).CreationTimeUtc;
+                        bool packageConverted = await ConvertNuGetToUnityPackageIfDoesNotExist(unityScope, packageIdentity, npmPackageInfo, npmVersion, packageMeta, forceUpdate, packageEntry);
+                        npmPackage.Time[npmCurrentVersion] = packageMeta.Published?.UtcDateTime ?? GetUnityPackageFileInfo(unityScope, packageIdentity, npmVersion).CreationTimeUtc;
 
                         // Copy repository info if necessary
                         if (update)
@@ -443,7 +445,7 @@ namespace UnityNuGet
                         }
 
                         // Update the cache entry
-                        await WritePackageCacheEntry(packageId, cacheEntry);
+                        await WritePackageCacheEntry(unityScope, packageId, cacheEntry);
 
                         if (packageConverted && IsRunningOnAzure)
                         {
@@ -484,6 +486,7 @@ namespace UnityNuGet
         /// </summary>
         private async Task<bool> ConvertNuGetToUnityPackageIfDoesNotExist
         (
+            string unityScope,
             PackageIdentity identity,
             NpmPackageInfo npmPackageInfo,
             NpmPackageVersion npmPackageVersion,
@@ -495,18 +498,18 @@ namespace UnityNuGet
             // If we need to force the update, we delete the previous package+sha1 files
             if (forceUpdate)
             {
-                DeleteUnityPackage(identity, npmPackageVersion);
+                DeleteUnityPackage(unityScope, identity, npmPackageVersion);
             }
 
-            if (!IsUnityPackageValid(identity, npmPackageVersion) || !IsUnityPackageSha1Valid(identity, npmPackageVersion))
+            if (!IsUnityPackageValid(unityScope, identity, npmPackageVersion) || !IsUnityPackageSha1Valid(unityScope, identity, npmPackageVersion))
             {
-                await ConvertNuGetPackageToUnity(identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry);
+                await ConvertNuGetPackageToUnity(unityScope, identity, npmPackageInfo, npmPackageVersion, packageMeta, packageEntry);
 
                 return true;
             }
             else
             {
-                npmPackageVersion.Distribution.Shasum = await ReadUnityPackageSha1(identity, npmPackageVersion);
+                npmPackageVersion.Distribution.Shasum = await ReadUnityPackageSha1(unityScope, identity, npmPackageVersion);
 
                 return false;
             }
@@ -517,6 +520,7 @@ namespace UnityNuGet
         /// </summary>
         private async Task ConvertNuGetPackageToUnity
         (
+            string unityScope,
             PackageIdentity identity,
             NpmPackageInfo npmPackageInfo,
             NpmPackageVersion npmPackageVersion,
@@ -524,7 +528,7 @@ namespace UnityNuGet
             RegistryEntry packageEntry
         )
         {
-            var unityPackageFileName = GetUnityPackageFileName(identity, npmPackageVersion);
+            var unityPackageFileName = GetUnityPackageFileName(unityScope, identity, npmPackageVersion);
             var unityPackageFilePath = Path.Combine(_rootPersistentFolder, unityPackageFileName);
 
             LogInformation($"Converting NuGet package {identity} to Unity `{unityPackageFileName}`");
@@ -834,7 +838,7 @@ namespace UnityNuGet
                 using (var stream = File.OpenRead(unityPackageFilePath))
                 {
                     var sha1 = Sha1sum(stream);
-                    await WriteUnityPackageSha1(identity, npmPackageVersion, sha1);
+                    await WriteUnityPackageSha1(unityScope, identity, npmPackageVersion, sha1);
                     npmPackageVersion.Distribution.Shasum = sha1;
                 }
             }
@@ -858,72 +862,75 @@ namespace UnityNuGet
             return StringToGuid($"{identity.Id}/{name}*");
         }
 
-        private FileInfo GetUnityPackageFileInfo(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private FileInfo GetUnityPackageFileInfo(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return new FileInfo(GetUnityPackagePath(identity, packageVersion));
+            return new FileInfo(GetUnityPackagePath(unityScope, identity, packageVersion));
         }
 
-        private string GetUnityPackageFileName(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private string GetUnityPackageFileName(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
+            return $"{unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.tgz";
         }
 
-        private string GetUnityPackageDescFileName(string packageName)
+        private string GetUnityPackageDescFileName(string unityScope, string packageName)
         {
-            return $"{_unityScope}.{packageName}.json";
+            return $"{unityScope}.{packageName}.json";
         }
 
-        private string GetUnityPackageSha1FileName(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private string GetUnityPackageSha1FileName(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return $"{_unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
+            return $"{unityScope}.{identity.Id.ToLowerInvariant()}-{packageVersion.Version}.sha1";
         }
 
-        private void DeleteUnityPackage(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private void DeleteUnityPackage(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
+            var packageFile = new FileInfo(GetUnityPackagePath(unityScope, identity, packageVersion));
             if (packageFile.Exists)
             {
                 packageFile.Delete();
             }
-            var sha1File = new FileInfo(GetUnityPackageSha1Path(identity, packageVersion));
+            var sha1File = new FileInfo(GetUnityPackageSha1Path(unityScope, identity, packageVersion));
             if (sha1File.Exists)
             {
                 sha1File.Delete();
             }
         }
 
-        private bool IsUnityPackageValid(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private bool IsUnityPackageValid(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            var packageFile = new FileInfo(GetUnityPackagePath(identity, packageVersion));
+            var packageFile = new FileInfo(GetUnityPackagePath(unityScope, identity, packageVersion));
             return packageFile.Exists && packageFile.Length > 0;
         }
 
-        private bool IsUnityPackageSha1Valid(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private bool IsUnityPackageSha1Valid(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            var sha1File = new FileInfo(GetUnityPackageSha1Path(identity, packageVersion));
+            var sha1File = new FileInfo(GetUnityPackageSha1Path(unityScope, identity, packageVersion));
             return sha1File.Exists && sha1File.Length > 0;
         }
 
-        private async Task<string> ReadUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion)
+        private async Task<string> ReadUnityPackageSha1(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
         {
-            return await File.ReadAllTextAsync(GetUnityPackageSha1Path(identity, packageVersion));
+            return await File.ReadAllTextAsync(GetUnityPackageSha1Path(unityScope, identity, packageVersion));
         }
 
-        private async Task WriteUnityPackageSha1(PackageIdentity identity, NpmPackageVersion packageVersion, string sha1)
+        private async Task WriteUnityPackageSha1(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion, string sha1)
         {
-            await File.WriteAllTextAsync(GetUnityPackageSha1Path(identity, packageVersion), sha1);
+            await File.WriteAllTextAsync(GetUnityPackageSha1Path(unityScope, identity, packageVersion), sha1);
         }
 
-        private string GetUnityPackagePath(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageFileName(identity, packageVersion));
+        private string GetUnityPackagePath(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
+            => Path.Combine(_rootPersistentFolder, GetUnityPackageFileName(unityScope, identity, packageVersion));
 
-        private string GetUnityPackageSha1Path(PackageIdentity identity, NpmPackageVersion packageVersion) => Path.Combine(_rootPersistentFolder, GetUnityPackageSha1FileName(identity, packageVersion));
+        private string GetUnityPackageSha1Path(string unityScope, PackageIdentity identity, NpmPackageVersion packageVersion)
+            => Path.Combine(_rootPersistentFolder, GetUnityPackageSha1FileName(unityScope, identity, packageVersion));
 
-        private string GetUnityPackageDescPath(string packageName) => Path.Combine(_rootPersistentFolder, GetUnityPackageDescFileName(packageName));
+        private string GetUnityPackageDescPath(string unityScope, string packageName)
+            => Path.Combine(_rootPersistentFolder, GetUnityPackageDescFileName(unityScope, packageName));
 
-        private bool TryReadPackageCacheEntry(string packageName, [NotNullWhen(true)] out NpmPackageCacheEntry? cacheEntry)
+        private bool TryReadPackageCacheEntry(string unityScope, string packageName, [NotNullWhen(true)] out NpmPackageCacheEntry? cacheEntry)
         {
             cacheEntry = null;
-            var path = GetUnityPackageDescPath(packageName);
+            var path = GetUnityPackageDescPath(unityScope, packageName);
 
             if (!File.Exists(path)) return false;
 
@@ -945,9 +952,9 @@ namespace UnityNuGet
             return false;
         }
 
-        private async Task WritePackageCacheEntry(string packageName, NpmPackageCacheEntry cacheEntry)
+        private async Task WritePackageCacheEntry(string unityScope, string packageName, NpmPackageCacheEntry cacheEntry)
         {
-            var path = GetUnityPackageDescPath(packageName);
+            var path = GetUnityPackageDescPath(unityScope, packageName);
             var newJson = cacheEntry.ToJson();
             // Only update if entry is different
             if (!string.Equals(newJson, cacheEntry.Json, StringComparison.InvariantCulture))
