@@ -1063,7 +1063,7 @@
   },
   "System.IO.FileSystem.AccessControl": {
     "listed": true,
-    "version": "4.5.0"
+    "version": "4.4.0"
   },
   "System.IO.Pipelines": {
     "listed": true,
@@ -1179,11 +1179,11 @@
   },
   "TestableIO.System.IO.Abstractions": {
     "listed": true,
-    "version": "18.0.1"
+    "version": "17.2.26"
   },
   "TestableIO.System.IO.Abstractions.Wrappers": {
     "listed": true,
-    "version": "18.0.1"
+    "version": "17.2.26"
   },
   "UniRxAnalyzer": {
     "listed": true,
