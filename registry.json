@@ -1057,6 +1057,14 @@
     "listed": true,
     "version": "3.2.0"
   },
+  "System.IO.Abstractions": {
+    "listed": true,
+    "version": "2.1.0.201"
+  },
+  "System.IO.FileSystem.AccessControl": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.IO.Pipelines": {
     "listed": true,
     "version": "4.5.0"
@@ -1168,6 +1176,14 @@
   "Telnet": {
     "listed": true,
     "version": "0.8.6"
+  },
+  "TestableIO.System.IO.Abstractions": {
+    "listed": true,
+    "version": "17.2.26"
+  },
+  "TestableIO.System.IO.Abstractions.Wrappers": {
+    "listed": true,
+    "version": "17.2.26"
   },
   "UniRxAnalyzer": {
     "listed": true,
