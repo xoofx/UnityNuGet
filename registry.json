@@ -886,6 +886,13 @@
     "listed": true,
     "version": "0.1.0"
   },
+  "RichardSzalay.MockHttp": {
+    "listed": true,
+    "version": "5.0.0",
+    "defineConstraints": [
+      "UNITY_EDITOR"
+    ]
+  },
   "Robots": {
     "listed": true,
     "version": "1.1.7"
