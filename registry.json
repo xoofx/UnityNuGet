@@ -895,6 +895,16 @@
     "version": "1.2.0",
     "analyzer": true
   },
+  "Roslynator.CodeAnalysis.Analyzers": {
+    "listed": true,
+    "version": "1.0.0",
+    "analyzer": true
+  },
+  "Roslynator.Formatting.Analyzers": {
+    "listed": true,
+    "version": "1.0.0",
+    "analyzer": true
+  },
   "Scriban": {
     "listed": true,
     "version": "1.2.4"
