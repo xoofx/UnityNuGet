@@ -8,7 +8,9 @@ namespace UnityNuGet.Tests
         [Test]
         public void GetMetaForDll_FormatsDefineConstraintsProperly_WithoutConstraints()
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), true, Array.Empty<string>(), Array.Empty<string>());
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), Array.Empty<string>());
             StringAssert.DoesNotContain("defineConstraints", output);
 
             // This is on the same line in the template, so ensure it's intact
@@ -18,7 +20,9 @@ namespace UnityNuGet.Tests
         [Test]
         public void GetMetaForDll_FormatsLabelsProperly_WithoutLabels()
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), true, Array.Empty<string>(), Array.Empty<string>());
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), Array.Empty<string>());
             StringAssert.DoesNotContain("labels", output);
 
             // This is on the same line in the template, so ensure it's intact
@@ -30,7 +34,9 @@ namespace UnityNuGet.Tests
         public void GetMetaForDll_FormatsDefineConstraintsProperly_WithConstraints(
             string[] constraints, string expected)
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), true, Array.Empty<string>(), constraints);
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), constraints);
 
             StringAssert.Contains(expected, output);
 
@@ -43,7 +49,9 @@ namespace UnityNuGet.Tests
         public void GetMetaForDll_FormatsLabelsProperly_WithLabels(
             string[] labels, string expected)
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), true, labels, Array.Empty<string>());
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, labels, Array.Empty<string>());
 
             StringAssert.Contains(expected, output);
 
@@ -55,7 +63,19 @@ namespace UnityNuGet.Tests
         [TestCase(false, "0")]
         public void GetMetaForDll_FormatsAnyPlatformEnabledProperly(bool value, string expected)
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), value, Array.Empty<string>(), Array.Empty<string>());
+            PlatformDefinition platformDef;
+
+            if (value)
+            {
+                var platformDefs = PlatformDefinition.CreateAllPlatforms();
+                platformDef = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            }
+            else
+            {
+                platformDef = new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false);
+            }
+
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), platformDef, Array.Empty<string>(), Array.Empty<string>());
 
             StringAssert.Contains($"\n  platformData:\n  - first:\n      Any:\n    second:\n      enabled: {expected}\n", output);
         }
@@ -63,7 +83,9 @@ namespace UnityNuGet.Tests
         [Test]
         public void GetMetaForDll_ContainsNoWindowsNewlines()
         {
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), true, Array.Empty<string>(), new[] { "TEST" });
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), new[] { "TEST" });
             StringAssert.DoesNotContain("\r", output);
         }
     }
