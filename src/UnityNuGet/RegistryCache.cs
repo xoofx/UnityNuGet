@@ -693,7 +693,8 @@ namespace UnityNuGet
                             var platformDef = platformDefs.Find(os, cpu);
                             if (platformDef == null)
                             {
-                                LogError($"Failed to find a platform definition for: {os}, {cpu}");
+                                LogInformation($"Failed to find a platform definition for: {os}, {cpu}");
+                                continue;
                             }
 
                             // We have a platform, add this file to the set of files to write
@@ -796,7 +797,8 @@ namespace UnityNuGet
                         var platformDef = platformDefs.Find(os, cpu);
                         if (platformDef == null)
                         {
-                            LogError($"Failed to find a platform definition for: {os}, {cpu}");
+                            LogInformation($"Failed to find a platform definition for: {os}, {cpu}");
+                            continue;
                         }
 
                         string extension = Path.GetExtension(file);
