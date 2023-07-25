@@ -10,6 +10,7 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NUnit.Framework;
 using static NuGet.Frameworks.FrameworkConstants;
+using System.IO;
 
 namespace UnityNuGet.Tests
 {
@@ -32,6 +33,62 @@ namespace UnityNuGet.Tests
             var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
 
             Assert.IsEmpty(packageNames);
+        }
+
+        [Test]
+        public async Task CanParse_PackageWithRuntimes()
+        {
+            var logger = NullLogger.Instance;
+            var cancellationToken = CancellationToken.None;
+
+            var cache = new SourceCacheContext();
+            var settings = Settings.LoadDefaultSettings(root: null);
+            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+
+            // Fetch a package that has runtime overrides as described here: https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks
+            var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                    new SourceRepository[] { repository },
+                    new PackageIdentity("System.Security.Cryptography.ProtectedData", new NuGet.Versioning.NuGetVersion(6, 0, 0)),
+                    new PackageDownloadContext(cache),
+                    SettingsUtility.GetGlobalPackagesFolder(settings),
+                    logger, cancellationToken);
+
+            // Make sure we have runtime libraries
+            var runtimeLibs = await RuntimeLibraries
+                .GetSupportedRuntimeLibsAsync(downloadResult.PackageReader, CommonFrameworks.NetStandard20, logger)
+                .ToListAsync();
+            Assert.IsTrue(runtimeLibs.Any());
+
+            // Make sure these runtime libraries are only for Windows
+            var platformDefs = PlatformDefinition.CreateAllPlatforms();
+            var win = platformDefs.Find(UnityOs.Windows);
+            foreach (var (file, os, cpu) in runtimeLibs)
+            {
+                Assert.AreEqual(platformDefs.Find(os, cpu), win);
+            }
+
+            // Get the lib files
+            var versions = await downloadResult.PackageReader.GetLibItemsAsync(cancellationToken);
+            var closestVersions = NuGetHelper.GetClosestFrameworkSpecificGroups(
+                versions,
+                new RegistryTargetFramework[]
+                {
+                    new RegistryTargetFramework
+                    {
+                        Framework = CommonFrameworks.NetStandard20,
+                    },
+                });
+            var libFiles = closestVersions
+                .Single()
+                .Item1.Items
+                .Select(i => Path.GetFileName(i))
+                .ToHashSet();
+
+            // Make sure the runtime files fully replace the lib files (note that this is generally not a requirement)
+            var runtimeFiles = runtimeLibs
+                .Select(l => Path.GetFileName(l.file))
+                .ToHashSet();
+            Assert.IsTrue(libFiles.SetEquals(runtimeFiles));
         }
 
         [Test]

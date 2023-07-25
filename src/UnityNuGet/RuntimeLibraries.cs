@@ -11,7 +11,20 @@ namespace UnityNuGet
 {
     static class RuntimeLibraries
     {
-        public static async IAsyncEnumerable<(string file, string[] folders, UnityOs, UnityCpu)> GetSupportedRuntimeLibsAsync(
+        /// <summary>
+        /// Returns an enumerable over the files in the NuGet package's <c>runtimes</c> folder that are compatible with the
+        /// given target framework.
+        /// </summary>
+        /// <param name="packageReader">The NuGet package reader.</param>
+        /// <param name="targetFramework">The target framework the <c>runtimes</c> files should be compatible with.</param>
+        /// <param name="logger">The logger.</param>
+        /// <remarks>
+        /// The returned enumerable also includes platform information with each file item. The structure of a NuGet package with
+        /// runtimes is covered <see href="https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks">here</see>.
+        /// </remarks>
+        /// <returns>An enumerable over the files in the NuGet package's <c>runtimes</c> folder that are compatible with the
+        /// given target framework.</returns>
+        public static async IAsyncEnumerable<(string file, UnityOs, UnityCpu?)> GetSupportedRuntimeLibsAsync(
             PackageReaderBase packageReader,
             NuGetFramework targetFramework,
             ILogger logger)
@@ -24,6 +37,7 @@ namespace UnityNuGet
                 var folderPath = Path.GetDirectoryName(file)!;
                 var folders = folderPath.Split(Path.DirectorySeparatorChar);
 
+                // We're looking for paths matching runtimes/{platform}-{architecture}/lib/{framework}
                 if (folders.Length != 4 || !folders[2].Equals("lib", StringComparison.OrdinalIgnoreCase))
                 {
                     logger.LogInformation($"Skipping native library file located in the runtimes folder: {file} ...");
@@ -50,6 +64,7 @@ namespace UnityNuGet
                     "lin" => UnityOs.Linux,
                     "osx" => UnityOs.OSX,
                     "win" => UnityOs.Windows,
+                    "ios" => UnityOs.iOS,
                     _ => null
                 };
 
@@ -59,7 +74,7 @@ namespace UnityNuGet
                     continue;
                 }
 
-                UnityCpu? cpu = UnityCpu.AnyCpu;
+                UnityCpu? cpu = null;
                 if (system.Length > 1)
                 {
                     cpu = system[1] switch
@@ -77,7 +92,7 @@ namespace UnityNuGet
                     }
                 }
 
-                yield return (file, folders, os.Value, cpu.Value);
+                yield return (file, os.Value, cpu);
             }
         }
     }

@@ -87,6 +87,7 @@ guid: {{ guid }}
                 var platOsx = platformDef.Find(UnityOs.OSX);
                 var platAndroid = platformDef.Find(UnityOs.Android);
                 var platWasm = platformDef.Find(UnityOs.WebGL);
+                var platIos = platformDef.Find(UnityOs.iOS);
                 var platEditor = platformDef.FindEditor();
 
                 var dict = new
@@ -97,6 +98,7 @@ guid: {{ guid }}
                     enablesOsx = (platOsx != null) ? 1 : 0,
                     enablesAndroid = (platAndroid != null) ? 1 : 0,
                     enablesWasm = (platWasm != null) ? 1 : 0,
+                    enablesIos = (platIos != null) ? 1 : 0,
                     enablesEditor = (platEditor != null) ? 1 : 0,
 
                     cpuWin = (platWin?.Cpu ?? UnityCpu.None).GetName(),
@@ -104,6 +106,7 @@ guid: {{ guid }}
                     cpuLinux64 = (platLinux64?.Cpu ?? UnityCpu.None).GetName(),
                     cpuOsx = (platOsx?.Cpu ?? UnityCpu.None).GetName(),
                     cpuAndroid = (platAndroid?.Cpu ?? UnityCpu.None).GetName(),
+                    cpuIos = (platIos?.Cpu ?? UnityCpu.None).GetName(),
                     cpuEditor = (platEditor?.Cpu ?? UnityCpu.None).GetName(),
 
                     osEditor = (platEditor?.Os ?? UnityOs.AnyOs).GetName(),
@@ -121,7 +124,8 @@ guid: {{ guid }}
         Exclude OSXUniversal: {{ 1 - enables_osx }}
         Exclude WebGL: {{ 1 - enables_wasm }}
         Exclude Win: {{ 1 - enables_win }}
-        Exclude Win64: {{ 1 - enables_win64 }}";
+        Exclude Win64: {{ 1 - enables_win64 }}
+        Exclude iOS: {{ 1 - enables_ios }}";
 
                 const string perPlatformSettingsText = @"
   - first:
@@ -166,7 +170,16 @@ guid: {{ guid }}
       WebGL: WebGL
     second:
       enabled: {{ enables_wasm }}
-      settings: {}";
+      settings: {}
+  - first:
+      iPhone: iOS
+    second:
+      enabled: {{ enables_ios }}
+      settings:
+        AddToEmbeddedBinaries: false
+        CPU: {{ cpu_ios }}
+        CompileFlags: 
+        FrameworkDependencies: ";
 
                 excludePlatforms = Template
                     .Parse(excludePlatformsText)

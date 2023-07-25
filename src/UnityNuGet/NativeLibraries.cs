@@ -41,6 +41,7 @@ namespace UnityNuGet
                     "lin" => UnityOs.Linux,
                     "osx" => UnityOs.OSX,
                     "win" => UnityOs.Windows,
+                    "ios" => UnityOs.iOS,
                     _ => null
                 };
 
