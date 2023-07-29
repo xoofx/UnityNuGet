@@ -33,7 +33,7 @@ namespace UnityNuGet
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
         
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.5.0";
+        private const string CurrentRegistryVersion = "1.6.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -635,7 +635,11 @@ namespace UnityNuGet
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
                             if (fileExtension == ".dll")
                             {
-                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), false, new string[] { "RoslynAnalyzer" }, Array.Empty<string>());
+                                meta = UnityMeta.GetMetaForDll(
+                                    GetStableGuid(identity, fileInUnityPackage),
+                                    new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
+                                    new string[] { "RoslynAnalyzer" },
+                                    Array.Empty<string>());
                             }
                             else
                             {
@@ -662,18 +666,79 @@ namespace UnityNuGet
                         }
                     }
 
+                    // Get all known platform definitions
+                    var platformDefs = PlatformDefinition.CreateAllPlatforms();
+                    var packageFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
                     foreach (var (item, frameworks) in collectedItems)
                     {
                         var folderPrefix = hasMultiNetStandard ? $"{frameworks.First().Name}/" : "";
-                        foreach (var file in item.Items)
+                        var filesToWrite = new List<PlatformFile>();
+
+                        // Get any available runtime library groups
+                        var runtimeLibs = await RuntimeLibraries
+                            .GetSupportedRuntimeLibsAsync(packageReader, item.TargetFramework, _logger)
+                            .ToListAsync();
+
+                        // Mark-up the platforms of all runtime libraries
+                        var runtimePlatforms = new HashSet<PlatformDefinition>();
+                        foreach (var (file, os, cpu) in runtimeLibs)
                         {
-                            // reject resource dlls since Unity can't use them and we're not handling paths
+                            // Reject resource dlls since Unity can't use them and we're not handling paths
                             if (file.EndsWith(".resources.dll", StringComparison.OrdinalIgnoreCase))
                             {
                                 continue;
                             }
 
-                            var fileInUnityPackage = $"{folderPrefix}{Path.GetFileName(file)}";
+                            var platformDef = platformDefs.Find(os, cpu);
+                            if (platformDef == null)
+                            {
+                                LogInformation($"Failed to find a platform definition for: {os}, {cpu}");
+                                continue;
+                            }
+
+                            // We have a platform, add this file to the set of files to write
+                            runtimePlatforms.Add(platformDef!);
+                            filesToWrite.Add(new PlatformFile(file, platformDef!));
+                        }
+
+                        // Compute the set of platforms covered by the lib dlls
+                        var libPlatforms = platformDefs.GetRemainingPlatforms(runtimePlatforms);
+
+                        // Add the lib files
+                        foreach (var libPlatform in libPlatforms)
+                        {
+                            foreach (var file in item.Items)
+                            {
+                                // Reject resource dlls since Unity can't use them and we're not handling paths
+                                if (file.EndsWith(".resources.dll", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    continue;
+                                }
+
+                                filesToWrite.Add(new PlatformFile(file, libPlatform));
+                            }
+                        }
+
+                        // Write the files
+                        foreach (var file in filesToWrite)
+                        {
+                            // Get the destination path
+                            var fileInUnityPackage = file.GetDestinationPath(folderPrefix);
+
+                            // Collect the folders' metas
+                            {
+                                string? fullPath = Path.GetDirectoryName(fileInUnityPackage);
+                                string[] folders = fullPath?.Split(Path.DirectorySeparatorChar) ?? Array.Empty<string>();
+                                string folder = string.Empty;
+
+                                foreach (var relative in folders)
+                                {
+                                    folder = Path.Combine(folder, relative);
+                                    packageFolders.Add(folder);
+                                }
+                            }
+
                             string? meta;
 
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
@@ -684,8 +749,15 @@ namespace UnityNuGet
                                 // We will use the define coming from the configuration file
                                 // Otherwise, it means that the assembly is compatible with whatever netstandard, and we can simply
                                 // use NET_STANDARD
-                                var defineConstraints = hasMultiNetStandard || hasOnlyNetStandard21 || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
-                                meta = UnityMeta.GetMetaForDll(GetStableGuid(identity, fileInUnityPackage), true, Array.Empty<string>(), defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : Array.Empty<string>());
+                                var defineConstraints = hasMultiNetStandard
+                                    || hasOnlyNetStandard21
+                                    || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
+
+                                meta = UnityMeta.GetMetaForDll(
+                                    GetStableGuid(identity, fileInUnityPackage),
+                                    file.Platform,
+                                    Array.Empty<string>(),
+                                    defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : Array.Empty<string>());
                             }
                             else
                             {
@@ -700,7 +772,7 @@ namespace UnityNuGet
                             memStream.Position = 0;
                             memStream.SetLength(0);
 
-                            using var stream = await packageReader.GetStreamAsync(file, CancellationToken.None);
+                            using var stream = await packageReader.GetStreamAsync(file.SourcePath, CancellationToken.None);
                             await stream.CopyToAsync(memStream);
                             var buffer = memStream.ToArray();
 
@@ -709,13 +781,6 @@ namespace UnityNuGet
 
                             // write meta file
                             await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
-                        }
-
-                        // Write folder meta
-                        if (!string.IsNullOrEmpty(folderPrefix) && item.Items.Any())
-                        {
-                            // write meta file for the folder
-                            await WriteTextFileToTar(tarArchive, $"{folderPrefix[0..^1]}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folderPrefix)));
                         }
                     }
 
@@ -726,15 +791,21 @@ namespace UnityNuGet
 
                     // Write the native libraries
                     var nativeFiles = NativeLibraries.GetSupportedNativeLibsAsync(packageReader, _logger);
-                    var nativeFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                    await foreach (var (file, folders, platform, architecture) in nativeFiles)
+                    await foreach (var (file, folders, os, cpu) in nativeFiles)
                     {
+                        var platformDef = platformDefs.Find(os, cpu);
+                        if (platformDef == null)
+                        {
+                            LogInformation($"Failed to find a platform definition for: {os}, {cpu}");
+                            continue;
+                        }
+
                         string extension = Path.GetExtension(file);
                         var guid = GetStableGuid(identity, file);
                         string? meta = extension switch
                         {
-                            ".dll" or ".so" or ".dylib" => NativeLibraries.GetMetaForNative(guid, platform, architecture, Array.Empty<string>()),
+                            ".dll" or ".so" or ".dylib" => UnityMeta.GetMetaForDll(guid, platformDef!, Array.Empty<string>(), Array.Empty<string>()),
                             _ => UnityMeta.GetMetaForExtension(guid, extension)
                         };
 
@@ -753,16 +824,16 @@ namespace UnityNuGet
                         await WriteTextFileToTar(tarArchive, $"{file}.meta", meta);
 
                         // Remember all folders for meta files
-                        string folder = "";
+                        string folder = string.Empty;
 
                         foreach (var relative in folders)
                         {
                             folder = Path.Combine(folder, relative);
-                            nativeFolders.Add(folder);
+                            packageFolders.Add(folder);
                         }
                     }
 
-                    foreach (var folder in nativeFolders)
+                    foreach (var folder in packageFolders)
                     {
                         await WriteTextFileToTar(tarArchive, $"{folder}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folder)));
                     }
