@@ -17,6 +17,7 @@ namespace UnityNuGet
                 case ".pdb":
                     break;
                 case ".asmdef":
+                case ".cs":
                 case ".json":
                 case ".md":
                 case ".txt":
