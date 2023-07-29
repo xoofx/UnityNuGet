@@ -16,11 +16,11 @@ namespace UnityNuGet
             {
                 case ".pdb":
                     break;
-
+                case ".asmdef":
                 case ".json":
-                case ".xml":
-                case ".txt":
                 case ".md":
+                case ".txt":
+                case ".xml":
                     return GetMetaForText(guid);
             }
 

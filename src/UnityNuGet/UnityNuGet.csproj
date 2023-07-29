@@ -1,35 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <Version>0.14.0</Version>
-        <LangVersion>9.0</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>0.14.0</Version>
+    <LangVersion>9.0</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <None Remove="registry.json" />
-    </ItemGroup>
+  <ItemGroup>
+    <None Remove="registry.json" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="..\..\registry.json" Link="registry.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\registry.json" Link="registry.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
-      <PackageReference Include="NuGet.PackageManagement" Version="6.6.1" />
-      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" /> 
-      <PackageReference Include="NUglify" Version="1.20.7" /> 
-      <PackageReference Include="Scriban" Version="5.7.0" /> 
-      <PackageReference Include="SharpZipLib" Version="1.4.2" /> 
-      <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" /> 
-      <PackageReference Include="System.Linq.Async" Version="6.0.1" /> 
-    </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    <PackageReference Include="NuGet.PackageManagement" Version="6.6.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+    <PackageReference Include="NUglify" Version="1.20.7" />
+    <PackageReference Include="Scriban" Version="5.7.0" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
 
 </Project>
