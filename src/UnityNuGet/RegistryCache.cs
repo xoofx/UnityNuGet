@@ -633,6 +633,7 @@ namespace UnityNuGet
                             string? meta;
 
                             string fileExtension = Path.GetExtension(fileInUnityPackage);
+
                             if (fileExtension == ".dll")
                             {
                                 meta = UnityMeta.GetMetaForDll(
@@ -664,6 +665,20 @@ namespace UnityNuGet
                             // write meta file
                             await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
                         }
+
+                        // Write analyzer asmdef
+                        // Check Analyzer Scope section: https://docs.unity3d.com/Manual/roslyn-analyzers.html
+                        var analyzerAsmdef = CreateAnalyzerAmsdef(identity);
+                        var analyzerAsmdefAsJson = analyzerAsmdef.ToJson();
+                        string analyzerAsmdefFileName = $"{identity.Id}.asmdef";
+                        await WriteTextFileToTar(tarArchive, analyzerAsmdefFileName, analyzerAsmdefAsJson);
+                        await WriteTextFileToTar(tarArchive, $"{analyzerAsmdefFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, analyzerAsmdefFileName), ".asmdef")!);
+
+                        // Write empty script (Necessary to compile the asmdef file)
+                        var emptyScriptContent = UnityScript.GetEmptyScript();
+                        const string emptyScriptFileName = "EmptyScript.cs";
+                        await WriteTextFileToTar(tarArchive, emptyScriptFileName, emptyScriptContent);
+                        await WriteTextFileToTar(tarArchive, $"{emptyScriptFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, emptyScriptFileName), ".cs")!);
                     }
 
                     // Get all known platform definitions
@@ -1065,6 +1080,15 @@ namespace UnityNuGet
             unityPackage.Dependencies.AddRange(npmPackageVersion.Dependencies);
             unityPackage.Keywords.AddRange(npmPackageInfo.Keywords);
             return unityPackage;
+        }
+
+        private static UnityAsmdef CreateAnalyzerAmsdef(PackageIdentity packageIdentity)
+        {
+            return new()
+            {
+                Name = $"{packageIdentity.Id}_Unity", // Add _Unity suffix because Unity has a validation so that assemblies names do not collide with asmdefs assembly names
+                IncludePlatforms = new string[] { "Editor" }
+            };
         }
 
         private static Guid StringToGuid(string text)

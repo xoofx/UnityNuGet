@@ -3,3 +3,6 @@ root = true
 
 [*.{cs,json,txt,yml}]
 end_of_line = lf
+
+[*.{csproj}]
+indent_size = 2
