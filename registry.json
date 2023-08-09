@@ -1170,6 +1170,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.ServiceModel.Syndication": {
+    "listed": true,
+    "version": "4.5.0"
+  },
   "System.Text.Encoding.CodePages": {
     "listed": false,
     "version": "4.4.0"
