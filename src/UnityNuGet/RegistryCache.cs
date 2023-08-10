@@ -84,7 +84,7 @@ namespace UnityNuGet
             // Initialize target framework
             foreach (var registryTargetFramework in _targetFrameworks)
             {
-                registryTargetFramework.Framework = NuGetFramework.Parse(registryTargetFramework.Name);
+                registryTargetFramework.Framework = NuGetFramework.Parse(registryTargetFramework.Name!);
             }
 
             _sourceCacheContext = new SourceCacheContext();
@@ -388,7 +388,7 @@ namespace UnityNuGet
                                     {
                                         _registry.TryGetValue(dependencyPackageMeta.Identity.Id, out var registryEntry);
 
-                                        var registryMinimumVersion = registryEntry?.Version?.MinVersion;
+                                        var registryMinimumVersion = registryEntry?.Version?.MinVersion!;
 
                                         NuGetVersion newVersion = registryMinimumVersion > dependencyPackageMeta.Identity.Version ? registryMinimumVersion : dependencyPackageMeta.Identity.Version;
 
@@ -400,7 +400,7 @@ namespace UnityNuGet
 
                                 if (packageDependency != null)
                                 {
-                                    if (deps.VersionRange.MinVersion > packageDependency.VersionRange.MinVersion)
+                                    if (deps.VersionRange.MinVersion! > packageDependency.VersionRange.MinVersion!)
                                     {
                                         packageDependency = new PackageDependency(packageDependency.Id, deps.VersionRange);
                                         resolvedDeps = packageDependency;
@@ -425,7 +425,7 @@ namespace UnityNuGet
                             var key = $"{_unityScope}.{depsId}";
                             if (!npmVersion.Dependencies.ContainsKey(key))
                             {
-                                npmVersion.Dependencies.Add(key, GetNpmVersion(resolvedDeps.VersionRange.MinVersion));
+                                npmVersion.Dependencies.Add(key, GetNpmVersion(resolvedDeps.VersionRange.MinVersion!));
                             }
                         }
                     }
