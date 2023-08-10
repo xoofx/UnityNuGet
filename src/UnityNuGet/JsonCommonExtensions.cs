@@ -42,7 +42,7 @@ namespace UnityNuGet
             public override VersionRange? ReadJson(JsonReader reader, Type objectType, VersionRange? existingValue, bool hasExistingValue, JsonSerializer serializer)
             {
                 string? s = (string?)reader.Value;
-                return VersionRange.Parse(s);
+                return VersionRange.Parse(s!);
             }
         }
     }
