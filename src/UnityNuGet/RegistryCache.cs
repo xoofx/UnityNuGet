@@ -1062,6 +1062,7 @@ namespace UnityNuGet
             filePath = filePath.TrimStart('/');
 
             var tarEntry = TarEntry.CreateTarEntry($"package/{filePath}");
+            tarEntry.ModTime = DateTime.UnixEpoch;
             tarEntry.Size = buffer.Length;
             await tarOut.PutNextEntryAsync(tarEntry, cancellationToken);
             await tarOut.WriteAsync(buffer, cancellationToken);
