@@ -554,7 +554,10 @@ namespace UnityNuGet
                 using var memStream = new MemoryStream();
 
                 using (var outStream = File.Create(unityPackageFilePath))
-                using (var gzoStream = new GZipOutputStream(outStream))
+                using (var gzoStream = new GZipOutputStream(outStream)
+                {
+                    ModifiedTime = DateTime.UnixEpoch
+                })
                 using (var tarArchive = new TarOutputStream(gzoStream, Encoding.UTF8))
                 {
                     // Select the framework version that is the closest or equal to the latest configured framework version
