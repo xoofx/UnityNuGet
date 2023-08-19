@@ -31,9 +31,9 @@ namespace UnityNuGet
     public class RegistryCache
     {
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-        
+
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.6.0";
+        private const string CurrentRegistryVersion = "1.7.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -209,7 +209,7 @@ namespace UnityNuGet
                 // Clear the cache entirely
                 _npmPackageRegistry.Reset();
             }
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -1103,7 +1103,7 @@ namespace UnityNuGet
             var hash = SHA1.HashData(inputBytes);
             Array.Copy(hash, 0, guid, 0, guid.Length);
 
-            // Follow UUID for SHA1 based GUID 
+            // Follow UUID for SHA1 based GUID
             const int version = 5; // SHA1 (3 for MD5)
             guid[6] = (byte)((guid[6] & 0x0F) | (version << 4));
             guid[8] = (byte)((guid[8] & 0x3F) | 0x80);
