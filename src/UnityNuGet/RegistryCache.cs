@@ -31,9 +31,9 @@ namespace UnityNuGet
     public class RegistryCache
     {
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-        
+
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.6.0";
+        private const string CurrentRegistryVersion = "1.7.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -209,7 +209,7 @@ namespace UnityNuGet
                 // Clear the cache entirely
                 _npmPackageRegistry.Reset();
             }
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -554,7 +554,10 @@ namespace UnityNuGet
                 using var memStream = new MemoryStream();
 
                 using (var outStream = File.Create(unityPackageFilePath))
-                using (var gzoStream = new GZipOutputStream(outStream))
+                using (var gzoStream = new GZipOutputStream(outStream)
+                {
+                    ModifiedTime = packageMeta.Published?.UtcDateTime
+                })
                 using (var tarArchive = new TarOutputStream(gzoStream, Encoding.UTF8))
                 {
                     // Select the framework version that is the closest or equal to the latest configured framework version
@@ -582,6 +585,7 @@ namespace UnityNuGet
                     var isPackageNetStandard21Assembly = DotNetHelper.IsNetStandard21Assembly(identity.Id);
                     var hasMultiNetStandard = collectedItems.Count > 1;
                     var hasOnlyNetStandard21 = collectedItems.Count == 1 && collectedItems.Values.First().All(x => x.Name == "netstandard2.1");
+                    var modTime = packageMeta.Published?.DateTime ?? DateTime.UnixEpoch;
 
                     if (isPackageNetStandard21Assembly)
                     {
@@ -625,7 +629,7 @@ namespace UnityNuGet
                                     createdDirectoryList.Add(processedDirectoryName);
 
                                     // write meta file for the folder
-                                    await WriteTextFileToTar(tarArchive, $"{processedDirectoryName}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, processedDirectoryName)));
+                                    await WriteTextFileToTar(tarArchive, $"{processedDirectoryName}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, processedDirectoryName)), modTime);
                                 }
                             }
 
@@ -660,10 +664,10 @@ namespace UnityNuGet
                             var buffer = memStream.ToArray();
 
                             // write content
-                            await WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
+                            await WriteBufferToTar(tarArchive, fileInUnityPackage, buffer, modTime);
 
                             // write meta file
-                            await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
+                            await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta, modTime);
                         }
 
                         // Write analyzer asmdef
@@ -671,14 +675,14 @@ namespace UnityNuGet
                         var analyzerAsmdef = CreateAnalyzerAmsdef(identity);
                         var analyzerAsmdefAsJson = analyzerAsmdef.ToJson();
                         string analyzerAsmdefFileName = $"{identity.Id}.asmdef";
-                        await WriteTextFileToTar(tarArchive, analyzerAsmdefFileName, analyzerAsmdefAsJson);
-                        await WriteTextFileToTar(tarArchive, $"{analyzerAsmdefFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, analyzerAsmdefFileName), ".asmdef")!);
+                        await WriteTextFileToTar(tarArchive, analyzerAsmdefFileName, analyzerAsmdefAsJson, modTime);
+                        await WriteTextFileToTar(tarArchive, $"{analyzerAsmdefFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, analyzerAsmdefFileName), ".asmdef")!, modTime);
 
                         // Write empty script (Necessary to compile the asmdef file)
                         var emptyScriptContent = UnityScript.GetEmptyScript();
                         const string emptyScriptFileName = "EmptyScript.cs";
-                        await WriteTextFileToTar(tarArchive, emptyScriptFileName, emptyScriptContent);
-                        await WriteTextFileToTar(tarArchive, $"{emptyScriptFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, emptyScriptFileName), ".cs")!);
+                        await WriteTextFileToTar(tarArchive, emptyScriptFileName, emptyScriptContent, modTime);
+                        await WriteTextFileToTar(tarArchive, $"{emptyScriptFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, emptyScriptFileName), ".cs")!, modTime);
                     }
 
                     // Get all known platform definitions
@@ -792,10 +796,10 @@ namespace UnityNuGet
                             var buffer = memStream.ToArray();
 
                             // write content
-                            await WriteBufferToTar(tarArchive, fileInUnityPackage, buffer);
+                            await WriteBufferToTar(tarArchive, fileInUnityPackage, buffer, modTime);
 
                             // write meta file
-                            await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta);
+                            await WriteTextFileToTar(tarArchive, $"{fileInUnityPackage}.meta", meta, modTime);
                         }
                     }
 
@@ -835,8 +839,8 @@ namespace UnityNuGet
                         await stream.CopyToAsync(memStream);
                         var buffer = memStream.ToArray();
 
-                        await WriteBufferToTar(tarArchive, file, buffer);
-                        await WriteTextFileToTar(tarArchive, $"{file}.meta", meta);
+                        await WriteBufferToTar(tarArchive, file, buffer, modTime);
+                        await WriteTextFileToTar(tarArchive, $"{file}.meta", meta, modTime);
 
                         // Remember all folders for meta files
                         string folder = string.Empty;
@@ -850,15 +854,15 @@ namespace UnityNuGet
 
                     foreach (var folder in packageFolders)
                     {
-                        await WriteTextFileToTar(tarArchive, $"{folder}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folder)));
+                        await WriteTextFileToTar(tarArchive, $"{folder}.meta", UnityMeta.GetMetaForFolder(GetStableGuid(identity, folder)), modTime);
                     }
 
                     // Write the package,json
                     var unityPackage = CreateUnityPackage(npmPackageInfo, npmPackageVersion);
                     var unityPackageAsJson = unityPackage.ToJson();
                     const string packageJsonFileName = "package.json";
-                    await WriteTextFileToTar(tarArchive, packageJsonFileName, unityPackageAsJson);
-                    await WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json")!);
+                    await WriteTextFileToTar(tarArchive, packageJsonFileName, unityPackageAsJson, modTime);
+                    await WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json")!, modTime);
 
                     // Write the license to the package if any
                     string? license = null;
@@ -912,8 +916,8 @@ namespace UnityNuGet
                     if (!string.IsNullOrEmpty(license))
                     {
                         const string licenseMdFile = "License.md";
-                        await WriteTextFileToTar(tarArchive, licenseMdFile, license);
-                        await WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md")!);
+                        await WriteTextFileToTar(tarArchive, licenseMdFile, license, modTime);
+                        await WriteTextFileToTar(tarArchive, $"{licenseMdFile}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, licenseMdFile), ".md")!, modTime);
                     }
                 }
 
@@ -1042,17 +1046,17 @@ namespace UnityNuGet
             }
         }
 
-        private static async Task WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content, CancellationToken cancellationToken = default)
+        private static async Task WriteTextFileToTar(TarOutputStream tarOut, string filePath, string content, DateTime modTime, CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(tarOut);
             ArgumentNullException.ThrowIfNull(filePath);
             ArgumentNullException.ThrowIfNull(content);
 
             var buffer = Utf8EncodingNoBom.GetBytes(content);
-            await WriteBufferToTar(tarOut, filePath, buffer, cancellationToken);
+            await WriteBufferToTar(tarOut, filePath, buffer, modTime, cancellationToken);
         }
 
-        private static async Task WriteBufferToTar(TarOutputStream tarOut, string filePath, byte[] buffer, CancellationToken cancellationToken = default)
+        private static async Task WriteBufferToTar(TarOutputStream tarOut, string filePath, byte[] buffer, DateTime modTime, CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(tarOut);
             ArgumentNullException.ThrowIfNull(filePath);
@@ -1062,6 +1066,7 @@ namespace UnityNuGet
             filePath = filePath.TrimStart('/');
 
             var tarEntry = TarEntry.CreateTarEntry($"package/{filePath}");
+            tarEntry.ModTime = modTime;
             tarEntry.Size = buffer.Length;
             await tarOut.PutNextEntryAsync(tarEntry, cancellationToken);
             await tarOut.WriteAsync(buffer, cancellationToken);
@@ -1098,7 +1103,7 @@ namespace UnityNuGet
             var hash = SHA1.HashData(inputBytes);
             Array.Copy(hash, 0, guid, 0, guid.Length);
 
-            // Follow UUID for SHA1 based GUID 
+            // Follow UUID for SHA1 based GUID
             const int version = 5; // SHA1 (3 for MD5)
             guid[6] = (byte)((guid[6] & 0x0F) | (version << 4));
             guid[8] = (byte)((guid[8] & 0x3F) | 0x80);
