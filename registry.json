@@ -844,7 +844,7 @@
   },
   "Polly.Contrib.WaitAndRetry": {
     "listed": true,
-    "version": "1.1.1"
+    "version": "1.0.0"
   },
   "Polly.Extensions.Http": {
     "listed": true,
