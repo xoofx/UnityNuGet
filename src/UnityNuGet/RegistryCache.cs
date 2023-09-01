@@ -289,8 +289,15 @@ namespace UnityNuGet
 
                         if (!hasNativeLib)
                         {
-                            LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
-                            continue;
+                            var dependencyGroups = downloadResult.PackageReader.NuspecReader.GetDependencyGroups(); // packageMeta.DependencySets can be empty
+                            resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(dependencyGroups, _targetFrameworks).ToList();
+
+                            if (!resolvedDependencyGroups.Any())
+                            {
+                                LogWarning($"The package `{packageIdentity}` doesn't support `{string.Join(",", _targetFrameworks.Select(x => x.Name))}`");
+
+                                continue;
+                            }
                         }
                     }
 
