@@ -31,7 +31,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-        
+
         // Change this version number if the content of the packages are changed by an update of this class
         private const string CurrentRegistryVersion = "1.6.0";
 
@@ -209,7 +209,7 @@ namespace UnityNuGet
                 // Clear the cache entirely
                 _npmPackageRegistry.Reset();
             }
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -744,7 +744,17 @@ namespace UnityNuGet
                             // Collect the folders' metas
                             {
                                 string? fullPath = Path.GetDirectoryName(fileInUnityPackage);
-                                string[] folders = fullPath?.Split(Path.DirectorySeparatorChar) ?? Array.Empty<string>();
+                                string[] folders;
+
+                                if (!string.IsNullOrEmpty(fullPath))
+                                {
+                                    folders = fullPath.Split(Path.DirectorySeparatorChar);
+                                }
+                                else
+                                {
+                                    folders = Array.Empty<string>();
+                                }
+
                                 string folder = string.Empty;
 
                                 foreach (var relative in folders)
