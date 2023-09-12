@@ -31,7 +31,7 @@ namespace UnityNuGet
     public class RegistryCache
     {
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
-        
+
         // Change this version number if the content of the packages are changed by an update of this class
         private const string CurrentRegistryVersion = "1.6.0";
 
@@ -209,7 +209,7 @@ namespace UnityNuGet
                 // Clear the cache entirely
                 _npmPackageRegistry.Reset();
             }
-            
+
             var regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
             if (Filter != null)
             {
@@ -1073,6 +1073,7 @@ namespace UnityNuGet
             var unityPackage = new UnityPackage
             {
                 Name = npmPackageInfo.Name,
+                DisplayName = npmPackageVersion.DisplayName,
                 Version = npmPackageVersion.Version,
                 Description = npmPackageInfo.Description,
                 Unity = npmPackageVersion.Unity

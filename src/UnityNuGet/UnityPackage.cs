@@ -17,6 +17,9 @@ namespace UnityNuGet
         [JsonProperty("name")]
         public string? Name { get; set; }
 
+        [JsonProperty("displayName")]
+        public string? DisplayName { get; set; }
+
         [JsonProperty("version")]
         public string? Version { get; set; }
 
