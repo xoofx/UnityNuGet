@@ -1078,6 +1078,7 @@ namespace UnityNuGet
             var unityPackage = new UnityPackage
             {
                 Name = npmPackageInfo.Name,
+                DisplayName = npmPackageVersion.DisplayName,
                 Version = npmPackageVersion.Version,
                 Description = npmPackageInfo.Description,
                 Unity = npmPackageVersion.Unity
