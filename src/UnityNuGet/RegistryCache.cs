@@ -748,7 +748,17 @@ namespace UnityNuGet
                             // Collect the folders' metas
                             {
                                 string? fullPath = Path.GetDirectoryName(fileInUnityPackage);
-                                string[] folders = fullPath?.Split(Path.DirectorySeparatorChar) ?? Array.Empty<string>();
+                                string[] folders;
+
+                                if (!string.IsNullOrEmpty(fullPath))
+                                {
+                                    folders = fullPath.Split(Path.DirectorySeparatorChar);
+                                }
+                                else
+                                {
+                                    folders = Array.Empty<string>();
+                                }
+
                                 string folder = string.Empty;
 
                                 foreach (var relative in folders)
