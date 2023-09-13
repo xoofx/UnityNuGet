@@ -90,19 +90,26 @@ Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
 ## Docker
 
+> Available in [ghcr (GitHub Container Registry)](https://github.com/xoofx/UnityNuGet/pkgs/container/unitynuget).
+> 
+> Supported platforms:
+> - linux/amd64
+> - linux/arm64
+
 Example of a basic docker-compose.yml file:
 
 ```yaml
 services:
   unitynuget:
-    build: .
+    image: ghcr.io/xoofx/unitynuget:latest
     ports:
       - 5000:80
     volumes:
       - ./unity_packages:/app/unity_packages
+      - ./registry.json:/app/registry.json # (Optional) You can have your own registry.json with a different package list than the one already included in the repository
 ```
 
-There is a complete example in [examples/docker](examples/docker).
+There is a complete example with all available options in [examples/docker](examples/docker).
 
 ### Accessing a private NuGet feed from Azure DevOps
 
