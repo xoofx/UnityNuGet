@@ -318,7 +318,7 @@
   },
   "Google.Protobuf": {
     "listed": true,
-    "version": "3.8.0"
+    "version": "[3.8.0,3.24.3]"
   },
   "Grpc.Core": {
     "listed": true,
@@ -1144,7 +1144,7 @@
   },
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
-    "version": "4.4.0"
+    "version": "[4.4.0,4.5.3]"
   },
   "System.Security.AccessControl": {
     "listed": true,
