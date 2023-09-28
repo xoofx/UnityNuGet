@@ -706,6 +706,22 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "Microsoft.IdentityModel.Abstractions": {
+    "listed": true,
+    "version": "6.18.0"
+  },
+  "Microsoft.IdentityModel.JsonWebTokens": {
+    "listed": true,
+    "version": "5.3.0"
+  },
+  "Microsoft.IdentityModel.Logging": {
+    "listed": true,
+    "version": "5.3.0"
+  },
+  "Microsoft.IdentityModel.Tokens": {
+    "listed": true,
+    "version": "5.3.0"
+  },
   "Microsoft.IO.RecyclableMemoryStream": {
     "listed": true,
     "version": "1.4.0"
@@ -845,6 +861,10 @@
   "Polly.Contrib.WaitAndRetry": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "Polly.Core": {
+    "listed": true,
+    "version": "8.0.0"
   },
   "Polly.Extensions.Http": {
     "listed": true,
@@ -1081,6 +1101,10 @@
   "System.Formats.Asn1": {
     "listed": true,
     "version": "5.0.0"
+  },
+  "System.IdentityModel.Tokens.Jwt": {
+    "listed": true,
+    "version": "5.3.0"
   },
   "System.Interactive.Async": {
     "listed": true,
