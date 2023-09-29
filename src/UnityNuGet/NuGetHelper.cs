@@ -17,6 +17,8 @@ namespace UnityNuGet
         private static readonly Version unityRoslynSupportedVersion = new(3, 8, 0);
 
         // https://github.com/dotnet/sdk/blob/2838d93742658300698b2194882d57fd978fb168/src/Tasks/Microsoft.NET.Build.Tasks/NuGetUtils.NuGet.cs#L50
+        public static bool IsApplicableAnalyzer(string file) => IsApplicableAnalyzer(file, "C#");
+
         private static bool IsApplicableAnalyzer(string file, string projectLanguage)
         {
             // This logic is preserved from previous implementations.
@@ -44,7 +46,22 @@ namespace UnityNuGet
             return IsAnalyzer() && FileMatchesProjectLanguage();
         }
 
-        public static bool IsApplicableUnityAnalyzer(string file)
+        public static bool IsApplicableAnalyzerResource(string file)
+        {
+            bool IsResource()
+            {
+                return file.StartsWith("analyzers", StringComparison.Ordinal)
+                    && file.EndsWith(".resources.dll", StringComparison.OrdinalIgnoreCase);
+            }
+
+            bool CS() => file.Contains("/cs/", StringComparison.OrdinalIgnoreCase);
+            bool VB() => file.Contains("/vb/", StringComparison.OrdinalIgnoreCase);
+                
+            // Czech locale is cs, catch /vb/cs/
+            return IsResource() && CS() && !VB();
+        }
+
+        public static bool IsApplicableUnitySupportedRoslynVersionFolder(string file)
         {
             var roslynVersionMatch = roslynVersionRegex.Match(file);
 
@@ -53,7 +70,7 @@ namespace UnityNuGet
                                                         int.Parse(roslynVersionMatch.Groups[1].Value) == unityRoslynSupportedVersion.Major &&
                                                         int.Parse(roslynVersionMatch.Groups[2].Value) == unityRoslynSupportedVersion.Minor;
 
-            return IsApplicableAnalyzer(file, "C#") && (!hasRoslynVersionFolder || hasUnitySupportedRoslynVersionFolder);
+            return !hasRoslynVersionFolder || hasUnitySupportedRoslynVersionFolder;
         }
 
         public static IEnumerable<(FrameworkSpecificGroup, RegistryTargetFramework)> GetClosestFrameworkSpecificGroups(IEnumerable<FrameworkSpecificGroup> versions, IEnumerable<RegistryTargetFramework> targetFrameworks)

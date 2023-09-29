@@ -596,7 +596,10 @@ namespace UnityNuGet
                         var packageFiles = await packageReader.GetItemsAsync(PackagingConstants.Folders.Analyzers, CancellationToken.None);
 
                         // https://learn.microsoft.com/en-us/nuget/guides/analyzers-conventions#analyzers-path-format
-                        var analyzerFiles = packageFiles.SelectMany(p => p.Items).Where(p => NuGetHelper.IsApplicableUnityAnalyzer(p)).ToArray();
+                        var analyzerFiles = packageFiles
+                            .SelectMany(p => p.Items)
+                            .Where(p => NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(p) && (NuGetHelper.IsApplicableAnalyzer(p) || NuGetHelper.IsApplicableAnalyzerResource(p)))
+                            .ToArray();
 
                         var createdDirectoryList = new List<string>();
 
@@ -635,11 +638,22 @@ namespace UnityNuGet
 
                             if (fileExtension == ".dll")
                             {
-                                meta = UnityMeta.GetMetaForDll(
-                                    GetStableGuid(identity, fileInUnityPackage),
-                                    new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
-                                    new string[] { "RoslynAnalyzer" },
-                                    Array.Empty<string>());
+                                if (NuGetHelper.IsApplicableAnalyzer(analyzerFile))
+                                {
+                                    meta = UnityMeta.GetMetaForDll(
+                                        GetStableGuid(identity, fileInUnityPackage),
+                                        new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
+                                        new string[] { "RoslynAnalyzer" },
+                                        Array.Empty<string>());
+                                }
+                                else
+                                {
+                                    meta = UnityMeta.GetMetaForDll(
+                                        GetStableGuid(identity, fileInUnityPackage),
+                                        new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
+                                        Array.Empty<string>(),
+                                        Array.Empty<string>());
+                                }
                             }
                             else
                             {
