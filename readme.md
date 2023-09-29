@@ -1,4 +1,4 @@
-# UnityNuGet [![Build Status](https://github.com/xoofx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/xoofx/UnityNuGet/actions)
+# UnityNuGet [![Build Status](https://github.com/xoofx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/xoofx/UnityNuGet/actions) [![Static Badge](https://img.shields.io/badge/server-status-blue)](https://unitynuget-registry.azurewebsites.net/status) [![Static Badge](https://img.shields.io/badge/server-feed-blue)](https://unitynuget-registry.azurewebsites.net/-/all)
 
 <img align="right" width="160px" height="160px" src="img/unitynuget.png">
 
@@ -134,7 +134,7 @@ To add a private feed, the following fields must be filled in.
 </configuration>
 ```
 
-**Note**: [The Azure DevOps PAT](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) must have Packaging (Read) permissions.
+> **Note**: [The Azure DevOps PAT](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate) must have Packaging (Read) permissions.
 
 ## FAQ
 
@@ -144,17 +144,17 @@ On Azure through my own Azure credits coming from my MVP subscription, enjoy!
 
 ### **Why can't you add all NuGet packages?**
 
-The reason is that many NuGet packages are not compatible with Unity, or do not provide .NETStandard2.0 assemblies or are not relevant for being used within Unity.
+The reason is that many NuGet packages are not compatible with Unity, or do not provide `.NETStandard2.0` assemblies or are not relevant for being used within Unity.
 
 Also currently the Package Manager doesn't provide a way to filter easily packages, so the UI is currently not adequate to list lots of packages.
 
 ### **Why does it require .NETStandard2.0?**
 
-Since 2019.1, Unity is now compatible with `.NETStandard2.0` and it is the .NET profile that is preferred to be used
+Since 2019.1.x, Unity is compatible with `.NETStandard2.0` and it is the .NET profile that is preferred to be used.
 
 Having a `.NETStandard2.0` for NuGet packages for Unity can ensure that the experience to add a package to your project is consistent and well supported.
 
-More information: https://docs.unity3d.com/Manual/dotnetProfileSupport.html
+> More information: https://docs.unity3d.com/Manual/dotnetProfileSupport.html
 
 ### **How this service is working?**
 
