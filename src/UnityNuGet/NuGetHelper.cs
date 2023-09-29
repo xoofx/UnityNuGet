@@ -56,9 +56,9 @@ namespace UnityNuGet
 
             bool CS() => file.Contains("/cs/", StringComparison.OrdinalIgnoreCase);
             bool VB() => file.Contains("/vb/", StringComparison.OrdinalIgnoreCase);
-                
+
             // Czech locale is cs, catch /vb/cs/
-            return IsResource() && CS() && !VB();
+            return IsResource() && ((!CS() && !VB()) || (CS() && !VB()));
         }
 
         public static bool IsApplicableUnitySupportedRoslynVersionFolder(string file)
