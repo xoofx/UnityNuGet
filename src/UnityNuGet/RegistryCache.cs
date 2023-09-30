@@ -33,7 +33,7 @@ namespace UnityNuGet
         public static readonly bool IsRunningOnAzure = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME"));
 
         // Change this version number if the content of the packages are changed by an update of this class
-        private const string CurrentRegistryVersion = "1.7.0";
+        private const string CurrentRegistryVersion = "1.8.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
         private readonly string _rootPersistentFolder;
@@ -259,7 +259,6 @@ namespace UnityNuGet
                     // Update latest version
                     var currentVersion = packageIdentity.Version;
                     string npmCurrentVersion = GetNpmVersion(currentVersion);
-
 
                     if (packageEntry.Version == null || !packageEntry.Version.Satisfies(packageMeta.Identity.Version))
                     {
@@ -596,12 +595,11 @@ namespace UnityNuGet
                     {
                         var packageFiles = await packageReader.GetItemsAsync(PackagingConstants.Folders.Analyzers, CancellationToken.None);
 
-                        var analyzerFiles = packageFiles.SelectMany(p => p.Items).Where(p => p.StartsWith("analyzers/dotnet/cs")).ToArray();
-
-                        if (analyzerFiles.Length == 0)
-                        {
-                            analyzerFiles = packageFiles.SelectMany(p => p.Items).Where(p => p.StartsWith("analyzers")).ToArray();
-                        }
+                        // https://learn.microsoft.com/en-us/nuget/guides/analyzers-conventions#analyzers-path-format
+                        var analyzerFiles = packageFiles
+                            .SelectMany(p => p.Items)
+                            .Where(p => NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(p) && (NuGetHelper.IsApplicableAnalyzer(p) || NuGetHelper.IsApplicableAnalyzerResource(p)))
+                            .ToArray();
 
                         var createdDirectoryList = new List<string>();
 
@@ -640,11 +638,22 @@ namespace UnityNuGet
 
                             if (fileExtension == ".dll")
                             {
-                                meta = UnityMeta.GetMetaForDll(
-                                    GetStableGuid(identity, fileInUnityPackage),
-                                    new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
-                                    new string[] { "RoslynAnalyzer" },
-                                    Array.Empty<string>());
+                                if (NuGetHelper.IsApplicableAnalyzer(analyzerFile))
+                                {
+                                    meta = UnityMeta.GetMetaForDll(
+                                        GetStableGuid(identity, fileInUnityPackage),
+                                        new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
+                                        new string[] { "RoslynAnalyzer" },
+                                        Array.Empty<string>());
+                                }
+                                else
+                                {
+                                    meta = UnityMeta.GetMetaForDll(
+                                        GetStableGuid(identity, fileInUnityPackage),
+                                        new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
+                                        Array.Empty<string>(),
+                                        Array.Empty<string>());
+                                }
                             }
                             else
                             {
