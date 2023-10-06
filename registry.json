@@ -829,6 +829,10 @@
     "listed": true,
     "version": "2.7.0"
   },
+  "MQTTnet": {
+    "listed": true,
+    "version": "3.0.15"
+  },
   "NeoSmart.Caching.Sqlite": {
     "listed": true,
     "version": "0.1.0"
