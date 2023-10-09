@@ -26,7 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
     <PackageReference Include="NuGet.PackageManagement" Version="6.7.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
-    <PackageReference Include="NUglify" Version="1.20.7" />
+    <PackageReference Include="NUglify" Version="1.21.0" />
     <PackageReference Include="Scriban" Version="5.9.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
