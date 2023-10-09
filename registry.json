@@ -831,11 +831,14 @@
   },
   "MQTTnet": {
     "listed": true,
-    "version": "3.0.15"
+    "version": "2.5.1"
   },
   "NeoSmart.Caching.Sqlite": {
     "listed": true,
     "version": "0.1.0"
+  },
+  "NETStandard.Library": {
+    "ignore": true
   },
   "Newtonsoft.Json": {
     "listed": true,
@@ -1138,6 +1141,15 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Net.Security": {
+    "ignore": true
+  },
+  "System.Net.WebSockets": {
+    "ignore": true
+  },
+  "System.Net.WebsSockets.Client": {
+    "ignore": true
+  },
   "System.Numerics.Vectors": {
     "listed": false,
     "version": "4.4.0"
@@ -1233,6 +1245,9 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
+  },
+  "System.Threading.Thread": {
+    "ignore": true
   },
   "Telnet": {
     "listed": true,
