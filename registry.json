@@ -1141,12 +1141,6 @@
     "listed": true,
     "version": "4.4.0"
   },
-  "System.Net.Security": {
-    "ignore": true
-  },
-  "System.Net.WebSockets": {
-    "ignore": true
-  },
   "System.Net.WebsSockets.Client": {
     "ignore": true
   },
@@ -1245,9 +1239,6 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
-  },
-  "System.Threading.Thread": {
-    "ignore": true
   },
   "Telnet": {
     "listed": true,
