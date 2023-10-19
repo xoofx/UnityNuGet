@@ -854,6 +854,10 @@
     "version": "[2.0.0,3.3.0]",
     "analyzer": true
   },
+  "OneOf": {
+    "listed": true,
+    "version": "3.0.263"
+  },
   "Polly": {
     "listed": true,
     "version": "6.0.1"
