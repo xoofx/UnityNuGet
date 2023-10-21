@@ -358,6 +358,10 @@
       "UNITY_EDITOR"
     ]
   },
+  "HtmlAgilityPack": {
+    "listed": true,
+    "version": "1.5.3"
+  },
   "IDisposableAnalyzers": {
     "listed": true,
     "version": "1.0.0",
