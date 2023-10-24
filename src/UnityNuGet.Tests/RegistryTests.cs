@@ -120,6 +120,8 @@ namespace UnityNuGet.Tests
                 @"StrongInject.Extensions.DependencyInjection",
                 // Versions < 4.6.0 in theory supports .netstandard2.0 but it doesn't have a lib folder with assemblies and it makes it fail.
                 @"System.Private.ServiceModel",
+                // Does not target .netstandard2.0 specifically
+                @"System.Xml.XPath.XmlDocument",
                 // Versions < 0.8.6 depend on LiteGuard, a deprecated dependency.
                 @"Telnet"
             };
