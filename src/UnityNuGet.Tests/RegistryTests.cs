@@ -107,6 +107,10 @@ namespace UnityNuGet.Tests
 
             var excludedPackages = new string[] {
                 // All versions target "Any" and not .netstandard2.0 / 2.1
+                @"AWSSDK.CognitoIdentity",
+                // All versions target "Any" and not .netstandard2.0 / 2.1
+                @"AWSSDK.CognitoIdentityProvider",
+                // All versions target "Any" and not .netstandard2.0 / 2.1
                 @"AWSSDK.S3",
                 // All versions target "Any" and not .netstandard2.0 / 2.1
                 @"AWSSDK.SecurityToken",

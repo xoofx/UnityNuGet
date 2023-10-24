@@ -35,6 +35,14 @@
     "listed": true,
     "version": "1.1.4.3"
   },
+  "AWSSDK.CognitoIdentity": {
+    "listed": true,
+    "version": "3.3.100"
+  },
+  "AWSSDK.CognitoIdentityProvider": {
+    "listed": true,
+    "version": "3.3.100"
+  },
   "AWSSDK.Core": {
     "listed": true,
     "version": "3.3.100"
