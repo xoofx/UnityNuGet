@@ -360,7 +360,7 @@
   },
   "HtmlAgilityPack": {
     "listed": true,
-    "version": "1.5.3"
+    "version": "1.11.24"
   },
   "IDisposableAnalyzers": {
     "listed": true,
@@ -1233,10 +1233,6 @@
   "System.Threading.Tasks.Extensions": {
     "listed": false,
     "version": "4.4.0"
-  },
-  "System.Xml.XPath.XmlDocument": {
-    "listed": true,
-    "version": "4.3.0"
   },
   "Telnet": {
     "listed": true,

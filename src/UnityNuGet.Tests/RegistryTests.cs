@@ -110,6 +110,8 @@ namespace UnityNuGet.Tests
                 @"AWSSDK.S3",
                 // All versions target "Any" and not .netstandard2.0 / 2.1
                 @"AWSSDK.SecurityToken",
+                // Versions prior to 1.11.24 depend on System.Xml.XPath.XmlDocument which does not target .netstandard2.0
+                @"HtmlAgilityPack",
                 // Although 2.x targets .netstandard2.0 it has an abandoned dependency (Remotion.Linq) that does not target .netstandard2.0.
                 // 3.1.0 is set because 3.0.x only targets .netstandard2.1.
                 @"Microsoft.EntityFrameworkCore.*",
@@ -120,8 +122,6 @@ namespace UnityNuGet.Tests
                 @"StrongInject.Extensions.DependencyInjection",
                 // Versions < 4.6.0 in theory supports .netstandard2.0 but it doesn't have a lib folder with assemblies and it makes it fail.
                 @"System.Private.ServiceModel",
-                // Does not target .netstandard2.0 specifically
-                @"System.Xml.XPath.XmlDocument",
                 // Versions < 0.8.6 depend on LiteGuard, a deprecated dependency.
                 @"Telnet"
             };
