@@ -1078,6 +1078,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.CodeDom": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Collections.Immutable": {
     "listed": true,
     "version": "1.4.0"
@@ -1125,6 +1129,10 @@
   "System.Linq.Async": {
     "listed": true,
     "version": "4.0.0"
+  },
+  "System.Management": {
+    "listed": true,
+    "version": "4.5.0"
   },
   "System.Memory": {
     "listed": true,
