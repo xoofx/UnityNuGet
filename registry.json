@@ -362,6 +362,10 @@
     "listed": true,
     "version": "1.11.24"
   },
+  "IdentityModel": {
+    "listed": true,
+    "version": "2.13.0"
+  },
   "IDisposableAnalyzers": {
     "listed": true,
     "version": "1.0.0",
