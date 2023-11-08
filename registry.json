@@ -760,6 +760,10 @@
     "listed": true,
     "version": "1.0.8"
   },
+  "MiniExcel":{
+    "listed": true,
+    "version": "1.26.0"
+  },
   "MongoDB.Bson": {
     "listed": true,
     "version": "2.11.0"
