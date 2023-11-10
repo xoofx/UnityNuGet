@@ -277,6 +277,10 @@
     "version": "0.1.2",
     "analyzer": true
   },
+  "ExcelNumberFormat": {
+    "listed": false,
+    "version": "1.0.6"
+  },
   "FastEnum": {
     "listed": true,
     "version": "1.0.0"
@@ -763,6 +767,10 @@
   "MimeTypeMapOfficial": {
     "listed": true,
     "version": "1.0.8"
+  },
+  "MiniExcel":{
+    "listed": true,
+    "version": "0.2.0"
   },
   "MongoDB.Bson": {
     "listed": true,
