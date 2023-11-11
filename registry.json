@@ -7,6 +7,10 @@
     "listed": true,
     "version": "4.9.1"
   },
+  "Args": {
+    "listed": true,
+    "version": "1.2.0"
+  },
   "Asmodat.Standard.SSH.NET": {
     "listed": true,
     "version": "[1.0.0,1.0.0.1]"
