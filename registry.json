@@ -488,6 +488,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Microsoft.Bcl.TimeProvider": {
+    "listed": true,
+    "version": "8.0.0"
+  },
   "Microsoft.CodeAnalysis.Analyzers": {
     "listed": true,
     "version": "3.0.0",
@@ -625,6 +629,14 @@
   "Microsoft.Extensions.DependencyModel": {
     "listed": true,
     "version": "3.0.0"
+  },
+  "Microsoft.Extensions.Diagnostics": {
+    "listed": true,
+    "version": "8.0.0"
+  },
+  "Microsoft.Extensions.Diagnostics.Abstractions": {
+    "listed": true,
+    "version": "8.0.0"
   },
   "Microsoft.Extensions.Features": {
     "listed": true,
