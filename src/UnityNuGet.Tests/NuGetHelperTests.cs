@@ -64,13 +64,13 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
+                new(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 
@@ -82,13 +82,13 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
+                new(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 }, new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard21 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 }, new() { Framework = CommonFrameworks.NetStandard21 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 
@@ -100,10 +100,10 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(new NuGetFramework(SpecialIdentifiers.Any), Array.Empty<PackageDependency>())
+                new(new NuGetFramework(SpecialIdentifiers.Any), Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 

@@ -280,7 +280,7 @@ namespace UnityNuGet
 
                     var resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageMeta.DependencySets, _targetFrameworks).ToList();
 
-                    if (!packageEntry.Analyzer && !resolvedDependencyGroups.Any())
+                    if (!packageEntry.Analyzer && resolvedDependencyGroups.Count == 0)
                     {
                         using var downloadResult = await GetPackageDownloadResourceResult(packageIdentity);
 
@@ -570,7 +570,7 @@ namespace UnityNuGet
                     {
                         if (!collectedItems.TryGetValue(item, out var frameworksPerGroup))
                         {
-                            frameworksPerGroup = new HashSet<RegistryTargetFramework>();
+                            frameworksPerGroup = [];
                             collectedItems.Add(item, frameworksPerGroup);
                         }
                         frameworksPerGroup.Add(targetFramework);
@@ -643,16 +643,16 @@ namespace UnityNuGet
                                     meta = UnityMeta.GetMetaForDll(
                                         GetStableGuid(identity, fileInUnityPackage),
                                         new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
-                                        new string[] { "RoslynAnalyzer" },
-                                        Array.Empty<string>());
+                                        ["RoslynAnalyzer"],
+                                        []);
                                 }
                                 else
                                 {
                                     meta = UnityMeta.GetMetaForDll(
                                         GetStableGuid(identity, fileInUnityPackage),
                                         new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false),
-                                        Array.Empty<string>(),
-                                        Array.Empty<string>());
+                                        [],
+                                        []);
                                 }
                             }
                             else
@@ -765,7 +765,7 @@ namespace UnityNuGet
                                 }
                                 else
                                 {
-                                    folders = Array.Empty<string>();
+                                    folders = [];
                                 }
 
                                 string folder = string.Empty;
@@ -789,7 +789,7 @@ namespace UnityNuGet
                                 // use NET_STANDARD
                                 var defineConstraints = hasMultiNetStandard
                                     || hasOnlyNetStandard21
-                                    || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : Array.Empty<string>();
+                                    || isPackageNetStandard21Assembly ? frameworks.First(x => x.Framework == item.TargetFramework).DefineConstraints : [];
 
                                 meta = UnityMeta.GetMetaForDll(
                                     GetStableGuid(identity, fileInUnityPackage),
@@ -902,7 +902,7 @@ namespace UnityNuGet
                             if (licenseUrlText != null)
                             {
                                 licenseUrlText = licenseUrlText.Trim();
-                                if (licenseUrlText.StartsWith("<"))
+                                if (licenseUrlText.StartsWith('<'))
                                 {
                                     try
                                     {
@@ -1112,7 +1112,7 @@ namespace UnityNuGet
             return new()
             {
                 Name = $"{packageIdentity.Id}_Unity", // Add _Unity suffix because Unity has a validation so that assemblies names do not collide with asmdefs assembly names
-                IncludePlatforms = new string[] { "Editor" }
+                IncludePlatforms = ["Editor"]
             };
         }
 
@@ -1164,8 +1164,15 @@ namespace UnityNuGet
         private static List<string> SplitCommaSeparatedString(string input)
         {
             var list = new List<string>();
-            if (input == null) return list;
-            foreach (var entry in input.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries))
+
+            if (input == null)
+            {
+                return list;
+            }
+
+            char[] separators = [',', ';'];
+
+            foreach (var entry in input.Split(separators, StringSplitOptions.RemoveEmptyEntries))
             {
                 list.Add(entry.Trim());
             }

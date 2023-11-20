@@ -10,14 +10,9 @@ namespace UnityNuGet.Server
     /// <summary>
     /// A NuGet logger redirecting to a <see cref="ILogger"/>
     /// </summary>
-    public class NuGetRedirectLogger : LoggerBase
+    public class NuGetRedirectLogger(ILogger logger) : LoggerBase
     {
-        private readonly ILogger _logger;
-
-        public NuGetRedirectLogger(ILogger logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+        private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         public override void Log(ILogMessage message)
         {

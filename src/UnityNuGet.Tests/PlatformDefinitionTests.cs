@@ -16,12 +16,12 @@ namespace UnityNuGet.Tests
             // Look-up by OS should return the most general configuration
             var win = platformDefs.Find(UnityOs.Windows);
             Assert.IsNotNull(win);
-            Assert.AreEqual(win.Cpu, UnityCpu.AnyCpu);
+            Assert.AreEqual(win!.Cpu, UnityCpu.AnyCpu);
 
             // Look-up explicit configuration
             var win64 = platformDefs.Find(UnityOs.Windows, UnityCpu.X64);
             Assert.IsNotNull(win64);
-            Assert.AreEqual(win64.Os, win.Os);
+            Assert.AreEqual(win64!.Os, win.Os);
             Assert.AreEqual(win64.Cpu, UnityCpu.X64);
             Assert.True(win.Children.Contains(win64));
 
@@ -68,13 +68,13 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var win64 = platformDefs.Find(UnityOs.Windows, UnityCpu.X64);
-            var visited = new HashSet<PlatformDefinition>() { win64 };
+            var visited = new HashSet<PlatformDefinition>() { win64! };
 
             // The remaining platforms should be all non-windows, as well as all !x64 windows
             var expected = platformDefs.Children
-                .Except(new[] { win64.Parent })
+                .Except(new[] { win64!.Parent })
                 .Concat(
-                    win64.Parent.Children
+                    win64.Parent!.Children
                         .Except(new[] { win64 }))
                 .ToHashSet();
             var actual = platformDefs.GetRemainingPlatforms(visited);
@@ -102,7 +102,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var win = platformDefs.Find(UnityOs.Windows);
-            var file = new PlatformFile("a/b/c.dll", win);
+            var file = new PlatformFile("a/b/c.dll", win!);
 
             var actual = file.GetDestinationPath(basePath);
             var expected = Path.Combine(
@@ -118,7 +118,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var win64 = platformDefs.Find(UnityOs.Windows, UnityCpu.X64);
-            var file = new PlatformFile("a/b/c.dll", win64);
+            var file = new PlatformFile("a/b/c.dll", win64!);
 
             var actual = file.GetDestinationPath(basePath);
             var expected = Path.Combine(

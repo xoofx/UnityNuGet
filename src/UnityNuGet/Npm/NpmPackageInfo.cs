@@ -11,9 +11,9 @@ namespace UnityNuGet.Npm
     {
         public NpmPackageInfo()
         {
-            Maintainers = new();
-            Versions = new();
-            Keywords = new();
+            Maintainers = [];
+            Versions = [];
+            Keywords = [];
         }
 
         [JsonProperty("name")]

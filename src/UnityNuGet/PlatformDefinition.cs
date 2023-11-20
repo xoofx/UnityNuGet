@@ -115,29 +115,20 @@ namespace UnityNuGet
     /// supporting <see cref="UnityOs.AnyOs"/> and <see cref="UnityCpu.AnyCpu"/>. Leaf nodes are typically specialized,
     /// targeting a specific OS and CPU flavor.
     /// </remarks>
-    internal class PlatformDefinition
+    /// <remarks>
+    /// Creates a new <see cref="PlatformDefinition"/>  instance.
+    /// </remarks>
+    /// <param name="os">The OS.</param>
+    /// <param name="cpu">The CPU flavor.</param>
+    /// <param name="isEditorConfig">True if the Unity editor is available in this (os, cpu) tuple.</param>
+    internal class PlatformDefinition(UnityOs os, UnityCpu cpu, bool isEditorConfig)
     {
-        private readonly UnityOs _os;
-        private readonly UnityCpu _cpu;
-        private readonly bool _isEditor;
-        private readonly List<PlatformDefinition> _children;
+        private readonly UnityOs _os = os;
+        private readonly UnityCpu _cpu = cpu;
+        private readonly bool _isEditor = isEditorConfig;
+        private readonly List<PlatformDefinition> _children = [];
 
-        private PlatformDefinition? _parent;
-
-        /// <summary>
-        /// Creates a new <see cref="PlatformDefinition"/>  instance.
-        /// </summary>
-        /// <param name="os">The OS.</param>
-        /// <param name="cpu">The CPU flavor.</param>
-        /// <param name="isEditorConfig">True if the Unity editor is available in this (os, cpu) tuple.</param>
-        public PlatformDefinition(UnityOs os, UnityCpu cpu, bool isEditorConfig)
-        {
-            _os = os;
-            _cpu = cpu;
-            _parent = null;
-            _children = new();
-            _isEditor = isEditorConfig;
-        }
+        private PlatformDefinition? _parent = null;
 
         /// <summary>
         /// The parent <see cref="PlatformDefinition"/> that is a superset of <c>this</c>.
@@ -294,24 +285,24 @@ namespace UnityNuGet
             {
                 Children = new List<PlatformDefinition>()
                 {
-                    new PlatformDefinition(UnityOs.Windows, UnityCpu.AnyCpu, isEditorConfig: true)
+                    new(UnityOs.Windows, UnityCpu.AnyCpu, isEditorConfig: true)
                     {
                         Children = new List<PlatformDefinition>()
                         {
-                            new PlatformDefinition(UnityOs.Windows, UnityCpu.X64, isEditorConfig: true),
-                            new PlatformDefinition(UnityOs.Windows, UnityCpu.X86, isEditorConfig: false),
+                            new(UnityOs.Windows, UnityCpu.X64, isEditorConfig: true),
+                            new(UnityOs.Windows, UnityCpu.X86, isEditorConfig: false),
                         },
                     },
-                    new PlatformDefinition(UnityOs.Linux, UnityCpu.X64, isEditorConfig: true),
-                    new PlatformDefinition(UnityOs.Android, UnityCpu.ARMv7, isEditorConfig: false),
-                    new PlatformDefinition(UnityOs.WebGL, UnityCpu.AnyCpu, isEditorConfig: false),
-                    new PlatformDefinition(UnityOs.iOS, UnityCpu.AnyCpu, isEditorConfig: false),
-                    new PlatformDefinition(UnityOs.OSX, UnityCpu.AnyCpu, isEditorConfig: true)
+                    new(UnityOs.Linux, UnityCpu.X64, isEditorConfig: true),
+                    new(UnityOs.Android, UnityCpu.ARMv7, isEditorConfig: false),
+                    new(UnityOs.WebGL, UnityCpu.AnyCpu, isEditorConfig: false),
+                    new(UnityOs.iOS, UnityCpu.AnyCpu, isEditorConfig: false),
+                    new(UnityOs.OSX, UnityCpu.AnyCpu, isEditorConfig: true)
                     {
                         Children = new List<PlatformDefinition>()
                         {
-                            new PlatformDefinition(UnityOs.OSX, UnityCpu.X64, isEditorConfig: true),
-                            new PlatformDefinition(UnityOs.OSX, UnityCpu.ARM64, isEditorConfig: true),
+                            new(UnityOs.OSX, UnityCpu.X64, isEditorConfig: true),
+                            new(UnityOs.OSX, UnityCpu.ARM64, isEditorConfig: true),
                         },
                     }
                 }
@@ -347,21 +338,15 @@ namespace UnityNuGet
     /// <summary>
     /// Associates a file path with the <see cref="PlatformDefinition"/> the file is compatible with.
     /// </summary>
-    internal class PlatformFile
+    /// <remarks>
+    /// Creates a new <see cref="PlatformFile"/> instance.
+    /// </remarks>
+    /// <param name="sourcePath">The full path of the file in the original NuGet package.</param>
+    /// <param name="platform">The platform the file is compatible with.</param>
+    internal class PlatformFile(string sourcePath, PlatformDefinition platform)
     {
-        private readonly PlatformDefinition _platform;
-        private readonly string _sourcePath;
-
-        /// <summary>
-        /// Creates a new <see cref="PlatformFile"/> instance.
-        /// </summary>
-        /// <param name="sourcePath">The full path of the file in the original NuGet package.</param>
-        /// <param name="platform">The platform the file is compatible with.</param>
-        public PlatformFile(string sourcePath, PlatformDefinition platform)
-        {
-            _sourcePath = sourcePath;
-            _platform = platform;
-        }
+        private readonly PlatformDefinition _platform = platform;
+        private readonly string _sourcePath = sourcePath;
 
         /// <summary>
         /// The full path of the file in the original NuGet package.

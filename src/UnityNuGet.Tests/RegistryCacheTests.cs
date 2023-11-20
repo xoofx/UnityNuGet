@@ -12,17 +12,17 @@ namespace UnityNuGet.Tests
         {
             var errorsTriggered = false;
 
-            var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
+            var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location)!, "unity_packages");
             var registryCache = new RegistryCache(
                 unityPackages,
                 new Uri("http://localhost/"),
                 "org.nuget",
                 "2019.1",
                 " (NuGet)",
-                new RegistryTargetFramework[] {
-                    new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "UNITY_2021_2_OR_NEWER"} },
-                    new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "!UNITY_2021_2_OR_NEWER" } },
-                },
+                [
+                    new() { Name = "netstandard2.1", DefineConstraints = ["UNITY_2021_2_OR_NEWER"] },
+                    new() { Name = "netstandard2.0", DefineConstraints = ["!UNITY_2021_2_OR_NEWER"] },
+                ],
                 new NuGetConsoleLogger())
             {
                 OnError = message =>
@@ -47,7 +47,7 @@ namespace UnityNuGet.Tests
 
             var scribanPackage = registryCache.GetPackage("org.nuget.scriban");
             Assert.NotNull(scribanPackage);
-            var scribanPackageJson = scribanPackage.ToJson();
+            var scribanPackageJson = scribanPackage!.ToJson();
             StringAssert.Contains("org.nuget.scriban", scribanPackageJson);
             StringAssert.Contains("2.1.0", scribanPackageJson);
         }

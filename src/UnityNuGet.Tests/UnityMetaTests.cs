@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace UnityNuGet.Tests
 {
+#pragma warning disable CA1861 // Avoid constant arrays as arguments
     public class UnityMetaTests
     {
         [Test]
@@ -12,7 +13,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), Array.Empty<string>());
             StringAssert.DoesNotContain("defineConstraints", output);
 
             // This is on the same line in the template, so ensure it's intact
@@ -24,7 +25,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), Array.Empty<string>());
             StringAssert.DoesNotContain("labels", output);
 
             // This is on the same line in the template, so ensure it's intact
@@ -38,7 +39,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), constraints);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), constraints);
 
             StringAssert.Contains(expected, output);
 
@@ -53,7 +54,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, labels, Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, labels, Array.Empty<string>());
 
             StringAssert.Contains(expected, output);
 
@@ -65,7 +66,7 @@ namespace UnityNuGet.Tests
         [TestCase(false, "0")]
         public void GetMetaForDll_FormatsAnyPlatformEnabledProperly(bool value, string expected)
         {
-            PlatformDefinition platformDef;
+            PlatformDefinition? platformDef;
 
             if (value)
             {
@@ -77,7 +78,7 @@ namespace UnityNuGet.Tests
                 platformDef = new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false);
             }
 
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), platformDef, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), platformDef!, Array.Empty<string>(), Array.Empty<string>());
 
             StringAssert.Contains($"\n  platformData:\n  - first:\n      Any:\n    second:\n      enabled: {expected}\n", output);
         }
@@ -87,7 +88,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs, Array.Empty<string>(), new[] { "TEST" });
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), new[] { "TEST" });
             StringAssert.DoesNotContain("\r", output);
         }
 
@@ -99,7 +100,7 @@ namespace UnityNuGet.Tests
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var output = UnityMeta.GetMetaForDll(
                 Guid.NewGuid(),
-                platformDefs.Find(os),
+                platformDefs.Find(os)!,
                 Array.Empty<string>(),
                 Array.Empty<string>());
 
@@ -129,7 +130,7 @@ namespace UnityNuGet.Tests
             var pDef = platformDefs.Find(os);
             var output = UnityMeta.GetMetaForDll(
                 Guid.NewGuid(),
-                pDef,
+                pDef!,
                 Array.Empty<string>(),
                 Array.Empty<string>());
 
@@ -159,4 +160,5 @@ namespace UnityNuGet.Tests
             }
         }
     }
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
 }
