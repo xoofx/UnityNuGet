@@ -838,8 +838,7 @@
     "version": "0.1.0"
   },
   "NETStandard.Library": {
-    "listed": true,
-    "version": "2.0.0"
+    "ignore": true
   },
   "Newtonsoft.Json": {
     "listed": true,
