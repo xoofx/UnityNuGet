@@ -379,18 +379,35 @@ namespace UnityNuGet
 
                                 PackageDependency? packageDependency = null;
 
-                                foreach (var dependencyPackageMeta in dependencyPackageMetas)
+                                // Get the registry entry for the dependency
+                                _registry.TryGetValue(deps.Id, out var registryEntry);
+                                var registryMinimumVersion = registryEntry?.Version?.MinVersion!;
+
+                                // Try to find a match
+                                if (registryEntry != null)
                                 {
-                                    var dependencyResolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(dependencyPackageMeta.DependencySets, _targetFrameworks, includeAny: false);
-
-                                    if (dependencyResolvedDependencyGroups.Any())
+                                    foreach (var dependencyPackageMeta in dependencyPackageMetas)
                                     {
-                                        _registry.TryGetValue(dependencyPackageMeta.Identity.Id, out var registryEntry);
+                                        var dependencyResolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(dependencyPackageMeta.DependencySets, _targetFrameworks, includeAny: false);
+                                        if (!dependencyResolvedDependencyGroups.Any())
+                                        {
+                                            continue;
+                                        }
 
-                                        var registryMinimumVersion = registryEntry?.Version?.MinVersion!;
+                                        var v = dependencyPackageMeta.Identity.Version;
+                                        if (registryEntry.Version != null)
+                                        {
+                                            // If the registry specifies a version range, ensure the dependency falls within that range
+                                            var packageVersionRange = new VersionRange(v, includeMinVersion: true, v, includeMaxVersion: true);
+                                            var commonVersionRange = VersionRange.CommonSubSet(new[] { packageVersionRange, registryEntry.Version });
 
-                                        NuGetVersion newVersion = registryMinimumVersion > dependencyPackageMeta.Identity.Version ? registryMinimumVersion : dependencyPackageMeta.Identity.Version;
+                                            if (commonVersionRange == VersionRange.None)
+                                            {
+                                                continue;
+                                            }
+                                        }
 
+                                        NuGetVersion newVersion = registryMinimumVersion > v ? registryMinimumVersion : v;
                                         packageDependency = new PackageDependency(dependencyPackageMeta.Identity.Id, new VersionRange(newVersion));
 
                                         break;
