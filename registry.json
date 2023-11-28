@@ -286,7 +286,7 @@
     "version": "3.0.0",
     "analyzer": true
   },
-    "ExcelDataReader.DataSet": {
+  "ExcelDataReader.DataSet": {
     "listed": true,
     "version": "3.0.0",
     "analyzer": true
