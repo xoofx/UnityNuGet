@@ -281,6 +281,16 @@
     "version": "0.1.2",
     "analyzer": true
   },
+  "ExcelDataReader": {
+    "listed": true,
+    "version": "3.0.0",
+    "analyzer": true
+  },
+  "ExcelDataReader.DataSet": {
+    "listed": true,
+    "version": "3.0.0",
+    "analyzer": true
+  },
   "ExcelNumberFormat": {
     "listed": false,
     "version": "1.0.6"
