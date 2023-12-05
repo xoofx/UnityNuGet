@@ -25,7 +25,7 @@ namespace UnityNuGet.Tests
             var originalPackageNames = registry.Select(r => r.Key).ToArray();
             var sortedPackageNames = originalPackageNames.OrderBy(p => p).ToArray();
 
-            Assert.AreEqual(sortedPackageNames, originalPackageNames);
+            Assert.That(originalPackageNames, Is.EqualTo(sortedPackageNames));
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace UnityNuGet.Tests
             var registry = Registry.GetInstance();
             var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
 
-            Assert.IsEmpty(packageNames);
+            Assert.That(packageNames, Is.Empty);
         }
 
         [Test]
@@ -59,14 +59,14 @@ namespace UnityNuGet.Tests
             var runtimeLibs = await RuntimeLibraries
                 .GetSupportedRuntimeLibsAsync(downloadResult.PackageReader, CommonFrameworks.NetStandard20, logger)
                 .ToListAsync();
-            Assert.IsTrue(runtimeLibs.Count != 0);
+            Assert.That(runtimeLibs, Is.Not.Empty);
 
             // Make sure these runtime libraries are only for Windows
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var win = platformDefs.Find(UnityOs.Windows);
             foreach (var (file, os, cpu) in runtimeLibs)
             {
-                Assert.AreEqual(platformDefs.Find(os, cpu), win);
+                Assert.That(platformDefs.Find(os, cpu), Is.EqualTo(win));
             }
 
             // Get the lib files
@@ -90,7 +90,7 @@ namespace UnityNuGet.Tests
             var runtimeFiles = runtimeLibs
                 .Select(l => Path.GetFileName(l.file))
                 .ToHashSet();
-            Assert.IsTrue(libFiles.SetEquals(runtimeFiles));
+            Assert.That(libFiles.SetEquals(runtimeFiles), Is.True);
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace UnityNuGet.Tests
 
                 if (packageIdentity != null)
                 {
-                    Assert.AreEqual(packageIdentity.Version, versionRange!.MinVersion, $"Package {packageId}");
+                    Assert.That(versionRange!.MinVersion, Is.EqualTo(packageIdentity.Version), $"Package {packageId}");
                 }
                 else
                 {
@@ -227,7 +227,9 @@ namespace UnityNuGet.Tests
 
             if (stringBuilder.Length == 0)
             {
-                Assert.True(true);
+                const bool trueConstant = true;
+
+                Assert.That(trueConstant, Is.True);
             }
             else
             {

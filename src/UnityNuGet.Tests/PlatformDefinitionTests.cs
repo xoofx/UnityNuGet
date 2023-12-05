@@ -15,19 +15,25 @@ namespace UnityNuGet.Tests
 
             // Look-up by OS should return the most general configuration
             var win = platformDefs.Find(UnityOs.Windows);
-            Assert.IsNotNull(win);
-            Assert.AreEqual(win!.Cpu, UnityCpu.AnyCpu);
+            Assert.That(win, Is.Not.Null);
+            Assert.That(win!.Cpu, Is.EqualTo(UnityCpu.AnyCpu));
 
             // Look-up explicit configuration
             var win64 = platformDefs.Find(UnityOs.Windows, UnityCpu.X64);
-            Assert.IsNotNull(win64);
-            Assert.AreEqual(win64!.Os, win.Os);
-            Assert.AreEqual(win64.Cpu, UnityCpu.X64);
-            Assert.True(win.Children.Contains(win64));
+            Assert.Multiple(() =>
+            {
+                Assert.That(win64, Is.Not.Null);
+                Assert.That(win.Os, Is.EqualTo(win64!.Os));
+            });
+            Assert.Multiple(() =>
+            {
+                Assert.That(win64.Cpu, Is.EqualTo(UnityCpu.X64));
+                Assert.That(win.Children, Does.Contain(win64));
+            });
 
             // Look-up invalid configuration
             var and = platformDefs.Find(UnityOs.Android, UnityCpu.None);
-            Assert.IsNull(and);
+            Assert.That(and, Is.Null);
         }
 
         [Test]
@@ -38,9 +44,12 @@ namespace UnityNuGet.Tests
 
             // If no platform was visited, the remaining platforms should be the (AnyOS, AnyCPU) config.
             var remaining = platformDefs.GetRemainingPlatforms(visited);
-            Assert.IsNotNull(remaining);
-            Assert.AreEqual(1, remaining.Count);
-            Assert.AreEqual(remaining.First(), platformDefs);
+            Assert.That(remaining, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(remaining, Has.Count.EqualTo(1));
+                Assert.That(platformDefs, Is.EqualTo(remaining.First()));
+            });
         }
 
         [Test]
@@ -54,11 +63,14 @@ namespace UnityNuGet.Tests
                 var remaining = platformDefs.GetRemainingPlatforms(visited);
 
                 // We should get all other children, except the one already visited
-                Assert.AreEqual(platformDefs.Children.Count, remaining.Count + 1);
+                Assert.That(remaining.Count + 1, Is.EqualTo(platformDefs.Children.Count));
                 foreach (var r in remaining)
                 {
-                    Assert.AreNotEqual(r, child);
-                    Assert.IsTrue(platformDefs.Children.Contains(r));
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(child, Is.Not.EqualTo(r));
+                        Assert.That(platformDefs.Children, Does.Contain(r));
+                    });
                 }
             }
         }
@@ -78,7 +90,7 @@ namespace UnityNuGet.Tests
                         .Except(new[] { win64 }))
                 .ToHashSet();
             var actual = platformDefs.GetRemainingPlatforms(visited);
-            Assert.IsTrue(expected.SetEquals(actual));
+            Assert.That(expected.SetEquals(actual), Is.True);
         }
 
         [TestCase("")]
@@ -93,7 +105,7 @@ namespace UnityNuGet.Tests
             var expected = Path.Combine(
                 basePath,
                 Path.GetFileName(file.SourcePath));
-            Assert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual));
         }
 
         [TestCase("")]
@@ -109,7 +121,7 @@ namespace UnityNuGet.Tests
                 basePath,
                 "Windows",
                 Path.GetFileName(file.SourcePath));
-            Assert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual));
         }
 
         [TestCase("")]
@@ -126,7 +138,7 @@ namespace UnityNuGet.Tests
                 "Windows",
                 "x86_64",
                 Path.GetFileName(file.SourcePath));
-            Assert.AreEqual(actual, expected);
+            Assert.That(expected, Is.EqualTo(actual));
         }
     }
 }

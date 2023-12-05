@@ -19,7 +19,7 @@ namespace UnityNuGet
         public VersionRange? Version { get; set; }
 
         [JsonProperty("defineConstraints")]
-        public List<string> DefineConstraints { get; set; } = new();
+        public List<string> DefineConstraints { get; set; } = [];
 
         [JsonProperty("analyzer")]
         public bool Analyzer { get; set; }

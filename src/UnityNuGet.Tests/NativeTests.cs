@@ -37,17 +37,17 @@ namespace UnityNuGet.Tests
 
             await registryCache.Build();
 
-            Assert.False(errorsTriggered, "The registry failed to build, check the logs");
+            Assert.That(errorsTriggered, Is.False, "The registry failed to build, check the logs");
             var allResult = registryCache.All();
             var allResultJson = allResult.ToJson();
 
-            StringAssert.Contains("org.nuget.rhino3dm", allResultJson);
+            Assert.That(allResultJson, Does.Contain("org.nuget.rhino3dm"));
 
             var rhinoPackage = registryCache.GetPackage("org.nuget.rhino3dm");
-            Assert.NotNull(rhinoPackage);
+            Assert.That(rhinoPackage, Is.Not.Null);
             var rhinopackageJson = rhinoPackage!.ToJson();
-            StringAssert.Contains("org.nuget.rhino3dm", rhinopackageJson);
-            StringAssert.Contains("7.11.0", rhinopackageJson);
+            Assert.That(rhinopackageJson, Does.Contain("org.nuget.rhino3dm"));
+            Assert.That(rhinopackageJson, Does.Contain("7.11.0"));
         }
     }
 }
