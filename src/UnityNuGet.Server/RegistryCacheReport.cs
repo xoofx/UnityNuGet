@@ -7,22 +7,16 @@ namespace UnityNuGet.Server
     /// <summary>
     /// Main class that stores relevant messages that may appear during the build of the Unity packages with <see cref="RegistryCache"/>.
     /// </summary>
-    public class RegistryCacheReport
+    public class RegistryCacheReport(RegistryCacheSingleton registryCacheSingleton, IOptions<RegistryOptions> registryOptionsAccessor)
     {
-        private readonly IList<string> _informationMessages = new List<string>();
-        private readonly IList<string> _warningMessages = new List<string>();
-        private readonly IList<string> _errorMessages = new List<string>();
+        private readonly RegistryCacheSingleton _registryCacheSingleton = registryCacheSingleton;
+        private readonly RegistryOptions _registryOptions = registryOptionsAccessor.Value;
+
+        private readonly List<string> _informationMessages = [];
+        private readonly List<string> _warningMessages = [];
+        private readonly List<string> _errorMessages = [];
 
         private DateTime? _lastUpdate;
-
-        private readonly RegistryCacheSingleton _registryCacheSingleton;
-        private readonly RegistryOptions _registryOptions;
-
-        public RegistryCacheReport(RegistryCacheSingleton registryCacheSingleton, IOptions<RegistryOptions> registryOptionsAccessor)
-        {
-            _registryCacheSingleton = registryCacheSingleton;
-            _registryOptions = registryOptionsAccessor.Value;
-        }
 
         public IEnumerable<string> InformationMeessages => _informationMessages;
 

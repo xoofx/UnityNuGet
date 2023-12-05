@@ -15,16 +15,10 @@ namespace UnityNuGet.Server.Controllers
     /// </summary>
     [Route("")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public class ApiController(RegistryCacheSingleton cacheSingleton, RegistryCacheReport registryCacheReport) : ControllerBase
     {
-        private readonly RegistryCacheSingleton _cacheSingleton;
-        private readonly RegistryCacheReport _registryCacheReport;
-
-        public ApiController(RegistryCacheSingleton cacheSingleton, RegistryCacheReport registryCacheReport)
-        {
-            _cacheSingleton = cacheSingleton;
-            _registryCacheReport = registryCacheReport;
-        }
+        private readonly RegistryCacheSingleton _cacheSingleton = cacheSingleton;
+        private readonly RegistryCacheReport _registryCacheReport = registryCacheReport;
 
         // GET /
         [HttpGet("")]

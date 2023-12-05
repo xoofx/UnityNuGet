@@ -11,20 +11,12 @@ namespace UnityNuGet.Server
     /// <summary>
     /// Update the RegistryCache at a regular interval
     /// </summary>
-    internal sealed class RegistryCacheUpdater : BackgroundService
+    internal sealed class RegistryCacheUpdater(RegistryCacheReport registryCacheReport, RegistryCacheSingleton currentRegistryCache, ILogger<RegistryCacheUpdater> logger, IOptions<RegistryOptions> registryOptionsAccessor) : BackgroundService
     {
-        private readonly RegistryCacheReport _registryCacheReport;
-        private readonly RegistryCacheSingleton _currentRegistryCache;
-        private readonly ILogger _logger;
-        private readonly RegistryOptions _registryOptions;
-
-        public RegistryCacheUpdater(RegistryCacheReport registryCacheReport, RegistryCacheSingleton currentRegistryCache, ILogger<RegistryCacheUpdater> logger, IOptions<RegistryOptions> registryOptionsAccessor)
-        {
-            _registryCacheReport = registryCacheReport;
-            _currentRegistryCache = currentRegistryCache;
-            _logger = logger;
-            _registryOptions = registryOptionsAccessor.Value;
-        }
+        private readonly RegistryCacheReport _registryCacheReport = registryCacheReport;
+        private readonly RegistryCacheSingleton _currentRegistryCache = currentRegistryCache;
+        private readonly ILogger _logger = logger;
+        private readonly RegistryOptions _registryOptions = registryOptionsAccessor.Value;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

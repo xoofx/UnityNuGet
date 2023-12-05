@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace UnityNuGet
@@ -19,10 +18,6 @@ namespace UnityNuGet
         // A comparer is established for cases where the dependency name is not set to the correct case.
         // Example: https://www.nuget.org/packages/NeoSmart.Caching.Sqlite/0.1.0#dependencies-body-tab
         public Registry() : base(StringComparer.OrdinalIgnoreCase)
-        {
-        }
-
-        private Registry(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
 

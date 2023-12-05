@@ -8,10 +8,11 @@ using NuGet.Protocol.Core.Types;
 
 namespace UnityNuGet
 {
-    static class NuGetHelper
+    static partial class NuGetHelper
     {
         // https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support
-        private static readonly Regex roslynVersionRegex = new(@"/roslyn(\d+)\.(\d+)\.?(\d*)/");
+        [GeneratedRegex(@"/roslyn(\d+)\.(\d+)\.?(\d*)/")]
+        private static partial Regex RoslynVersion();
 
         // https://docs.unity3d.com/Manual/roslyn-analyzers.html
         private static readonly Version unityRoslynSupportedVersion = new(3, 8, 0);
@@ -63,7 +64,7 @@ namespace UnityNuGet
 
         public static bool IsApplicableUnitySupportedRoslynVersionFolder(string file)
         {
-            var roslynVersionMatch = roslynVersionRegex.Match(file);
+            var roslynVersionMatch = RoslynVersion().Match(file);
 
             bool hasRoslynVersionFolder = roslynVersionMatch.Success;
             bool hasUnitySupportedRoslynVersionFolder = hasRoslynVersionFolder &&

@@ -18,7 +18,7 @@ namespace UnityNuGet.Tests
         [TestCase("analyzers/Test.resources.dll")]
         public void IsApplicableAnalyzerResource_Valid(string input)
         {
-            Assert.True(NuGetHelper.IsApplicableAnalyzerResource(input));
+            Assert.That(NuGetHelper.IsApplicableAnalyzerResource(input), Is.True);
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace UnityNuGet.Tests
         [TestCase("analyzers/Test.dll")]
         public void IsApplicableAnalyzerResource_Invalid(string input)
         {
-            Assert.False(NuGetHelper.IsApplicableAnalyzerResource(input));
+            Assert.That(NuGetHelper.IsApplicableAnalyzerResource(input), Is.False);
         }
 
         // Examples:
@@ -48,7 +48,7 @@ namespace UnityNuGet.Tests
         [TestCase("analyzers/Test.dll")]
         public void IsApplicableUnitySupportedRoslynVersionFolder_Valid(string input)
         {
-            Assert.True(NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(input));
+            Assert.That(NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(input), Is.True);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace UnityNuGet.Tests
         [TestCase("analyzers/dotnet/roslyn4.0/Test.dll")]
         public void IsApplicableUnitySupportedRoslynVersionFolder_Invalid(string input)
         {
-            Assert.False(NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(input));
+            Assert.That(NuGetHelper.IsApplicableUnitySupportedRoslynVersionFolder(input), Is.False);
         }
 
         [Test]
@@ -64,17 +64,17 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
+                new(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 
-            CollectionAssert.AreEqual(new PackageDependencyGroup[] { packageDependencyGroups[2] }, compatibleDependencyGroups);
+            Assert.That(compatibleDependencyGroups, Is.EqualTo(new PackageDependencyGroup[] { packageDependencyGroups[2] }).AsCollection);
         }
 
         [Test]
@@ -82,17 +82,17 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
-                new PackageDependencyGroup(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
+                new(CommonFrameworks.NetStandard13, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard16, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard20, Array.Empty<PackageDependency>()),
+                new(CommonFrameworks.NetStandard21, Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 }, new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard21 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 }, new() { Framework = CommonFrameworks.NetStandard21 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 
-            CollectionAssert.AreEqual(new PackageDependencyGroup[] { packageDependencyGroups[2], packageDependencyGroups[3] }, compatibleDependencyGroups);
+            Assert.That(compatibleDependencyGroups, Is.EqualTo(new PackageDependencyGroup[] { packageDependencyGroups[2], packageDependencyGroups[3] }).AsCollection);
         }
 
         [Test]
@@ -100,14 +100,14 @@ namespace UnityNuGet.Tests
         {
             IList<PackageDependencyGroup> packageDependencyGroups = new PackageDependencyGroup[]
             {
-                new PackageDependencyGroup(new NuGetFramework(SpecialIdentifiers.Any), Array.Empty<PackageDependency>())
+                new(new NuGetFramework(SpecialIdentifiers.Any), Array.Empty<PackageDependency>())
             };
 
-            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 } };
+            IEnumerable<RegistryTargetFramework> targetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
             IEnumerable<PackageDependencyGroup> compatibleDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageDependencyGroups, targetFrameworks);
 
-            CollectionAssert.AreEqual(packageDependencyGroups, compatibleDependencyGroups);
+            Assert.That(compatibleDependencyGroups, Is.EqualTo(packageDependencyGroups).AsCollection);
         }
     }
 }

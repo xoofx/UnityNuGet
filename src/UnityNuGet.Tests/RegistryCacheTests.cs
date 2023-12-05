@@ -12,17 +12,17 @@ namespace UnityNuGet.Tests
         {
             var errorsTriggered = false;
 
-            var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location), "unity_packages");
+            var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location)!, "unity_packages");
             var registryCache = new RegistryCache(
                 unityPackages,
                 new Uri("http://localhost/"),
                 "org.nuget",
                 "2019.1",
                 " (NuGet)",
-                new RegistryTargetFramework[] {
-                    new RegistryTargetFramework { Name = "netstandard2.1", DefineConstraints = new string[] { "UNITY_2021_2_OR_NEWER"} },
-                    new RegistryTargetFramework { Name = "netstandard2.0", DefineConstraints = new string[] { "!UNITY_2021_2_OR_NEWER" } },
-                },
+                [
+                    new() { Name = "netstandard2.1", DefineConstraints = ["UNITY_2021_2_OR_NEWER"] },
+                    new() { Name = "netstandard2.0", DefineConstraints = ["!UNITY_2021_2_OR_NEWER"] },
+                ],
                 new NuGetConsoleLogger())
             {
                 OnError = message =>
@@ -36,20 +36,20 @@ namespace UnityNuGet.Tests
 
             await registryCache.Build();
 
-            Assert.False(errorsTriggered, "The registry failed to build, check the logs");
+            Assert.That(errorsTriggered, Is.False, "The registry failed to build, check the logs");
 
             var allResult = registryCache.All();
-            Assert.True(allResult.Packages.Count >= 3);
+            Assert.That(allResult.Packages, Has.Count.GreaterThanOrEqualTo(3));
             var allResultJson = allResult.ToJson();
 
-            StringAssert.Contains("org.nuget.scriban", allResultJson);
-            StringAssert.Contains("org.nuget.system.runtime.compilerservices.unsafe", allResultJson);
+            Assert.That(allResultJson, Does.Contain("org.nuget.scriban"));
+            Assert.That(allResultJson, Does.Contain("org.nuget.system.runtime.compilerservices.unsafe"));
 
             var scribanPackage = registryCache.GetPackage("org.nuget.scriban");
-            Assert.NotNull(scribanPackage);
-            var scribanPackageJson = scribanPackage.ToJson();
-            StringAssert.Contains("org.nuget.scriban", scribanPackageJson);
-            StringAssert.Contains("2.1.0", scribanPackageJson);
+            Assert.That(scribanPackage, Is.Not.Null);
+            var scribanPackageJson = scribanPackage!.ToJson();
+            Assert.That(scribanPackageJson, Does.Contain("org.nuget.scriban"));
+            Assert.That(scribanPackageJson, Does.Contain("2.1.0"));
         }
     }
 }

@@ -12,8 +12,7 @@ namespace UnityNuGet
         public static bool IsNetStandard21Assembly(string packageId) => NetStandard21Assemblies.Contains(packageId);
 
         // Retrieved from NuGet package (/build/netstandard2.0/ref): https://www.nuget.org/packages/NETStandard.Library/2.0.3
-        private static readonly HashSet<string> NetStandard20Assemblies = new()
-        {
+        private static readonly HashSet<string> NetStandard20Assemblies = [
             "Microsoft.Win32.Primitives",
             "System.AppContext",
             "System.Collections.Concurrent",
@@ -125,11 +124,10 @@ namespace UnityNuGet
             "System.Xml.XmlSerializer",
             "System.Xml.XPath",
             "System.Xml.XPath.XDocument"
-        };
+        ];
 
         // Retrieved from NuGet package (/ref/netstandard2.1): https://www.nuget.org/packages/NETStandard.Library.Ref
-        private static readonly HashSet<string> NetStandard21Assemblies = new()
-        {
+        private static readonly HashSet<string> NetStandard21Assemblies = [
             "Microsoft.Win32.Primitives",
             "System.AppContext",
             "System.Buffers",
@@ -233,6 +231,6 @@ namespace UnityNuGet
             "System.Xml.XmlSerializer",
             "System.Xml.XPath",
             "System.Xml.XPath.XDocument",
-        };
+        ];
     }
 }

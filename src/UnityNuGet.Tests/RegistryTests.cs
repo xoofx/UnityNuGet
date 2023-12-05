@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +13,6 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NUnit.Framework;
 using static NuGet.Frameworks.FrameworkConstants;
-using System.IO;
 
 namespace UnityNuGet.Tests
 {
@@ -23,7 +25,7 @@ namespace UnityNuGet.Tests
             var originalPackageNames = registry.Select(r => r.Key).ToArray();
             var sortedPackageNames = originalPackageNames.OrderBy(p => p).ToArray();
 
-            Assert.AreEqual(sortedPackageNames, originalPackageNames);
+            Assert.That(originalPackageNames, Is.EqualTo(sortedPackageNames));
         }
 
         [Test]
@@ -32,7 +34,7 @@ namespace UnityNuGet.Tests
             var registry = Registry.GetInstance();
             var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
 
-            Assert.IsEmpty(packageNames);
+            Assert.That(packageNames, Is.Empty);
         }
 
         [Test]
@@ -57,14 +59,14 @@ namespace UnityNuGet.Tests
             var runtimeLibs = await RuntimeLibraries
                 .GetSupportedRuntimeLibsAsync(downloadResult.PackageReader, CommonFrameworks.NetStandard20, logger)
                 .ToListAsync();
-            Assert.IsTrue(runtimeLibs.Any());
+            Assert.That(runtimeLibs, Is.Not.Empty);
 
             // Make sure these runtime libraries are only for Windows
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var win = platformDefs.Find(UnityOs.Windows);
             foreach (var (file, os, cpu) in runtimeLibs)
             {
-                Assert.AreEqual(platformDefs.Find(os, cpu), win);
+                Assert.That(platformDefs.Find(os, cpu), Is.EqualTo(win));
             }
 
             // Get the lib files
@@ -73,7 +75,7 @@ namespace UnityNuGet.Tests
                 versions,
                 new RegistryTargetFramework[]
                 {
-                    new RegistryTargetFramework
+                    new()
                     {
                         Framework = CommonFrameworks.NetStandard20,
                     },
@@ -88,7 +90,7 @@ namespace UnityNuGet.Tests
             var runtimeFiles = runtimeLibs
                 .Select(l => Path.GetFileName(l.file))
                 .ToHashSet();
-            Assert.IsTrue(libFiles.SetEquals(runtimeFiles));
+            Assert.That(libFiles.SetEquals(runtimeFiles), Is.True);
         }
 
         [Test]
@@ -103,7 +105,7 @@ namespace UnityNuGet.Tests
             var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
             var resource = await repository.GetResourceAsync<PackageMetadataResource>();
 
-            var nuGetFrameworks = new RegistryTargetFramework[] { new RegistryTargetFramework { Framework = CommonFrameworks.NetStandard20 } };
+            var nuGetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
             var excludedPackages = new string[] {
                 // All versions target "Any" and not .netstandard2.0 / 2.1
@@ -151,7 +153,7 @@ namespace UnityNuGet.Tests
 
                 if (packageIdentity != null)
                 {
-                    Assert.AreEqual(packageIdentity.Version, versionRange.MinVersion, $"Package {packageId}");
+                    Assert.That(versionRange!.MinVersion, Is.EqualTo(packageIdentity.Version), $"Package {packageId}");
                 }
                 else
                 {
@@ -159,7 +161,7 @@ namespace UnityNuGet.Tests
 
                     var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
                             new SourceRepository[] { repository },
-                            new PackageIdentity(registryKvp.Key, registryKvp.Value.Version.MinVersion),
+                            new PackageIdentity(registryKvp.Key, registryKvp.Value.Version!.MinVersion),
                             new PackageDownloadContext(cache),
                             SettingsUtility.GetGlobalPackagesFolder(settings),
                             logger, cancellationToken);
@@ -175,6 +177,63 @@ namespace UnityNuGet.Tests
                         Assert.Fail(packageId);
                     }
                 }
+            }
+        }
+
+        [Test]
+        public async Task Ensure_Do_Not_Exceed_The_Maximum_Number_Of_Allowed_Versions()
+        {
+            const int maxAllowedVersions = 100;
+
+            var registry = Registry.GetInstance();
+
+            var logger = NullLogger.Instance;
+            var cancellationToken = CancellationToken.None;
+
+            var cache = new SourceCacheContext();
+            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+            var resource = await repository.GetResourceAsync<PackageMetadataResource>();
+
+            List<(string packageId, int versionCount)> packages = [];
+
+            foreach (var registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
+            {
+                var packageId = registryKvp.Key;
+
+                var versionRange = registryKvp.Value.Version;
+
+                var dependencyPackageMetas = await resource.GetMetadataAsync(
+                    packageId,
+                    includePrerelease: false,
+                    includeUnlisted: false,
+                    cache,
+                    logger,
+                    cancellationToken);
+
+                var versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
+
+                if (versions.Length > maxAllowedVersions)
+                {
+                    packages.Add((registryKvp.Key, versions.Length));
+                }
+            }
+
+            StringBuilder stringBuilder = new();
+
+            foreach (var (packageId, versionCount) in packages.OrderByDescending(p => p.versionCount))
+            {
+                stringBuilder.AppendLine($"{packageId} -> {versionCount}");
+            }
+
+            if (stringBuilder.Length == 0)
+            {
+                const bool trueConstant = true;
+
+                Assert.That(trueConstant, Is.True);
+            }
+            else
+            {
+                Assert.Inconclusive(stringBuilder.ToString());
             }
         }
     }

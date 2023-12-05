@@ -10,8 +10,8 @@ namespace UnityNuGet
     {
         public UnityPackage()
         {
-            Keywords = new List<string>();
-            Dependencies = new Dictionary<string, string>();
+            Keywords = [];
+            Dependencies = [];
         }
 
         [JsonProperty("name")]

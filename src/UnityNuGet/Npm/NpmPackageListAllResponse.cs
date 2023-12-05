@@ -15,7 +15,7 @@ namespace UnityNuGet.Npm
         public NpmPackageListAllResponse()
         {
             Unused = 99999;
-            Packages = new();
+            Packages = [];
         }
 
         [JsonProperty("_updated")]
@@ -24,11 +24,9 @@ namespace UnityNuGet.Npm
         [JsonIgnore]
         public Dictionary<string, NpmPackageInfo> Packages { get; }
 
-        // everything else gets stored here
+        // Everything else gets stored here
         [JsonExtensionData]
-#pragma warning disable IDE0051 // Remove unused private members
         private IDictionary<string, JToken> AdditionalData
-#pragma warning restore IDE0051 // Remove unused private members
         {
             get
             {
