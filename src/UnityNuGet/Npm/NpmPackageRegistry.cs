@@ -9,7 +9,7 @@ namespace UnityNuGet.Npm
     {
         public NpmPackageRegistry()
         {
-            Packages = new();
+            Packages = [];
             ListedPackageInfos = new();
             UnlistedPackageInfos = new();
         }

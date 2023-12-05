@@ -10,9 +10,9 @@ namespace UnityNuGet.Npm
     {
         public NpmPackageVersion()
         {
-            Dependencies = new();
+            Dependencies = [];
             Distribution = new();
-            Scripts = new();
+            Scripts = [];
         }
 
         [JsonProperty("name")]

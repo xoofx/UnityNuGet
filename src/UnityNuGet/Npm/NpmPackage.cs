@@ -12,10 +12,10 @@ namespace UnityNuGet.Npm
         public NpmPackage()
         {
             Revision = "1-0";
-            DistTags = new();
-            Versions = new();
-            Time = new();
-            Users = new();
+            DistTags = [];
+            Versions = [];
+            Time = [];
+            Users = [];
         }
 
         [JsonProperty("_id")]
