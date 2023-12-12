@@ -3,6 +3,58 @@
     "listed": true,
     "version": "1.4.1"
   },
+  "Akka.Cluster": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.Cluster.Hosting": {
+    "listed": true,
+    "version": "0.1.0"
+  },
+  "Akka.Cluster.Sharding": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.Cluster.Tools": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.Coordination": {
+    "listed": true,
+    "version": "1.4.4"
+  },
+  "Akka.DependencyInjection": {
+    "listed": true,
+    "version": "1.4.15"
+  },
+  "Akka.DistributedData": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.DistributedData.LightningDB": {
+    "listed": true,
+    "version": "1.4.7"
+  },
+  "Akka.Hosting": {
+    "listed": true,
+    "version": "0.1.0"
+  },
+  "Akka.Persistence": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.Persistence.Hosting": {
+    "listed": true,
+    "version": "0.3.3"
+  },
+  "Akka.Remote": {
+    "listed": true,
+    "version": "1.4.1"
+  },
+  "Akka.Remote.Hosting": {
+    "listed": true,
+    "version": "0.1.0"
+  },
   "Antlr4.Runtime.Standard": {
     "listed": true,
     "version": "4.9.1"
@@ -267,6 +319,26 @@
     "listed": true,
     "version": "1.1.0"
   },
+  "DotNetty.Buffers": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Codecs": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Common": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Handlers": {
+    "listed": true,
+    "version": "0.7.0"
+  },
+  "DotNetty.Transport": {
+    "listed": true,
+    "version": "0.7.0"
+  },
   "Eflatun.Expansions": {
     "listed": true,
     "version": "0.0.1"
@@ -380,6 +452,10 @@
     "listed": true,
     "version": "1.11.24"
   },
+  "Hyperion": {
+    "listed": true,
+    "version": "0.9.9"
+  },
   "IdentityModel": {
     "listed": true,
     "version": "2.13.0"
@@ -408,6 +484,14 @@
   "Kdl.NetStandard.x64": {
     "listed": true,
     "version": "2.0.0"
+  },
+  "LightningDB": {
+    "listed": true,
+    "version": "0.11.0"
+  },
+  "LightningDB.Vendored.Akka": {
+    "listed": true,
+    "version": "0.14.0"
   },
   "LiteDB": {
     "listed": true,
