@@ -1286,7 +1286,7 @@
   },
   "System.Threading.Tasks.Dataflow": {
     "listed": true,
-    "version": "6.0.0"
+    "version": "4.8.0"
   },
   "System.Threading.Tasks.Extensions": {
     "listed": false,
