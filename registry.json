@@ -1012,7 +1012,7 @@
   },
   "Serilog.Expressions": {
     "listed": true,
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "Serilog.Extensions.Hosting": {
     "listed": true,
