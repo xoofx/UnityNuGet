@@ -1062,7 +1062,15 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "SixLabors.Fonts": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "SixLabors.ImageSharp": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "SixLabors.ImageSharp.Drawing": {
     "listed": true,
     "version": "1.0.0"
   },
