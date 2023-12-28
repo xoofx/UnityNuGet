@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN mkdir -p src/UnityNuGet && mkdir -p src/UnityNuGet.Server && mkdir -p src/UnityNuGet.Tests
 
+COPY src/Directory.Build.props src/Directory.Build.props
+COPY src/Directory.Packages.props src/Directory.Packages.props
 COPY src/*.sln src
 COPY src/UnityNuGet/*.csproj src/UnityNuGet
 COPY src/UnityNuGet.Server/*.csproj src/UnityNuGet.Server
