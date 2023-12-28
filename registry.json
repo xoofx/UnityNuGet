@@ -1106,6 +1106,10 @@
     "listed": true,
     "version": "0.9.0"
   },
+  "Serilog.Enrichers.Memory": {
+    "listed": true,
+    "version": "1.0.4"
+  },
   "Serilog.Extensions.Hosting": {
     "listed": true,
     "version": "2.0.0"
