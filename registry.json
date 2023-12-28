@@ -963,6 +963,10 @@
     "listed": true,
     "version": "2.0.0"
   },
+  "NAudio.Wasapi": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "NAudio.WinMM": {
     "listed": true,
     "version": "2.0.0"
