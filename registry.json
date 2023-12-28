@@ -1112,7 +1112,7 @@
   },
   "Serilog.Expressions": {
     "listed": true,
-    "version": "1.1.0"
+    "version": "3.2.1"
   },
   "Serilog.Extensions.Hosting": {
     "listed": true,
@@ -1235,10 +1235,6 @@
   "SunCalcNet": {
     "listed": true,
     "version": "1.1.0"
-  },
-  "Superpower": {
-    "listed": true,
-    "version": "2.2.0"
   },
   "System.Buffers": {
     "listed": true,
