@@ -1,1 +1,6 @@
 .github
+examples/docker/unity_packages
+
+**/.vs
+**/bin
+**/obj
