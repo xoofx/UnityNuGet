@@ -1118,6 +1118,10 @@
     "listed": true,
     "version": "1.0.4"
   },
+  "Serilog.Expressions": {
+    "listed": true,
+    "version": "3.2.1"
+  },
   "Serilog.Extensions.Hosting": {
     "listed": true,
     "version": "2.0.0"

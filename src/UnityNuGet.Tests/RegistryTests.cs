@@ -120,8 +120,10 @@ namespace UnityNuGet.Tests
                 // Monomod Versions < 18.11.9.9 depend on System.Runtime.Loader which doesn't ship .netstandard2.0.
                 @"MonoMod.Utils",
                 @"MonoMod.RuntimeDetour",
-                // MumbleSharp < 2.0.0 depend on NAudio which doesn't ship .netstandard2.0.
+                // Versions < 2.0.0 depend on NAudio which doesn't ship .netstandard2.0.
                 @"MumbleSharp",
+                // Versions < 3.2.1 depend on Nullable which doesn't ship .netstandard2.0.
+                @"Serilog.Expressions",
                 // Versions < 1.4.1 has dependencies on Microsoft.AspNetCore.*.
                 @"StrongInject.Extensions.DependencyInjection",
                 // Versions < 4.6.0 in theory supports .netstandard2.0 but it doesn't have a lib folder with assemblies and it makes it fail.
