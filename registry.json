@@ -299,6 +299,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "CoreAudio": {
+    "listed": true,
+    "version": "1.1.0"
+  },
   "Coroutine.NET": {
     "listed": true,
     "version": "1.0.0"
