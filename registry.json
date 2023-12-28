@@ -871,6 +871,18 @@
     "listed": true,
     "version": "2.7.0"
   },
+  "MumbleSharp": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "NAudio.Core": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "NAudio.WinMM": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "NeoSmart.Caching.Sqlite": {
     "listed": true,
     "version": "0.1.0"
