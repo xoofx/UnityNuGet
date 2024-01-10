@@ -3,6 +3,11 @@
     "listed": true,
     "version": "1.4.1"
   },
+  "Akka.Analyzers": {
+    "listed": true,
+    "version": "0.1.0",
+    "analyzer": true
+  },
   "Akka.Cluster": {
     "listed": true,
     "version": "1.4.1"
