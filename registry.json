@@ -1053,6 +1053,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "R3": {
+    "listed": true,
+    "version": "0.0.3"
+  },
   "RestSharp": {
     "listed": true,
     "version": "106.0.0"
