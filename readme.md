@@ -1,4 +1,4 @@
-# UnityNuGet [![Build Status](https://github.com/loopervfx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/loopervfx/UnityNuGet/actions) [![Static Badge](https://img.shields.io/badge/server-status-blue)](https://unitynuget-smilesoft.eastus.cloudapp.azure.com/status) [![Static Badge](https://img.shields.io/badge/server-feed-blue)](https://unitynuget-smilesoft.eastus.cloudapp.azure.com/-/all)
+# UnityNuGet [![Build Status](https://github.com/loopervfx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/loopervfx/UnityNuGet/actions) [![Static Badge](https://img.shields.io/badge/server-status-blue)](https://unitynuget.eastus.cloudapp.azure.com/status) [![Static Badge](https://img.shields.io/badge/server-feed-blue)](https://unitynuget.eastus.cloudapp.azure.com/-/all)
 
 <img align="right" width="160px" height="160px" src="img/unitynuget.png">
 
@@ -17,7 +17,7 @@ In order to use this service you simply need to edit the `Packages/manifest.json
   "scopedRegistries": [
     {
       "name": "Unity NuGet",
-      "url": "https://ns.tools/unitynuget-smilesoft.eastus.cloudapp.azure.com",
+      "url": "https://ns.tools/unitynuget.eastus.cloudapp.azure.com",
       "scopes": [
         "org.nuget"
       ]
@@ -36,7 +36,7 @@ Instructions: https://docs.unity3d.com/Manual/class-PackageManager.html
 ```
 Name: Unity NuGet
 
-Url: https://ns.tools/unitynuget-smilesoft.eastus.cloudapp.azure.com
+Url: https://ns.tools/unitynuget.eastus.cloudapp.azure.com
 
 Scope(s): org.nuget
 ```
@@ -52,8 +52,8 @@ This step is necessary to ensure that binding redirects for [strongly named asse
 
 > WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already, 
 > it could be that we have updated packages on the server, and in that case, you need to clear the cache containing
-> all Unity NPM packages downdloaded from the `unitynuget-smilesoft.eastus.cloudapp.azure.com` registry.
-> On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget-smilesoft.eastus.cloudapp.azure.com`
+> all Unity NPM packages downdloaded from the `unitynuget.eastus.cloudapp.azure.com` registry.
+> On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget.eastus.cloudapp.azure.com`
 >
 > Cache locations by OS: https://docs.unity3d.com/Manual/upm-cache.html
 
