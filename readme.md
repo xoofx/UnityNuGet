@@ -90,7 +90,7 @@ Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
 ## Docker
 
-> Available in [ghcr (GitHub Container Registry)](https://github.com/xoofx/UnityNuGet/pkgs/container/unitynuget).
+> Available in [ghcr (GitHub Container Registry)](https://github.com/loopervfx/UnityNuGet/pkgs/container/unitynuget).
 > 
 > Supported platforms:
 > - linux/amd64
@@ -101,7 +101,7 @@ Example of a basic docker-compose.yml file:
 ```yaml
 services:
   unitynuget:
-    image: ghcr.io/xoofx/unitynuget:latest
+    image: ghcr.io/loopervfx/unitynuget:latest
     ports:
       - 5000:80
     volumes:
