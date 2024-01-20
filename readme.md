@@ -17,7 +17,7 @@ In order to use this service you simply need to edit the `Packages/manifest.json
   "scopedRegistries": [
     {
       "name": "Unity NuGet",
-      "url": "https://ns.tools/unitynuget.eastus.cloudapp.azure.com",
+      "url": "https://unitynuget.eastus.cloudapp.azure.com",
       "scopes": [
         "org.nuget"
       ]
@@ -36,7 +36,7 @@ Instructions: https://docs.unity3d.com/Manual/class-PackageManager.html
 ```
 Name: Unity NuGet
 
-Url: https://ns.tools/unitynuget.eastus.cloudapp.azure.com
+Url: https://unitynuget.eastus.cloudapp.azure.com
 
 Scope(s): org.nuget
 ```
