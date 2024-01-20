@@ -581,7 +581,23 @@
   },
   "Microsoft.Azure.Kinect.Sensor": {
     "listed": true,
-    "version": "1.2.0"
+    "version": "1.4.1"
+  },
+  "Microsoft.Azure.Kinect.BodyTracking": {
+    "listed": true,
+    "version": "1.1.2"
+  },
+  "Microsoft.Azure.Kinect.BodyTracking.Dependencies.cuDNN": {
+    "listed": true,
+    "version": "0.9.1"
+  },
+  "Microsoft.Azure.Kinect.BodyTracking.Dependencies": {
+    "listed": true,
+    "version": "0.9.1"
+  },
+  "Microsoft.Azure.Kinect.BodyTracking.ONNXRuntime": {
+    "listed": true,
+    "version": "1.10.0"
   },
   "Microsoft.Bcl.AsyncInterfaces": {
     "listed": true,
