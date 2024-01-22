@@ -265,6 +265,9 @@ namespace UnityNuGet
                         continue;
                     }
 
+                    // loopervfx: disabling this as test to see if it works around mismatched sha1 files on new deployment
+                    // https://github.com/xoofx/UnityNuGet/issues/318
+                    /*
                     // If the package id is cached already, we don't need to generate it again
                     if (npmPackage != null && npmPackage.Versions.TryGetValue(npmCurrentVersion, out var existingVersion))
                     {
@@ -277,6 +280,7 @@ namespace UnityNuGet
                             continue;
                         }
                     }
+                    */
 
                     var resolvedDependencyGroups = NuGetHelper.GetCompatiblePackageDependencyGroups(packageMeta.DependencySets, _targetFrameworks).ToList();
 
