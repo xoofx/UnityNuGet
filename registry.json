@@ -1333,6 +1333,14 @@
     "listed": true,
     "version": "4.0.0"
   },
+  "ReactiveProperty": {
+    "listed": true,
+    "version": "5.0.0"
+  },
+  "ReactiveProperty.Core": {
+    "listed": true,
+    "version": "7.0.0"
+  },
   "System.Reflection.DispatchProxy": {
     "listed": true,
     "version": "4.4.0"
