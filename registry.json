@@ -1098,9 +1098,19 @@
     "version": "1.0.0",
     "analyzer": true
   },
+  "Roslynator.CodeFixes": {
+    "listed": true,
+    "version": "4.10.0",
+    "analyzer": true
+  },
   "Roslynator.Formatting.Analyzers": {
     "listed": true,
     "version": "1.0.0",
+    "analyzer": true
+  },
+  "Roslynator.Refactorings": {
+    "listed": true,
+    "version": "4.10.0",
     "analyzer": true
   },
   "Scriban": {
