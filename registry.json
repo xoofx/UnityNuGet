@@ -328,6 +328,10 @@
     "listed": true,
     "version": "1.0.26"
   },
+  "Dapplo.Windows.Input": {
+    "listed": true,
+    "version": "1.0.26"
+  },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
     "version": "1.0.0"
