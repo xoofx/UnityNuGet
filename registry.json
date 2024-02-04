@@ -320,6 +320,10 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "Dapplo.Log": {
+    "listed": true,
+    "version": "1.4.1"
+  },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
     "version": "1.0.0"
