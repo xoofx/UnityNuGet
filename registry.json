@@ -336,6 +336,10 @@
     "listed": true,
     "version": "1.0.26"
   },
+  "Dapplo.Windows.User32": {
+    "listed": true,
+    "version": "1.0.26"
+  },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
     "version": "1.0.0"
