@@ -1053,6 +1053,10 @@
     "listed": true,
     "version": "1.0.177"
   },
+  "pythonnet": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "QuikGraph": {
     "listed": true,
     "version": "1.0.0"
