@@ -1343,6 +1343,10 @@
     "listed": false,
     "version": "4.6.0"
   },
+  "System.Reactive": {
+    "listed": true,
+    "version": "4.0.0"
+  },
   "System.Reflection.DispatchProxy": {
     "listed": true,
     "version": "4.4.0"
