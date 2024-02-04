@@ -324,6 +324,10 @@
     "listed": true,
     "version": "1.4.1"
   },
+  "Dapplo.Windows.Common": {
+    "listed": true,
+    "version": "1.0.26"
+  },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
     "version": "1.0.0"
