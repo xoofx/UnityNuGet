@@ -8,7 +8,7 @@
     <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageVersion Include="NuGet.PackageManagement" Version="6.8.0" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
