@@ -1065,6 +1065,14 @@
     "listed": true,
     "version": "0.0.3"
   },
+  "ReactiveProperty": {
+    "listed": true,
+    "version": "5.0.0"
+  },
+  "ReactiveProperty.Core": {
+    "listed": true,
+    "version": "7.0.0"
+  },
   "RestSharp": {
     "listed": true,
     "version": "106.0.0"
@@ -1347,6 +1355,10 @@
     "listed": false,
     "version": "4.6.0"
   },
+  "System.Reactive": {
+    "listed": true,
+    "version": "4.0.0"
+  },
   "System.Reflection.DispatchProxy": {
     "listed": true,
     "version": "4.4.0"
@@ -1374,6 +1386,11 @@
   "System.Runtime.CompilerServices.Unsafe": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "System.Runtime.InteropServices.WindowsRuntime": {
+    "listed": false,
+    "version": "4.3.0",
+    "ignore": true
   },
   "System.Security.AccessControl": {
     "listed": true,
