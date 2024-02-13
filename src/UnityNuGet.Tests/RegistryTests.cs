@@ -129,7 +129,12 @@ namespace UnityNuGet.Tests
                 // Versions < 4.6.0 in theory supports .netstandard2.0 but it doesn't have a lib folder with assemblies and it makes it fail.
                 @"System.Private.ServiceModel",
                 // Versions < 0.8.6 depend on LiteGuard, a deprecated dependency.
-                @"Telnet"
+                @"Telnet",
+                // Version < 1.0.26 depends on Microsoft.Windows.Compatibility, this one has tons of dependencies that don't target .netstandard2.0. And one of them is System.Speech that doesn't work in Unity.
+                @"Dapplo.Windows.Common",
+                @"Dapplo.Windows.Input",
+                @"Dapplo.Windows.Messages",
+                @"Dapplo.Windows.User32"
             };
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
