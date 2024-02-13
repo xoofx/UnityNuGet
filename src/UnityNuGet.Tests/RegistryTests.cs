@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.PackageManagement;
 using NuGet.Packaging.Core;
@@ -40,7 +39,7 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task CanParse_PackageWithRuntimes()
         {
-            var logger = NullLogger.Instance;
+            var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
 
             var cache = new SourceCacheContext();
@@ -98,7 +97,7 @@ namespace UnityNuGet.Tests
         {
             var registry = Registry.GetInstance();
 
-            var logger = NullLogger.Instance;
+            var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
 
             var cache = new SourceCacheContext();
@@ -191,7 +190,7 @@ namespace UnityNuGet.Tests
 
             var registry = Registry.GetInstance();
 
-            var logger = NullLogger.Instance;
+            var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
 
             var cache = new SourceCacheContext();
