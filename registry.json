@@ -1049,6 +1049,10 @@
     "listed": true,
     "version": "3.0.205"
   },
+  "OneOf": {
+    "listed": true,
+    "version": "3.0.205"
+  },
   "OpenSearch.Net": {
     "listed": true,
     "version": "1.0.0"
