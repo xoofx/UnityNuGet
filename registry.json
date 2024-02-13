@@ -98,15 +98,15 @@
   },
   "AWSSDK.Core": {
     "listed": true,
-    "version": "3.3.100"
+    "version": "3.7.302.8"
   },
   "AWSSDK.S3": {
     "listed": true,
-    "version": "3.3.100"
+    "version": "3.7.302.8"
   },
   "AWSSDK.SecurityToken": {
     "listed": true,
-    "version": "3.3.100"
+    "version": "3.7.302.8"
   },
   "Ben.Demystifier": {
     "listed": true,
@@ -314,7 +314,7 @@
   },
   "CSharpFunctionalExtensions": {
     "listed": true,
-    "version": "1.8.1"
+    "version": "2.40.3"
   },
   "CsvHelper": {
     "listed": true,
@@ -405,7 +405,7 @@
   },
   "Google.Apis.AndroidPublisher.v3": {
     "listed": true,
-    "version": "1.35.1.1312"
+    "version": "1.66.0.3324"
   },
   "Google.Apis.Auth": {
     "listed": true,
@@ -1475,15 +1475,15 @@
   },
   "UnitsNet": {
     "listed": true,
-    "version": "4.0.0"
+    "version": "5.28.0"
   },
   "UnitsNet.NumberExtensions": {
     "listed": true,
-    "version": "4.44.0"
+    "version": "5.28.0"
   },
   "UnitsNet.Serialization.JsonNet": {
     "listed": true,
-    "version": "4.0.0"
+    "version": "5.28.0"
   },
   "Validation": {
     "listed": true,
