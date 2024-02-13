@@ -32,7 +32,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Build & test (Release)
-        run: dotnet test src -c Release
+        run: dotnet test src -c Release --logger "console;verbosity=normal"
 
       - name: Should Deploy?
         if: github.event_name == 'push'
