@@ -326,19 +326,19 @@
   },
   "Dapplo.Windows.Common": {
     "listed": true,
-    "version": "[1.0.26]"
+    "version": "1.0.26"
   },
   "Dapplo.Windows.Input": {
     "listed": true,
-    "version": "[1.0.26]"
+    "version": "1.0.26"
   },
   "Dapplo.Windows.Messages": {
     "listed": true,
-    "version": "[1.0.26]"
+    "version": "1.0.26"
   },
   "Dapplo.Windows.User32": {
     "listed": true,
-    "version": "[1.0.26]"
+    "version": "1.0.26"
   },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
