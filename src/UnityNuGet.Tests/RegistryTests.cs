@@ -109,9 +109,12 @@ namespace UnityNuGet.Tests
 
             var excludedPackages = new string[] {
                 // All versions target "Any" and not .netstandard2.0 / 2.1
-                @"AWSSDK.S3",
-                // All versions target "Any" and not .netstandard2.0 / 2.1
-                @"AWSSDK.SecurityToken",
+                // It has too many versions, the minimum version is lifted so as not to process so many versions
+                @"AWSSDK.*",
+                // It has too many versions, the minimum version is lifted so as not to process so many versions
+                @"CSharpFunctionalExtensions",
+                // It has too many versions, the minimum version is lifted so as not to process so many versions
+                @"Google.Apis.AndroidPublisher.v3",
                 // Versions prior to 1.11.24 depend on System.Xml.XPath.XmlDocument which does not target .netstandard2.0
                 @"HtmlAgilityPack",
                 // Although 2.x targets .netstandard2.0 it has an abandoned dependency (Remotion.Linq) that does not target .netstandard2.0.
@@ -129,7 +132,9 @@ namespace UnityNuGet.Tests
                 // Versions < 4.6.0 in theory supports .netstandard2.0 but it doesn't have a lib folder with assemblies and it makes it fail.
                 @"System.Private.ServiceModel",
                 // Versions < 0.8.6 depend on LiteGuard, a deprecated dependency.
-                @"Telnet"
+                @"Telnet",
+                // It has too many versions, the minimum version is lifted so as not to process so many versions
+                @"UnitsNet.*"
             };
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
