@@ -320,6 +320,26 @@
     "listed": true,
     "version": "3.0.0"
   },
+  "Dapplo.Log": {
+    "listed": true,
+    "version": "1.3.17"
+  },
+  "Dapplo.Windows.Common": {
+    "listed": true,
+    "version": "1.0.26"
+  },
+  "Dapplo.Windows.Input": {
+    "listed": true,
+    "version": "1.0.26"
+  },
+  "Dapplo.Windows.Messages": {
+    "listed": true,
+    "version": "1.0.26"
+  },
+  "Dapplo.Windows.User32": {
+    "listed": true,
+    "version": "1.0.26"
+  },
   "Dev.ComradeVanti.Nothing": {
     "listed": true,
     "version": "1.0.0"
