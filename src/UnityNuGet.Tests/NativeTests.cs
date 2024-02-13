@@ -26,7 +26,7 @@ namespace UnityNuGet.Tests
                     new() { Name = "netstandard2.1", DefineConstraints = ["UNITY_2021_2_OR_NEWER"] },
                     new() { Name = "netstandard2.0", DefineConstraints = ["!UNITY_2021_2_OR_NEWER"] },
                 ],
-                new NuGetConsoleLogger())
+                new NuGetConsoleTestLogger())
             {
                 Filter = "rhino3dm",
                 OnError = message =>
