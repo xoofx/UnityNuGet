@@ -1029,6 +1029,14 @@
     "version": "[2.0.0,3.3.0]",
     "analyzer": true
   },
+  "ObservableCollections": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "ObservableCollections.R3": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "OneOf": {
     "listed": true,
     "version": "3.0.205"
