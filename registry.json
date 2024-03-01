@@ -435,6 +435,10 @@
     "listed": true,
     "version": "1.35.0"
   },
+  "Google.FlatBuffers": {
+    "listed": true,
+    "version": "22.9.24"
+  },
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
