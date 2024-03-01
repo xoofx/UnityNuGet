@@ -1249,6 +1249,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Serilog.Sinks.PeriodicBatching": {
+    "listed": true,
+    "version": "2.2.0"
+  },
   "Serilog.Sinks.Trace": {
     "listed": true,
     "version": "3.0.0"

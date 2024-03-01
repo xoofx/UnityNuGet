@@ -112,6 +112,8 @@ namespace UnityNuGet.Tests
                 @"AWSSDK.*",
                 // It has too many versions, the minimum version is lifted so as not to process so many versions
                 @"CSharpFunctionalExtensions",
+                // Some versions between 5.6.4 and 6.3.0 doesn't ship .netstandard2.0.
+                @"Elasticsearch.Net",
                 // It has too many versions, the minimum version is lifted so as not to process so many versions
                 @"Google.Apis.AndroidPublisher.v3",
                 // Versions prior to 1.11.24 depend on System.Xml.XPath.XmlDocument which does not target .netstandard2.0
