@@ -372,6 +372,10 @@
     "listed": true,
     "version": "0.0.1"
   },
+  "Elasticsearch.Net": {
+    "listed": true,
+    "version": "6.3.0"
+  },
   "ErrorProne.NET.CoreAnalyzers": {
     "listed": true,
     "version": "0.1.2",
@@ -1045,6 +1049,10 @@
     "listed": true,
     "version": "3.0.205"
   },
+  "OpenSearch.Net": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Polly": {
     "listed": true,
     "version": "6.0.1"
@@ -1201,6 +1209,14 @@
     "listed": true,
     "version": "1.1.0"
   },
+  "Serilog.Formatting.Elasticsearch": {
+    "listed": true,
+    "version": "8.0.0"
+  },
+  "Serilog.Formatting.OpenSearch": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Serilog.Settings.Configuration": {
     "listed": true,
     "version": "3.0.0"
@@ -1217,6 +1233,10 @@
     "listed": true,
     "version": "1.0.1"
   },
+  "Serilog.Sinks.Elasticsearch": {
+    "listed": true,
+    "version": "8.0.0"
+  },
   "Serilog.Sinks.File": {
     "listed": true,
     "version": "4.1.0"
@@ -1224,6 +1244,10 @@
   "Serilog.Sinks.Graylog": {
     "listed": true,
     "version": "1.1.89"
+  },
+  "Serilog.Sinks.OpenSearch": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "Serilog.Sinks.Trace": {
     "listed": true,
