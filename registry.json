@@ -417,8 +417,8 @@
     "version": "1.0.0"
   },
   "FastMember": {
-	"listed": true,
-	"version": "1.2.0"
+    "listed": true,
+    "version": "1.2.0"
   },
   "FastMember.Signed": {
     "listed": true,
@@ -1190,7 +1190,7 @@
     "analyzer": true
   },
   "runtime.native.System.Data.SqlClient.sni": {
-	"ignore": true
+    "ignore": true
   },
   "Scriban": {
     "listed": true,
@@ -1387,8 +1387,8 @@
     "version": "4.4.0"
   },
   "System.Data.SqlClient": {
-	"listed": true,
-	"version": "4.4.0"
+    "listed": true,
+    "version": "4.4.0"
   },
   "System.Diagnostics.DiagnosticSource": {
     "listed": true,
