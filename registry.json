@@ -135,6 +135,10 @@
     "listed": true,
     "version": "1.0.2"
   },
+  "ClosedXML": {
+    "listed": true,
+    "version": "0.92.1"
+  },
   "CLSS.Constants.CollectionPool": {
     "listed": true,
     "version": "1.1.0"
@@ -348,6 +352,14 @@
     "listed": true,
     "version": "1.1.0"
   },
+  "DocumentFormat.OpenXml": {
+    "listed": true,
+    "version": "2.10.0"
+  },
+  "DocumentFormat.OpenXml.Framework": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "DotNetty.Buffers": {
     "listed": true,
     "version": "0.7.0"
@@ -403,6 +415,14 @@
   "FastEnum": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "FastMember": {
+    "listed": true,
+    "version": "1.2.0"
+  },
+  "FastMember.Signed": {
+    "listed": true,
+    "version": "1.2.0"
   },
   "FluentAssertions": {
     "listed": true,
@@ -505,6 +525,10 @@
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "Irony": {
+    "listed": true,
+    "version": "1.5.0"
   },
   "Jdenticon-net": {
     "listed": true,
@@ -1169,6 +1193,9 @@
     "version": "4.10.0",
     "analyzer": true
   },
+  "runtime.native.System.Data.SqlClient.sni": {
+    "ignore": true
+  },
   "Scriban": {
     "listed": true,
     "version": "1.2.4"
@@ -1275,7 +1302,7 @@
   },
   "SixLabors.Fonts": {
     "listed": true,
-    "version": "1.0.0"
+    "version": "[1.0.0,2.0.0)"
   },
   "SixLabors.ImageSharp": {
     "listed": true,
@@ -1363,11 +1390,19 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.Data.SqlClient": {
+    "listed": true,
+    "version": "4.4.0"
+  },
   "System.Diagnostics.DiagnosticSource": {
     "listed": true,
     "version": "4.5.0"
   },
   "System.Diagnostics.EventLog": {
+    "listed": true,
+    "version": "4.5.0"
+  },
+  "System.Drawing.Common": {
     "listed": true,
     "version": "4.5.0"
   },
@@ -1390,6 +1425,10 @@
   "System.IO.FileSystem.AccessControl": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "System.IO.Packaging": {
+    "listed": true,
+    "version": "4.5.0"
   },
   "System.IO.Pipelines": {
     "listed": true,
@@ -1576,6 +1615,10 @@
   "Websocketsharp.core": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "XLParser": {
+    "listed": true,
+    "version": "1.7.0"
   },
   "YamlDotNet": {
     "listed": true,
