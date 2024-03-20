@@ -517,6 +517,10 @@
     "listed": true,
     "version": "2.13.0"
   },
+  "IdentityModel.OidcClient": {
+    "listed": true,
+    "version": "2.3.0"
+  },
   "IDisposableAnalyzers": {
     "listed": true,
     "version": "1.0.0",
