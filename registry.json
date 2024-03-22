@@ -583,9 +583,13 @@
     "version": "1.4.1"
   },
   "MemoryPack.Core": {
-    "listed": true,
+    "listed": false,
     "version": "1.4.0"
   },
+  "MemoryPack.Generator": {
+    "listed": false,
+    "version": "1.4.0"
+  }
   "MessagePack": {
     "listed": true,
     "version": "1.7.0"
