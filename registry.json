@@ -1596,6 +1596,10 @@
     "listed": true,
     "version": "5.28.0"
   },
+  "Utf8StringInterpolation": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Validation": {
     "listed": true,
     "version": "2.5.42"
@@ -1632,8 +1636,16 @@
     "listed": true,
     "version": "12.0.0"
   },
+  "ZLogger": {
+    "listed": true,
+    "version": "0.1.2"
+  },
   "ZstdSharp.Port": {
     "listed": true,
     "version": "0.5.0"
+  },
+  "ZString": {
+    "listed": true,
+    "version": "0.1.0"
   }
 }
