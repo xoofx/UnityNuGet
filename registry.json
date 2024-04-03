@@ -1430,6 +1430,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "System.IO.Hashing": {
+    "listed": false,
+    "version": "6.0.0"
+  },
   "System.IO.Packaging": {
     "listed": true,
     "version": "4.5.0"
@@ -1598,7 +1602,7 @@
   },
   "Utf8StringInterpolation": {
     "listed": true,
-    "version": "1.0.0"
+    "version": "1.2.0"
   },
   "Validation": {
     "listed": true,
