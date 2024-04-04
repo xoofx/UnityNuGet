@@ -144,7 +144,7 @@ namespace UnityNuGet.Tests
                 // Most versions < 1.7.0 don't target .netstandard2.0
                 @"XLParser",
                 // Versions < 1.3.1 has dependencies on PolySharp
-                @"Utf8StringInterpolation"
+                @"Utf8StringInterpolation",
                 // Versions 2.0.0 has dependencies on Utf8StringInterpolation 1.3.0
                 @"ZLogger"
             };
