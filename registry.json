@@ -467,6 +467,10 @@
     "listed": true,
     "version": "3.8.0"
   },
+  "Google.Cloud.Speech.V1": {
+    "listed": true,
+    "version": "1.2.0"
+  },
   "Grpc.Core": {
     "listed": true,
     "version": "1.20.0"
