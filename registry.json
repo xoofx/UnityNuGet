@@ -562,6 +562,10 @@
     "listed": true,
     "version": "4.0.0"
   },
+  "LiteDB.Async": {
+    "listed": true,
+    "version": "0.0.1"
+  },
   "LiteDb.Extensions.Caching": {
     "listed": true,
     "version": "1.0.0"
