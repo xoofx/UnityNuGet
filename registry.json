@@ -412,6 +412,10 @@
     "listed": false,
     "version": "1.0.6"
   },
+  "Faker.Net": {
+    "listed": true,
+    "version": "1.3.56"
+  },
   "FastEnum": {
     "listed": true,
     "version": "1.0.0"
