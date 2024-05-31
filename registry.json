@@ -467,6 +467,10 @@
     "listed": true,
     "version": "3.8.0"
   },
+  "GraphQL.Common": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "GraphQL.Client": {
     "listed": true,
     "version": "1.0.0"
@@ -1101,17 +1105,9 @@
     "listed": true,
     "version": "3.0.205"
   },
-  "OneOf": {
-    "listed": true,
-    "version": "3.0.205"
-  },
   "OpenSearch.Net": {
     "listed": true,
     "version": "1.0.0"
-  },
-  "Panic.StringUtils": {
-    "listed": false,
-    "version": "1.0.1"
   },
   "Polly": {
     "listed": true,
