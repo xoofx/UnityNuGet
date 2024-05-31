@@ -1589,7 +1589,7 @@
   },
   "TestableIO.System.IO.Abstractions.TestingHelpers": {
     "listed": true,
-    "version": "17.2.26"
+    "version": "18.0.1"
   },
   "TestableIO.System.IO.Abstractions.Wrappers": {
     "listed": true,
