@@ -544,7 +544,7 @@
   },
   "JWT": {
     "listed": true,
-    "version": "6.0.0"
+    "version": "5.2.0"
   },
   "K4os.Compression.LZ4": {
     "listed": true,
