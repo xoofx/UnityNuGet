@@ -1232,13 +1232,33 @@
     "listed": true,
     "version": "2.8.0"
   },
+  "Serilog.Enrichers.AssemblyName": {
+    "listed": true,
+    "version": "1.0.6"
+  },
+  "Serilog.Enrichers.Context": {
+    "listed": true,
+    "version": "4.6.5"
+  },
   "Serilog.Enrichers.Demystifier": {
     "listed": true,
     "version": "0.9.0"
   },
+  "Serilog.Enrichers.Environment": {
+    "listed": true,
+    "version": "2.2.0"
+  },
   "Serilog.Enrichers.Memory": {
     "listed": true,
     "version": "1.0.4"
+  },
+  "Serilog.Enrichers.Process": {
+    "listed": true,
+    "version": "2.0.2"
+  },
+  "Serilog.Enrichers.Thread": {
+    "listed": true,
+    "version": "3.1.0"
   },
   "Serilog.Expressions": {
     "listed": true,
