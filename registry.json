@@ -98,7 +98,7 @@
   },
   "AWSSDK.Core": {
     "listed": true,
-    "version": "3.7.302.8"
+    "version": "3.7.304.13"
   },
   "AWSSDK.S3": {
     "listed": true,
