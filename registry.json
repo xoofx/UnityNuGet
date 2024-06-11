@@ -1,4 +1,8 @@
 {
+  "AgonesSDK": {
+    "listed": true,
+    "version": "1.41.0"
+  },
   "Akka": {
     "listed": true,
     "version": "1.4.1"
