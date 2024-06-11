@@ -447,6 +447,10 @@
     "listed": true,
     "version": "[2.0.0,3.0.0)"
   },
+  "Google.Api.CommonProtos": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Google.Apis": {
     "listed": true,
     "version": "1.35.0"
@@ -470,6 +474,10 @@
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
+  },
+  "Grpc": {
+    "listed": true,
+    "version": "2.23.0"
   },
   "Grpc.Core": {
     "listed": true,
