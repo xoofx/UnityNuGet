@@ -146,7 +146,9 @@ namespace UnityNuGet.Tests
                 // Versions < 1.3.1 has dependencies on PolySharp
                 @"Utf8StringInterpolation",
                 // Versions 2.0.0 has dependencies on Utf8StringInterpolation 1.3.0
-                @"ZLogger"
+                @"ZLogger",
+                // Version 3.1.8 has dependency on `Panic.StringUtils` which doesn't support .netstandard2.0 or 2.1. Rest of versions are fine.
+                @"GraphQL.Client.Serializer.Newtonsoft"
             };
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
