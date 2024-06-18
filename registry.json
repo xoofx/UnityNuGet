@@ -481,7 +481,7 @@
   },
   "GraphQL.Client.Serializer.Newtonsoft": {
     "listed": true,
-    "version": "2.1.0"
+    "version": "3.1.9"
   },
   "GraphQL.Common": {
     "listed": true,
