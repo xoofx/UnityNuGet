@@ -467,6 +467,30 @@
     "listed": true,
     "version": "3.8.0"
   },
+  "GraphQL.Client": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "GraphQL.Client.Abstractions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "GraphQL.Client.Abstractions.Websocket": {
+    "listed": true,
+    "version": "2.1.0"
+  },
+  "GraphQL.Client.Serializer.Newtonsoft": {
+    "listed": true,
+    "version": "3.1.9"
+  },
+  "GraphQL.Common": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "GraphQL.Primitives": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Grpc.Core": {
     "listed": true,
     "version": "1.20.0"
@@ -1080,10 +1104,6 @@
   "ObservableCollections.R3": {
     "listed": true,
     "version": "2.0.0"
-  },
-  "OneOf": {
-    "listed": true,
-    "version": "3.0.205"
   },
   "OneOf": {
     "listed": true,
