@@ -1672,6 +1672,14 @@
     "listed": true,
     "version": "2.5.42"
   },
+  "VitalRouter": {
+	  "listed": true,
+	  "version": "0.7.0"
+  },
+  "VitalRouter.Extensions.DependencyInjection": {
+	  "listed": true,
+	  "version": "0.7.1"
+  },
   "VoltRpc": {
     "listed": true,
     "version": "1.0.0"
