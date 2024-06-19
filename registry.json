@@ -1268,6 +1268,10 @@
     "listed": true,
     "version": "2.2.0"
   },
+  "Serilog.Enrichers.GlobalLogContext": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Serilog.Enrichers.Memory": {
     "listed": true,
     "version": "1.0.4"
