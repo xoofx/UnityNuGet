@@ -467,6 +467,30 @@
     "listed": true,
     "version": "3.8.0"
   },
+  "GraphQL ": {
+    "listed": true,
+    "version": "7.8.0"
+  },
+  "GraphQL.DataLoader": {
+    "listed": true,
+    "version": "7.8.0"
+  },
+  "GraphQL.MicrosoftDI": {
+    "listed": true,
+    "version": "7.8.0"
+  },
+  "GraphQL.SystemTextJson": {
+    "listed": true,
+    "version": "7.8.0"
+  },
+  "GraphQL.MemoryCache": {
+    "listed": true,
+    "version": "7.8.0"
+  },
+  "GraphQL.NewtonsoftJson": {
+    "listed": true,
+    "version": "7.8.0"
+  },
   "Grpc.Core": {
     "listed": true,
     "version": "1.20.0"
@@ -699,6 +723,18 @@
   "Microsoft.Data.Sqlite.Core": {
     "listed": true,
     "version": "2.0.0"
+  },
+  "Microsoft.Data.Analysis": {
+    "listed": true,
+    "version": "0.21.1"
+  },
+  "Microsoft.ML.DataView": {
+    "listed": true,
+    "version": "3.0.1"
+  },
+  "Apache.Arrow": {
+    "listed": true,
+    "version": "16.1.0"
   },
   "Microsoft.DotNet.PlatformAbstractions": {
     "listed": true,
@@ -1361,6 +1397,22 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "SocketIOClient ": {
+    "listed": true,
+    "version": "3.1.1"
+  },
+  "SocketIO.Core": {
+    "listed": true,
+    "version": "3.1.1"
+  },
+  "SocketIO.Serializer.Core": {
+    "listed": true,
+    "version": "3.1.1"
+  },
+  "SocketIO.Serializer.SystemTextJson": {
+    "listed": true,
+    "version": "3.1.1"
+  },
   "SQLitePCLRaw.bundle_e_sqlite3": {
     "listed": true,
     "version": "2.0.0"
@@ -1421,6 +1473,10 @@
   "System.Collections.Immutable": {
     "listed": true,
     "version": "1.4.0"
+  },
+  "System.Collections": {
+    "listed": true,
+    "version": "4.3.0"
   },
   "System.ComponentModel.Annotations": {
     "listed": true,
@@ -1488,7 +1544,7 @@
   },
   "System.Memory": {
     "listed": true,
-    "version": "4.5.0"
+    "version": "4.5.5"
   },
   "System.Net.Http.WinHttpHandler": {
     "listed": true,
@@ -1585,7 +1641,7 @@
   },
   "System.Text.Json": {
     "listed": true,
-    "version": "4.6.0"
+    "version": "8.0.3"
   },
   "System.Threading.Channels": {
     "listed": true,
