@@ -1048,6 +1048,9 @@
     "listed": true,
     "version": "0.1.0"
   },
+  "NETStandard.Library": {
+    "ignore": true
+  },
   "Newtonsoft.Json": {
     "listed": true,
     "version": "11.0.1"
