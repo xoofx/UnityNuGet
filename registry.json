@@ -1652,6 +1652,10 @@
     "version": "1.0.4.1",
     "analyzer": true
   },
+  "UniTask": {
+    "listed": true,
+    "version": "2.0.13"
+  },
   "UnitsNet": {
     "listed": true,
     "version": "5.28.0"
@@ -1673,12 +1677,12 @@
     "version": "2.5.42"
   },
   "VitalRouter": {
-	  "listed": true,
-	  "version": "0.7.0"
+    "listed": true,
+    "version": "0.7.0"
   },
   "VitalRouter.Extensions.DependencyInjection": {
-	  "listed": true,
-	  "version": "0.7.1"
+    "listed": true,
+    "version": "0.7.1"
   },
   "VoltRpc": {
     "listed": true,
