@@ -32,6 +32,10 @@
     "listed": true,
     "version": "1.4.15"
   },
+  "Akka.Discovery": {
+    "listed": true,
+    "version": "1.4.29"
+  },
   "Akka.DistributedData": {
     "listed": true,
     "version": "1.4.1"
