@@ -697,7 +697,7 @@
   },
   "Microsoft.AspNetCore.WebUtilities": {
     "listed": true,
-    "version": "[2.2.0]"
+    "version": "[2.0.0,2.2.0]"
   },
   "Microsoft.Azure.Kinect.Sensor": {
     "listed": true,
@@ -979,7 +979,7 @@
   },
   "Microsoft.Net.Http.Headers": {
     "listed": true,
-    "version": "[2.2.8]"
+    "version": "[2.0.0,2.2.8]"
   },
   "Microsoft.NET.StringTools": {
     "listed": true,
