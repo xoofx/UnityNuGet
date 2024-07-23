@@ -1561,6 +1561,10 @@
     "listed": true,
     "version": "4.5.0"
   },
+  "System.Net.Http.Json": {
+    "listed": true,
+    "version": "3.2.0"
+  },
   "System.Net.Http.WinHttpHandler": {
     "listed": true,
     "version": "4.4.0"
