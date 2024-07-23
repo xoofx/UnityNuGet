@@ -537,6 +537,26 @@
       "UNITY_EDITOR"
     ]
   },
+  "HotChocolate.Language.SyntaxTree": {
+    "listed": true,
+    "version": "11.0.0"
+  },
+  "HotChocolate.Transport.Abstractions": {
+    "listed": true,
+    "version": "13.4.0"
+  },
+  "HotChocolate.Transport.Http": {
+    "listed": true,
+    "version": "13.4.0"
+  },
+  "HotChocolate.Transport.Sockets": {
+    "listed": true,
+    "version": "13.0.0"
+  },
+  "HotChocolate.Utilities": {
+    "listed": true,
+    "version": "11.0.0"
+  },
   "HtmlAgilityPack": {
     "listed": true,
     "version": "1.11.24"
@@ -1427,6 +1447,22 @@
   "Stateless": {
     "listed": true,
     "version": "4.3.0"
+  },
+  "StrawberryShake.Core": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Resources": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Transport.Http": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Transport.WebSockets": {
+    "listed": true,
+    "version": "11.1.0"
   },
   "StrongInject": {
     "listed": true,
