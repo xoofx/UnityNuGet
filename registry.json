@@ -555,7 +555,7 @@
   },
   "HotChocolate.Utilities": {
     "listed": true,
-    "version": "11.0.0"
+    "version": "0.7.0"
   },
   "HtmlAgilityPack": {
     "listed": true,
