@@ -537,6 +537,26 @@
       "UNITY_EDITOR"
     ]
   },
+  "HotChocolate.Language.SyntaxTree": {
+    "listed": true,
+    "version": "11.0.0"
+  },
+  "HotChocolate.Transport.Abstractions": {
+    "listed": true,
+    "version": "13.4.0"
+  },
+  "HotChocolate.Transport.Http": {
+    "listed": true,
+    "version": "13.4.0"
+  },
+  "HotChocolate.Transport.Sockets": {
+    "listed": true,
+    "version": "13.0.0"
+  },
+  "HotChocolate.Utilities": {
+    "listed": true,
+    "version": "0.7.0"
+  },
   "HtmlAgilityPack": {
     "listed": true,
     "version": "1.11.24"
@@ -674,6 +694,10 @@
   "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson": {
     "listed": true,
     "version": "3.0.0"
+  },
+  "Microsoft.AspNetCore.WebUtilities": {
+    "listed": true,
+    "version": "[2.0.0,2.2.0]"
   },
   "Microsoft.Azure.Kinect.Sensor": {
     "listed": true,
@@ -952,6 +976,10 @@
   "Microsoft.IO.RecyclableMemoryStream": {
     "listed": true,
     "version": "1.4.0"
+  },
+  "Microsoft.Net.Http.Headers": {
+    "listed": true,
+    "version": "[2.0.0,2.2.8]"
   },
   "Microsoft.NET.StringTools": {
     "listed": true,
@@ -1428,6 +1456,22 @@
     "listed": true,
     "version": "4.3.0"
   },
+  "StrawberryShake.Core": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Resources": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Transport.Http": {
+    "listed": true,
+    "version": "11.1.0"
+  },
+  "StrawberryShake.Transport.WebSockets": {
+    "listed": true,
+    "version": "11.1.0"
+  },
   "StrongInject": {
     "listed": true,
     "version": "1.0.0",
@@ -1524,6 +1568,10 @@
   "System.Memory": {
     "listed": true,
     "version": "4.5.0"
+  },
+  "System.Net.Http.Json": {
+    "listed": true,
+    "version": "3.2.0"
   },
   "System.Net.Http.WinHttpHandler": {
     "listed": true,
