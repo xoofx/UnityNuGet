@@ -10,7 +10,7 @@
     <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageVersion Include="NuGet.PackageManagement" Version="6.10.2" />
+    <PackageVersion Include="NuGet.PackageManagement" Version="6.11.0" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
     <PackageVersion Include="NUglify" Version="1.21.9" />
     <PackageVersion Include="nunit" Version="4.1.0" />
