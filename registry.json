@@ -88,6 +88,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "AsyncReactAwait": {
+    "listed": true,
+    "version": "0.11.110"
+  },
   "AutoMapper": {
     "listed": true,
     "version": "7.0.1"
