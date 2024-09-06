@@ -64,6 +64,10 @@
     "listed": true,
     "version": "0.1.0"
   },
+  "Akka.Streams": {
+    "listed": true,
+    "version": "1.4.1"
+  },
   "Antlr4.Runtime.Standard": {
     "listed": true,
     "version": "4.9.1"
@@ -1187,6 +1191,10 @@
   "R3": {
     "listed": true,
     "version": "0.0.3"
+  },
+  "Reactive.Streams": {
+    "listed": true,
+    "version": "1.0.3"
   },
   "ReactiveProperty": {
     "listed": true,
