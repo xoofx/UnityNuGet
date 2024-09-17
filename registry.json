@@ -1,4 +1,8 @@
 {
+  "AdysTech.CredentialManager": {
+    "listed": true,
+    "version": "2.3.0"
+  },
   "Akka": {
     "listed": true,
     "version": "1.4.1"
