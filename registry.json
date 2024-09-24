@@ -76,6 +76,14 @@
     "listed": true,
     "version": "4.9.1"
   },
+  "Apache.Arrow": {
+    "listed": true,
+    "version": "10.0.0"
+  },
+  "Apache.Arrow.Compression": {
+    "listed": true,
+    "version": "12.0.0"
+  },
   "Args": {
     "listed": true,
     "version": "1.2.0"
@@ -589,6 +597,14 @@
   "K4os.Compression.LZ4": {
     "listed": true,
     "version": "1.0.2"
+  },
+  "K4os.Compression.LZ4.Streams": {
+    "listed": true,
+    "version": "1.0.2"
+  },
+  "K4os.Hash.xxHash": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "Kdl.NetStandard.x64": {
     "listed": true,
