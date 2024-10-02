@@ -149,7 +149,11 @@
   },
   "ClosedXML": {
     "listed": true,
-    "version": "0.92.1"
+    "version": "[0.92.1,0.102.3]"
+  },
+  "ClosedXML.Parser": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "CLSS.Constants.CollectionPool": {
     "listed": true,
@@ -991,7 +995,7 @@
     "listed": true,
     "version": "1.0.8"
   },
-  "MiniExcel":{
+  "MiniExcel": {
     "listed": true,
     "version": "0.2.0"
   },
