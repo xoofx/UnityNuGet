@@ -487,6 +487,10 @@
     "listed": true,
     "version": "1.35.0"
   },
+  "Google.Apis.Sheets.v4": {
+    "listed": true,
+    "version: "1.35.0"
+  },
   "Google.FlatBuffers": {
     "listed": true,
     "version": "22.9.24"
