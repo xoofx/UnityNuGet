@@ -578,6 +578,10 @@
     "version": "1.0.0",
     "analyzer": true
   },
+  "IndexRange": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "Injecter": {
     "listed": true,
     "version": "1.0.0"
