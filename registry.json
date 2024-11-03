@@ -1735,6 +1735,10 @@
     "listed": true,
     "version": "2.5.42"
   },
+  "VideoLibrary": {
+    "listed": true,
+    "version": "3.2.6"
+  },
   "VoltRpc": {
     "listed": true,
     "version": "1.0.0"
