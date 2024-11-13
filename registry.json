@@ -719,6 +719,10 @@
     "listed": true,
     "version": "1.0.0"
   },
+  "Microsoft.Bcl.Cryptography": {
+    "listed": true,
+    "version": "8.0.0"
+  },
   "Microsoft.Bcl.HashCode": {
     "listed": true,
     "version": "1.0.0"
@@ -1580,6 +1584,10 @@
   "System.Net.Http.WinHttpHandler": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "System.Net.ServerSentEvents": {
+    "listed": true,
+    "version": "9.0.0"
   },
   "System.Numerics.Vectors": {
     "listed": false,
