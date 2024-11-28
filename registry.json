@@ -1202,7 +1202,7 @@
   },
   "ProcessX": {
     "listed": true,
-    "version": "1.5.5"
+    "version": "1.0.0"
   },
   "protobuf-net": {
     "listed": true,
@@ -1737,7 +1737,7 @@
   },
   "Validation": {
     "listed": true,
-    "version": "2.5.42"
+    "version": "2.5.42"さ
   },
   "VoltRpc": {
     "listed": true,
