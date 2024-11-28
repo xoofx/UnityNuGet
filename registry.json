@@ -602,6 +602,10 @@
     "listed": true,
     "version": "1.4.0"
   },
+  "Jurassic": {
+    "listed": true,
+    "version": "3.2.6"
+  },
   "JWT": {
     "listed": true,
     "version": "5.2.0"
