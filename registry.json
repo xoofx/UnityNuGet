@@ -469,7 +469,7 @@
   },
   "functions-csharp": {
     "listed": true,
-    "version": "1.3.1"
+    "version": "1.0.0"
   },
   "GeneticSharp": {
     "listed": true,
@@ -1022,6 +1022,10 @@
   "Microsoft.Win32.Registry": {
     "listed": true,
     "version": "4.4.0"
+  },
+  "MimeMapping": {
+    "listed": true,
+    "version": "2.0.0"
   },
   "MimeTypeMapOfficial": {
     "listed": true,
