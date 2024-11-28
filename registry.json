@@ -467,6 +467,10 @@
     "listed": true,
     "version": "8.2.2"
   },
+  "functions-csharp": {
+    "listed": true,
+    "version": "1.3.1"
+  },
   "GeneticSharp": {
     "listed": true,
     "version": "[2.0.0,3.0.0)"
@@ -498,6 +502,10 @@
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
+  },
+  "gotrue-csharp": {
+    "listed": true,
+    "version": "4.2.6"
   },
   "GraphQL.Client": {
     "listed": true,
@@ -1188,6 +1196,10 @@
     "listed": true,
     "version": "6.0.0"
   },
+  "postgrest-csharp": {
+    "listed": true,
+    "version": "3.4.1"
+  },
   "Prism.Container.Abstractions": {
     "listed": true,
     "version": "9.0.88"
@@ -1239,6 +1251,10 @@
   "ReactiveProperty.Core": {
     "listed": true,
     "version": "7.0.0"
+  },
+  "realtime-csharp": {
+    "listed": true,
+    "version": "6.0.4"
   },
   "RestSharp": {
     "listed": true,
@@ -1492,6 +1508,18 @@
   "SunCalcNet": {
     "listed": true,
     "version": "1.1.0"
+  },
+  "supabase-core": {
+    "listed": true,
+    "version": "0.0.3"
+  },
+  "supabase-csharp": {
+    "listed": true,
+    "version": "0.15.0"
+  },
+  "supabase-storage-csharp": {
+    "listed": true,
+    "version": "1.4.0"
   },
   "Sylvan.Data.Csv": {
     "listed": true,
