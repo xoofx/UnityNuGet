@@ -1202,7 +1202,7 @@
   },
   "postgrest-csharp": {
     "listed": true,
-    "version": "3.4.1"
+    "version": "2.0.0"
   },
   "Prism.Container.Abstractions": {
     "listed": true,
