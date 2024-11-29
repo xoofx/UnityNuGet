@@ -602,6 +602,10 @@
     "listed": true,
     "version": "1.4.0"
   },
+  "Jurassic": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "JWT": {
     "listed": true,
     "version": "5.2.0"
@@ -1746,6 +1750,10 @@
   "Validation": {
     "listed": true,
     "version": "2.5.42"
+  },
+  "VideoLibrary": {
+    "listed": true,
+    "version": "3.2.2"
   },
   "VoltRpc": {
     "listed": true,
