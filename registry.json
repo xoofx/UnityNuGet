@@ -1204,6 +1204,10 @@
     "listed": true,
     "version": "9.0.537"
   },
+  "ProcessX": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "protobuf-net": {
     "listed": true,
     "version": "2.3.6"
