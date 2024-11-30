@@ -614,6 +614,10 @@
     "listed": true,
     "version": "5.2.0"
   },
+  "JWTDecoder": {
+    "listed": true,
+    "version": "0.9.0"
+  },
   "K4os.Compression.LZ4": {
     "listed": true,
     "version": "1.0.2"
@@ -1519,7 +1523,7 @@
   },
   "supabase-csharp": {
     "listed": true,
-    "version": "0.15.0"
+    "version": "0.2.0"
   },
   "supabase-storage-csharp": {
     "listed": true,
@@ -1794,6 +1798,10 @@
   "Websocketsharp.core": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "WebSocketSharp-netstandard": {
+    "listed": true,
+    "version": "1.0.1"
   },
   "XLParser": {
     "listed": true,
