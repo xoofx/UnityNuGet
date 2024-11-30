@@ -1515,7 +1515,7 @@
   },
   "supabase-core": {
     "listed": true,
-    "version": "0.0.3"
+    "version": "0.0.1"
   },
   "supabase-csharp": {
     "listed": true,
