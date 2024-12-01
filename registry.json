@@ -1795,13 +1795,13 @@
     "listed": true,
     "version": "1.0.1"
   },
-  "Websocketsharp.core": {
-    "listed": true,
-    "version": "1.0.0"
-  },
   "WebSocketSharp-netstandard": {
     "listed": true,
     "version": "1.0.1"
+  },
+  "Websocketsharp.core": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "XLParser": {
     "listed": true,
