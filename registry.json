@@ -1527,7 +1527,7 @@
   },
   "supabase-storage-csharp": {
     "listed": true,
-    "version": "1.4.0"
+    "version": "1.0.0"
   },
   "Sylvan.Data.Csv": {
     "listed": true,
