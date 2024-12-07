@@ -483,6 +483,10 @@
     "listed": true,
     "version": "2.7.0"
   },
+  "Google.Api.Gax.Grpc.GrpcCore": {
+    "listed": true,
+    "version": "3.0.0"
+  },
   "Google.Apis": {
     "listed": true,
     "version": "1.35.0"
