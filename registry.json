@@ -467,6 +467,10 @@
     "listed": true,
     "version": "8.2.2"
   },
+  "functions-csharp": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "GeneticSharp": {
     "listed": true,
     "version": "[2.0.0,3.0.0)"
@@ -534,6 +538,10 @@
   "Google.Protobuf": {
     "listed": true,
     "version": "3.8.0"
+  },
+  "gotrue-csharp": {
+    "listed": true,
+    "version": "2.1.4"
   },
   "GraphQL.Client": {
     "listed": true,
@@ -649,6 +657,10 @@
   "JWT": {
     "listed": true,
     "version": "5.2.0"
+  },
+  "JWTDecoder": {
+    "listed": true,
+    "version": "0.9.0"
   },
   "K4os.Compression.LZ4": {
     "listed": true,
@@ -1068,6 +1080,10 @@
     "listed": true,
     "version": "4.4.0"
   },
+  "MimeMapping": {
+    "listed": true,
+    "version": "1.0.1.14"
+  },
   "MimeTypeMapOfficial": {
     "listed": true,
     "version": "1.0.8"
@@ -1241,6 +1257,10 @@
     "listed": true,
     "version": "6.0.0"
   },
+  "postgrest-csharp": {
+    "listed": true,
+    "version": "2.0.0"
+  },
   "Prism.Container.Abstractions": {
     "listed": true,
     "version": "9.0.88"
@@ -1296,6 +1316,10 @@
   "ReactiveProperty.Core": {
     "listed": true,
     "version": "7.0.0"
+  },
+  "realtime-csharp": {
+    "listed": true,
+    "version": "2.0.0"
   },
   "RestSharp": {
     "listed": true,
@@ -1549,6 +1573,18 @@
   "SunCalcNet": {
     "listed": true,
     "version": "1.1.0"
+  },
+  "supabase-core": {
+    "listed": true,
+    "version": "0.0.1"
+  },
+  "supabase-csharp": {
+    "listed": true,
+    "version": "0.2.0"
+  },
+  "supabase-storage-csharp": {
+    "listed": true,
+    "version": "1.0.0"
   },
   "Sylvan.Data.Csv": {
     "listed": true,
@@ -1821,6 +1857,10 @@
     "version": "2.3.0"
   },
   "Websocket.Client": {
+    "listed": true,
+    "version": "1.0.1"
+  },
+  "WebSocketSharp-netstandard": {
     "listed": true,
     "version": "1.0.1"
   },
