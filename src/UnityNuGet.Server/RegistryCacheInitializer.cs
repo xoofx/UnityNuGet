@@ -44,7 +44,7 @@ namespace UnityNuGet.Server
 
             if (isDevelopment)
             {
-                var currentDirectory = Path.GetDirectoryName(typeof(Startup).Assembly.Location)!;
+                var currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
                 unityPackageFolder = Path.Combine(currentDirectory, new DirectoryInfo(registryOptions.RootPersistentFolder!).Name);
             }
             else

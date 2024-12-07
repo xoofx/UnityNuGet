@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG TARGETARCH
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY . ./
 RUN dotnet publish src -a $TARGETARCH -c Release -o /app/src/out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/src/out .
 ENTRYPOINT ["dotnet", "UnityNuGet.Server.dll"]

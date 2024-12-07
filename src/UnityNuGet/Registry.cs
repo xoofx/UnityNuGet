@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace UnityNuGet
@@ -12,7 +13,7 @@ namespace UnityNuGet
     public sealed class Registry : Dictionary<string, RegistryEntry>
     {
         private const string RegistryFileName = "registry.json";
-        private static readonly object LockRead = new();
+        private static readonly Lock LockRead = new();
         private static Registry? _registry = null;
 
         // A comparer is established for cases where the dependency name is not set to the correct case.
@@ -31,7 +32,7 @@ namespace UnityNuGet
         {
             lock (LockRead)
             {
-                _registry ??= Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(typeof(Registry).Assembly.Location)!, RegistryFileName)));
+                _registry ??= Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(AppContext.BaseDirectory)!, RegistryFileName)));
             }
             return _registry;
         }
