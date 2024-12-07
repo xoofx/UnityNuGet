@@ -1,6 +1,6 @@
 # UnityNuGet [![Build Status](https://github.com/xoofx/UnityNuGet/workflows/ci/badge.svg?branch=master)](https://github.com/xoofx/UnityNuGet/actions) [![Static Badge](https://img.shields.io/badge/server-status-blue)](https://unitynuget-registry.azurewebsites.net/status) [![Static Badge](https://img.shields.io/badge/server-feed-blue)](https://unitynuget-registry.azurewebsites.net/-/all)
 
-<img align="right" width="160px" height="160px" src="img/unitynuget.png">
+<img align="right" width="160px" height="160px" alt="UnityNuGet logo" src="img/unitynuget.png">
 
 This project provides a seamlessly integration of a [curated list](registry.json) of NuGet packages within the Unity Package Manager.
 
@@ -8,7 +8,7 @@ This project provides a seamlessly integration of a [curated list](registry.json
 
 ## Installation
 
-### Add scope registry (manifest.json):
+### Add scope registry (manifest.json)
 
 In order to use this service you simply need to edit the `Packages/manifest.json` in your project and add the following scoped registry:
 
@@ -24,16 +24,16 @@ In order to use this service you simply need to edit the `Packages/manifest.json
     }
   ],
   "dependencies": {
-     "org.nuget.scriban":  "2.1.0"
+    "org.nuget.scriban": "2.1.0"
   }
 }
 ```
 
-### Add scope registry (Package Manager UI):
+### Add scope registry (Package Manager UI)
 
-Instructions: https://docs.unity3d.com/Manual/class-PackageManager.html
+Instructions: <https://docs.unity3d.com/Manual/class-PackageManager.html>
 
-```
+```yaml
 Name: Unity NuGet
 
 Url: https://unitynuget-registry.azurewebsites.net
@@ -43,21 +43,21 @@ Scope(s): org.nuget
 
 ### Disable Assembly Version Validation
 
-This step is necessary to ensure that binding redirects for [strongly named assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/strong-named) in NuGet packages resolve correctly to paths _within the Unity project_. 
+This step is necessary to ensure that binding redirects for [strongly named assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/strong-named) in NuGet packages resolve correctly to paths _within the Unity project_.
 
 - In Unity 2022.2+, this is the [default behavior](https://forum.unity.com/threads/editor-assembly-loading-issues-unloading-broken-assembly-could-not-load-signature.754508/#post-8647791), so no action is required.
 - For earlier Unity versions, uncheck "Project Settings > Player > Other Settings > Configuration > Assembly Version Validation"
 
 ### Verify installation
 
-> WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already, 
+> WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already,
 > it could be that we have updated packages on the server, and in that case, you need to clear the cache containing
-> all Unity NPM packages downdloaded from the `unitynuget-registry.azurewebsites.net` registry.
+> all Unity NPM packages downloaded from the `unitynuget-registry.azurewebsites.net` registry.
 > On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget-registry.azurewebsites.net`
 >
-> Cache locations by OS: https://docs.unity3d.com/Manual/upm-cache.html
+> Cache locations by OS: <https://docs.unity3d.com/Manual/upm-cache.html>
 
-When opening the Package Manager Window, you should see a few packages coming from NuGet (with the postfix text ` (NuGet)`)
+When opening the Package Manager Window, you should see a few packages coming from NuGet (with the postfix text `‎ (NuGet)`)
 
 ![UnityEditorWithNuGet](img/unity_editor_with_nuget.jpg)
 
@@ -68,7 +68,7 @@ This service provides only a [curated list](registry.json) of NuGet packages
 Your NuGet package needs to respect a few constraints in order to be listed in the curated list:
 
 - It must have non-preview versions (e.g `1.0.0` but not `1.0.0-preview.1`)
-- It must provide `.NETStandard2.0` assemblies as part of its package
+- It must provide at least `.NETStandard2.0` (and optionally `.NETStandard2.1`) assemblies as part of its package
 
 You can send a PR to this repository to modify the [registry.json](registry.json) file (don't forget to maintain the alphabetical order)
 
@@ -76,7 +76,7 @@ You also need to **specify the lowest version of your package that has support f
 
 Beware that **all transitive dependencies of the package** must be **explicitly listed** in the registry as well.
 
-> NOTE: 
+> NOTE:
 > * We reserve the right to decline a package to be available through this service
 > * The server will be updated only when a new version tag is pushed on the main branch.
 
@@ -84,15 +84,16 @@ Beware that **all transitive dependencies of the package** must be **explicitly 
 
 Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
-> NOTE: This service is currently only tested with **`Unity 2019.x, 2020.x and 2021.x`**
+> NOTE: This service is currently only tested with **`Unity 2019.x, 2020.x, 2021.x, 2022.x, 2023.x and 6`**
 >
 > It may not work with a more recent version of Unity
 
 ## Docker
 
 > Available in [ghcr (GitHub Container Registry)](https://github.com/xoofx/UnityNuGet/pkgs/container/unitynuget).
-> 
+>
 > Supported platforms:
+>
 > - linux/amd64
 > - linux/arm64
 
@@ -144,7 +145,7 @@ On Azure through my own Azure credits coming from my MVP subscription, enjoy!
 
 ### **Why can't you add all NuGet packages?**
 
-The reason is that many NuGet packages are not compatible with Unity, or do not provide `.NETStandard2.0` assemblies or are not relevant for being used within Unity.
+The reason is that many NuGet packages are not compatible with Unity, or do not provide `.NETStandard2.0` or `.NETStandard2.1` assemblies or are not relevant for being used within Unity.
 
 Also currently the Package Manager doesn't provide a way to filter easily packages, so the UI is currently not adequate to list lots of packages.
 
@@ -154,19 +155,21 @@ Since 2019.1.x, Unity is compatible with `.NETStandard2.0` and it is the .NET pr
 
 Having a `.NETStandard2.0` for NuGet packages for Unity can ensure that the experience to add a package to your project is consistent and well supported.
 
-> More information: https://docs.unity3d.com/Manual/dotnetProfileSupport.html
+As of Unity 2021.x it also supports `.NETStandard2.1` so packages providing this target will be compatible with this version of Unity or newer.
+
+> More information: <https://docs.unity3d.com/Manual/dotnet-profile-support.html>
 
 ### **How this service is working?**
 
-This project implements a simplified compatible NPM server in C# using ASP.NET Core and converts NuGet packages to Unity packages before serving them. 
+This project implements a simplified compatible NPM server in C# using ASP.NET Core and converts NuGet packages to Unity packages before serving them.
 
-Every 10min, packages are updated from NuGet so that if a new version is published, from the curated list of NuGet packages, it will be available through this service.
+Every 10 minutes, packages are updated from NuGet so that if a new version is published, from the curated list of NuGet packages, it will be available through this service.
 
 Once converted, these packages are cached on the disk on the server.
 
 ## License
 
-This software is released under the [BSD-Clause 2 license](https://opensource.org/licenses/BSD-2-Clause). 
+This software is released under the [BSD-Clause 2 license](https://opensource.org/licenses/BSD-2-Clause).
 
 ## Author
 

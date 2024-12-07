@@ -1,36 +1,44 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using UnityNuGet;
+using UnityNuGet.Server;
 
-namespace UnityNuGet.Server
+var builder = WebApplication.CreateBuilder(args);
+
+// Add the registry cache initializer
+builder.Services.AddHostedService<RegistryCacheInitializer>();
+// Add the registry cache updater
+builder.Services.AddHostedService<RegistryCacheUpdater>();
+// Add the registry cache report
+builder.Services.AddSingleton<RegistryCacheReport>();
+builder.Services.AddSingleton<RegistryCacheSingleton>();
+
+builder.Services.Configure<RegistryOptions>(builder.Configuration.GetSection("Registry"));
+builder.Services.AddSingleton<IValidateOptions<RegistryOptions>, ValidateRegistryOptions>();
+builder.Services.AddOptionsWithValidateOnStart<RegistryOptions, ValidateRegistryOptions>();
+
+builder.Services.AddApplicationInsightsTelemetry();
+
+// Also enable NewtonsoftJson serialization
+builder.Services.AddControllers().AddNewtonsoftJson();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public static class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    //webBuilder.UseSetting("detailedErrors", "true");
-                    webBuilder.ConfigureServices((context, services) =>
-                    {
-                        // Add the registry cache initializer
-                        services.AddHostedService<RegistryCacheInitializer>();
-                        // Add the registry cache updater
-                        services.AddHostedService<RegistryCacheUpdater>();
-                        // Add the registry cache report
-                        services.AddSingleton<RegistryCacheReport>();
-                        services.AddSingleton<RegistryCacheSingleton>();
-
-                        services.AddOptions<RegistryOptions>()
-                            .Bind(context.Configuration.GetSection("Registry"))
-                            .ValidateDataAnnotations();
-                    });
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseDeveloperExceptionPage();
+    app.LogRequestHeaders(app.Services.GetRequiredService<ILoggerFactory>());
 }
+else
+{
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+app.UseRouting();
+app.MapControllers();
+app.MapStatus();
+
+app.Run();

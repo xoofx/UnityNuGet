@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NuGet.Frameworks;
 
@@ -28,6 +29,7 @@ namespace UnityNuGet
         public TimeSpan UpdateInterval { get; set; }
 
         [Required]
+        [ValidateEnumeratedItems]
         public RegistryTargetFramework[]? TargetFrameworks { get; set; }
     }
 

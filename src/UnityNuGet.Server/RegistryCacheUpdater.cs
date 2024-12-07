@@ -60,9 +60,18 @@ namespace UnityNuGet.Server
                     await Task.Delay((int)_registryOptions.UpdateInterval.TotalMilliseconds, stoppingToken);
                 }
             }
+            catch (TaskCanceledException)
+            {
+                string message = "RegistryCache update canceled";
+
+                _logger.LogInformation("{Message}", message);
+
+                _registryCacheReport.AddInformation($"{message}.");
+                _registryCacheReport.Complete();
+            }
             catch (Exception ex)
             {
-                string message = "Error while building a new registry cache.";
+                string message = "Error while building a new registry cache";
 
                 _logger.LogError(ex, "{Message}", message);
 
