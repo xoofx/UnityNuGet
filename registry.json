@@ -666,6 +666,7 @@
     "listed": true,
     "version": "2.0.323"
   },
+  "MessagePackAnalyzer": {
   "MessagePipe": {
     "listed": true,
     "version": "0.0.1"
