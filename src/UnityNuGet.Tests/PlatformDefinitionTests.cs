@@ -27,7 +27,7 @@ namespace UnityNuGet.Tests
             });
             Assert.Multiple(() =>
             {
-                Assert.That(win64.Cpu, Is.EqualTo(UnityCpu.X64));
+                Assert.That(win64?.Cpu, Is.EqualTo(UnityCpu.X64));
                 Assert.That(win.Children, Does.Contain(win64));
             });
 
@@ -56,7 +56,7 @@ namespace UnityNuGet.Tests
         public void RemainingPlatforms_OneVisited()
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
-            
+
             foreach (var child in platformDefs.Children)
             {
                 var visited = new HashSet<PlatformDefinition>() { child };

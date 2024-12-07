@@ -92,8 +92,7 @@ namespace UnityNuGet.Tests
             Assert.That(libFiles.SetEquals(runtimeFiles), Is.True);
         }
 
-        [Test]
-        public async Task Ensure_Min_Version_Is_Correct_Ignoring_Analyzers_And_Native_Libs()
+        static async Task<TestCaseData[]> AllRegistries()
         {
             var registry = Registry.GetInstance();
 
@@ -153,110 +152,57 @@ namespace UnityNuGet.Tests
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
 
-            foreach (var registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
-            {
-                var packageId = registryKvp.Key;
-
-                if (excludedPackagesRegex.IsMatch(packageId))
-                {
-                    continue;
-                }
-
-                var versionRange = registryKvp.Value.Version;
-
-                var dependencyPackageMetas = await resource.GetMetadataAsync(
-                    packageId,
-                    includePrerelease: false,
-                    includeUnlisted: false,
-                    cache,
-                    logger,
-                    cancellationToken);
-
-                var packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
-
-                if (packageIdentity != null)
-                {
-                    Assert.That(versionRange!.MinVersion, Is.EqualTo(packageIdentity.Version), $"Package {packageId}");
-                }
-                else
-                {
-                    var settings = Settings.LoadDefaultSettings(root: null);
-
-                    var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
-                            new SourceRepository[] { repository },
-                            new PackageIdentity(registryKvp.Key, registryKvp.Value.Version!.MinVersion),
-                            new PackageDownloadContext(cache),
-                            SettingsUtility.GetGlobalPackagesFolder(settings),
-                            logger, cancellationToken);
-
-                    var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, logger).AnyAsync();
-
-                    if (hasNativeLib)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        Assert.Fail(packageId);
-                    }
-                }
-            }
+            return registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored).OrderBy((pair) => pair.Key).Select((pair) => {
+                return new TestCaseData(resource,logger,cache,repository,excludedPackagesRegex,nuGetFrameworks,pair.Key,pair.Value.Version).SetArgDisplayNames(pair.Key,pair.Value.Version!.ToString());
+            }).ToArray();
         }
 
-        [Test]
-        public async Task Ensure_Do_Not_Exceed_The_Maximum_Number_Of_Allowed_Versions()
+        const int maxAllowedVersions = 100;
+
+        [TestCaseSource(nameof(AllRegistries))]
+        public async Task Ensure_Min_Version_Is_Correct_Ignoring_Analyzers_And_Native_Libs(PackageMetadataResource resource,
+            NuGetConsoleTestLogger logger,
+            SourceCacheContext cache,
+            SourceRepository repository,
+            Regex excludedPackagesRegex,
+            RegistryTargetFramework[] nuGetFrameworks,
+            string packageId,
+            NuGet.Versioning.VersionRange versionRange)
         {
-            const int maxAllowedVersions = 100;
+            var dependencyPackageMetas = await resource.GetMetadataAsync(
+                packageId,
+                includePrerelease: false,
+                includeUnlisted: false,
+                cache,
+                logger,
+                CancellationToken.None);
 
-            var registry = Registry.GetInstance();
+            var versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
+            Warn.If(versions,Has.Length.GreaterThan(maxAllowedVersions));
 
-            var logger = new NuGetConsoleTestLogger();
-            var cancellationToken = CancellationToken.None;
+            if(excludedPackagesRegex.IsMatch(packageId))
+                return;
 
-            var cache = new SourceCacheContext();
-            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
-            var resource = await repository.GetResourceAsync<PackageMetadataResource>();
+            var packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
 
-            List<(string packageId, int versionCount)> packages = [];
-
-            foreach (var registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
+            if (packageIdentity != null)
             {
-                var packageId = registryKvp.Key;
-
-                var versionRange = registryKvp.Value.Version;
-
-                var dependencyPackageMetas = await resource.GetMetadataAsync(
-                    packageId,
-                    includePrerelease: false,
-                    includeUnlisted: false,
-                    cache,
-                    logger,
-                    cancellationToken);
-
-                var versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
-
-                if (versions.Length > maxAllowedVersions)
-                {
-                    packages.Add((registryKvp.Key, versions.Length));
-                }
-            }
-
-            StringBuilder stringBuilder = new();
-
-            foreach (var (packageId, versionCount) in packages.OrderByDescending(p => p.versionCount))
-            {
-                stringBuilder.AppendLine($"{packageId} -> {versionCount}");
-            }
-
-            if (stringBuilder.Length == 0)
-            {
-                const bool trueConstant = true;
-
-                Assert.That(trueConstant, Is.True);
+                Assert.That(versionRange!.MinVersion, Is.EqualTo(packageIdentity.Version), $"Package {packageId}");
             }
             else
             {
-                Assert.Inconclusive(stringBuilder.ToString());
+                var settings = Settings.LoadDefaultSettings(root: null);
+
+                var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                        new [] { repository },
+                        new PackageIdentity(packageId,versionRange!.MinVersion),
+                        new PackageDownloadContext(cache),
+                        SettingsUtility.GetGlobalPackagesFolder(settings),
+                        logger, CancellationToken.None);
+
+                var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, logger).AnyAsync();
+                if (!hasNativeLib)
+                    Assert.Fail(packageId);
             }
         }
     }
