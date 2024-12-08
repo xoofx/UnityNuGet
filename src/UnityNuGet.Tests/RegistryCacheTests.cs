@@ -7,7 +7,7 @@ namespace UnityNuGet.Tests
 {
     public class RegistryCacheTests
     {
-        [Test]
+        [Test,Order(99)]
         public async Task TestBuild()
         {
             var errorsTriggered = false;
