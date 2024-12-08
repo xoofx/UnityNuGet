@@ -551,6 +551,10 @@
     "listed": true,
     "version": "3.1.9"
   },
+  "GraphQL.Client.Serializer.SystemTextJson": {
+    "listed": true,
+    "version": "3.1.9"
+  },
   "GraphQL.Common": {
     "listed": true,
     "version": "1.0.0"
