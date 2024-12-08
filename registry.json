@@ -1349,6 +1349,10 @@
     "version": "4.10.0",
     "analyzer": true
   },
+  "RSG.Promise": {
+    "listed": true,
+    "version": "3.0.1"
+  },
   "runtime.native.System.Data.SqlClient.sni": {
     "ignore": true
   },
