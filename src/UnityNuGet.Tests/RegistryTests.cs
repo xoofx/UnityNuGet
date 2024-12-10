@@ -5,6 +5,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
+using Microsoft.Extensions.Options;
+using Moq;
 using NuGet.Configuration;
 using NuGet.PackageManagement;
 using NuGet.Packaging.Core;
@@ -17,10 +22,43 @@ namespace UnityNuGet.Tests
 {
     public class RegistryTests
     {
+        private readonly RegistryOptions registryOptions = new() { RegistryFilePath = "registry.json" };
+
         [Test]
-        public void Make_Sure_That_The_Order_In_The_Registry_Is_Respected()
+        [TestCase("scriban")]
+        [TestCase("Scriban")]
+        public async Task Make_Sure_That_The_Registry_Is_Case_Insensitive(string packageName)
         {
-            var registry = Registry.GetInstance();
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+
+            await registry.StartAsync(CancellationToken.None);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(registry.TryGetValue(packageName, out var result), Is.True);
+                Assert.That(result, Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public async Task Make_Sure_That_The_Order_In_The_Registry_Is_Respected()
+        {
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+
+            await registry.StartAsync(CancellationToken.None);
+
             var originalPackageNames = registry.Select(r => r.Key).ToArray();
             var sortedPackageNames = originalPackageNames.OrderBy(p => p).ToArray();
 
@@ -28,9 +66,18 @@ namespace UnityNuGet.Tests
         }
 
         [Test]
-        public void Ensure_That_Packages_Already_Included_In_Net_Standard_Are_not_Included_In_The_Registry()
+        public async Task Ensure_That_Packages_Already_Included_In_Net_Standard_Are_not_Included_In_The_Registry()
         {
-            var registry = Registry.GetInstance();
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+
+            await registry.StartAsync(CancellationToken.None);
+
             var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
 
             Assert.That(packageNames, Is.Empty);
@@ -48,7 +95,7 @@ namespace UnityNuGet.Tests
 
             // Fetch a package that has runtime overrides as described here: https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks
             var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
-                    new SourceRepository[] { repository },
+                    [repository],
                     new PackageIdentity("System.Security.Cryptography.ProtectedData", new NuGet.Versioning.NuGetVersion(6, 0, 0)),
                     new PackageDownloadContext(cache),
                     SettingsUtility.GetGlobalPackagesFolder(settings),
@@ -72,13 +119,12 @@ namespace UnityNuGet.Tests
             var versions = await downloadResult.PackageReader.GetLibItemsAsync(cancellationToken);
             var closestVersions = NuGetHelper.GetClosestFrameworkSpecificGroups(
                 versions,
-                new RegistryTargetFramework[]
-                {
+                [
                     new()
                     {
                         Framework = CommonFrameworks.NetStandard20,
                     },
-                });
+                ]);
             var libFiles = closestVersions
                 .Single()
                 .Item1.Items
@@ -95,10 +141,18 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task Ensure_Min_Version_Is_Correct_Ignoring_Analyzers_And_Native_Libs()
         {
-            var registry = Registry.GetInstance();
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
+
+            await registry.StartAsync(cancellationToken);
 
             var cache = new SourceCacheContext();
             var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
@@ -185,7 +239,7 @@ namespace UnityNuGet.Tests
                     var settings = Settings.LoadDefaultSettings(root: null);
 
                     var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
-                            new SourceRepository[] { repository },
+                            [repository],
                             new PackageIdentity(registryKvp.Key, registryKvp.Value.Version!.MinVersion),
                             new PackageDownloadContext(cache),
                             SettingsUtility.GetGlobalPackagesFolder(settings),
@@ -210,10 +264,18 @@ namespace UnityNuGet.Tests
         {
             const int maxAllowedVersions = 100;
 
-            var registry = Registry.GetInstance();
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
+
+            await registry.StartAsync(cancellationToken);
 
             var cache = new SourceCacheContext();
             var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");

@@ -21,11 +21,13 @@ namespace UnityNuGet.Server
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            var loggerRedirect = new NuGetRedirectLogger(loggerFactory.CreateLogger("NuGet"));
+            var logger = loggerFactory.CreateLogger("NuGet");
+            var loggerRedirect = new NuGetRedirectLogger(logger);
 
             Uri uri = registryOptions.RootHttpUrl!;
 
             bool isDevelopment = hostEnvironment.IsDevelopment();
+
             if (isDevelopment)
             {
                 var urls = configuration[WebHostDefaults.ServerUrlsKey];
@@ -42,23 +44,27 @@ namespace UnityNuGet.Server
             // Get the current directory from registry options (prepend binary folder in dev)
             string unityPackageFolder;
 
-            if (isDevelopment)
+            if (Path.IsPathRooted(registryOptions.RegistryFilePath))
             {
-                var currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
-                unityPackageFolder = Path.Combine(currentDirectory, new DirectoryInfo(registryOptions.RootPersistentFolder!).Name);
+                unityPackageFolder = registryOptions.RootPersistentFolder!;
             }
             else
             {
-                if (Path.IsPathRooted(registryOptions.RootPersistentFolder))
+                string currentDirectory;
+
+                if (isDevelopment)
                 {
-                    unityPackageFolder = registryOptions.RootPersistentFolder;
+                    currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
                 }
                 else
                 {
-                    unityPackageFolder = Path.Combine(Directory.GetCurrentDirectory(), registryOptions.RootPersistentFolder!);
+                    currentDirectory = Directory.GetCurrentDirectory();
                 }
+
+                unityPackageFolder = Path.Combine(currentDirectory, registryOptions.RootPersistentFolder!);
             }
-            loggerRedirect.LogInformation($"Using Unity Package folder `{unityPackageFolder}`");
+
+            logger.LogInformation("Using Unity Package folder `{UnityPackageFolder}`", unityPackageFolder);
 
             // Add the cache accessible from the services
             registryCacheSingleton.UnityPackageFolder = unityPackageFolder;

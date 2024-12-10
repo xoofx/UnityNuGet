@@ -36,6 +36,7 @@ namespace UnityNuGet
         private const string CurrentRegistryVersion = "1.8.0";
 
         private static readonly Encoding Utf8EncodingNoBom = new UTF8Encoding(false, false);
+        private readonly Registry _registry;
         private readonly string _rootPersistentFolder;
         private readonly Uri _rootHttpUri;
         private readonly string _unityScope;
@@ -46,16 +47,16 @@ namespace UnityNuGet
         private readonly ISettings _settings;
         private readonly IEnumerable<SourceRepository> _sourceRepositories;
         private readonly SourceCacheContext _sourceCacheContext;
-        private readonly Registry _registry;
         private readonly NpmPackageRegistry _npmPackageRegistry;
 
-        public RegistryCache(RegistryCache registryCache) : this(registryCache._rootPersistentFolder, registryCache._rootHttpUri, registryCache._unityScope,
+        public RegistryCache(Registry registry, RegistryCache registryCache) : this(registry, registryCache._rootPersistentFolder, registryCache._rootHttpUri, registryCache._unityScope,
             registryCache._minimumUnityVersion, registryCache._packageNameNuGetPostFix, registryCache._targetFrameworks, registryCache._logger)
         { }
 
-        public RegistryCache(string rootPersistentFolder, Uri rootHttpUri, string unityScope, string minimumUnityVersion,
+        public RegistryCache(Registry registry, string rootPersistentFolder, Uri rootHttpUri, string unityScope, string minimumUnityVersion,
             string packageNameNuGetPostFix, RegistryTargetFramework[] targetFrameworks, ILogger logger)
         {
+            _registry = registry;
             _rootPersistentFolder = rootPersistentFolder ?? throw new ArgumentNullException(nameof(rootPersistentFolder));
             _rootHttpUri = rootHttpUri ?? throw new ArgumentNullException(nameof(rootHttpUri));
             _unityScope = unityScope ?? throw new ArgumentNullException(nameof(unityScope));
@@ -79,7 +80,6 @@ namespace UnityNuGet
             var sourceRepositoryProvider = new SourceRepositoryProvider(new PackageSourceProvider(_settings), Repository.Provider.GetCoreV3());
             _sourceRepositories = sourceRepositoryProvider.GetRepositories();
             _logger = logger;
-            _registry = Registry.GetInstance();
 
             // Initialize target framework
             foreach (var registryTargetFramework in _targetFrameworks)
@@ -252,7 +252,7 @@ namespace UnityNuGet
                 }
 
                 var packageMetaIt = await GetMetadataFromSources(packageName);
-                var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
+                var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : [];
                 foreach (var packageMeta in packageMetas)
                 {
                     var packageIdentity = packageMeta.Identity;
@@ -375,7 +375,7 @@ namespace UnityNuGet
                             else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
                             {
                                 var dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id);
-                                var dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
+                                var dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : [];
 
                                 PackageDependency? packageDependency = null;
 
@@ -794,8 +794,8 @@ namespace UnityNuGet
                                 meta = UnityMeta.GetMetaForDll(
                                     GetStableGuid(identity, fileInUnityPackage),
                                     file.Platform,
-                                    Array.Empty<string>(),
-                                    defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : Array.Empty<string>());
+                                    [],
+                                    defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : []);
                             }
                             else
                             {
@@ -843,7 +843,7 @@ namespace UnityNuGet
                         var guid = GetStableGuid(identity, file);
                         string? meta = extension switch
                         {
-                            ".dll" or ".so" or ".dylib" => UnityMeta.GetMetaForDll(guid, platformDef!, Array.Empty<string>(), Array.Empty<string>()),
+                            ".dll" or ".so" or ".dylib" => UnityMeta.GetMetaForDll(guid, platformDef!, [], []),
                             _ => UnityMeta.GetMetaForExtension(guid, extension)
                         };
 

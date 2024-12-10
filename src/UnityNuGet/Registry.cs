@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace UnityNuGet
@@ -9,32 +14,59 @@ namespace UnityNuGet
     /// <summary>
     /// Loads the `registry.json` file at startup
     /// </summary>
-    [Serializable]
-    public sealed class Registry : Dictionary<string, RegistryEntry>
+    public sealed class Registry(IHostEnvironment hostEnvironment, ILoggerFactory loggerFactory, IOptions<RegistryOptions> registryOptionsAccessor) : IHostedService, IReadOnlyCollection<KeyValuePair<string, RegistryEntry>>, IEnumerable<KeyValuePair<string, RegistryEntry>>
     {
-        private const string RegistryFileName = "registry.json";
-        private static readonly Lock LockRead = new();
-        private static Registry? _registry = null;
+        private IDictionary<string, RegistryEntry>? _data;
 
-        // A comparer is established for cases where the dependency name is not set to the correct case.
-        // Example: https://www.nuget.org/packages/NeoSmart.Caching.Sqlite/0.1.0#dependencies-body-tab
-        public Registry() : base(StringComparer.OrdinalIgnoreCase)
-        {
-        }
+        private readonly IHostEnvironment hostEnvironment = hostEnvironment;
+        private readonly ILoggerFactory loggerFactory = loggerFactory;
+        private readonly RegistryOptions registryOptions = registryOptionsAccessor.Value;
 
-        public static Registry Parse(string json)
-        {
-            ArgumentNullException.ThrowIfNull(json);
-            return JsonConvert.DeserializeObject<Registry>(json, JsonCommonExtensions.Settings)!;
-        }
+        public int Count => _data!.Count;
 
-        public static Registry GetInstance()
+        IEnumerator IEnumerable.GetEnumerator() => _data!.GetEnumerator();
+
+        public IEnumerator<KeyValuePair<string, RegistryEntry>> GetEnumerator() => _data!.GetEnumerator();
+
+        public bool TryGetValue(string key, out RegistryEntry value) => _data!.TryGetValue(key, out value!);
+
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
-            lock (LockRead)
+            string registryFilePath;
+
+            if (Path.IsPathRooted(registryOptions.RegistryFilePath))
             {
-                _registry ??= Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(AppContext.BaseDirectory)!, RegistryFileName)));
+                registryFilePath = registryOptions.RegistryFilePath;
             }
-            return _registry;
+            else
+            {
+                bool isDevelopment = hostEnvironment.IsDevelopment();
+
+                string currentDirectory;
+
+                if (isDevelopment)
+                {
+                    currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
+                }
+                else
+                {
+                    currentDirectory = Directory.GetCurrentDirectory();
+                }
+
+                registryFilePath = Path.Combine(currentDirectory, registryOptions.RegistryFilePath!);
+            }
+
+            var logger = loggerFactory.CreateLogger("NuGet");
+
+            logger.LogInformation("Using Unity registry file `{UnityRegistryFile}`", registryFilePath);
+
+            string json = await File.ReadAllTextAsync(registryFilePath, cancellationToken);
+
+            var data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
+
+            _data = new Dictionary<string, RegistryEntry>(data, StringComparer.OrdinalIgnoreCase);
         }
+
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }

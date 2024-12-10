@@ -8,6 +8,9 @@ using UnityNuGet.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add the registry
+builder.Services.AddSingleton<Registry>();
+builder.Services.AddHostedService(serviceProvider => serviceProvider.GetRequiredService<Registry>());
 // Add the registry cache initializer
 builder.Services.AddHostedService<RegistryCacheInitializer>();
 // Add the registry cache updater

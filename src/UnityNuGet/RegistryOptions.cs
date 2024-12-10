@@ -23,6 +23,9 @@ namespace UnityNuGet
         public string? PackageNameNuGetPostFix { get; set; }
 
         [Required]
+        public string? RegistryFilePath { get; set; }
+
+        [Required]
         public string? RootPersistentFolder { get; set; }
 
         [Required]

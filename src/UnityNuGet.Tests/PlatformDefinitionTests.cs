@@ -27,7 +27,7 @@ namespace UnityNuGet.Tests
             });
             Assert.Multiple(() =>
             {
-                Assert.That(win64.Cpu, Is.EqualTo(UnityCpu.X64));
+                Assert.That(win64?.Cpu, Is.EqualTo(UnityCpu.X64));
                 Assert.That(win.Children, Does.Contain(win64));
             });
 
@@ -84,10 +84,10 @@ namespace UnityNuGet.Tests
 
             // The remaining platforms should be all non-windows, as well as all !x64 windows
             var expected = platformDefs.Children
-                .Except(new[] { win64!.Parent })
+                .Except([win64!.Parent])
                 .Concat(
                     win64.Parent!.Children
-                        .Except(new[] { win64 }))
+                        .Except([win64]))
                 .ToHashSet();
             var actual = platformDefs.GetRemainingPlatforms(visited);
             Assert.That(expected.SetEquals(actual), Is.True);
