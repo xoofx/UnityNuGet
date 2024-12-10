@@ -11,7 +11,7 @@ services:
         - Registry:UpdateInterval=00:01:00 # Packages update interval, default is "00:10:00" (10 minutes).
         - Logging:LogLevel:Default=Information
       ports:
-        - 5000:80
+        - 5000:8080
       volumes:
         - ./unity_packages:/app/custom_unity_packages # Map the folder with the packages cache.
         - ./registry.json:/app/registry.json # Override the package registry to be able to add or remove packages.
