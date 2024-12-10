@@ -15,7 +15,7 @@ namespace UnityNuGet
         private static partial Regex RoslynVersion();
 
         // https://docs.unity3d.com/Manual/roslyn-analyzers.html
-        private static readonly Version unityRoslynSupportedVersion = new(3, 8, 0);
+        private static readonly Version s_unityRoslynSupportedVersion = new(3, 8, 0);
 
         // https://github.com/dotnet/sdk/blob/2838d93742658300698b2194882d57fd978fb168/src/Tasks/Microsoft.NET.Build.Tasks/NuGetUtils.NuGet.cs#L50
         public static bool IsApplicableAnalyzer(string file) => IsApplicableAnalyzer(file, "C#");
@@ -64,12 +64,12 @@ namespace UnityNuGet
 
         public static bool IsApplicableUnitySupportedRoslynVersionFolder(string file)
         {
-            var roslynVersionMatch = RoslynVersion().Match(file);
+            Match roslynVersionMatch = RoslynVersion().Match(file);
 
             bool hasRoslynVersionFolder = roslynVersionMatch.Success;
             bool hasUnitySupportedRoslynVersionFolder = hasRoslynVersionFolder &&
-                                                        int.Parse(roslynVersionMatch.Groups[1].Value) == unityRoslynSupportedVersion.Major &&
-                                                        int.Parse(roslynVersionMatch.Groups[2].Value) == unityRoslynSupportedVersion.Minor;
+                                                        int.Parse(roslynVersionMatch.Groups[1].Value) == s_unityRoslynSupportedVersion.Major &&
+                                                        int.Parse(roslynVersionMatch.Groups[2].Value) == s_unityRoslynSupportedVersion.Minor;
 
             return !hasRoslynVersionFolder || hasUnitySupportedRoslynVersionFolder;
         }
@@ -78,9 +78,9 @@ namespace UnityNuGet
         {
             var result = new List<(FrameworkSpecificGroup, RegistryTargetFramework)>();
 
-            foreach (var targetFramework in targetFrameworks)
+            foreach (RegistryTargetFramework targetFramework in targetFrameworks)
             {
-                var item = versions.Where(x => x.TargetFramework.Framework == targetFramework.Framework!.Framework && x.TargetFramework.Version <= targetFramework.Framework.Version).OrderByDescending(x => x.TargetFramework.Version)
+                FrameworkSpecificGroup? item = versions.Where(x => x.TargetFramework.Framework == targetFramework.Framework!.Framework && x.TargetFramework.Version <= targetFramework.Framework.Version).OrderByDescending(x => x.TargetFramework.Version)
                     .FirstOrDefault();
 
                 if (item != null)
@@ -99,9 +99,9 @@ namespace UnityNuGet
 
         public static PackageIdentity? GetMinimumCompatiblePackageIdentity(IEnumerable<IPackageSearchMetadata> packageSearchMetadataIt, IEnumerable<RegistryTargetFramework> targetFrameworks, bool includeAny = true)
         {
-            foreach (var packageSearchMetadata in packageSearchMetadataIt)
+            foreach (IPackageSearchMetadata packageSearchMetadata in packageSearchMetadataIt)
             {
-                var dependencyResolvedDependencyGroups = GetCompatiblePackageDependencyGroups(packageSearchMetadata.DependencySets, targetFrameworks, includeAny);
+                IEnumerable<PackageDependencyGroup> dependencyResolvedDependencyGroups = GetCompatiblePackageDependencyGroups(packageSearchMetadata.DependencySets, targetFrameworks, includeAny);
 
                 if (dependencyResolvedDependencyGroups.Any())
                 {

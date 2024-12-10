@@ -12,9 +12,11 @@ using Microsoft.Extensions.Options;
 using Moq;
 using NuGet.Configuration;
 using NuGet.PackageManagement;
+using NuGet.Packaging;
 using NuGet.Packaging.Core;
 using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
+using NuGet.Versioning;
 using NUnit.Framework;
 using static NuGet.Frameworks.FrameworkConstants;
 
@@ -22,7 +24,7 @@ namespace UnityNuGet.Tests
 {
     public class RegistryTests
     {
-        private readonly RegistryOptions registryOptions = new() { RegistryFilePath = "registry.json" };
+        private readonly RegistryOptions _registryOptions = new() { RegistryFilePath = "registry.json" };
 
         [Test]
         [TestCase("scriban")]
@@ -35,13 +37,13 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
             Assert.Multiple(() =>
             {
-                Assert.That(registry.TryGetValue(packageName, out var result), Is.True);
+                Assert.That(registry.TryGetValue(packageName, out RegistryEntry? result), Is.True);
                 Assert.That(result, Is.Not.Null);
             });
         }
@@ -55,12 +57,12 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
-            var originalPackageNames = registry.Select(r => r.Key).ToArray();
-            var sortedPackageNames = originalPackageNames.OrderBy(p => p).ToArray();
+            string[] originalPackageNames = registry.Select(r => r.Key).ToArray();
+            string[] sortedPackageNames = [.. originalPackageNames.OrderBy(p => p)];
 
             Assert.That(originalPackageNames, Is.EqualTo(sortedPackageNames));
         }
@@ -74,11 +76,11 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
-            var packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
+            string[] packageNames = registry.Select(r => r.Key).Where(DotNetHelper.IsNetStandard20Assembly).ToArray();
 
             Assert.That(packageNames, Is.Empty);
         }
@@ -87,37 +89,37 @@ namespace UnityNuGet.Tests
         public async Task CanParse_PackageWithRuntimes()
         {
             var logger = new NuGetConsoleTestLogger();
-            var cancellationToken = CancellationToken.None;
+            CancellationToken cancellationToken = CancellationToken.None;
 
             var cache = new SourceCacheContext();
-            var settings = Settings.LoadDefaultSettings(root: null);
-            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+            ISettings settings = Settings.LoadDefaultSettings(root: null);
+            SourceRepository repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
 
             // Fetch a package that has runtime overrides as described here: https://learn.microsoft.com/en-us/nuget/create-packages/supporting-multiple-target-frameworks
-            var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+            DownloadResourceResult downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
                     [repository],
-                    new PackageIdentity("System.Security.Cryptography.ProtectedData", new NuGet.Versioning.NuGetVersion(6, 0, 0)),
+                    new PackageIdentity("System.Security.Cryptography.ProtectedData", new NuGetVersion(6, 0, 0)),
                     new PackageDownloadContext(cache),
                     SettingsUtility.GetGlobalPackagesFolder(settings),
                     logger, cancellationToken);
 
             // Make sure we have runtime libraries
-            var runtimeLibs = await RuntimeLibraries
+            List<(string file, UnityOs, UnityCpu?)> runtimeLibs = await RuntimeLibraries
                 .GetSupportedRuntimeLibsAsync(downloadResult.PackageReader, CommonFrameworks.NetStandard20, logger)
                 .ToListAsync();
             Assert.That(runtimeLibs, Is.Not.Empty);
 
             // Make sure these runtime libraries are only for Windows
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
-            var win = platformDefs.Find(UnityOs.Windows);
-            foreach (var (file, os, cpu) in runtimeLibs)
+            PlatformDefinition? win = platformDefs.Find(UnityOs.Windows);
+            foreach ((string file, UnityOs os, UnityCpu? cpu) in runtimeLibs)
             {
                 Assert.That(platformDefs.Find(os, cpu), Is.EqualTo(win));
             }
 
             // Get the lib files
-            var versions = await downloadResult.PackageReader.GetLibItemsAsync(cancellationToken);
-            var closestVersions = NuGetHelper.GetClosestFrameworkSpecificGroups(
+            IEnumerable<FrameworkSpecificGroup> versions = await downloadResult.PackageReader.GetLibItemsAsync(cancellationToken);
+            IEnumerable<(FrameworkSpecificGroup, RegistryTargetFramework)> closestVersions = NuGetHelper.GetClosestFrameworkSpecificGroups(
                 versions,
                 [
                     new()
@@ -147,20 +149,20 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
-            var cancellationToken = CancellationToken.None;
+            CancellationToken cancellationToken = CancellationToken.None;
 
             await registry.StartAsync(cancellationToken);
 
             var cache = new SourceCacheContext();
-            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
-            var resource = await repository.GetResourceAsync<PackageMetadataResource>();
+            SourceRepository repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+            PackageMetadataResource resource = await repository.GetResourceAsync<PackageMetadataResource>();
 
             var nuGetFrameworks = new RegistryTargetFramework[] { new() { Framework = CommonFrameworks.NetStandard20 } };
 
-            var excludedPackages = new string[] {
+            string[] excludedPackages = [
                 // All versions target "Any" and not .netstandard2.0 / 2.1
                 // It has too many versions, the minimum version is lifted so as not to process so many versions
                 @"AWSSDK.*",
@@ -205,22 +207,22 @@ namespace UnityNuGet.Tests
                 @"GraphQL.Client.Serializer.Newtonsoft",
                 // Version 3.1.8 has dependency on `Panic.StringUtils` which doesn't support .netstandard2.0 or 2.1. Rest of versions are fine.
                 @"GraphQL.Client.Serializer.SystemTextJson"
-            };
+            ];
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
 
-            foreach (var registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
+            foreach (KeyValuePair<string, RegistryEntry> registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
             {
-                var packageId = registryKvp.Key;
+                string packageId = registryKvp.Key;
 
                 if (excludedPackagesRegex.IsMatch(packageId))
                 {
                     continue;
                 }
 
-                var versionRange = registryKvp.Value.Version;
+                VersionRange? versionRange = registryKvp.Value.Version;
 
-                var dependencyPackageMetas = await resource.GetMetadataAsync(
+                IEnumerable<IPackageSearchMetadata> dependencyPackageMetas = await resource.GetMetadataAsync(
                     packageId,
                     includePrerelease: false,
                     includeUnlisted: false,
@@ -228,7 +230,7 @@ namespace UnityNuGet.Tests
                     logger,
                     cancellationToken);
 
-                var packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
+                PackageIdentity? packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
 
                 if (packageIdentity != null)
                 {
@@ -236,16 +238,16 @@ namespace UnityNuGet.Tests
                 }
                 else
                 {
-                    var settings = Settings.LoadDefaultSettings(root: null);
+                    ISettings settings = Settings.LoadDefaultSettings(root: null);
 
-                    var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                    DownloadResourceResult downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
                             [repository],
                             new PackageIdentity(registryKvp.Key, registryKvp.Value.Version!.MinVersion),
                             new PackageDownloadContext(cache),
                             SettingsUtility.GetGlobalPackagesFolder(settings),
                             logger, cancellationToken);
 
-                    var hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, logger).AnyAsync();
+                    bool hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, logger).AnyAsync();
 
                     if (hasNativeLib)
                     {
@@ -270,26 +272,26 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
-            var cancellationToken = CancellationToken.None;
+            CancellationToken cancellationToken = CancellationToken.None;
 
             await registry.StartAsync(cancellationToken);
 
             var cache = new SourceCacheContext();
-            var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
-            var resource = await repository.GetResourceAsync<PackageMetadataResource>();
+            SourceRepository repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
+            PackageMetadataResource resource = await repository.GetResourceAsync<PackageMetadataResource>();
 
             List<(string packageId, int versionCount)> packages = [];
 
-            foreach (var registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
+            foreach (KeyValuePair<string, RegistryEntry> registryKvp in registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored))
             {
-                var packageId = registryKvp.Key;
+                string packageId = registryKvp.Key;
 
-                var versionRange = registryKvp.Value.Version;
+                VersionRange? versionRange = registryKvp.Value.Version;
 
-                var dependencyPackageMetas = await resource.GetMetadataAsync(
+                IEnumerable<IPackageSearchMetadata> dependencyPackageMetas = await resource.GetMetadataAsync(
                     packageId,
                     includePrerelease: false,
                     includeUnlisted: false,
@@ -297,7 +299,7 @@ namespace UnityNuGet.Tests
                     logger,
                     cancellationToken);
 
-                var versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
+                IPackageSearchMetadata[] versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
 
                 if (versions.Length > maxAllowedVersions)
                 {
@@ -307,7 +309,7 @@ namespace UnityNuGet.Tests
 
             StringBuilder stringBuilder = new();
 
-            foreach (var (packageId, versionCount) in packages.OrderByDescending(p => p.versionCount))
+            foreach ((string packageId, int versionCount) in packages.OrderByDescending(p => p.versionCount))
             {
                 stringBuilder.AppendLine($"{packageId} -> {versionCount}");
             }

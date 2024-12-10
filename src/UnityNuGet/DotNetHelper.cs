@@ -7,12 +7,12 @@ namespace UnityNuGet
     /// </summary>
     static class DotNetHelper
     {
-        public static bool IsNetStandard20Assembly(string packageId) => NetStandard20Assemblies.Contains(packageId);
+        public static bool IsNetStandard20Assembly(string packageId) => s_netStandard20Assemblies.Contains(packageId);
 
-        public static bool IsNetStandard21Assembly(string packageId) => NetStandard21Assemblies.Contains(packageId);
+        public static bool IsNetStandard21Assembly(string packageId) => s_netStandard21Assemblies.Contains(packageId);
 
         // Retrieved from NuGet package (/build/netstandard2.0/ref): https://www.nuget.org/packages/NETStandard.Library/2.0.3
-        private static readonly HashSet<string> NetStandard20Assemblies = [
+        private static readonly HashSet<string> s_netStandard20Assemblies = [
             "Microsoft.Win32.Primitives",
             "System.AppContext",
             "System.Collections.Concurrent",
@@ -127,7 +127,7 @@ namespace UnityNuGet
         ];
 
         // Retrieved from NuGet package (/ref/netstandard2.1): https://www.nuget.org/packages/NETStandard.Library.Ref
-        private static readonly HashSet<string> NetStandard21Assemblies = [
+        private static readonly HashSet<string> s_netStandard21Assemblies = [
             "Microsoft.Win32.Primitives",
             "System.AppContext",
             "System.Buffers",

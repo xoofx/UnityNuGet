@@ -123,25 +123,13 @@ namespace UnityNuGet
     /// <param name="isEditorConfig">True if the Unity editor is available in this (os, cpu) tuple.</param>
     internal class PlatformDefinition(UnityOs os, UnityCpu cpu, bool isEditorConfig)
     {
-        private readonly UnityOs _os = os;
-        private readonly UnityCpu _cpu = cpu;
         private readonly bool _isEditor = isEditorConfig;
         private readonly List<PlatformDefinition> _children = [];
-
-        private PlatformDefinition? _parent = null;
 
         /// <summary>
         /// The parent <see cref="PlatformDefinition"/> that is a superset of <c>this</c>.
         /// </summary>
-        public PlatformDefinition? Parent
-        {
-            get => _parent;
-
-            private set
-            {
-                _parent = value;
-            }
-        }
+        public PlatformDefinition? Parent { get; private set; }
 
         /// <summary>
         /// The child <see cref="PlatformDefinition"/> configurations <c>this</c> is a superset of.
@@ -154,7 +142,7 @@ namespace UnityNuGet
             {
                 _children.AddRange(value);
 
-                foreach (var child in _children)
+                foreach (PlatformDefinition child in _children)
                 {
                     child.Parent = this;
                 }
@@ -165,23 +153,21 @@ namespace UnityNuGet
         /// The distance from the root <see cref="PlatformDefinition"/> in the configuration tree.
         /// </summary>
         public int Depth
-            => (_parent == null) ? 0 : (1 + _parent.Depth);
+            => (Parent == null) ? 0 : (1 + Parent.Depth);
 
         /// <summary>
         /// The operating system.
         /// </summary>
-        public UnityOs Os
-            => _os;
+        public UnityOs Os { get; } = os;
 
         /// <summary>
         /// The CPU flavor.
         /// </summary>
-        public UnityCpu Cpu
-            => _cpu;
+        public UnityCpu Cpu { get; } = cpu;
 
         /// <inheritdoc/>
         public override string ToString()
-            => $"{_os}.{_cpu}";
+            => $"{Os}.{Cpu}";
 
         /// <summary>
         /// Attempts to find a <see cref="PlatformDefinition"/> that matches the given <see cref="UnityOs"/>
@@ -193,7 +179,7 @@ namespace UnityNuGet
         public PlatformDefinition? Find(UnityOs os, UnityCpu? cpu = default)
         {
             // Test self
-            if ((_os == os) && ((cpu == null) || (_cpu == cpu)))
+            if ((Os == os) && ((cpu == null) || (Cpu == cpu)))
             {
                 return this;
             }
@@ -246,7 +232,7 @@ namespace UnityNuGet
             {
                 found = false;
 
-                foreach (var p in remainingPlatforms)
+                foreach (PlatformDefinition p in remainingPlatforms)
                 {
                     // Remove p if already visited
                     if (visitedPlatforms.Contains(p))
@@ -261,7 +247,7 @@ namespace UnityNuGet
                     {
                         remainingPlatforms.Remove(p);
 
-                        foreach (var c in p.Children)
+                        foreach (PlatformDefinition c in p.Children)
                         {
                             remainingPlatforms.Add(c);
                         }
@@ -323,7 +309,7 @@ namespace UnityNuGet
                 return true;
             }
 
-            foreach (var c in _children)
+            foreach (PlatformDefinition c in _children)
             {
                 if (c.HasVisitedDescendants(visitedPlatforms))
                 {
@@ -345,20 +331,15 @@ namespace UnityNuGet
     /// <param name="platform">The platform the file is compatible with.</param>
     internal class PlatformFile(string sourcePath, PlatformDefinition platform)
     {
-        private readonly PlatformDefinition _platform = platform;
-        private readonly string _sourcePath = sourcePath;
-
         /// <summary>
         /// The full path of the file in the original NuGet package.
         /// </summary>
-        public string SourcePath
-            => _sourcePath;
+        public string SourcePath { get; } = sourcePath;
 
         /// <summary>
         /// The <see cref="PlatformDefinition"/> the file is compatible with.
         /// </summary>
-        public PlatformDefinition Platform
-            => _platform;
+        public PlatformDefinition Platform { get; } = platform;
 
         /// <summary>
         /// Returns the full path of the file in the UPM package.
@@ -368,23 +349,23 @@ namespace UnityNuGet
         public string GetDestinationPath(string basePath)
         {
             // We start with just the base path
-            var fullPath = basePath;
-            var depth = _platform.Depth;
+            string fullPath = basePath;
+            int depth = Platform.Depth;
 
             if (depth > 0)
             {
                 // Our configuration is not AnyOS, add a /<os_name> to our full path
-                fullPath = Path.Combine(fullPath, _platform.Os.GetPathName());
+                fullPath = Path.Combine(fullPath, Platform.Os.GetPathName());
             }
 
             if (depth > 1)
             {
                 // Our CPU os not AnyCPU, add a /<cpu-name> to our full path
-                fullPath = Path.Combine(fullPath, _platform.Cpu.GetPathName());
+                fullPath = Path.Combine(fullPath, Platform.Cpu.GetPathName());
             }
 
             // Finally, append the file name and return
-            var fileName = Path.GetFileName(_sourcePath);
+            string fileName = Path.GetFileName(SourcePath);
             fullPath = Path.Combine(fullPath, fileName);
             return fullPath;
         }

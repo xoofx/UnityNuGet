@@ -18,9 +18,9 @@ namespace UnityNuGet
     {
         private IDictionary<string, RegistryEntry>? _data;
 
-        private readonly IHostEnvironment hostEnvironment = hostEnvironment;
-        private readonly ILoggerFactory loggerFactory = loggerFactory;
-        private readonly RegistryOptions registryOptions = registryOptionsAccessor.Value;
+        private readonly IHostEnvironment _hostEnvironment = hostEnvironment;
+        private readonly ILoggerFactory _loggerFactory = loggerFactory;
+        private readonly RegistryOptions _registryOptions = registryOptionsAccessor.Value;
 
         public int Count => _data!.Count;
 
@@ -34,13 +34,13 @@ namespace UnityNuGet
         {
             string registryFilePath;
 
-            if (Path.IsPathRooted(registryOptions.RegistryFilePath))
+            if (Path.IsPathRooted(_registryOptions.RegistryFilePath))
             {
-                registryFilePath = registryOptions.RegistryFilePath;
+                registryFilePath = _registryOptions.RegistryFilePath;
             }
             else
             {
-                bool isDevelopment = hostEnvironment.IsDevelopment();
+                bool isDevelopment = _hostEnvironment.IsDevelopment();
 
                 string currentDirectory;
 
@@ -53,16 +53,16 @@ namespace UnityNuGet
                     currentDirectory = Directory.GetCurrentDirectory();
                 }
 
-                registryFilePath = Path.Combine(currentDirectory, registryOptions.RegistryFilePath!);
+                registryFilePath = Path.Combine(currentDirectory, _registryOptions.RegistryFilePath!);
             }
 
-            var logger = loggerFactory.CreateLogger("NuGet");
+            ILogger logger = _loggerFactory.CreateLogger("NuGet");
 
             logger.LogInformation("Using Unity registry file `{UnityRegistryFile}`", registryFilePath);
 
             string json = await File.ReadAllTextAsync(registryFilePath, cancellationToken);
 
-            var data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
+            IDictionary<string, RegistryEntry> data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
 
             _data = new Dictionary<string, RegistryEntry>(data, StringComparer.OrdinalIgnoreCase);
         }

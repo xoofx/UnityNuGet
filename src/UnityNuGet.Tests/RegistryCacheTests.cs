@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using UnityNuGet.Npm;
 
 namespace UnityNuGet.Tests
 {
@@ -16,7 +17,7 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task TestBuild()
         {
-            var errorsTriggered = false;
+            bool errorsTriggered = false;
 
             var hostEnvironmentMock = new Mock<IHostEnvironment>();
             hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
@@ -24,7 +25,7 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location)!, "unity_packages");
+            string unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location)!, "unity_packages");
             var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(new RegistryOptions { RegistryFilePath = "registry.json" }));
 
             await registry.StartAsync(CancellationToken.None);
@@ -55,16 +56,16 @@ namespace UnityNuGet.Tests
 
             Assert.That(errorsTriggered, Is.False, "The registry failed to build, check the logs");
 
-            var allResult = registryCache.All();
+            NpmPackageListAllResponse allResult = registryCache.All();
             Assert.That(allResult.Packages, Has.Count.GreaterThanOrEqualTo(3));
-            var allResultJson = allResult.ToJson();
+            string allResultJson = allResult.ToJson();
 
             Assert.That(allResultJson, Does.Contain("org.nuget.scriban"));
             Assert.That(allResultJson, Does.Contain("org.nuget.system.runtime.compilerservices.unsafe"));
 
-            var scribanPackage = registryCache.GetPackage("org.nuget.scriban");
+            NpmPackage? scribanPackage = registryCache.GetPackage("org.nuget.scriban");
             Assert.That(scribanPackage, Is.Not.Null);
-            var scribanPackageJson = scribanPackage!.ToJson();
+            string scribanPackageJson = scribanPackage!.ToJson();
             Assert.That(scribanPackageJson, Does.Contain("org.nuget.scriban"));
             Assert.That(scribanPackageJson, Does.Contain("2.1.0"));
         }

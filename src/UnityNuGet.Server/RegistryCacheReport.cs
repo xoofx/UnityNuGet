@@ -30,9 +30,9 @@ namespace UnityNuGet.Server
         {
             get
             {
-                var currentIndex = _registryCacheSingleton.ProgressPackageIndex;
-                var totalCount = _registryCacheSingleton.ProgressTotalPackageCount;
-                var percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
+                int currentIndex = _registryCacheSingleton.ProgressPackageIndex;
+                int totalCount = _registryCacheSingleton.ProgressTotalPackageCount;
+                double percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
 
                 return percent;
             }

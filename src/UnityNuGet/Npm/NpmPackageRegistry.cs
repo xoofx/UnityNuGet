@@ -22,9 +22,9 @@ namespace UnityNuGet.Npm
 
         public void AddPackage(NpmPackageCacheEntry entry, bool isListed)
         {
-            var package = entry.Package!;
+            NpmPackage package = entry.Package!;
             Packages.Add(package.Id!, package);
-            var packageInfos = isListed ? ListedPackageInfos : UnlistedPackageInfos;
+            NpmPackageListAllResponse packageInfos = isListed ? ListedPackageInfos : UnlistedPackageInfos;
             packageInfos.Packages.Add(package.Id!, entry.Info!);
         }
 
