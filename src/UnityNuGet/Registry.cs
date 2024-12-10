@@ -62,7 +62,9 @@ namespace UnityNuGet
 
             string json = await File.ReadAllTextAsync(registryFilePath, cancellationToken);
 
-            _data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
+            var data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
+
+            _data = new Dictionary<string, RegistryEntry>(data, StringComparer.OrdinalIgnoreCase);
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
