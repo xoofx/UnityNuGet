@@ -1517,6 +1517,10 @@
     "listed": true,
     "version": "1.1.0"
   },
+  "Supabase": {
+    "listed": true,
+    "version": "1.0.0"
+  },
   "supabase-core": {
     "listed": true,
     "version": "0.0.1"
@@ -1528,6 +1532,30 @@
   "supabase-storage-csharp": {
     "listed": true,
     "version": "1.0.0"
+  },
+  "Supabase.Core": {
+    "listed": true,
+    "version": "1.0.0"
+  },
+  "Supabase.Functions": {
+    "listed": true,
+    "version": "2.0.0"
+  },
+  "Supabase.Gotrue": {
+    "listed": true,
+    "version": "5.0.0"
+  },
+  "Supabase.Postgrest": {
+    "listed": true,
+    "version": "4.0.0"
+  },
+  "Supabase.Realtime": {
+    "listed": true,
+    "version": "7.0.0"
+  },
+  "Supabase.Storage": {
+    "listed": true,
+    "version": "2.0.2"
   },
   "Sylvan.Data.Csv": {
     "listed": true,
