@@ -1,8 +1,7 @@
-﻿using System;
-using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using NuGet.Versioning;
+﻿using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
+using System.Threading.Tasks;
 
 namespace UnityNuGet
 {
@@ -11,39 +10,17 @@ namespace UnityNuGet
     /// </summary>
     public static class JsonCommonExtensions
     {
-        public static string ToJson(this JsonObjectBase self) => JsonConvert.SerializeObject(self, Settings);
-
-        /// <summary>
-        /// Settings used for serializing JSON objects in this project.
-        /// </summary>
-        public static readonly JsonSerializerSettings Settings = new()
+        public static async Task<string> ToJson(this JsonObjectBase self, JsonTypeInfo jsonTypeInfo)
         {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter {
-                    DateTimeStyles = DateTimeStyles.AssumeUniversal
-                },
-                new VersionConverter(),
-            },
-        };
+            using var stream = new MemoryStream();
 
-        /// <summary>
-        /// Converter for <see cref="VersionRange"/> NuGet
-        /// </summary>
-        private class VersionConverter : JsonConverter<VersionRange>
-        {
-            public override void WriteJson(JsonWriter writer, VersionRange? value, JsonSerializer serializer)
-            {
-                writer.WriteValue(value?.ToString());
-            }
+            await JsonSerializer.SerializeAsync(stream, self, jsonTypeInfo);
 
-            public override VersionRange? ReadJson(JsonReader reader, Type objectType, VersionRange? existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
-                string? s = (string?)reader.Value;
-                return VersionRange.Parse(s!);
-            }
+            stream.Position = 0;
+
+            using var reader = new StreamReader(stream);
+
+            return await reader.ReadToEndAsync();
         }
     }
 }

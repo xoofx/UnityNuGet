@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -9,32 +9,25 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmPackageInfo : NpmObject
     {
-        public NpmPackageInfo()
-        {
-            Maintainers = [];
-            Versions = [];
-            Keywords = [];
-        }
-
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonProperty("maintainers")]
-        public List<string> Maintainers { get; }
+        [JsonPropertyName("maintainers")]
+        public List<string> Maintainers { get; } = [];
 
-        [JsonProperty("versions")]
-        public Dictionary<string, string> Versions { get; }
+        [JsonPropertyName("versions")]
+        public Dictionary<string, string> Versions { get; } = [];
 
-        [JsonProperty("time")]
+        [JsonPropertyName("time")]
         public DateTimeOffset? Time { get; set; }
 
-        [JsonProperty("keywords")]
-        public List<string> Keywords { get; }
+        [JsonPropertyName("keywords")]
+        public List<string> Keywords { get; } = [];
 
-        [JsonProperty("author")]
+        [JsonPropertyName("author")]
         public string? Author { get; set; }
     }
 }

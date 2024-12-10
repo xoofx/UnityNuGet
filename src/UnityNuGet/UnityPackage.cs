@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet
 {
@@ -8,34 +8,28 @@ namespace UnityNuGet
     /// </summary>
     public class UnityPackage : JsonObjectBase
     {
-        public UnityPackage()
-        {
-            Keywords = [];
-            Dependencies = [];
-        }
-
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonProperty("displayName")]
+        [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
 
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public string? Version { get; set; }
 
-        [JsonProperty("unity")]
+        [JsonPropertyName("unity")]
         public string? Unity { get; set; }
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonProperty("keywords")]
-        public List<string> Keywords { get; }
+        [JsonPropertyName("keywords")]
+        public List<string> Keywords { get; } = [];
 
-        [JsonProperty("category")]
+        [JsonPropertyName("category")]
         public string? Category { get; set; }
 
-        [JsonProperty("dependencies")]
-        public Dictionary<string, string> Dependencies { get; }
+        [JsonPropertyName("dependencies")]
+        public Dictionary<string, string> Dependencies { get; } = [];
     }
 }

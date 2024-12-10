@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using NuGet.Frameworks;
 
 namespace UnityNuGet
@@ -10,6 +10,8 @@ namespace UnityNuGet
     {
         [Required]
         public Uri? RootHttpUrl { get; set; }
+
+        public string? Filter { get; set; }
 
         [Required]
         [RegularExpression(@"[a-z]+\.[a-z]+")]

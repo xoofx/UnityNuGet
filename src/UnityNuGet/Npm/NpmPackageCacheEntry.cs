@@ -2,16 +2,16 @@
 // Licensed under the BSD-Clause 2 license.
 // See license.txt file in the project root for full license information.
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
     public class NpmPackageCacheEntry : NpmObject
     {
-        [JsonProperty("package")]
+        [JsonPropertyName("package")]
         public NpmPackage? Package { get; set; }
 
-        [JsonProperty("info")]
+        [JsonPropertyName("info")]
         public NpmPackageInfo? Info { get; set; }
 
         [JsonIgnore]

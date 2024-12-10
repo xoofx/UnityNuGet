@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using NuGet.Versioning;
 
 namespace UnityNuGet
@@ -9,19 +9,19 @@ namespace UnityNuGet
     /// </summary>
     public class RegistryEntry
     {
-        [JsonProperty("ignore")]
+        [JsonPropertyName("ignore")]
         public bool Ignored { get; set; }
 
-        [JsonProperty("listed")]
+        [JsonPropertyName("listed")]
         public bool Listed { get; set; }
 
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public VersionRange? Version { get; set; }
 
-        [JsonProperty("defineConstraints")]
+        [JsonPropertyName("defineConstraints")]
         public List<string> DefineConstraints { get; set; } = [];
 
-        [JsonProperty("analyzer")]
+        [JsonPropertyName("analyzer")]
         public bool Analyzer { get; set; }
     }
 }

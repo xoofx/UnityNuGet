@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -8,44 +8,37 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmPackageVersion : NpmObject
     {
-        public NpmPackageVersion()
-        {
-            Dependencies = [];
-            Distribution = new();
-            Scripts = [];
-        }
-
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonProperty("version")]
+        [JsonPropertyName("version")]
         public string? Version { get; set; }
 
-        [JsonProperty("dist")]
-        public NpmDistribution Distribution { get; }
+        [JsonPropertyName("dist")]
+        public NpmDistribution Distribution { get; } = new();
 
-        [JsonProperty("dependencies")]
-        public Dictionary<string, string> Dependencies { get; }
+        [JsonPropertyName("dependencies")]
+        public Dictionary<string, string> Dependencies { get; } = [];
 
-        [JsonProperty("_id")]
+        [JsonPropertyName("_id")]
         public string? Id { get; set; }
 
-        [JsonProperty("unity", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("unity")]
         public string? Unity { get; set; }
 
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonProperty("displayName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("displayName")]
         public string? DisplayName { get; set; }
 
-        [JsonProperty("scripts", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, string> Scripts { get; }
+        [JsonPropertyName("scripts")]
+        public Dictionary<string, string> Scripts { get; } = [];
 
-        [JsonProperty("repository", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("repository")]
         public NpmSourceRepository? Repository { get; set; }
 
-        [JsonProperty("author", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("author")]
         public string? Author { get; set; }
     }
 }

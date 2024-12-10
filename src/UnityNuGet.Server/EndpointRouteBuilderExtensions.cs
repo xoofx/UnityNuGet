@@ -1,16 +1,109 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Scriban;
 using Scriban.Parsing;
 using Scriban.Runtime;
+using UnityNuGet;
+using UnityNuGet.Npm;
 using UnityNuGet.Server;
 
 namespace Microsoft.AspNetCore.Builder
 {
     public static class EndpointRouteBuilderExtensions
     {
-        public static void MapStatus(this IEndpointRouteBuilder builder)
+        public static void MapUnityNuGetEndpoints(this IEndpointRouteBuilder builder)
+        {
+            builder.MapHome();
+            builder.MapGetAll();
+            builder.MapGetPackage();
+            builder.MapDownloadPackage();
+            builder.MapStatus();
+        }
+
+        private static void MapHome(this IEndpointRouteBuilder builder)
+        {
+            builder.MapGet("/", () => Results.Redirect("/-/all"));
+        }
+
+        private static void MapGetAll(this IEndpointRouteBuilder builder)
+        {
+            builder.MapGet("-/all", (RegistryCacheSingleton registryCacheSingleton, RegistryCacheReport registryCacheReport) =>
+            {
+                if (!TryGetInstance(registryCacheSingleton, registryCacheReport, out RegistryCache? instance, out NpmError? error))
+                {
+                    return Results.Json(error, UnityNugetJsonSerializerContext.Default);
+                }
+
+                NpmPackageListAllResponse? result = instance?.All();
+                return Results.Json(result, UnityNugetJsonSerializerContext.Default);
+            });
+        }
+
+        private static void MapGetPackage(this IEndpointRouteBuilder builder)
+        {
+            builder.MapGet("{id}", (string id, RegistryCacheSingleton registryCacheSingleton, RegistryCacheReport registryCacheReport) =>
+            {
+                if (!TryGetInstance(registryCacheSingleton, registryCacheReport, out RegistryCache? instance, out NpmError? error))
+                {
+                    return Results.Json(error, UnityNugetJsonSerializerContext.Default);
+                }
+
+                NpmPackage? package = instance?.GetPackage(id);
+                if (package == null)
+                {
+                    return Results.Json(NpmError.NotFound, UnityNugetJsonSerializerContext.Default);
+                }
+
+                return Results.Json(package, UnityNugetJsonSerializerContext.Default);
+            });
+        }
+
+        private static void MapDownloadPackage(this IEndpointRouteBuilder builder)
+        {
+            builder.MapMethods("{id}/-/{file}", new[] { HttpMethod.Head.Method, HttpMethod.Get.Method }, handler: (string id, string file, HttpContext httpContext, RegistryCacheSingleton registryCacheSingleton, RegistryCacheReport registryCacheReport) =>
+            {
+                if (!TryGetInstance(registryCacheSingleton, registryCacheReport, out RegistryCache? instance, out NpmError? error))
+                {
+                    return Results.Json(error, UnityNugetJsonSerializerContext.Default);
+                }
+
+                NpmPackage? package = instance?.GetPackage(id);
+                if (package == null)
+                {
+                    return Results.Json(NpmError.NotFound, UnityNugetJsonSerializerContext.Default);
+                }
+
+                if (!file.StartsWith(id + "-") || !file.EndsWith(".tgz"))
+                {
+                    return Results.Json(NpmError.NotFound, UnityNugetJsonSerializerContext.Default);
+                }
+
+                string? filePath = instance?.GetPackageFilePath(file);
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                {
+                    return Results.Json(NpmError.NotFound, UnityNugetJsonSerializerContext.Default);
+                }
+
+                // This method can be called with HEAD request, so in that case we just calculate the content length
+                if (httpContext.Request.Method.Equals(HttpMethod.Head.Method))
+                {
+                    httpContext.Response.ContentType = "application/octet-stream";
+                    httpContext.Response.ContentLength = new FileInfo(filePath).Length;
+                    return Results.Ok();
+                }
+                else
+                {
+                    return Results.File(filePath, "application/octet-stream", file);
+                }
+            });
+        }
+
+        private static void MapStatus(this IEndpointRouteBuilder builder)
         {
             const string text = @"
 <!DOCTYPE HTML>
@@ -83,6 +176,36 @@ namespace Microsoft.AspNetCore.Builder
                     .Render(templateContext);
                 await context.Response.WriteAsync(output);
             });
+        }
+
+        private static bool TryGetInstance(RegistryCacheSingleton registryCacheSingleton, RegistryCacheReport registryCacheReport, out RegistryCache? cacheInstance, out NpmError? npmError)
+        {
+            RegistryCache? instance = registryCacheSingleton.Instance;
+
+            cacheInstance = instance;
+            npmError = instance == null ? GetNpmError(registryCacheReport) : null;
+
+            return instance != null;
+        }
+
+        private static NpmError GetNpmError(RegistryCacheReport registryCacheReport)
+        {
+            if (registryCacheReport.ErrorMessages.Any())
+            {
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("Error initializing the server:");
+
+                foreach (string error in registryCacheReport.ErrorMessages)
+                {
+                    stringBuilder.AppendLine(error);
+                }
+
+                return new NpmError("not_initialized", stringBuilder.ToString());
+            }
+            else
+            {
+                return new NpmError("not_initialized", $"The server is initializing ({registryCacheReport.Progress:F1}% completed). Please retry later...");
+            }
         }
     }
 }

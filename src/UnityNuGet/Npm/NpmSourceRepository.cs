@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -7,13 +7,13 @@ namespace UnityNuGet.Npm
     /// </summary>
     public partial class NpmSourceRepository : NpmObject
     {
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public string? Type { get; set; }
 
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string? Url { get; set; }
 
-        [JsonProperty("revision")]
+        [JsonPropertyName("revision")]
         public string? Revision { get; set; }
 
         public NpmSourceRepository Clone() => (NpmSourceRepository)MemberwiseClone();

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -9,43 +9,34 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmPackage : NpmObject
     {
-        public NpmPackage()
-        {
-            Revision = "1-0";
-            DistTags = [];
-            Versions = [];
-            Time = [];
-            Users = [];
-        }
-
-        [JsonProperty("_id")]
+        [JsonPropertyName("_id")]
         public string? Id { get; set; }
 
-        [JsonProperty("_rev")]
-        public string Revision { get; set; }
+        [JsonPropertyName("_rev")]
+        public string Revision { get; set; } = "1-0";
 
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
-        [JsonProperty("license")]
+        [JsonPropertyName("license")]
         public string? License { get; set; }
 
-        [JsonProperty("description")]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
 
-        [JsonProperty("dist-tags")]
-        public Dictionary<string, string> DistTags { get; }
+        [JsonPropertyName("dist-tags")]
+        public Dictionary<string, string> DistTags { get; } = [];
 
-        [JsonProperty("versions")]
-        public Dictionary<string, NpmPackageVersion> Versions { get; }
+        [JsonPropertyName("versions")]
+        public Dictionary<string, NpmPackageVersion> Versions { get; } = [];
 
-        [JsonProperty("time")]
-        public Dictionary<string, DateTime> Time { get; }
+        [JsonPropertyName("time")]
+        public Dictionary<string, DateTime> Time { get; } = [];
 
-        [JsonProperty("repository", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("repository")]
         public NpmSourceRepository? Repository { get; set; }
 
-        [JsonProperty("users")]
-        public Dictionary<string, string> Users { get; }
+        [JsonPropertyName("users")]
+        public Dictionary<string, string> Users { get; } = [];
     }
 }
