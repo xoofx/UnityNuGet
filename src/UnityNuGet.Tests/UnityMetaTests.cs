@@ -13,7 +13,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, [], []);
             Assert.That(output, Does.Not.Contain("defineConstraints"));
 
             // This is on the same line in the template, so ensure it's intact
@@ -25,7 +25,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, [], []);
             Assert.That(output, Does.Not.Contain("labels"));
 
             // This is on the same line in the template, so ensure it's intact
@@ -39,7 +39,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), constraints);
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, [], constraints);
 
             Assert.That(output, Does.Contain(expected));
 
@@ -54,7 +54,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, labels, Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, labels, []);
 
             Assert.That(output, Does.Contain(expected));
 
@@ -78,7 +78,7 @@ namespace UnityNuGet.Tests
                 platformDef = new PlatformDefinition(UnityOs.AnyOs, UnityCpu.None, isEditorConfig: false);
             }
 
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), platformDef!, Array.Empty<string>(), Array.Empty<string>());
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), platformDef!, [], []);
 
             Assert.That(output, Does.Contain($"\n  platformData:\n  - first:\n      Any:\n    second:\n      enabled: {expected}\n"));
         }
@@ -88,7 +88,7 @@ namespace UnityNuGet.Tests
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
             var anyOs = platformDefs.Find(UnityOs.AnyOs, UnityCpu.AnyCpu);
-            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, Array.Empty<string>(), new[] { "TEST" });
+            var output = UnityMeta.GetMetaForDll(Guid.NewGuid(), anyOs!, [], ["TEST"]);
             Assert.That(output, Does.Not.Contain("\r"));
         }
 
@@ -101,8 +101,8 @@ namespace UnityNuGet.Tests
             var output = UnityMeta.GetMetaForDll(
                 Guid.NewGuid(),
                 platformDefs.Find(os)!,
-                Array.Empty<string>(),
-                Array.Empty<string>());
+                [],
+                []);
 
             // There should be a single 'Exclude Android: 0' match
             var excludeRegex = new Regex("Exclude (.*): 0");
@@ -137,8 +137,8 @@ namespace UnityNuGet.Tests
             var output = UnityMeta.GetMetaForDll(
                 Guid.NewGuid(),
                 pDef!,
-                Array.Empty<string>(),
-                Array.Empty<string>());
+                [],
+                []);
 
             // There should be only 'Exclude Editor: 0' and 'Exclude {{ osName }}: 0' matches
             var excludeRegex = new Regex("Exclude (.*): 0");

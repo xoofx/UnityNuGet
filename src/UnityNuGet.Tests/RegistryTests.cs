@@ -5,7 +5,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Options;
+using Moq;
 using NuGet.Configuration;
 using NuGet.PackageManagement;
 using NuGet.Packaging.Core;
@@ -18,12 +22,18 @@ namespace UnityNuGet.Tests
 {
     public class RegistryTests
     {
-        private readonly RegistryOptions registryOptions = new RegistryOptions { RegistryFilePath = "registry.json" };
+        private readonly RegistryOptions registryOptions = new() { RegistryFilePath = "registry.json" };
 
         [Test]
         public async Task Make_Sure_That_The_Order_In_The_Registry_Is_Respected()
         {
-            var registry = new Registry(Options.Create(registryOptions));
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
@@ -36,7 +46,13 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task Ensure_That_Packages_Already_Included_In_Net_Standard_Are_not_Included_In_The_Registry()
         {
-            var registry = new Registry(Options.Create(registryOptions));
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
@@ -103,7 +119,13 @@ namespace UnityNuGet.Tests
         [Test]
         public async Task Ensure_Min_Version_Is_Correct_Ignoring_Analyzers_And_Native_Libs()
         {
-            var registry = new Registry(Options.Create(registryOptions));
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;
@@ -220,7 +242,13 @@ namespace UnityNuGet.Tests
         {
             const int maxAllowedVersions = 100;
 
-            var registry = new Registry(Options.Create(registryOptions));
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
+            hostEnvironmentMock.Setup(h => h.EnvironmentName).Returns(Environments.Development);
+
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddProvider(new FakeLoggerProvider());
+
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
             var cancellationToken = CancellationToken.None;

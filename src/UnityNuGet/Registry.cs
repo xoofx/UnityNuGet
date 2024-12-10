@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -12,10 +14,12 @@ namespace UnityNuGet
     /// <summary>
     /// Loads the `registry.json` file at startup
     /// </summary>
-    public sealed class Registry(IOptions<RegistryOptions> registryOptionsAccessor) : IHostedService, IReadOnlyCollection<KeyValuePair<string, RegistryEntry>>, IEnumerable<KeyValuePair<string, RegistryEntry>>
+    public sealed class Registry(IHostEnvironment hostEnvironment, ILoggerFactory loggerFactory, IOptions<RegistryOptions> registryOptionsAccessor) : IHostedService, IReadOnlyCollection<KeyValuePair<string, RegistryEntry>>, IEnumerable<KeyValuePair<string, RegistryEntry>>
     {
         private IDictionary<string, RegistryEntry>? _data;
 
+        private readonly IHostEnvironment hostEnvironment = hostEnvironment;
+        private readonly ILoggerFactory loggerFactory = loggerFactory;
         private readonly RegistryOptions registryOptions = registryOptionsAccessor.Value;
 
         public int Count => _data!.Count;
@@ -36,8 +40,25 @@ namespace UnityNuGet
             }
             else
             {
-                registryFilePath = Path.Combine(Directory.GetCurrentDirectory(), registryOptions.RegistryFilePath!);
+                bool isDevelopment = hostEnvironment.IsDevelopment();
+
+                string currentDirectory;
+
+                if (isDevelopment)
+                {
+                    currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
+                }
+                else
+                {
+                    currentDirectory = Directory.GetCurrentDirectory();
+                }
+
+                registryFilePath = Path.Combine(currentDirectory, registryOptions.RegistryFilePath!);
             }
+
+            var logger = loggerFactory.CreateLogger("NuGet");
+
+            logger.LogInformation("Using Unity registry file `{UnityRegistryFile}`", registryFilePath);
 
             string json = await File.ReadAllTextAsync(registryFilePath, cancellationToken);
 

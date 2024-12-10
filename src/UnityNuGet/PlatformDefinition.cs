@@ -283,15 +283,15 @@ namespace UnityNuGet
         {
             var root = new PlatformDefinition(UnityOs.AnyOs, UnityCpu.AnyCpu, isEditorConfig: true)
             {
-                Children = new List<PlatformDefinition>()
-                {
+                Children =
+                [
                     new(UnityOs.Windows, UnityCpu.AnyCpu, isEditorConfig: true)
                     {
-                        Children = new List<PlatformDefinition>()
-                        {
+                        Children =
+                        [
                             new(UnityOs.Windows, UnityCpu.X64, isEditorConfig: true),
                             new(UnityOs.Windows, UnityCpu.X86, isEditorConfig: false),
-                        },
+                        ],
                     },
                     new(UnityOs.Linux, UnityCpu.X64, isEditorConfig: true),
                     new(UnityOs.Android, UnityCpu.ARMv7, isEditorConfig: false),
@@ -299,13 +299,13 @@ namespace UnityNuGet
                     new(UnityOs.iOS, UnityCpu.AnyCpu, isEditorConfig: false),
                     new(UnityOs.OSX, UnityCpu.AnyCpu, isEditorConfig: true)
                     {
-                        Children = new List<PlatformDefinition>()
-                        {
+                        Children =
+                        [
                             new(UnityOs.OSX, UnityCpu.X64, isEditorConfig: true),
                             new(UnityOs.OSX, UnityCpu.ARM64, isEditorConfig: true),
-                        },
+                        ],
                     }
-                }
+                ]
             };
 
             return root;

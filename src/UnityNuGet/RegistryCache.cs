@@ -252,7 +252,7 @@ namespace UnityNuGet
                 }
 
                 var packageMetaIt = await GetMetadataFromSources(packageName);
-                var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
+                var packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : [];
                 foreach (var packageMeta in packageMetas)
                 {
                     var packageIdentity = packageMeta.Identity;
@@ -375,7 +375,7 @@ namespace UnityNuGet
                             else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
                             {
                                 var dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id);
-                                var dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : Array.Empty<IPackageSearchMetadata>();
+                                var dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : [];
 
                                 PackageDependency? packageDependency = null;
 
@@ -794,8 +794,8 @@ namespace UnityNuGet
                                 meta = UnityMeta.GetMetaForDll(
                                     GetStableGuid(identity, fileInUnityPackage),
                                     file.Platform,
-                                    Array.Empty<string>(),
-                                    defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : Array.Empty<string>());
+                                    [],
+                                    defineConstraints != null ? defineConstraints.Concat(packageEntry.DefineConstraints) : []);
                             }
                             else
                             {
@@ -843,7 +843,7 @@ namespace UnityNuGet
                         var guid = GetStableGuid(identity, file);
                         string? meta = extension switch
                         {
-                            ".dll" or ".so" or ".dylib" => UnityMeta.GetMetaForDll(guid, platformDef!, Array.Empty<string>(), Array.Empty<string>()),
+                            ".dll" or ".so" or ".dylib" => UnityMeta.GetMetaForDll(guid, platformDef!, [], []),
                             _ => UnityMeta.GetMetaForExtension(guid, extension)
                         };
 

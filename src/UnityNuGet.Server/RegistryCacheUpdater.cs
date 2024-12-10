@@ -37,9 +37,9 @@ namespace UnityNuGet.Server
                             _currentRegistryCache.ProgressTotalPackageCount = total;
                             _currentRegistryCache.ProgressPackageIndex = current;
                         },
-                        OnInformation = message => _registryCacheReport.AddInformation(message),
-                        OnWarning = message => _registryCacheReport.AddWarning(message),
-                        OnError = message => _registryCacheReport.AddError(message)
+                        OnInformation = _registryCacheReport.AddInformation,
+                        OnWarning = _registryCacheReport.AddWarning,
+                        OnError = _registryCacheReport.AddError
                     };
 
                     await newRegistryCache.Build();
