@@ -82,14 +82,14 @@ guid: {{ guid }}
             if (platformDef.Os != UnityOs.AnyOs)
             {
                 // Determine which configurations are enabled
-                var platWin = platformDef.Find(UnityOs.Windows, UnityCpu.X86);
-                var platWin64 = platformDef.Find(UnityOs.Windows, UnityCpu.X64);
-                var platLinux64 = platformDef.Find(UnityOs.Linux, UnityCpu.X64);
-                var platOsx = platformDef.Find(UnityOs.OSX);
-                var platAndroid = platformDef.Find(UnityOs.Android);
-                var platWasm = platformDef.Find(UnityOs.WebGL);
-                var platIos = platformDef.Find(UnityOs.iOS);
-                var platEditor = platformDef.FindEditor();
+                PlatformDefinition? platWin = platformDef.Find(UnityOs.Windows, UnityCpu.X86);
+                PlatformDefinition? platWin64 = platformDef.Find(UnityOs.Windows, UnityCpu.X64);
+                PlatformDefinition? platLinux64 = platformDef.Find(UnityOs.Linux, UnityCpu.X64);
+                PlatformDefinition? platOsx = platformDef.Find(UnityOs.OSX);
+                PlatformDefinition? platAndroid = platformDef.Find(UnityOs.Android);
+                PlatformDefinition? platWasm = platformDef.Find(UnityOs.WebGL);
+                PlatformDefinition? platIos = platformDef.Find(UnityOs.iOS);
+                PlatformDefinition? platEditor = platformDef.FindEditor();
 
                 var dict = new
                 {

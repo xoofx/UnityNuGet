@@ -47,7 +47,7 @@ namespace Microsoft.AspNetCore.Builder
 ";
             builder.MapGet("/status", async context =>
             {
-                var registryCacheReport = context.RequestServices.GetRequiredService<RegistryCacheReport>();
+                RegistryCacheReport registryCacheReport = context.RequestServices.GetRequiredService<RegistryCacheReport>();
 
                 string message;
 
@@ -74,7 +74,7 @@ namespace Microsoft.AspNetCore.Builder
                 var scriptObject = new ScriptObject();
                 scriptObject.Import(model);
 
-                var templateContext = template.LexerOptions.Lang == ScriptLang.Liquid ? new LiquidTemplateContext() : new TemplateContext();
+                TemplateContext templateContext = template.LexerOptions.Lang == ScriptLang.Liquid ? new LiquidTemplateContext() : new TemplateContext();
                 templateContext.LoopLimit = 0;
                 templateContext.PushGlobal(scriptObject);
 

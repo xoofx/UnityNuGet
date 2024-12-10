@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using UnityNuGet;
 using UnityNuGet.Server;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add the registry
 builder.Services.AddSingleton<Registry>();
@@ -28,7 +28,7 @@ builder.Services.AddApplicationInsightsTelemetry();
 // Also enable NewtonsoftJson serialization
 builder.Services.AddControllers().AddNewtonsoftJson();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {

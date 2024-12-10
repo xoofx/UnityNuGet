@@ -31,9 +31,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpGet("-/all")]
         public JsonResult GetAll()
         {
-            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+            if (!TryGetInstance(out RegistryCache? instance, out NpmError? error)) return new JsonResult(error);
 
-            var result = instance?.All();
+            NpmPackageListAllResponse? result = instance?.All();
             return new JsonResult(result);
         }
 
@@ -41,9 +41,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpGet("{id}")]
         public JsonResult GetPackage(string id)
         {
-            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+            if (!TryGetInstance(out RegistryCache? instance, out NpmError? error)) return new JsonResult(error);
 
-            var package = instance?.GetPackage(id);
+            NpmPackage? package = instance?.GetPackage(id);
             if (package == null)
             {
                 return new JsonResult(NpmError.NotFound);
@@ -57,9 +57,9 @@ namespace UnityNuGet.Server.Controllers
         [HttpHead("{id}/-/{file}")]
         public IActionResult DownloadPackage(string id, string file)
         {
-            if (!TryGetInstance(out var instance, out var error)) return new JsonResult(error);
+            if (!TryGetInstance(out RegistryCache? instance, out NpmError? error)) return new JsonResult(error);
 
-            var package = instance?.GetPackage(id);
+            NpmPackage? package = instance?.GetPackage(id);
             if (package == null)
             {
                 return new JsonResult(NpmError.NotFound);
@@ -70,7 +70,7 @@ namespace UnityNuGet.Server.Controllers
                 return new JsonResult(NpmError.NotFound);
             }
 
-            var filePath = instance?.GetPackageFilePath(file);
+            string? filePath = instance?.GetPackageFilePath(file);
             if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
             {
                 return new JsonResult(NpmError.NotFound);
@@ -91,7 +91,7 @@ namespace UnityNuGet.Server.Controllers
 
         private bool TryGetInstance(out RegistryCache? cacheInstance, out NpmError? npmError)
         {
-            var instance = _cacheSingleton.Instance;
+            RegistryCache? instance = _cacheSingleton.Instance;
             cacheInstance = instance;
 
             if (instance == null)
@@ -101,7 +101,7 @@ namespace UnityNuGet.Server.Controllers
                     var stringBuilder = new StringBuilder();
                     stringBuilder.AppendLine("Error initializing the server:");
 
-                    foreach (var error in _registryCacheReport.ErrorMessages)
+                    foreach (string error in _registryCacheReport.ErrorMessages)
                     {
                         stringBuilder.AppendLine(error);
                     }

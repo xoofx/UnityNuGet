@@ -29,13 +29,13 @@ namespace UnityNuGet
             NuGetFramework targetFramework,
             ILogger logger)
         {
-            var versions = await packageReader.GetItemsAsync(PackagingConstants.Folders.Runtimes, CancellationToken.None);
-            var files = versions.SelectMany(v => v.Items);
+            IEnumerable<FrameworkSpecificGroup> versions = await packageReader.GetItemsAsync(PackagingConstants.Folders.Runtimes, CancellationToken.None);
+            IEnumerable<string> files = versions.SelectMany(v => v.Items);
 
-            foreach (var file in files)
+            foreach (string? file in files)
             {
-                var folderPath = Path.GetDirectoryName(file)!;
-                var folders = folderPath.Split(Path.DirectorySeparatorChar);
+                string folderPath = Path.GetDirectoryName(file)!;
+                string[] folders = folderPath.Split(Path.DirectorySeparatorChar);
 
                 // We're looking for paths matching runtimes/{platform}-{architecture}/lib/{framework}
                 if (folders.Length != 4 || !folders[2].Equals("lib", StringComparison.OrdinalIgnoreCase))
@@ -51,7 +51,7 @@ namespace UnityNuGet
                     continue;
                 }
 
-                var system = folders[1].Split('-');
+                string[] system = folders[1].Split('-');
 
                 if (system.Length < 1)
                 {

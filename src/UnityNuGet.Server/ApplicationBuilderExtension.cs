@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 namespace UnityNuGet.Server
 {
@@ -12,11 +14,11 @@ namespace UnityNuGet.Server
         /// </summary>
         public static void LogRequestHeaders(this IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger("Request Headers");
+            ILogger logger = loggerFactory.CreateLogger("Request Headers");
             app.Use(async (context, next) =>
             {
                 var builder = new StringBuilder(Environment.NewLine);
-                foreach (var header in context.Request.Headers)
+                foreach (KeyValuePair<string, StringValues> header in context.Request.Headers)
                 {
                     builder.AppendLine($"{header.Key}:{header.Value}");
                 }
@@ -25,7 +27,7 @@ namespace UnityNuGet.Server
 
                 builder.Length = 0;
                 builder.AppendLine();
-                foreach (var header in context.Response.Headers)
+                foreach (KeyValuePair<string, StringValues> header in context.Response.Headers)
                 {
                     builder.AppendLine($"{header.Key}:{header.Value}");
                 }

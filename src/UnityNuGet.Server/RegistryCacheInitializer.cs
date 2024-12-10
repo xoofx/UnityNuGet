@@ -13,30 +13,30 @@ namespace UnityNuGet.Server
 {
     public class RegistryCacheInitializer(IConfiguration configuration, IHostEnvironment hostEnvironment, ILoggerFactory loggerFactory, IOptions<RegistryOptions> registryOptionsAccessor, RegistryCacheSingleton registryCacheSingleton) : IHostedService
     {
-        private readonly IConfiguration configuration = configuration;
-        private readonly IHostEnvironment hostEnvironment = hostEnvironment;
-        private readonly ILoggerFactory loggerFactory = loggerFactory;
-        private readonly RegistryOptions registryOptions = registryOptionsAccessor.Value;
-        private readonly RegistryCacheSingleton registryCacheSingleton = registryCacheSingleton;
+        private readonly IConfiguration _configuration = configuration;
+        private readonly IHostEnvironment _hostEnvironment = hostEnvironment;
+        private readonly ILoggerFactory _loggerFactory = loggerFactory;
+        private readonly RegistryOptions _registryOptions = registryOptionsAccessor.Value;
+        private readonly RegistryCacheSingleton _registryCacheSingleton = registryCacheSingleton;
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            var logger = loggerFactory.CreateLogger("NuGet");
+            ILogger logger = _loggerFactory.CreateLogger("NuGet");
             var loggerRedirect = new NuGetRedirectLogger(logger);
 
-            Uri uri = registryOptions.RootHttpUrl!;
+            Uri uri = _registryOptions.RootHttpUrl!;
 
-            bool isDevelopment = hostEnvironment.IsDevelopment();
+            bool isDevelopment = _hostEnvironment.IsDevelopment();
 
             if (isDevelopment)
             {
-                var urls = configuration[WebHostDefaults.ServerUrlsKey];
+                string? urls = _configuration[WebHostDefaults.ServerUrlsKey];
 
                 // Select HTTPS in production, HTTP in development
-                var url = (urls?.Split(';').FirstOrDefault(x => !x.StartsWith("https"))) ?? throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
+                string url = (urls?.Split(';').FirstOrDefault(x => !x.StartsWith("https"))) ?? throw new InvalidOperationException($"Unable to find a proper server URL from `{urls}`. Expecting a `http://...` URL in development");
 
                 // https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-environment-variables#dotnet_running_in_container-and-dotnet_running_in_containers
-                bool runningInContainer = configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER");
+                bool runningInContainer = _configuration.GetValue<bool>("DOTNET_RUNNING_IN_CONTAINER");
 
                 uri = new Uri(runningInContainer ? url.Replace("+", "localhost") : url);
             }
@@ -44,9 +44,9 @@ namespace UnityNuGet.Server
             // Get the current directory from registry options (prepend binary folder in dev)
             string unityPackageFolder;
 
-            if (Path.IsPathRooted(registryOptions.RegistryFilePath))
+            if (Path.IsPathRooted(_registryOptions.RegistryFilePath))
             {
-                unityPackageFolder = registryOptions.RootPersistentFolder!;
+                unityPackageFolder = _registryOptions.RootPersistentFolder!;
             }
             else
             {
@@ -61,15 +61,15 @@ namespace UnityNuGet.Server
                     currentDirectory = Directory.GetCurrentDirectory();
                 }
 
-                unityPackageFolder = Path.Combine(currentDirectory, registryOptions.RootPersistentFolder!);
+                unityPackageFolder = Path.Combine(currentDirectory, _registryOptions.RootPersistentFolder!);
             }
 
             logger.LogInformation("Using Unity Package folder `{UnityPackageFolder}`", unityPackageFolder);
 
             // Add the cache accessible from the services
-            registryCacheSingleton.UnityPackageFolder = unityPackageFolder;
-            registryCacheSingleton.ServerUri = uri;
-            registryCacheSingleton.NuGetRedirectLogger = loggerRedirect;
+            _registryCacheSingleton.UnityPackageFolder = unityPackageFolder;
+            _registryCacheSingleton.ServerUri = uri;
+            _registryCacheSingleton.NuGetRedirectLogger = loggerRedirect;
 
             return Task.CompletedTask;
         }

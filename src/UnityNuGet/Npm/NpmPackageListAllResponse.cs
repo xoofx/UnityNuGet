@@ -31,7 +31,7 @@ namespace UnityNuGet.Npm
             get
             {
                 var marshalPackages = new Dictionary<string, JToken>();
-                foreach (var packagePair in Packages)
+                foreach (KeyValuePair<string, NpmPackageInfo> packagePair in Packages)
                 {
                     marshalPackages.Add(packagePair.Key, JObject.FromObject(packagePair.Value));
                 }
