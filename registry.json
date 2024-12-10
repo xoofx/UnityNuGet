@@ -1535,7 +1535,7 @@
   },
   "SQLitePCLRaw.provider.sqlite3": {
     "listed": true,
-    "version": "2.0.3"
+    "version": "2.1.0"
   },
   "SSH.NET": {
     "listed": true,
