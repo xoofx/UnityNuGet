@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 
 namespace UnityNuGet.Tests
@@ -13,7 +15,12 @@ namespace UnityNuGet.Tests
             var errorsTriggered = false;
 
             var unityPackages = Path.Combine(Path.GetDirectoryName(typeof(RegistryCacheTests).Assembly.Location)!, "unity_packages");
+            var registry = new Registry(Options.Create(new RegistryOptions { RegistryFilePath = "registry.json" }));
+
+            await registry.StartAsync(CancellationToken.None);
+
             var registryCache = new RegistryCache(
+                registry,
                 unityPackages,
                 new Uri("http://localhost/"),
                 "org.nuget",
