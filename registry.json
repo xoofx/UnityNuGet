@@ -1533,6 +1533,10 @@
     "listed": true,
     "version": "2.1.0"
   },
+  "SQLitePCLRaw.provider.sqlite3": {
+    "listed": true,
+    "version": "2.1.0"
+  },
   "SSH.NET": {
     "listed": true,
     "version": "2020.0.0"
