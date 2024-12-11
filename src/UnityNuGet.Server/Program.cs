@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -25,8 +27,15 @@ builder.Services.AddOptionsWithValidateOnStart<RegistryOptions, ValidateRegistry
 
 builder.Services.AddApplicationInsightsTelemetry();
 
-// Also enable NewtonsoftJson serialization
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.Configure<JsonOptions>(options =>
+{
+    foreach (JsonConverter converter in UnityNugetJsonSerializerContext.Default.Options.Converters)
+    {
+        options.SerializerOptions.Converters.Add(converter);
+    }
+});
+
+builder.Services.AddHealthChecks();
 
 WebApplication app = builder.Build();
 
@@ -41,7 +50,11 @@ else
     app.UseHsts();
 }
 app.UseRouting();
-app.MapControllers();
-app.MapStatus();
+app.MapHealthChecks("/health");
+app.MapUnityNuGetEndpoints();
 
 app.Run();
+
+public partial class Program
+{
+}

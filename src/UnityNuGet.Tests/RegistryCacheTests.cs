@@ -58,14 +58,14 @@ namespace UnityNuGet.Tests
 
             NpmPackageListAllResponse allResult = registryCache.All();
             Assert.That(allResult.Packages, Has.Count.GreaterThanOrEqualTo(3));
-            string allResultJson = allResult.ToJson();
+            string allResultJson = await allResult.ToJson(UnityNugetJsonSerializerContext.Default.NpmPackageListAllResponse);
 
             Assert.That(allResultJson, Does.Contain("org.nuget.scriban"));
             Assert.That(allResultJson, Does.Contain("org.nuget.system.runtime.compilerservices.unsafe"));
 
             NpmPackage? scribanPackage = registryCache.GetPackage("org.nuget.scriban");
             Assert.That(scribanPackage, Is.Not.Null);
-            string scribanPackageJson = scribanPackage!.ToJson();
+            string scribanPackageJson = await scribanPackage!.ToJson(UnityNugetJsonSerializerContext.Default.NpmPackage);
             Assert.That(scribanPackageJson, Does.Contain("org.nuget.scriban"));
             Assert.That(scribanPackageJson, Does.Contain("2.1.0"));
         }

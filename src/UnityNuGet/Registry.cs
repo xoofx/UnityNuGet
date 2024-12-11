@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace UnityNuGet
 {
@@ -60,11 +60,11 @@ namespace UnityNuGet
 
             logger.LogInformation("Using Unity registry file `{UnityRegistryFile}`", registryFilePath);
 
-            string json = await File.ReadAllTextAsync(registryFilePath, cancellationToken);
+            using Stream stream = File.OpenRead(registryFilePath);
 
-            IDictionary<string, RegistryEntry> data = JsonConvert.DeserializeObject<IDictionary<string, RegistryEntry>>(json, JsonCommonExtensions.Settings)!;
+            IDictionary<string, RegistryEntry>? data = await JsonSerializer.DeserializeAsync(stream, UnityNugetJsonSerializerContext.Default.IDictionaryStringRegistryEntry, cancellationToken);
 
-            _data = new Dictionary<string, RegistryEntry>(data, StringComparer.OrdinalIgnoreCase);
+            _data = new Dictionary<string, RegistryEntry>(data!, StringComparer.OrdinalIgnoreCase);
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

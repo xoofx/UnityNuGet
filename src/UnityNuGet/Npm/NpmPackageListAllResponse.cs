@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -12,33 +11,11 @@ namespace UnityNuGet.Npm
     /// </remarks>
     public class NpmPackageListAllResponse : NpmObject
     {
-        public NpmPackageListAllResponse()
-        {
-            Unused = 99999;
-            Packages = [];
-        }
-
-        [JsonProperty("_updated")]
-        public int Unused { get; set; }
+        [JsonPropertyName("_updated")]
+        public int Updated { get; set; } = 99999;
 
         [JsonIgnore]
-        public Dictionary<string, NpmPackageInfo> Packages { get; }
-
-        // Everything else gets stored here
-        [JsonExtensionData]
-        private IDictionary<string, JToken> AdditionalData
-        {
-            get
-            {
-                var marshalPackages = new Dictionary<string, JToken>();
-                foreach (KeyValuePair<string, NpmPackageInfo> packagePair in Packages)
-                {
-                    marshalPackages.Add(packagePair.Key, JObject.FromObject(packagePair.Value));
-                }
-
-                return marshalPackages;
-            }
-        }
+        public Dictionary<string, NpmPackageInfo> Packages { get; } = [];
 
         public void Reset()
         {

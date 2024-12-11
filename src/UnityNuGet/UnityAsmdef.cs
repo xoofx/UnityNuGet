@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace UnityNuGet
 {
     public class UnityAsmdef : JsonObjectBase
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         // The values come from: https://docs.unity3d.com/ScriptReference/BuildTarget.html
-        [JsonProperty("includePlatforms")]
+        [JsonPropertyName("includePlatforms")]
         public string[]? IncludePlatforms { get; set; }
     }
 }

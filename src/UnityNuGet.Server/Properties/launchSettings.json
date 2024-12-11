@@ -4,7 +4,7 @@
     "UnityNuGetServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "-/all",
+      "launchUrl": "",
       "applicationUrl": "http://localhost",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

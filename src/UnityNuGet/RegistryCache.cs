@@ -6,12 +6,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
-using Newtonsoft.Json;
 using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Frameworks;
@@ -210,8 +210,8 @@ namespace UnityNuGet
                 _npmPackageRegistry.Reset();
             }
 
-            Regex? regexFilter = Filter != null ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
-            if (Filter != null)
+            Regex? regexFilter = !string.IsNullOrEmpty(Filter) ? new Regex(Filter, RegexOptions.IgnoreCase) : null;
+            if (regexFilter != null)
             {
                 LogInformation($"Filtering with regex: {Filter}");
             }
@@ -344,7 +344,8 @@ namespace UnityNuGet
                         Name = npmPackageId,
                         Description = packageMeta.Description,
                         Author = npmPackageInfo.Author,
-                        DisplayName = packageMeta.Title + _packageNameNuGetPostFix
+                        DisplayName = packageMeta.Title + _packageNameNuGetPostFix,
+                        Repository = npmPackage.Repository
                     };
                     npmVersion.Distribution.Tarball = new Uri(_rootHttpUri, $"{npmPackage.Id}/-/{GetUnityPackageFileName(packageIdentity, npmVersion)}");
                     npmVersion.Unity = _minimumUnityVersion;
@@ -682,7 +683,7 @@ namespace UnityNuGet
                         // Write analyzer asmdef
                         // Check Analyzer Scope section: https://docs.unity3d.com/Manual/roslyn-analyzers.html
                         UnityAsmdef analyzerAsmdef = CreateAnalyzerAmsdef(identity);
-                        string analyzerAsmdefAsJson = analyzerAsmdef.ToJson();
+                        string analyzerAsmdefAsJson = await analyzerAsmdef.ToJson(UnityNugetJsonSerializerContext.Default.UnityAsmdef);
                         string analyzerAsmdefFileName = $"{identity.Id}.asmdef";
                         await WriteTextFileToTar(tarArchive, analyzerAsmdefFileName, analyzerAsmdefAsJson, modTime);
                         await WriteTextFileToTar(tarArchive, $"{analyzerAsmdefFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, analyzerAsmdefFileName), ".asmdef")!, modTime);
@@ -878,7 +879,7 @@ namespace UnityNuGet
 
                     // Write the package,json
                     UnityPackage unityPackage = CreateUnityPackage(npmPackageInfo, npmPackageVersion);
-                    string unityPackageAsJson = unityPackage.ToJson();
+                    string unityPackageAsJson = await unityPackage.ToJson(UnityNugetJsonSerializerContext.Default.UnityPackage);
                     const string packageJsonFileName = "package.json";
                     await WriteTextFileToTar(tarArchive, packageJsonFileName, unityPackageAsJson, modTime);
                     await WriteTextFileToTar(tarArchive, $"{packageJsonFileName}.meta", UnityMeta.GetMetaForExtension(GetStableGuid(identity, packageJsonFileName), ".json")!, modTime);
@@ -1039,7 +1040,7 @@ namespace UnityNuGet
             try
             {
                 string cacheEntryAsJson = File.ReadAllText(path);
-                cacheEntry = JsonConvert.DeserializeObject<NpmPackageCacheEntry>(cacheEntryAsJson, JsonCommonExtensions.Settings);
+                cacheEntry = JsonSerializer.Deserialize(cacheEntryAsJson, UnityNugetJsonSerializerContext.Default.NpmPackageCacheEntry);
                 if (cacheEntry != null)
                 {
                     cacheEntry.Json = cacheEntryAsJson;
@@ -1057,11 +1058,11 @@ namespace UnityNuGet
         private async Task WritePackageCacheEntry(string packageName, NpmPackageCacheEntry cacheEntry)
         {
             string path = GetUnityPackageDescPath(packageName);
-            string newJson = cacheEntry.ToJson();
+            string newJson = await cacheEntry.ToJson(UnityNugetJsonSerializerContext.Default.NpmPackageCacheEntry);
             // Only update if entry is different
             if (!string.Equals(newJson, cacheEntry.Json, StringComparison.InvariantCulture))
             {
-                await File.WriteAllTextAsync(path, cacheEntry.ToJson());
+                await File.WriteAllTextAsync(path, await cacheEntry.ToJson(UnityNugetJsonSerializerContext.Default.NpmPackageCacheEntry));
             }
         }
 

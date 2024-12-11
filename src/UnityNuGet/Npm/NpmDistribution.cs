@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnityNuGet.Npm
 {
@@ -8,10 +8,10 @@ namespace UnityNuGet.Npm
     /// </summary>
     public class NpmDistribution : NpmObject
     {
-        [JsonProperty("tarball")]
+        [JsonPropertyName("tarball")]
         public Uri? Tarball { get; set; }
 
-        [JsonProperty("shasum")]
+        [JsonPropertyName("shasum")]
         public string? Shasum { get; set; }
     }
 }

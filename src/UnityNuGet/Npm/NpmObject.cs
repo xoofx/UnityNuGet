@@ -5,6 +5,5 @@
     /// </summary>
     public abstract class NpmObject : JsonObjectBase
     {
-
     }
 }
