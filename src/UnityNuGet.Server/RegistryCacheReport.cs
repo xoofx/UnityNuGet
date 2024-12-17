@@ -30,10 +30,12 @@ namespace UnityNuGet.Server
         {
             get
             {
-                int currentIndex = _registryCacheSingleton.ProgressPackageIndex;
                 int totalCount = _registryCacheSingleton.ProgressTotalPackageCount;
-                double percent = totalCount != 0 ? (double)currentIndex * 100 / totalCount : 0;
+                if(totalCount == 0)
+                    return 0;
 
+                int currentIndex = _registryCacheSingleton.ProgressPackageIndex;
+                double percent = (double)currentIndex * 100 / totalCount;
                 return percent;
             }
         }
@@ -42,14 +44,13 @@ namespace UnityNuGet.Server
         {
             get
             {
-                if (_errorMessages.Count == 0)
-                {
-                    return _lastUpdate != null ? _lastUpdate.Value.Add(_registryOptions.UpdateInterval) - DateTime.UtcNow : null;
-                }
-                else
-                {
+                if (_errorMessages.Count > 0)
                     return TimeSpan.FromSeconds(0);
-                }
+
+                if(_lastUpdate == null)
+                    return null;
+
+                return _lastUpdate.Value.Add(_registryOptions.UpdateInterval) - DateTime.UtcNow;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,8 +56,8 @@ namespace UnityNuGet.Tests
         public void RemainingPlatforms_OneVisited()
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
-            
-            foreach (PlatformDefinition child in platformDefs.Children)
+
+            foreach (var child in platformDefs.Children)
             {
                 var visited = new HashSet<PlatformDefinition>() { child };
                 HashSet<PlatformDefinition> remaining = platformDefs.GetRemainingPlatforms(visited);
