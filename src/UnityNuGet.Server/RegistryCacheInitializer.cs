@@ -42,26 +42,13 @@ namespace UnityNuGet.Server
             }
 
             // Get the current directory from registry options (prepend binary folder in dev)
-            string unityPackageFolder;
-
-            if (Path.IsPathRooted(_registryOptions.RegistryFilePath))
+            string unityPackageFolder = _registryOptions.RootPersistentFolder!;
+            if (!Path.IsPathRooted(_registryOptions.RegistryFilePath))
             {
-                unityPackageFolder = _registryOptions.RootPersistentFolder!;
-            }
-            else
-            {
-                string currentDirectory;
-
-                if (isDevelopment)
-                {
-                    currentDirectory = Path.GetDirectoryName(AppContext.BaseDirectory)!;
-                }
-                else
-                {
-                    currentDirectory = Directory.GetCurrentDirectory();
-                }
-
-                unityPackageFolder = Path.Combine(currentDirectory, _registryOptions.RootPersistentFolder!);
+                string currentDirectory = isDevelopment
+                        ? Path.GetDirectoryName(AppContext.BaseDirectory)!
+                        : Directory.GetCurrentDirectory();
+                unityPackageFolder = Path.Combine(currentDirectory, unityPackageFolder);
             }
 
             logger.LogInformation("Using Unity Package folder `{UnityPackageFolder}`", unityPackageFolder);
