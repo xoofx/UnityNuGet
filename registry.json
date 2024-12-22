@@ -702,6 +702,10 @@
         "listed": true,
         "version": "2.0.0"
     },
+    "MedallionShell": {
+        "listed": true,
+        "version": "1.6.0"
+    },
     "MessagePack": {
         "listed": true,
         "version": "1.7.0"
