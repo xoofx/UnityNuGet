@@ -3,10 +3,11 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Options;
 using Moq;
+using NuGet.Versioning;
 using NUnit.Framework;
 using UnityNuGet.Npm;
 
@@ -14,6 +15,17 @@ namespace UnityNuGet.Tests
 {
     public class RegistryCacheTests
     {
+        [Test]
+        [TestCase("1.0.0", "1.0.0")]
+        [TestCase("1.0.0.0", "1.0.0")]
+        [TestCase("1.0.0.1", "1.0.0-1")]
+        [TestCase("1.0.0-preview.1.24080.9", "1.0.0-preview.1.24080.9")]
+        [TestCase("1.0.0.1-preview.1.24080.9", "1.0.0-1.preview.1.24080.9")]
+        public void GetNpmVersion(string version, string expected)
+        {
+            Assert.That(RegistryCache.GetNpmVersion(NuGetVersion.Parse(version)), Is.EqualTo(expected));
+        }
+
         [Test]
         public async Task TestBuild()
         {

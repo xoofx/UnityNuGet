@@ -23,5 +23,8 @@ namespace UnityNuGet
 
         [JsonPropertyName("analyzer")]
         public bool Analyzer { get; set; }
+
+        [JsonPropertyName("includePrerelease")]
+        public bool IncludePrerelease { get; set; }
     }
 }
