@@ -298,7 +298,7 @@ namespace UnityNuGet
         }
 
         /// <summary>
-        /// Returns true if either <c>this</c> <see cref="PlatformDefinition"/> or any of its descendants 
+        /// Returns true if either <c>this</c> <see cref="PlatformDefinition"/> or any of its descendants
         /// is also part of the given set of visited configurations.</summary>
         /// <param name="visitedPlatforms">The set of visited configurations to test against.</param>
         /// <returns></returns>

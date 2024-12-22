@@ -56,7 +56,7 @@ namespace UnityNuGet.Tests
         public void RemainingPlatforms_OneVisited()
         {
             var platformDefs = PlatformDefinition.CreateAllPlatforms();
-            
+
             foreach (PlatformDefinition child in platformDefs.Children)
             {
                 var visited = new HashSet<PlatformDefinition>() { child };
