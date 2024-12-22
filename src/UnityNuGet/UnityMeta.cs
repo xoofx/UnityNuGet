@@ -57,9 +57,9 @@ guid: {{ guid }}
       enabled: 0
       settings:
         CPU: AnyCPU
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
 ";
 
             var allLabels = labels.ToList();
@@ -179,7 +179,7 @@ guid: {{ guid }}
       settings:
         AddToEmbeddedBinaries: false
         CPU: {{ cpu_ios }}
-        CompileFlags: 
+        CompileFlags:
         FrameworkDependencies: ";
 
                 excludePlatforms = Template
@@ -218,8 +218,8 @@ guid: {guid:N}
 folderAsset: yes
 DefaultImporter:
   externalObjects: {{}}
-  userData: 
-  assetBundleName: 
+  userData:
+  assetBundleName:
   assetBundleVariant:
 ".StripWindowsNewlines();
         }
@@ -230,9 +230,9 @@ DefaultImporter:
 guid: {guid:N}
 TextScriptImporter:
   externalObjects: {{}}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
 ".StripWindowsNewlines();
         }
 

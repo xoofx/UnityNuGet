@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace UnityNuGet
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class UnityPackage : JsonObjectBase
     {
