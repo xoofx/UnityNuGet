@@ -1566,6 +1566,17 @@
         "listed": true,
         "version": "1.4.1"
     },
+    "StyleCop.Analyzers": {
+        "listed": true,
+        "version": "1.0.0",
+        "analyzer": true,
+        "includePrerelease": true
+    },
+    "StyleCop.Analyzers.Unstable": {
+        "listed": true,
+        "version": "1.1.0.47",
+        "analyzer": true
+    },
     "SunCalcNet": {
         "listed": true,
         "version": "1.1.0"

@@ -168,13 +168,13 @@ namespace UnityNuGet
             }
         }
 
-        private async Task<IEnumerable<IPackageSearchMetadata>?> GetMetadataFromSources(string packageName)
+        private async Task<IEnumerable<IPackageSearchMetadata>?> GetMetadataFromSources(string packageName, bool includePrerelease)
         {
             foreach (SourceRepository source in _sourceRepositories)
             {
                 PackageMetadataResource packageMetadataResource = source.GetResource<PackageMetadataResource>();
 
-                IEnumerable<IPackageSearchMetadata> result = await packageMetadataResource.GetMetadataAsync(packageName, includePrerelease: false, includeUnlisted: false, _sourceCacheContext, _logger, CancellationToken.None);
+                IEnumerable<IPackageSearchMetadata> result = await packageMetadataResource.GetMetadataAsync(packageName, includePrerelease, includeUnlisted: false, _sourceCacheContext, _logger, CancellationToken.None);
 
                 if (result.Any())
                 {
@@ -251,7 +251,7 @@ namespace UnityNuGet
                     }
                 }
 
-                IEnumerable<IPackageSearchMetadata>? packageMetaIt = await GetMetadataFromSources(packageName);
+                IEnumerable<IPackageSearchMetadata>? packageMetaIt = await GetMetadataFromSources(packageName, packageEntry.IncludePrerelease);
                 IPackageSearchMetadata[] packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : [];
                 foreach (IPackageSearchMetadata? packageMeta in packageMetas)
                 {
@@ -375,7 +375,7 @@ namespace UnityNuGet
                             }
                             else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
                             {
-                                IEnumerable<IPackageSearchMetadata>? dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id);
+                                IEnumerable<IPackageSearchMetadata>? dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id, packageEntryDep.IncludePrerelease);
                                 IPackageSearchMetadata[] dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : [];
 
                                 PackageDependency? packageDependency = null;
@@ -468,14 +468,38 @@ namespace UnityNuGet
             }
         }
 
-        private static string GetNpmVersion(NuGetVersion currentVersion)
+        // Unity only supports the SemVer format: https://docs.unity3d.com/6000.1/Documentation/Manual/upm-lifecycle.html
+        internal static string GetNpmVersion(NuGetVersion currentVersion)
         {
             string npmCurrentVersion = $"{currentVersion.Major}.{currentVersion.Minor}.{currentVersion.Patch}";
 
-            if (currentVersion.Revision != 0)
+            if (currentVersion.IsPrerelease || currentVersion.Revision != 0)
             {
-                npmCurrentVersion += $"-{currentVersion.Revision}";
+                StringBuilder stringBuilder = new();
+
+                if (currentVersion.Revision != 0)
+                {
+                    stringBuilder.Append(currentVersion.Revision);
+                }
+
+                if (currentVersion.IsPrerelease)
+                {
+                    if (stringBuilder.Length > 0)
+                    {
+                        stringBuilder.Append('.');
+                    }
+
+                    stringBuilder.Append(currentVersion.Release);
+                }
+
+                if (stringBuilder.Length > 0)
+                {
+                    stringBuilder.Insert(0, '-');
+                }
+
+                npmCurrentVersion += stringBuilder.ToString();
             }
+
             return npmCurrentVersion;
         }
 
