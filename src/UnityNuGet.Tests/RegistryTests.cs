@@ -24,7 +24,7 @@ namespace UnityNuGet.Tests
 {
     public class RegistryTests
     {
-        private static readonly RegistryOptions _registryOptions = new() { RegistryFilePath = "registry.json" };
+        private static readonly RegistryOptions s_registryOptions = new() { RegistryFilePath = "registry.json" };
 
         [Test]
         [TestCase("scriban")]
@@ -37,7 +37,7 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(s_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
@@ -57,7 +57,7 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(s_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
@@ -76,7 +76,7 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(s_registryOptions));
 
             await registry.StartAsync(CancellationToken.None);
 
@@ -148,7 +148,7 @@ namespace UnityNuGet.Tests
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddProvider(new FakeLoggerProvider());
 
-            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(_registryOptions));
+            var registry = new Registry(hostEnvironmentMock.Object, loggerFactory, Options.Create(s_registryOptions));
 
             var logger = new NuGetConsoleTestLogger();
             CancellationToken cancellationToken = CancellationToken.None;
@@ -210,12 +210,13 @@ namespace UnityNuGet.Tests
 
             var excludedPackagesRegex = new Regex(@$"^{string.Join('|', excludedPackages)}$");
 
-            return registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored).OrderBy((pair) => pair.Key).Select((pair) => {
+            return registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored).OrderBy((pair) => pair.Key).Select((pair) =>
+            {
                 return new TestCaseData(resource,logger,cache,repository,excludedPackagesRegex,nuGetFrameworks,pair.Key,pair.Value.Version).SetArgDisplayNames(pair.Key,pair.Value.Version!.ToString());
             }).ToArray();
         }
 
-        const int maxAllowedVersions = 100;
+        const int MaxAllowedVersions = 100;
 
         [TestCaseSource(nameof(AllRegistries))]
         public async Task Ensure_Min_Version_Is_Correct_Ignoring_Analyzers_And_Native_Libs(PackageMetadataResource resource,
@@ -227,7 +228,7 @@ namespace UnityNuGet.Tests
             string packageId,
             VersionRange versionRange)
         {
-            var dependencyPackageMetas = await resource.GetMetadataAsync(
+            IEnumerable<IPackageSearchMetadata> dependencyPackageMetas = await resource.GetMetadataAsync(
                 packageId,
                 includePrerelease: false,
                 includeUnlisted: false,
@@ -235,13 +236,13 @@ namespace UnityNuGet.Tests
                 logger,
                 CancellationToken.None);
 
-            var versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
-            Warn.If(versions,Has.Length.GreaterThan(maxAllowedVersions));
+            IPackageSearchMetadata[] versions = dependencyPackageMetas.Where(v => versionRange!.Satisfies(v.Identity.Version)).ToArray();
+            Warn.If(versions, Has.Length.GreaterThan(MaxAllowedVersions));
 
-            if(excludedPackagesRegex.IsMatch(packageId))
+            if (excludedPackagesRegex.IsMatch(packageId))
                 return;
 
-            var packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
+            PackageIdentity? packageIdentity = NuGetHelper.GetMinimumCompatiblePackageIdentity(dependencyPackageMetas, nuGetFrameworks, includeAny: false);
 
             if (packageIdentity != null)
             {
@@ -251,7 +252,7 @@ namespace UnityNuGet.Tests
             {
                 ISettings settings = Settings.LoadDefaultSettings(root: null);
 
-                var downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
+                DownloadResourceResult downloadResult = await PackageDownloader.GetDownloadResourceResultAsync(
                         [repository],
                         new PackageIdentity(packageId, versionRange!.MinVersion),
                         new PackageDownloadContext(cache),
@@ -259,7 +260,7 @@ namespace UnityNuGet.Tests
                         logger, CancellationToken.None);
 
                 bool hasNativeLib = await NativeLibraries.GetSupportedNativeLibsAsync(downloadResult.PackageReader, logger).AnyAsync();
-                Assert.That(hasNativeLib,packageId);
+                Assert.That(hasNativeLib, packageId);
             }
         }
     }
