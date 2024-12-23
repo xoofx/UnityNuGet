@@ -26,7 +26,7 @@ namespace UnityNuGet.Tests
             Assert.That(RegistryCache.GetNpmVersion(NuGetVersion.Parse(version)), Is.EqualTo(expected));
         }
 
-        [Test,Order(99)]
+        [Test, Order(99)]
         public async Task TestBuild()
         {
             bool errorsTriggered = false;
