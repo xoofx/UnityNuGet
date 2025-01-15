@@ -13,7 +13,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="NuGet.PackageManagement" Version="6.12.1" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="9.0.1" />
     <PackageVersion Include="NUglify" Version="1.21.11" />
     <PackageVersion Include="nunit" Version="4.3.2" />
     <PackageVersion Include="NUnit.Analyzers" Version="4.6.0" />
