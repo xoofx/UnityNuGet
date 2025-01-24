@@ -784,6 +784,10 @@
         "listed": true,
         "version": "1.0.0"
     },
+    "Microsoft.Bcl.Memory": {
+        "listed": true,
+        "version": "9.0.0"
+    },
     "Microsoft.Bcl.TimeProvider": {
         "listed": true,
         "version": "8.0.0"
