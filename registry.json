@@ -404,6 +404,14 @@
         "listed": true,
         "version": "0.7.0"
     },
+    "Duende.IdentityModel": {
+      "listed": true,
+      "version": "7.0.0"
+    },
+    "Duende.IdentityModel.OidcClient": {
+      "listed": true,
+      "version": "6.0.0"
+    },
     "Eflatun.Expansions": {
         "listed": true,
         "version": "0.0.1"
@@ -615,11 +623,13 @@
     },
     "IdentityModel": {
         "listed": true,
-        "version": "2.13.0"
+        "version": "2.13.0",
+        "includeUnlisted": true
     },
     "IdentityModel.OidcClient": {
         "listed": true,
-        "version": "2.3.0"
+        "version": "2.3.0",
+        "includeUnlisted": true
     },
     "IDisposableAnalyzers": {
         "listed": true,

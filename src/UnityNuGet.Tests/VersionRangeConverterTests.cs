@@ -10,7 +10,7 @@ namespace UnityNuGet.Tests
         [Test]
         public void Read_Write_Success()
         {
-            string json = @"{""ignore"":false,""listed"":false,""version"":""[1.2.3, )"",""defineConstraints"":[],""analyzer"":false,""includePrerelease"":false}";
+            string json = @"{""ignore"":false,""listed"":false,""version"":""[1.2.3, )"",""defineConstraints"":[],""analyzer"":false,""includePrerelease"":false,""includeUnlisted"":false}";
 
             RegistryEntry registryEntry = JsonSerializer.Deserialize(json, UnityNugetJsonSerializerContext.Default.RegistryEntry)!;
 

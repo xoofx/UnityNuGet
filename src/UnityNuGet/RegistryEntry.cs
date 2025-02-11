@@ -26,5 +26,8 @@ namespace UnityNuGet
 
         [JsonPropertyName("includePrerelease")]
         public bool IncludePrerelease { get; set; }
+
+        [JsonPropertyName("includeUnlisted")]
+        public bool IncludeUnlisted { get; set; }
     }
 }
