@@ -212,7 +212,17 @@ namespace UnityNuGet.Tests
 
             return registry.Where(r => !r.Value.Analyzer && !r.Value.Ignored).OrderBy((pair) => pair.Key).Select((pair) =>
             {
-                return new TestCaseData(resource,logger,cache,repository,excludedPackagesRegex,nuGetFrameworks,pair.Key,pair.Value.Version).SetArgDisplayNames(pair.Key,pair.Value.Version!.ToString());
+                return new TestCaseData(
+                    resource,
+                    logger,
+                    cache,
+                    repository,
+                    excludedPackagesRegex,
+                    nuGetFrameworks,
+                    pair.Key,
+                    pair.Value.IncludePrerelease,
+                    pair.Value.IncludeUnlisted,
+                    pair.Value.Version).SetArgDisplayNames(pair.Key, pair.Value.Version!.ToString());
             }).ToArray();
         }
 
@@ -226,12 +236,14 @@ namespace UnityNuGet.Tests
             Regex excludedPackagesRegex,
             RegistryTargetFramework[] nuGetFrameworks,
             string packageId,
+            bool includePrerelease,
+            bool includeUnlisted,
             VersionRange versionRange)
         {
             IEnumerable<IPackageSearchMetadata> dependencyPackageMetas = await resource.GetMetadataAsync(
                 packageId,
-                includePrerelease: false,
-                includeUnlisted: false,
+                includePrerelease,
+                includeUnlisted,
                 cache,
                 logger,
                 CancellationToken.None);
