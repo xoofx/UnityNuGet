@@ -168,13 +168,13 @@ namespace UnityNuGet
             }
         }
 
-        private async Task<IEnumerable<IPackageSearchMetadata>?> GetMetadataFromSources(string packageName, bool includePrerelease)
+        private async Task<IEnumerable<IPackageSearchMetadata>?> GetMetadataFromSources(string packageName, bool includeUnlisted, bool includePrerelease)
         {
             foreach (SourceRepository source in _sourceRepositories)
             {
                 PackageMetadataResource packageMetadataResource = source.GetResource<PackageMetadataResource>();
 
-                IEnumerable<IPackageSearchMetadata> result = await packageMetadataResource.GetMetadataAsync(packageName, includePrerelease, includeUnlisted: false, _sourceCacheContext, _logger, CancellationToken.None);
+                IEnumerable<IPackageSearchMetadata> result = await packageMetadataResource.GetMetadataAsync(packageName, includePrerelease, includeUnlisted, _sourceCacheContext, _logger, CancellationToken.None);
 
                 if (result.Any())
                 {
@@ -251,7 +251,7 @@ namespace UnityNuGet
                     }
                 }
 
-                IEnumerable<IPackageSearchMetadata>? packageMetaIt = await GetMetadataFromSources(packageName, packageEntry.IncludePrerelease);
+                IEnumerable<IPackageSearchMetadata>? packageMetaIt = await GetMetadataFromSources(packageName, packageEntry.IncludeUnlisted, packageEntry.IncludePrerelease);
                 IPackageSearchMetadata[] packageMetas = packageMetaIt != null ? packageMetaIt.ToArray() : [];
                 foreach (IPackageSearchMetadata? packageMeta in packageMetas)
                 {
@@ -375,7 +375,7 @@ namespace UnityNuGet
                             }
                             else if (!deps.VersionRange.IsSubSetOrEqualTo(packageEntryDep.Version))
                             {
-                                IEnumerable<IPackageSearchMetadata>? dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id, packageEntryDep.IncludePrerelease);
+                                IEnumerable<IPackageSearchMetadata>? dependencyPackageMetaIt = await GetMetadataFromSources(deps.Id, packageEntryDep.IncludeUnlisted, packageEntryDep.IncludePrerelease);
                                 IPackageSearchMetadata[] dependencyPackageMetas = dependencyPackageMetaIt != null ? dependencyPackageMetaIt.ToArray() : [];
 
                                 PackageDependency? packageDependency = null;
