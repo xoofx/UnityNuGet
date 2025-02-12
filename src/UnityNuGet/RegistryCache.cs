@@ -609,7 +609,10 @@ namespace UnityNuGet
                     bool isPackageNetStandard21Assembly = DotNetHelper.IsNetStandard21Assembly(identity.Id);
                     bool hasMultiNetStandard = collectedItems.Count > 1;
                     bool hasOnlyNetStandard21 = collectedItems.Count == 1 && collectedItems.Values.First().All(x => x.Name == "netstandard2.1");
-                    DateTime modTime = packageMeta.Published?.DateTime ?? DateTime.UnixEpoch;
+
+                    // https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource#catalog-entry
+                    // Unlisted packages published value is set to 1900
+                    DateTime modTime = packageMeta.IsListed ? packageMeta.Published?.DateTime ?? DateTime.UnixEpoch : DateTime.UnixEpoch;
 
                     if (isPackageNetStandard21Assembly)
                     {
