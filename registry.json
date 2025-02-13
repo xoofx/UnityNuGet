@@ -460,6 +460,10 @@
         "listed": true,
         "version": "1.2.0"
     },
+    "FirebaseAdmin": {
+        "listed": true,
+        "version": "1.7.0"
+    },
     "FluentAssertions": {
         "listed": true,
         "version": "5.0.0",
@@ -494,6 +498,10 @@
     "Google.Api.Gax.Grpc.GrpcCore": {
         "listed": true,
         "version": "3.0.0"
+    },
+    "Google.Api.Gax.Rest": {
+        "listed": false,
+        "version": "2.7.0"
     },
     "Google.Apis": {
         "listed": true,
