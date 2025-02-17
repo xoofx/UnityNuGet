@@ -155,6 +155,10 @@
         "listed": true,
         "version": "1.0.2"
     },
+    "CliWrap": {
+        "listed": true,
+        "version": "1.5.2"
+    },
     "ClosedXML": {
         "listed": true,
         "version": "[0.92.1,0.102.3]"
