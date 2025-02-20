@@ -475,6 +475,10 @@
             "UNITY_EDITOR"
         ]
     },
+    "FluentResults": {
+        "listed": true,
+        "version": "1.2.0"
+    },
     "FluentValidation": {
         "listed": true,
         "version": "7.3.0"
