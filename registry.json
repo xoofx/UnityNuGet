@@ -388,6 +388,10 @@
         "listed": true,
         "version": "3.0.0"
     },
+    "dotMath": {
+        "listed": true,
+        "version": "1.5.0"
+    },
     "DotNetty.Buffers": {
         "listed": true,
         "version": "0.7.0"
