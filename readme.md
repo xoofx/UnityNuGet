@@ -4,7 +4,11 @@
 
 This project provides a seamlessly integration of a [curated list](registry.json) of NuGet packages within the Unity Package Manager.
 
+> [!IMPORTANT]
 > DISCLAIMER: This is not an official service provided by Unity Technologies Inc.
+
+> [!WARNING]
+> [Azure feed to be discontinued on March 10th](https://github.com/xoofx/UnityNuGet/issues/480)
 
 ## Installation
 
@@ -52,8 +56,8 @@ This step is necessary to ensure that binding redirects for [strongly named asse
 
 > WARNING: If you are encountering weird compilation errors with UnityNuGet and you have been using UnityNuGet already,
 > it could be that we have updated packages on the server, and in that case, you need to clear the cache containing
-> all Unity NPM packages downloaded from the `unitynuget-registry.azurewebsites.net` registry.
-> On Windows, this cache is located at: `%localappdata%\Unity\cache\npm\unitynuget-registry.azurewebsites.net`
+> all Unity NPM packages downloaded from the registry.
+> On Windows, this cache by default is located at: `%LOCALAPPDATA%\Unity\cache\npm`
 >
 > Cache locations by OS: <https://docs.unity3d.com/Manual/upm-cache.html>
 
@@ -85,9 +89,10 @@ Beware that **all transitive dependencies of the package** must be **explicitly 
 
 Only compatible with **`Unity 2019.1`** and potentially with newer version.
 
-> NOTE: This service is currently only tested with **`Unity 2019.x, 2020.x, 2021.x, 2022.x, 2023.x and 6`**
+> [!NOTE]
+> This service is currently only tested with **`Unity 2019.x, 2020.x, 2021.x, 2022.x, 2023.x and 6000.0.x`**.
 >
-> It may not work with a more recent version of Unity
+> It may not work with a more recent version of Unity.
 
 ## Docker
 
@@ -164,7 +169,7 @@ As of Unity 2021.x it also supports `.NETStandard2.1` so packages providing this
 
 This project implements a simplified compatible NPM server in C# using ASP.NET Core and converts NuGet packages to Unity packages before serving them.
 
-Every 10 minutes, packages are updated from NuGet so that if a new version is published, from the curated list of NuGet packages, it will be available through this service.
+At a threshold defined by `UpdateInterval` (10 minutes by default), packages are updated from NuGet so that if a new version is published, from the curated list of NuGet packages, it will be available through this service.
 
 Once converted, these packages are cached on the disk on the server.
 
@@ -175,3 +180,7 @@ This software is released under the [BSD-Clause 2 license](https://opensource.or
 ## Author
 
 Alexandre Mutel aka [xoofx](https://xoofx.github.io)
+
+## Maintainer/s
+
+Borja Domínguez aka [bdovaz](https://github.com/bdovaz)
