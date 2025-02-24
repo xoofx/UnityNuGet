@@ -1828,6 +1828,10 @@
         "listed": true,
         "version": "17.2.26"
     },
+    "Testably.Abstractions.FileSystem.Interface": {
+        "listed": true,
+        "version": "0.1.0"
+    },
     "TxFileManager": {
         "listed": true,
         "version": "1.4.0"
